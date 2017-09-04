@@ -1,23 +1,7 @@
 import numpy as np
 from gensim.parsing import preprocessing
 from gensim import corpora, matutils
-import mysql.connector
-# from scipy.special import gammaln, psi
 import collections
-from copy import deepcopy
-
-from virst_env import data_import
-
-# dict = gensim.corpora.dictionary.Dictionary.load('abstracts_dictionary.dict')
-# corpus = gensim.corpora.mmcorpus.MmCorpus('abstracts_corpus.mm')
-# np_corpus = gensim.matutils.corpus2dense(corpus, len(dict))
-
-
-# docs : documents which consists of word array
-# K : number of topics
-# V : vocabulary size
-
-# Sample initialization:
 
 class DocDump:
     # TODO make this class more elaborate, also available for non-conform data
@@ -82,12 +66,12 @@ class GibbsStart:
             inds = np.argsort([x for x in self.ldict.token2id.keys()])
             self.alpha = self.alpha[inds, :]
             # todo Create a 1x4635 np array with
-            _ = self.multiply_a/np.sum(self.alpha, axis = 0)
+            _ = 50/np.sum(self.alpha, axis = 0)
             self.alpha = self.alpha * _
 
 
         else:
-            self.alpha = self.multiply_a/K * np.ones((K, D))
+            self.alpha = 50/K * np.ones((K, D))
 
         self.beta = 200/V * np.ones((V, K))
 
@@ -187,21 +171,4 @@ class GibbsSampling:
                     print("Working on document %d in sample number %d " % (d, s+1))
                 for pos, word in enumerate(self.docs[d]):
                     self.sample_z(d, word, pos)
-
-
-rawdata = DocDump(data_import.get_data())
-rawdata.prep_labels(level = 1)
-gibbstart = GibbsStart(rawdata)
-
-sample_input = deepcopy(gibbstart)
-cgs = GibbsSampling(sample_input, alpha_strength = 50)
-
-cgs.run(nsamples = 100)
-
-
-# Scribbles
-#flatthis = sorted(np.concatenate(gibbstart.zet).ravel())
-#countdict = collections.Counter(flatthis)
-#test = [k for k in countdict.values()]
-#checktest = [k for k in countdict.keys()]
 
