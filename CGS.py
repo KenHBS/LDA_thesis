@@ -3,6 +3,16 @@ from gensim.parsing import preprocessing
 from gensim import corpora, matutils
 import collections
 
+
+# Static methods:
+def dir_draw(array_in, axis=0):
+    return np.apply_along_axis(np.random.dirichlet, axis=axis, arr=array_in)
+
+def multin_draw(param, size):
+    return np.random.multinomial(1, param, size=size)
+
+
+# Three classes:
 class DocDump:
     # TODO make this class more elaborate, also available for non-conform data
     def __init__(self, textract):
@@ -25,24 +35,14 @@ class DocDump:
 # endclass DocDump
 
 class GibbsStart:
+    # TODO remove standard LDA options without prior knowledge
     """
     First try to get a class that will run a collapsed Gibbs sampler.
-    Challenges:
-        Need to initialize:
-            corpus
-            dictionary
-            label assignments
-            label distr. over words
-
-
         Optional are:
             asymmetric prior on label frequency
             prior knowledge on labels (Ramage ')
-
-
     """
-    def __init__(self, documents, K = 20, hyper_alpha = 1):
-        # take from database_fetch
+    def __init__(self, documents):
         if not isinstance(documents, DocDump):
             raise TypeError("Gibbs only takes DocDump instances as input")
 
@@ -50,41 +50,25 @@ class GibbsStart:
         self.dict = corpora.Dictionary(self.docs)
         self.corpus = [self.dict.doc2bow(doc) for doc in self.docs]
 
-        D = len(self.docs)
-        V = len(self.dict)
+        self.labs = documents.prepped_labels
+        self.ldict = corpora.Dictionary(self.labs)
 
+        self.V = len(self.dict)
+        self.K = len(self.ldict)
 
-        # Hyperpriors 1: Alpha
-        if(documents.prepped_labels is not None):
-            self.labs = documents.prepped_labels
-            self.ldict = corpora.Dictionary(self.labs)
+        _ = [self.ldict.doc2bow(label) for label in self.labs]
+        self.alpha = matutils.corpus2dense(_, self.K)
+        # Rearrange so that col1 is label A, col2 is label B, etc.
+        _ = np.argsort([x for x in self.ldict.token2id.keys()])
+        self.alpha = self.alpha[_, :]
+        _ = 50/np.sum(self.alpha, axis=0)
+        self.alpha = self.alpha * _
+        self.beta = 200/self.V * np.ones((self.V, self.K))
 
-            pre_alpha = [self.ldict.doc2bow(label) for label in self.labs]
-            self.alpha = matutils.corpus2dense(pre_alpha, len(self.ldict))
-
-            # Rearrange so that col1 is label A, col2 is label B, etc.
-            inds = np.argsort([x for x in self.ldict.token2id.keys()])
-            self.alpha = self.alpha[inds, :]
-            # todo Create a 1x4635 np array with
-            _ = 50/np.sum(self.alpha, axis = 0)
-            self.alpha = self.alpha * _
-
-
-        else:
-            self.alpha = 50/K * np.ones((K, D))
-
-        self.beta = 200/V * np.ones((V, K))
-
-        self.phi = self.dir_draw(array_in = self.beta, axis = 0)
-        self.theta = self.dir_draw(array_in = self.alpha, axis = 0)
+        self.phi = dir_draw(array_in=self.beta, axis=0)
+        self.theta = dir_draw(array_in=self.alpha, axis=0)
 
         self.zet = self.draw_z()
-
-    def dir_draw(self, array_in, axis = 0):
-        return np.apply_along_axis(np.random.dirichlet,
-                                   axis = axis, arr = array_in)
-    def multin_draw(self, param, size):
-        return np.random.multinomial(1, param, size = size)
 
     def z_size(self):
         lengths = [len(doc) for doc in self.docs]
@@ -93,30 +77,24 @@ class GibbsStart:
     def draw_z(self):
         z = self.z_size()
         for d, doc in enumerate(self.docs):
-            bin_doc = self.multin_draw(param = self.theta[:, d], size = len(doc))
+            bin_doc = multin_draw(param=self.theta[:, d], size=len(doc))
             for w, word in enumerate(bin_doc):
                 z[d][w] = np.flatnonzero(word)
         return z
 # endclass GibbsStart
 
-class GibbsSampling:
-    def __init__(self, sstate, alpha_strength = 50):
-        if not isinstance(sstate, GibbsStart):
-            raise TypeError("GibbsSampling requires input of class GibbsStart")
-        self.dict = sstate.dict
-        self.D = len(sstate.docs)
-        self.K = len(sstate.ldict)
-        self.V = len(sstate.dict)
-        self.alpha = sstate.alpha
+
+class GibbsSampling(GibbsStart):
+    def __init__(self, documents, alpha_strength=50):
+        GibbsStart.__init__(self, documents)
+
+        # Classic LDA variables: nr of docs, nr of topics,
+        self.D = len(self.docs)
+
         self.multiply_a = alpha_strength
-        self.beta = sstate.beta
-        self.beta_const = sstate.beta[1,1]
-        self.theta = sstate.theta
-        self.phi = sstate.phi
-        self.docs = sstate.docs
-        self.labs = sstate.labs
+        self.beta_const = self.beta[1, 1]
         self.lenD = [len(doc) for doc in self.docs]
-        self.zet = sstate.zet
+
         _ = sorted(np.concatenate(self.zet).ravel())
         _ = collections.Counter(_)
         self.cntT = [k for k in _.values()]
@@ -137,7 +115,15 @@ class GibbsSampling:
         th = np.zeros((self.D, self.K))
         for d in range(self.D):
             for z in range(self.K):
-                th[d][z] = (self.DTcnts[d][z] + self.alpha[z][d]) / ( self.lenD[d] + self.multiply_a)
+                th[d][z] = (self.DTcnts[d][z] + self.alpha[z][d]) / (self.lenD[d] + self.multiply_a)
+        return th
+
+    def get_phi(self):
+        ph = np.zeros((self.K, self.V))
+        for z in range(self.K):
+            for w in range(self.V):
+                ph[z][w] = (self.TWcnts[z][w] + self.beta_const) / (self.cntT[z] + self.beta_const*self.V)
+        return ph
 
     def sample_z(self, d, word, pos):
         w = self.dict.token2id[word]
@@ -147,10 +133,10 @@ class GibbsSampling:
         self.cntT[z] -= 1
         self.lenD[d] -= 1
 
-        left_num = ( self.TWcnts[:, w] + self.beta_const )    # one column  of (20 x 9341) matrix. (20 values)
-        left_den = ( self.cntT + self.beta_const * self.V )   # list of length 20
-        right_num = ( self.DTcnts[d] + self.alpha[:, d] )
-        right_den = ( self.lenD[d] + self.multiply_a)  # self.multiply_a because every doc has alpha sum for every doc of self.multiply_a.
+        left_num = self.TWcnts[:, w] + self.beta_const
+        left_den = self.cntT + self.beta_const * self.V
+        right_num = self.DTcnts[d] + self.alpha[:, d]
+        right_den = self.lenD[d] + self.multiply_a
 
         prob = (left_num / left_den) * (right_num / right_den)
         prob = prob / np.sum(prob)
@@ -162,13 +148,14 @@ class GibbsSampling:
         self.cntT[new_z] += 1
         self.lenD[d] += 1
 
-    def run(self, nsamples, burnin = 0):
-        if(nsamples <= burnin):
+    def run(self, nsamples, burnin=0):
+        if nsamples <= burnin:
             raise Exception('Burn-in point exceeds number of samples')
         for s in range(nsamples):
             for d, doc in enumerate(self.docs):
                 if(d % 250 == 0):
-                    print("Working on document %d in sample number %d " % (d, s+1))
+                    print("Working on document %d in sample number %d "%(d, s+1))
                 for pos, word in enumerate(self.docs[d]):
                     self.sample_z(d, word, pos)
-
+            # th = self.get_theta()
+            # ph = self.get_phi()
