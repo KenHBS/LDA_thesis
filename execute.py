@@ -26,6 +26,9 @@ rawdata.prep_labels(level=1)
 cgs = GibbsSampling(documents=rawdata)
 cgs.run(nsamples=1)
 
+wordspertopic = cgs.get_topiclist()
+print(wordspertopic)
+
 
 #for name in dir():
 #    if not name.startswith('_'):

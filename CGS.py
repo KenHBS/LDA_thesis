@@ -8,11 +8,7 @@ import collections
 def dir_draw(array_in, axis=0):
     return np.apply_along_axis(np.random.dirichlet, axis=axis, arr=array_in)
 
-def multin_draw(param, size):
-    return np.random.multinomial(1, param, size=size)
-
-
-# Three classes:
+# Two classes:
 class DocDump:
     # TODO make this class more elaborate, also available for non-conform data
     def __init__(self, textract):
@@ -34,17 +30,10 @@ class DocDump:
         self.prepped_labels = [list(set(label)) for label in labels]
 # endclass DocDump
 
-class GibbsStart:
-    # TODO remove standard LDA options without prior knowledge
-    """
-    First try to get a class that will run a collapsed Gibbs sampler.
-        Optional are:
-            asymmetric prior on label frequency
-            prior knowledge on labels (Ramage ')
-    """
-    def __init__(self, documents):
-        if not isinstance(documents, DocDump):
-            raise TypeError("Gibbs only takes DocDump instances as input")
+class GibbsSampling:
+    def __init__(self, documents, alpha_strength = 50):
+        # if not isinstance(documents, DocDump):
+        #    raise TypeError("Gibbs only takes DocDump instances as input")
 
         self.docs = preprocessing.preprocess_documents(documents.docs)
         self.dict = corpora.Dictionary(self.docs)
@@ -52,105 +41,104 @@ class GibbsStart:
 
         self.labs = documents.prepped_labels
         self.ldict = corpora.Dictionary(self.labs)
+        self.ordered_labs = np.sort([x for x in cgs.ldict.token2id.keys()])
 
         self.V = len(self.dict)
         self.K = len(self.ldict)
+        self.D = len(self.docs)
+
+        self.alpha_m = alpha_strength
 
         _ = [self.ldict.doc2bow(label) for label in self.labs]
         self.alpha = matutils.corpus2dense(_, self.K)
         # Rearrange so that col1 is label A, col2 is label B, etc.
+
+        # TODO can this be done with np.sort right away?
         _ = np.argsort([x for x in self.ldict.token2id.keys()])
         self.alpha = self.alpha[_, :]
+
         _ = 50/np.sum(self.alpha, axis=0)
         self.alpha = self.alpha * _
-        self.beta = 200/self.V * np.ones((self.V, self.K))
 
-        self.phi = dir_draw(array_in=self.beta, axis=0)
-        self.theta = dir_draw(array_in=self.alpha, axis=0)
+        self.beta_c = 200/self.V
+        self.beta = self.beta_c * np.ones((self.V, self.K))
 
-        self.zet = self.draw_z()
-
-    def z_size(self):
-        lengths = [len(doc) for doc in self.docs]
-        return [np.repeat(0, nrwords) for nrwords in lengths]
-
-    def draw_z(self):
-        z = self.z_size()
-        for d, doc in enumerate(self.docs):
-            bin_doc = multin_draw(param=self.theta[:, d], size=len(doc))
-            for w, word in enumerate(bin_doc):
-                z[d][w] = np.flatnonzero(word)
-        return z
-# endclass GibbsStart
-
-
-class GibbsSampling(GibbsStart):
-    def __init__(self, documents, alpha_strength=50):
-        GibbsStart.__init__(self, documents)
-
-        # Classic LDA variables: nr of docs, nr of topics,
-        self.D = len(self.docs)
-
-        self.multiply_a = alpha_strength
-        self.beta_const = self.beta[1, 1]
+        # Set up containers for assignment counts
         self.lenD = [len(doc) for doc in self.docs]
+        self.zet = [np.repeat(0, x) for x in self.lenD]
+        self.n_zxd = np.zeros((self.K, self.D))  # count of topic k assignments in doc d
+        self.n_wxz = np.zeros((self.V, self.K))  # count of word v assignments in topic k
+        self.n_z = np.zeros(self.K) # total number of assignment counts in topic k (colsum n_wxz)
 
-        _ = sorted(np.concatenate(self.zet).ravel())
-        _ = collections.Counter(_)
-        self.cntT = [k for k in _.values()]
-
-        self.TWcnts = np.zeros((self.K, self.V))
         for d, doc in enumerate(self.docs):
-            for pos, word in enumerate(doc):
-                w = self.dict.token2id[word]
-                z = self.zet[d][pos]
-                self.TWcnts[z, w] += 1
-
-        self.DTcnts = np.zeros((self.D, self.K))
-        for d, d_zet in enumerate(self.zet):
-            for z in d_zet:
-                self.DTcnts[d, z] += 1
+            z_n = self.zet[d]
+            for w, word in enumerate(doc):
+                p_z = self.alpha[:, d] / np.sum(self.alpha[:, d])
+                while sum(p_z) > 1:
+                    p_z /= 1.0005
+                z = np.random.multinomial(1, p_z).argmax()
+                z_n[w] = z
+                v = self.dict.token2id[word]
+                self.n_zxd[z, d] += 1
+                self.n_wxz[v, z] += 1
+                self.n_z[z] += 1
+            #self.zet[d] = z_n  is implicit by z_n = self.zet[d]
 
     def get_theta(self):
         th = np.zeros((self.D, self.K))
         for d in range(self.D):
             for z in range(self.K):
-                th[d][z] = (self.DTcnts[d][z] + self.alpha[z][d]) / (self.lenD[d] + self.multiply_a)
+                frac_a = self.n_zxd[z][d] + self.alpha[z][d]
+                frac_b = self.lenD[d] + self.alpha_m
+                th[d][z] = frac_a / frac_b
         return th
 
     def get_phi(self):
         ph = np.zeros((self.K, self.V))
         for z in range(self.K):
             for w in range(self.V):
-                ph[z][w] = (self.TWcnts[z][w] + self.beta_const) / (self.cntT[z] + self.beta_const*self.V)
+                frac_a = self.n_wxz[w][z] + self.beta_c
+                frac_b = self.n_z[z] + self.beta_c*self.V
+                ph[z][w] = frac_a / frac_b
         return ph
 
+    def get_topiclist(self, N=10):
+        phi = self.get_phi()
+        topiclist = []
+        for k in range(self.K):
+            inds = np.argsort(-phi[k, :])[:N]
+            topwords = [cgs.dict[x] for x in inds]
+            topwords.insert(0, self.ordered_labs[k])
+            topiclist += [topwords]
+        return topiclist
+
     def sample_z(self, d, word, pos):
-        w = self.dict.token2id[word]
+        v = self.dict.token2id[word]
         z = self.zet[d][pos]
-        self.TWcnts[z, w] -= 1
-        self.DTcnts[d, z] -= 1
-        self.cntT[z] -= 1
+        self.n_wxz[v, z] -= 1
+        self.n_zxd[z, d] -= 1
+        self.n_z[z] -= 1
         self.lenD[d] -= 1
 
-        left_num = self.TWcnts[:, w] + self.beta_const
-        left_den = self.cntT + self.beta_const * self.V
-        right_num = self.DTcnts[d] + self.alpha[:, d]
-        right_den = self.lenD[d] + self.multiply_a
+        left_num = self.n_wxz[v, :] + self.beta_c    # K dimensional
+        left_den = self.n_z + self.beta_c * self.V   # K dimensional
+        right_num = self.n_zxd[:, d] + self.alpha[:, d] # K dimensional
+        right_den = self.lenD[d] + self.alpha_m         # K dimensional
 
         prob = (left_num / left_den) * (right_num / right_den)
-        prob = prob / np.sum(prob)
-
+        prob /= sum(prob)
         new_z = np.random.multinomial(1, prob).argmax()
+
         self.zet[d][pos] = new_z
-        self.TWcnts[new_z, w] += 1
-        self.DTcnts[d, new_z] += 1
-        self.cntT[new_z] += 1
+        self.n_wxz[v, new_z] += 1
+        self.n_zxd[new_z, d] += 1
+        self.n_z[new_z] += 1
         self.lenD[d] += 1
 
     def run(self, nsamples, burnin=0):
         if nsamples <= burnin:
             raise Exception('Burn-in point exceeds number of samples')
+
         for s in range(nsamples):
             for d, doc in enumerate(self.docs):
                 if(d % 250 == 0):
