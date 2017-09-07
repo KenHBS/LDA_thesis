@@ -41,7 +41,7 @@ class GibbsSampling:
 
         self.labs = documents.prepped_labels
         self.ldict = corpora.Dictionary(self.labs)
-        self.ordered_labs = np.sort([x for x in cgs.ldict.token2id.keys()])
+        self.ordered_labs = np.sort([x for x in self.ldict.token2id.keys()])
 
         self.V = len(self.dict)
         self.K = len(self.ldict)
@@ -107,7 +107,7 @@ class GibbsSampling:
         topiclist = []
         for k in range(self.K):
             inds = np.argsort(-phi[k, :])[:N]
-            topwords = [cgs.dict[x] for x in inds]
+            topwords = [self.dict[x] for x in inds]
             topwords.insert(0, self.ordered_labs[k])
             topiclist += [topwords]
         return topiclist
