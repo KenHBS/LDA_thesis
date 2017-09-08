@@ -1,6 +1,7 @@
 import numpy as np
 from gensim.parsing import preprocessing
 from gensim import corpora, matutils
+from copy import copy
 import collections
 
 
@@ -84,7 +85,7 @@ class GibbsSampling:
                 self.n_z[z] += 1
             #self.zet[d] = z_n  is implicit by z_n = self.zet[d]
 
-    def get_theta(self):
+    def get_theta(self, ):
         th = np.zeros((self.D, self.K))
         for d in range(self.D):
             for z in range(self.K):
@@ -102,11 +103,52 @@ class GibbsSampling:
                 ph[z][w] = frac_a / frac_b
         return ph
 
+    def sample_for_posterior(self, new_doc, sym=False, n_iter = 250):
+        zet, zcounts = self.init_newdoc(new_doc, sym=sym)
+        if "phi" not in self.__dir__():
+            self.phi = self.get_phi()
+        for i in range(n_iter):
+            for pos, word in enumerate(new_doc):
+                v = self.dict.token2id[word]
+                z = zet[pos]
+                zcounts[z] -= 1
+
+                prob = self.phi[:, v] * (zcounts/sum(zcounts))
+                prob /= sum(prob)
+                new_z = np.random.multinomial(1, prob).argmax()
+
+                zet[pos] = new_z
+                zcounts[new_z] += 1
+        return zet, zcounts
+
+    def posterior(self, new_docs, sym=False):
+        theta_container = []
+        for doc in new_docs:
+            zet, zcount = self.sample_for_posterior(doc, sym)
+            single_theta = list(zcount/sum(zcount))
+            theta_container.append(single_theta)
+        return theta_container
+
+    def init_newdoc(self, new_doc, sym=False):
+        if sym:
+            alpha = np.repeat(50/self.K, self.K)
+        else:
+            alpha = copy(self.n_z)
+        _ = np.random.dirichlet(alpha)
+        zet = np.random.multinomial(1, _, len(new_doc)).argmax(axis=1)
+
+        z_counts = np.zeros(self.K)
+        for it, zn in enumerate(zet):
+            z_counts[zet[it]] += 1
+        assert sum(z_counts)==len(new_doc), print('z_counts %d is not same as\
+         nr of words %d'%(sum(z_counts), len(new_doc)))
+        return zet, z_counts
+
     def get_topiclist(self, N=10):
-        phi = self.get_phi()
+        self.phi = self.get_phi()
         topiclist = []
         for k in range(self.K):
-            inds = np.argsort(-phi[k, :])[:N]
+            inds = np.argsort(-self.phi[k, :])[:N]
             topwords = [self.dict[x] for x in inds]
             topwords.insert(0, self.ordered_labs[k])
             topiclist += [topwords]
@@ -147,3 +189,32 @@ class GibbsSampling:
                     self.sample_z(d, word, pos)
             # th = self.get_theta()
             # ph = self.get_phi()
+
+# Static methods for preparing unseen data:
+# Check whether I provide 1 or multiple
+def split_testdata(test_data):
+    if any(isinstance(i, list) for i in test_data):
+        new_docs = [x[1] for x in test_data]
+        new_labs = [x[2] for x in test_data]
+    else:
+        new_docs = test_data[1]
+        new_labs = test_data[2]
+    return new_docs, new_labs
+
+def keep_in_dict(new_doc, lda_dict):
+    assert isinstance(lda_dict, corpora.dictionary.Dictionary)
+    dict_words = list(lda_dict.token2id.keys())
+    return [word for word in new_doc if word in dict_words]
+
+def new_doc_prep(new_doc, lda_dict):
+    _ = preprocessing.preprocess_string(new_doc)
+    return keep_in_dict(_, lda_dict)
+
+def new_docs_prep(new_docs, lda_dict):
+    return [new_doc_prep(doc, lda_dict) for doc in new_docs]
+
+
+
+
+
+
