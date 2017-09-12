@@ -20,29 +20,28 @@ test_data = reader[split:]
 
 # Prepare textual data for corpus: tokenization etc.
 rawdata = DocDump(train_data)
-rawdata.prep_labels(level=1)
+rawdata.prep_labels(level=2)
 
-# Prepare & Run Collapsed Gibbs Sampling
+# Prepare & Run Collapsed Gibbs Sampling on training data
 cgs = GibbsSampling(documents=rawdata)
-cgs.run(nsamples=500)
+cgs.run(nsamples=2)
 
-wordspertopic = cgs.get_topiclist()
+# wordspertopic = cgs.get_topiclist()
 # print(wordspertopic)
 
+# Prepare test data:
 new_docs, new_labs = split_testdata(test_data)
 test_docs = new_docs_prep(new_docs=new_docs, lda_dict=cgs.dict)
 labels = [label.split(" ") for label in new_labs]
-labels = [[label[:1] for label in doclab] for doclab in labels]
+labels = [[label[:2] for label in doclab] for doclab in labels]
 test_labs = [list(set(label)) for label in labels]
 
 # test = cgs.sample_for_posterior(test_docs[0])
+# thetas = cgs.posterior(test_docs)
 
-thetas = cgs.posterior(test_docs)
+# Calculate posterior for test data:
+thetas = cgs.post_theta(test_docs[0:50])
 
-list(zip(thetas, test_labs))
-
-# testdoc = test_docs[1]
-# testzet, testzcounts = cgs.sample_for_posterior(testdoc)
 
 #for name in dir():
 #    if not name.startswith('_'):

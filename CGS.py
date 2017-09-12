@@ -32,7 +32,7 @@ class DocDump:
 # endclass DocDump
 
 class GibbsSampling:
-    def __init__(self, documents, alpha_strength = 50):
+    def __init__(self, documents, alpha_strength=50):
         # if not isinstance(documents, DocDump):
         #    raise TypeError("Gibbs only takes DocDump instances as input")
 
@@ -54,7 +54,6 @@ class GibbsSampling:
         self.alpha = matutils.corpus2dense(_, self.K)
         # Rearrange so that col1 is label A, col2 is label B, etc.
 
-        # TODO can this be done with np.sort right away?
         _ = np.argsort([x for x in self.ldict.token2id.keys()])
         self.alpha = self.alpha[_, :]
 
@@ -103,7 +102,7 @@ class GibbsSampling:
                 ph[z][w] = frac_a / frac_b
         return ph
 
-    def sample_for_posterior(self, new_doc, sym=False, n_iter = 250):
+    def sample_for_posterior(self, new_doc, sym=False, n_iter=250):
         zet, zcounts = self.init_newdoc(new_doc, sym=sym)
         if "phi" not in self.__dir__():
             self.phi = self.get_phi()
@@ -123,11 +122,24 @@ class GibbsSampling:
 
     def posterior(self, new_docs, sym=False):
         theta_container = []
-        for doc in new_docs:
+
+        for d, doc in enumerate(new_docs):
             zet, zcount = self.sample_for_posterior(doc, sym)
             single_theta = list(zcount/sum(zcount))
             theta_container.append(single_theta)
+            if d % 5 == 0:
+                print("Unseen document number %d" % d)
         return theta_container
+
+    def post_theta(self, new_docs, sym=False):
+        thetas = self.posterior(new_docs, sym=sym)
+        return [self.theta_output(theta) for theta in thetas]
+
+    def theta_output(self, th):
+        th = np.array(th)
+        inds = np.where(th > 0)
+        labs = self.ordered_labs[inds]
+        return list(zip(labs, th[inds]))
 
     def init_newdoc(self, new_doc, sym=False):
         if sym:
@@ -141,7 +153,7 @@ class GibbsSampling:
         for it, zn in enumerate(zet):
             z_counts[zet[it]] += 1
         assert sum(z_counts)==len(new_doc), print('z_counts %d is not same as\
-         nr of words %d'%(sum(z_counts), len(new_doc)))
+         nr of words %d' % (sum(z_counts), len(new_doc)))
         return zet, z_counts
 
     def get_topiclist(self, N=10):
@@ -190,6 +202,7 @@ class GibbsSampling:
             # th = self.get_theta()
             # ph = self.get_phi()
 
+
 # Static methods for preparing unseen data:
 # Check whether I provide 1 or multiple
 def split_testdata(test_data):
@@ -201,20 +214,19 @@ def split_testdata(test_data):
         new_labs = test_data[2]
     return new_docs, new_labs
 
+
 def keep_in_dict(new_doc, lda_dict):
     assert isinstance(lda_dict, corpora.dictionary.Dictionary)
     dict_words = list(lda_dict.token2id.keys())
     return [word for word in new_doc if word in dict_words]
 
+
 def new_doc_prep(new_doc, lda_dict):
     _ = preprocessing.preprocess_string(new_doc)
     return keep_in_dict(_, lda_dict)
 
+
 def new_docs_prep(new_docs, lda_dict):
     return [new_doc_prep(doc, lda_dict) for doc in new_docs]
 
-
-
-
-
-
+# test = [sorted(x) for x in rawdata.prepped_labels
