@@ -2,34 +2,12 @@ import numpy as np
 from gensim.parsing import preprocessing
 from gensim import corpora, matutils
 from copy import copy
-import collections
 
 
 # Static methods:
 def dir_draw(array_in, axis=0):
     return np.apply_along_axis(np.random.dirichlet, axis=axis, arr=array_in)
 
-# Two classes:
-class DocDump:
-    # TODO make this class more elaborate, also available for non-conform data
-    def __init__(self, textract):
-        self.docs = [x[1] for x in textract]
-        self.id = [x[0] for x in textract]
-        self.lab = [x[2] for x in textract]
-        self.prepped_labels = None
-
-    def prep_labels(self, level = 1):
-        """
-        :param doc_labels: One list with labels per documents. All lists gathered
-        in one big list. Like [["A12 B23 M35"], ["D12 E59"], ["A10"], ... ]
-        :return: Well-prepared list for ramage_labels() with proper label depth
-        """
-        assert level in [1, 2, 3], 'The level of the labels must be 1, 2 or 3'
-
-        labels = [label.split(" ") for label in self.lab]
-        labels = [[label[0:level] for label in doclab] for doclab in labels]
-        self.prepped_labels = [list(set(label)) for label in labels]
-# endclass DocDump
 
 class GibbsSampling:
     def __init__(self, documents, alpha_strength=50):
@@ -102,70 +80,6 @@ class GibbsSampling:
                 ph[z][w] = frac_a / frac_b
         return ph
 
-    def sample_for_posterior(self, new_doc, sym=False, n_iter=250):
-        zet, zcounts = self.init_newdoc(new_doc, sym=sym)
-        if "phi" not in self.__dir__():
-            self.phi = self.get_phi()
-        for i in range(n_iter):
-            for pos, word in enumerate(new_doc):
-                v = self.dict.token2id[word]
-                z = zet[pos]
-                zcounts[z] -= 1
-
-                prob = self.phi[:, v] * (zcounts/sum(zcounts))
-                prob /= sum(prob)
-                new_z = np.random.multinomial(1, prob).argmax()
-
-                zet[pos] = new_z
-                zcounts[new_z] += 1
-        return zet, zcounts
-
-    def posterior(self, new_docs, sym=False):
-        theta_container = []
-
-        for d, doc in enumerate(new_docs):
-            zet, zcount = self.sample_for_posterior(doc, sym)
-            single_theta = list(zcount/sum(zcount))
-            theta_container.append(single_theta)
-            if d % 5 == 0:
-                print("Unseen document number %d" % d)
-        return theta_container
-
-    def post_theta(self, new_docs, sym=False):
-        thetas = self.posterior(new_docs, sym=sym)
-        return [self.theta_output(theta) for theta in thetas]
-
-    def theta_output(self, th):
-        th = np.array(th)
-        inds = np.where(th > 0)
-        labs = self.ordered_labs[inds]
-        return list(zip(labs, th[inds]))
-
-    def init_newdoc(self, new_doc, sym=False):
-        if sym:
-            alpha = np.repeat(50/self.K, self.K)
-        else:
-            alpha = copy(self.n_z)
-        _ = np.random.dirichlet(alpha)
-        zet = np.random.multinomial(1, _, len(new_doc)).argmax(axis=1)
-
-        z_counts = np.zeros(self.K)
-        for it, zn in enumerate(zet):
-            z_counts[zet[it]] += 1
-        assert sum(z_counts)==len(new_doc), print('z_counts %d is not same as\
-         nr of words %d' % (sum(z_counts), len(new_doc)))
-        return zet, z_counts
-
-    def get_topiclist(self, N=10):
-        self.phi = self.get_phi()
-        topiclist = []
-        for k in range(self.K):
-            inds = np.argsort(-self.phi[k, :])[:N]
-            topwords = [self.dict[x] for x in inds]
-            topwords.insert(0, self.ordered_labs[k])
-            topiclist += [topwords]
-        return topiclist
-
     def sample_z(self, d, word, pos):
         v = self.dict.token2id[word]
         z = self.zet[d][pos]
@@ -202,31 +116,80 @@ class GibbsSampling:
             # th = self.get_theta()
             # ph = self.get_phi()
 
+    def get_topiclist(self, n=10):
+        self.phi = self.get_phi()
+        topiclist = []
+        for k in range(self.K):
+            inds = np.argsort(-self.phi[k, :])[:n]
+            topwords = [self.dict[x] for x in inds]
+            topwords.insert(0, self.ordered_labs[k])
+            topiclist += [topwords]
+        return topiclist
+
+    def init_newdoc(self, new_doc, sym=False):
+        if sym:
+            alpha = np.repeat(50/self.K, self.K)
+        else:
+            alpha = copy(self.n_z)
+        _ = np.random.dirichlet(alpha)
+        zet = np.random.multinomial(1, _, len(new_doc)).argmax(axis=1)
+
+        z_counts = np.zeros(self.K)
+        for it, zn in enumerate(zet):
+            z_counts[zet[it]] += 1
+        assert sum(z_counts)==len(new_doc), print('z_counts %d is not same as\
+         nr of words %d' % (sum(z_counts), len(new_doc)))
+        return zet, z_counts
+
+    def sample_for_posterior(self, new_doc, sym=False, n_iter=250):
+        zet, zcounts = self.init_newdoc(new_doc, sym=sym)
+        if "phi" not in self.__dir__():
+            self.phi = self.get_phi()
+        for i in range(n_iter):
+            for pos, word in enumerate(new_doc):
+                v = self.dict.token2id[word]
+                z = zet[pos]
+                zcounts[z] -= 1
+
+                prob = self.phi[:, v] * (zcounts/sum(zcounts))
+                prob /= sum(prob)
+                new_z = np.random.multinomial(1, prob).argmax()
+
+                zet[pos] = new_z
+                zcounts[new_z] += 1
+        return zet, zcounts
+
+    def posterior(self, new_docs, sym=False):
+        theta_container = []
+
+        for d, doc in enumerate(new_docs):
+            zet, zcount = self.sample_for_posterior(doc, sym)
+            single_theta = list(zcount/sum(zcount))
+            theta_container.append(single_theta)
+            if d % 5 == 0:
+                print("Unseen document number %d" % d)
+        return theta_container
+
+    def theta_output(self, th):
+        th = np.array(th)
+        inds = np.where(th > 0)
+        labs = self.ordered_labs[inds]
+        return list(zip(labs, th[inds]))
+
+    def post_theta(self, new_docs, sym=False):
+        thetas = self.posterior(new_docs, sym=sym)
+        return [self.theta_output(theta) for theta in thetas]
+# End of GibbsSampling Class
+
+
+class Variational_Inf:
+    def __init__(self):
+        pass
+
+# End of Variational_
 
 # Static methods for preparing unseen data:
 # Check whether I provide 1 or multiple
-def split_testdata(test_data):
-    if any(isinstance(i, list) for i in test_data):
-        new_docs = [x[1] for x in test_data]
-        new_labs = [x[2] for x in test_data]
-    else:
-        new_docs = test_data[1]
-        new_labs = test_data[2]
-    return new_docs, new_labs
 
-
-def keep_in_dict(new_doc, lda_dict):
-    assert isinstance(lda_dict, corpora.dictionary.Dictionary)
-    dict_words = list(lda_dict.token2id.keys())
-    return [word for word in new_doc if word in dict_words]
-
-
-def new_doc_prep(new_doc, lda_dict):
-    _ = preprocessing.preprocess_string(new_doc)
-    return keep_in_dict(_, lda_dict)
-
-
-def new_docs_prep(new_docs, lda_dict):
-    return [new_doc_prep(doc, lda_dict) for doc in new_docs]
 
 # test = [sorted(x) for x in rawdata.prepped_labels
