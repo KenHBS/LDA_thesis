@@ -1,0 +1,1839 @@
+BERLIN
+
+SFB 6 4 9 E C O N O M I C R I S K
+
+SFB 649 Discussion Paper 2016-004
+Leveraged ETF options implied volatility paradox:
+a statistical study
+Wolfgang Karl Härdle* Sergey Nasekin* Zhiwu Hong*²
+* Humboldt-Universität zu Berlin, Germany *² Xiamen University, People's Republic of China
+This research was supported by the Deutsche Forschungsgemeinschaft through the SFB 649 "Economic Risk".
+http://sfb649.wiwi.hu-berlin.de ISSN 1860-5664
+SFB 649, Humboldt-Universität zu Berlin Spandauer Straße 1, D-10178 Berlin
+
+Leveraged ETF options implied volatility paradox: a statistical study 
+Wolfgang Karl Härdle,  Sergey Nasekin,  Zhiwu Hong § February 2, 2016
+This research was supported by the Deutsche Forschungsgemeinschaft through the SFB 649 "Economic Risk".
+C.A.S.E.- Center for Applied Statistics & Economics, Humboldt-Universität zu Berlin, Spandauer Str. 1, 10178 Berlin, Germany; Singapore Management University, 50 Stamford Road, 178899 Singapore, Singapore (e-mail: haerdle@hu-berlin.de)
+C.A.S.E.- Center for Applied Statistics & Economics, Humboldt-Universität zu Berlin (e-mail: nasekins@hu-berlin.de) (corresponding author)
+§Wang Yanan Institute for Studies in Economics (WISE), Xiamen University (e-mail: hzw1888@126.com)
+1
+
+Abstract
+In this paper, we study the statistical properties of the moneyness scaling transformation by Leung and Sircar (2015). This transformation adjusts the moneyness coordinate of the implied volatility smile in an attempt to remove the discrepancy between the IV smiles for levered and unlevered ETF options. We construct bootstrap uniform confidence bands which indicate that in a statistical sense there remains a possibility that the implied volatility smiles are still not the same, even after moneyness scaling has been performed. This presents possible arbitrage opportunities on the (L)ETF market which can be exploited by traders. We build possible arbitrage strategies by constructing portfolios with LETF shares and options which possibly have a positive value at the point of creation and non-negative value at the expiration time. An empirical data application shows that there are indeed such opportunities in the market which result in risk-free gains for the investor. A dynamic "trade-with-the-smile" strategy based on a dynamic semiparametric factor model is presented. This strategy utilizes the dynamic structure of implied volatility surface allowing out-of-sample forecasting and information on unleveraged ETF options to construct theoretical one-step-ahead implied volatility surfaces. The codes used to obtain the results in this paper, are available on www.quantlet.de.
+Key words: exchange-traded funds, options, moneyness scaling, arbitrage, bootstrap, dynamic factor models
+JEL Classification: C00, C14, C50, C58
+1 Introduction
+Exchange-traded funds (ETFs) are financial products that track indices, commodities,
+bonds, baskets of assets. They have become increasingly popular due to diversification
+benefits as well as the investor's ability to perform short-selling, buying on margin and
+lower expense ratios than, for instance those of mutual funds.
+The trading advantages of the ETFs are enhanced through the use of gearing or
+leverage, when derivative products are used to generate multiple or inverse multiple
+returns on the underlying asset. For instance, the leveraged ETF ProShares Ultra
+S&P500 (SSO) with leverage ratio  = +2 is supposed to gain 2% for every 1%
+2
+
+daily gain in the price of the S&P500 index, with a subtraction of an expense fee. An inverse leveraged ETF would invert the loss and amplify it proportionally to the ratio magnitude: the ProShares UltraShort S&P500 (SDS) with leverage ratio  = -2 would generate a 2% gain for every 1% daily loss in the price of the underlying S&P500 index. Naturally, the basic unleveraged SPDR S&P 500 ETF (SPY) returns 100% of the gain/loss of S&P 500 index, having  = +1.
+
+Due to their growing popularity and the nature of ETF and LETF similar dynamics, recently there has been growing research on leveraged ETFs and their consistent pricing. Specifically, Leung and Sircar (2015) introduced the so-called "moneyness scaling" technique which links implied volatilities (IV) between ETF and LETF in the way that the discrepancy between the implied volatility "smile" pattern is removed. Recent empirical observations seemingly support this idea. Figure 1 below compares the empirical implied volatilities for the LETFs SSO, SDS, UPRO ( = +3), SPXU ( = -3) before moneyness scaling is done. The log-moneyness LM is defined as
+
+LM d=ef log K , Lt
+
+(1)
+
+where K is the strike of the LETF option and Lt the LETF price at time t. After implied volatility re-scaling according to the identity
+
+LreEscT.F d=ef ||-1PB-S1(P),
+
+(2)
+
+where PBS is the option Black-Scholes price and P is an observed market price of the LETF, there are still visible discrepancies between the implied volatilities for the SPY ETF and its leveraged counterparts. The moneyness scaling procedure yields a more coherent picture as in Figure 2, when the LETF and ETF implied volatilities overlap
+
+3
+
+significantly better.
+
+Implied Vol
+
+SSO, 207 days to maturity: before scaling 0.26
+
+0.24
+
+0.22
+
+0.2
+
+0.18
+
+0.16
+
+0.14
+
+0.12
+
+0.1
+
+0.08 -0.5 -0.4 -0.3 -0.2 -0.1
+
+0
+
+LM
+
+0.1 0.2 0.3 0.4
+
+UPRO, 207 days to maturity: before scaling 0.26
+
+0.24
+
+0.22
+
+0.2
+
+0.18
+
+0.16
+
+0.14
+
+0.12
+
+0.1
+
+0.08 -0.5 -0.4 -0.3 -0.2 -0.1
+
+0
+
+LM
+
+0.1 0.2 0.3 0.4
+
+Implied Vol
+
+Implied Vol
+
+0.4 0.35
+0.3 0.25
+0.2 0.15
+0.1 0.05
+-0.5
+0.35
+
+SDS, 207 days to maturity: before scaling
+0 0.5 LM
+SPXU, 207 days to maturity: before scaling
+
+1
+
+0.3
+
+0.25
+
+0.2
+
+0.15
+
+0.1
+
+0.05 -0.6 -0.4 -0.2 0 0.2 0.4 0.6 0.8 1 1.2
+LM
+
+Implied Vol
+
+Figure 1: SPY (blue) and LETFs (red) implied volatilities before scaling on June 23, 2015 with 207 days to maturity, plotted against their log-moneyness
+LETFIV
+
+The question arises whether the moneyness scaling method indeed removes discrepancies consistently in time. To answer this question, a study is required to verify whether IV deviations are significant from the statistical point of view. This leads to the problem of constructing confidence intervals (or confidence bands) for the difference of IV estimators. Several studies including Cont and da Fonseca (2002), Aït-Sahalia et al. (2001) apply non- and semiparametric approaches to model implied volatilities. The use of such estimators allows to construct uniform or bootstrap confidence bands which can be used as a check for the potential existence of price discrepancies among ETF options with different leverage ratios.
+
+4
+
+Implied Vol
+
+SSO: 207 days to maturity: after scaling 0.26 0.24 0.22
+0.2 0.18 0.16 0.14 0.12
+0.1 0.08
+-0.5 -0.4 -0.3 -0.2 -0.1 0 0.1 0.2 0.3 LM
+UPRO: 207 days to maturity: after scaling 0.26 0.24 0.22
+0.2 0.18 0.16 0.14 0.12
+0.1 0.08
+-0.5 -0.4 -0.3 -0.2 -0.1 0 0.1 0.2 0.3 LM
+
+Implied Vol
+
+Implied Vol
+
+SDS: 207 days to maturity: after scaling 0.4 0.35 0.3 0.25 0.2 0.15 0.1 0.05
+-0.5 -0.4 -0.3 -0.2 -0.1 0 0.1 0.2 0.3 LM
+SPXU: 207 days to maturity: after scaling 0.35
+0.3
+0.25
+0.2
+0.15
+0.1
+0.05 -0.5 -0.4 -0.3 -0.2 -0.1 0 0.1 0.2 0.3 LM
+
+Implied Vol
+
+Figure 2: SPY (blue) and LETFs (red) implied volatilities after moneyness scaling on June 23, 2015 with 207 days to maturity, plotted against their log-moneyness
+LETFIVMonSc
+
+2 Consistency study for moneyness scaling
+
+2.1 Implied volatility as estimator
+The moneyness scaling technique proposed by Leung and Sircar (2015) offers a "coordinate transformation" for the LETF option implied volatility and potentially reflects the increase of risk in the underlying asset (ETF). Based on the assumption that the distribution of the terminal price of the -LETF depends on the leverage ratio , the moneyness scaling formula includes an expectation of the -LETF log-moneyness
+
+5
+
+conditional on the terminal value of the unleveraged counterpart. For the LETF logmoneyness LM  (consider ETFs as LETFs with  = 1) the formula linking two LETFs with different leverage ratios 1, 2 takes the (approximate) form:
+
+LM 1 = 1 2
+
+LM 2
+
++
+
+{r(2
+
+-
+
+1)
+
++
+
+c2}
+
++
+
+2(2 - 2
+
+1) 2
+
+- {r(1 - 1) + c1} - 1(1 - 1) 2 2
+
+(3)
+
+Another popular measure for moneyness is the so-called forward moneyness which is an appropriate choice for European option data because European options can be only exercised at expiry. It is defined as follows:
+
+f d=ef K/{e(r-c) Lt},
+
+(4)
+
+where r is the interest rate, c stock dividend ratio. In terms of the forward moneyness, the moneyness scaling equation for two LETFs with different leverage ratios 1, 2 can be shown (see Appendix 7.1) to satisfy:
+
+f (1) = exp
+
+-
+
+1 2
+
+(1
+
+-
+
+2)2
+
+(f
+
+(2
+
+)
+
+)
+
+1 2
+
+.
+
+(5)
+
+Many researchers, among them Fengler et al. (2007), Park et al. (2009) have studied the implied volatility as a random process in time, so that the data generating process includes some non-parametric function m:
+
+Yt = m(Xt) + t, t = 1, . . . , T,
+
+(6)
+
+6
+
+or can be driven by a latent factor process Zt:
+
+Yt = Zt m(Xt) + t, t = 1, . . . , T,
+
+(7)
+
+where Yt stands for an implied volatility process, the covariates Xt can be one- or multi-dimensional. Usually Xt is assumed to contain a moneyness component such as f and the time-to-maturity  .
+
+2.2 Confidence bands
+The statistical properties of the estimators m(Xt) and Zt m(Xt) for the models (6) and (7) have been outlined, respectively, in, e.g., Härdle (1990), Ruppert and Wand (1994) and Park et al. (2009). To study the consistency of the implied volatility difference between the ETF and the moneyness-scaled LETF case, one needs to consider statistical differences of the corresponding estimators. Confidence band analysis may provide a first insight into the matter. An important issue about smooth confidence bands for functions is the correct probability of covering the "true" curve. One way to address it is to use the Bonferroni correction to adjust confidence levels for each pointwise confidence interval to obtain the overall confidence. On the other hand, asymptotic confidence bands generally tend to underestimate the true coverage probability, see Hall and Horowitz (2013).
+An alternative approach is to use bootstrap confidence bands while the distribution of the original data is "mimicked" via a pre-specified random mechanism achieving both uniformity and better coverage. The approach of Härdle et al. (2015) proposes a uniform bootstrap bands construction for a wide class of non-parametric M and Lestimates. It is logical to use a robust M -type smoother for the estimation of (6) in the
+7
+
+actual case of implied volatility, as IV data often suffer from outliers. The procedure runs as follows: consider the sample {Xt, Yt}tT=1, where Yt denotes the IV process, Xt is taken to be one-dimensional and includes the log-moneyness covariate LM .
+
+1. Compute the estimate mh(X) by a local linear M -smoothing procedure (see Appendix 7.2) with some kernel function and bandwidth h chosen by, e.g., crossvalidation.
+
+2. Given t d=ef Yt - mh(Xt); m obtained in Step 1, do bootstrap resampling from
+
+t, that is, for each t = 1, . . . , T , generate a random variable t  F|X(z) and a
+
+re-sample
+
+Yt = mg(Xt) + t , t = 1, . . . , T
+
+(8)
+
+B times (bootstrap replications) with an "oversmoothing" bandwidth g as g = O(T -1/9) to allow for a bias correction.
+
+h such
+
+3. For each re-sample {Xt, Yt}tT=1 compute mh,g using the bandwidth h and construct the random variable
+
+db
+
+d=ef
+
+sup
+
+ |mh,g(x)
+
+
+-
+
+mg(x)|
+
+fX
+
+(x)f|X
+
+=xt
+
+(t
+
+)
+
+ 
+
+,
+
+b = 1, . . . , B,
+
+xB EY |X {2(t )}
+
+(9)
+
+where B is a finite compact support set of fX and (u) =  (·), see Appendix 7.2.
+
+4. Calculate the 1 -  quantile d of d1, . . . , dB. 5. Construct the bootstrap uniform confidence band centered around mh(x):
+
+
+mh(x) ± 
+
+EY |X {2(t)}d 
+
+
+fX (x)f|X=xt (t)
+
+(10)
+
+8
+
+We use daily data in the period 20141117-20151117 to construct bootstrap confidence bands for the M -smoother of implied volatility Y given forward moneyness X. For the LETFs SSO, UPRO, SDS X is transformed via moneyness scaling formula (5). The results are shown in Figure 3.
+
+Implied volatility 0.2 0.3 0.4
+
+SPY
+qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq
+0.6 0.8 1.0 1.2 Moneyness
+
+Implied volatility 0.20 0.30
+
+0.10
+
+0.40
+
+SSO
+
+q
+
+q qq q
+
+q
+
+q qqqqqq q q q
+
+q
+
+qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq
+
+0.6 0.7 0.8 0.9 1.0 1.1 1.2 Moneyness
+
+0.1
+
+UPRO
+
+SDS
+
+Implied volatility 0.10 0.15 0.20 0.25 0.30
+
+q q qq
+qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq
+0.7 0.8 0.9 1.0 1.1
+Moneyness
+
+Implied volatility 0.15 0.25 0.35
+
+0.05
+
+qqqq
+
+q
+
+qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq
+
+0.7 0.8 0.9 1.0 1.1 Moneyness
+
+Figure 3: Fitted implied volatility (blue) and bootstrap (red) uniform confidence bands
+
+for 4 (L)ETFs on S&P500; number of bootstrap replications is 1000; time to maturity:
+
+0.6 years
+
+LETFConfBands06SPY
+
+LETFConfBands06SSO
+
+LETFConfBands06UPRO
+
+LETFConfBands06SDS
+
+A closer look at the obtained bootstrap confidence bands' relative location in Figure 6 might imply that the moneyness scaling procedure can remove the discrepancy between the implied volatilities of leveraged ETFs and their unleveraged counterpart
+
+9
+
+with possible deviations for two positively leveraged ETFs (SSO and UPRO) for smaller moneyness values. Should arbitrage opportunities arise, they are quickly traded away, given that the markets for the presented ETFs are quite liquid. However, caution should be exercised as the joint hypothesis on the difference of two estimators with a single band may still be rejected. Similar analysis for time to maturity equal to 0.5 and 0.7 is performed. The bootstrap confidence bands for three LETFs and the base ETF SPY are shown in Figures 4 and 5.
+
+Implied volatility 0.1 0.2 0.3 0.4 0.5
+
+SPY
+q q
+qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq
+0.6 0.8 1.0 1.2
+Moneyness
+
+Implied volatility 0.10 0.15 0.20 0.25 0.30 0.35
+
+SSO
+q
+q qq qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq
+0.8 0.9 1.0 1.1
+Moneyness
+
+UPRO
+
+SDS
+
+0.25
+
+0.25
+
+Implied volatility 0.15 0.20
+
+qq qq
+
+qq
+
+qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq
+
+0.85 0.90 0.95 1.00 1.05 1.10 Moneyness
+
+Implied volatility 0.10 0.15 0.20
+
+0.05
+
+q
+
+q
+
+qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq
+
+q q qqqqq q
+
+q q qq
+qqq q
+
+qq q q qq q q
+q
+q
+qq
+
+qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq
+
+q qqq qq q
+
+qq
+
+q q
+
+qqqq qqq
+
+q q
+
+qq
+
+q
+
+q
+
+0.9 1.0 1.1 Moneyness
+
+1.2
+
+0.10
+
+Figure 4: Fitted implied volatility (blue) and bootstrap (red) uniform confidence bands
+
+for 4 (L)ETFs on S&P500; number of bootstrap replications is 1000; time to maturity:
+
+0.5 years
+
+LETFConfBands05SPY
+
+LETFConfBands05SSO
+
+LETFConfBands05UPRO
+
+LETFConfBands05SDS
+
+10
+
+Implied volatility 0.2 0.3 0.4
+
+SPY
+qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq
+0.6 0.8 1.0 1.2 Moneyness
+
+Implied volatility 0.15 0.20
+
+0.10
+
+0.25
+
+SSO
+qq q
+qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq
+0.8 0.9 1.0 1.1 Moneyness
+
+0.1
+
+UPRO
+
+SDS
+
+Implied volatility 0.15 0.20
+
+q qqq qq qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq
+
+0.85
+
+0.90
+
+0.95 1.00 Moneyness
+
+1.05
+
+1.10
+
+Implied volatility 0.10 0.15
+
+0.20
+
+qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq q qqq
+
+q qq q
+
+q
+
+q qq
+
+qq q
+
+qqqqqqqqq
+
+q
+
+q qq q
+qqqqqqqqqqq qqq
+
+q
+
+qq q q
+
+qq qq
+
+q
+
+qq
+
+q
+
+0.85
+
+0.90
+
+0.95 1.00 Moneyness
+
+1.05
+
+1.10
+
+1.15
+
+0.10
+
+Figure 5: Fitted implied volatility (blue) and bootstrap (red) uniform confidence bands
+
+for 4 (L)ETFs on S&P500; number of bootstrap replications is 1000; time to maturity:
+
+0.7 years
+
+LETFConfBands07SPY
+
+LETFConfBands07SSO
+
+LETFConfBands07UPRO
+
+LETFConfBands07SDS
+
+11
+
+Implied volatility 0.0 0.1 0.2 0.3 0.4 0.5 0.6
+
+Implied volatility 0.0 0.1 0.2 0.3 0.4 0.5 0.6
+
+Maturity 0.5 years
+qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq
+0.6 0.8 1.0 1.2 1.4 Moneyness
+Maturity 0.6 years
+qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq
+0.6 0.8 1.0 1.2 1.4 Moneyness
+Maturity 0.7 years
+qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq
+0.6 0.8 1.0 1.2 1.4 Moneyness
+Figure 6: Combined uniform bootstrap confidence bands for SPY, SSO, UPRO and SDS after moneyness scaling
+12
+
+Implied volatility 0.0 0.1 0.2 0.3 0.4 0.5 0.6
+
+The illustration of the confidence bands' overlap in Figure 6 shows that the bands for the SSO LETF become wider than before and are not covered by those of the unleveraged counterpart. This implies possible discrepancies not removed by the moneyness scaling procedure. Given that the moneyness scaling approximation (5) is correct, there are arbitrage opportunities in the market of SPY and SSO which may be exploited by traders at different times to maturity.
+
+3 (L)ETF option market arbitrage opportunities
+As was implied in the previous section, there exist indications of possible arbitrage in the (L)ETF option markets. In this section, we propose possible trading strategies for LETFs and LETF options, then apply them to the empirical data. The options on SPY and SSO are used, where most arbitrage opportunities may arise, according to the study of confidence bands.
+
+3.1 Trading strategies
+
+Define the prices of SPY and SSO at time t are L1t and L2t, respectively. The prices of the corresponding LETF call (put) options are then C1t (P1t) and C2t (P2t). Since SPY and SSO are designed to track daily return and double daily return of S&P 500, we have the following identity,
+
+log(L2T ) - log(L20) = 2 {log(L1T ) - log(L10)} .
+
+(11)
+
+where t = 0 is the date for designing the strategy and t = T is the delivery date for the corresponding LETF options. Let  = log(L20)/ log(L10), then rearrange (11) as
+13
+
+follows:
+
+L2T = L10-2L21T .
+
+(12)
+
+Equation (12) provides the relationship between the prices of SPY and SSO at time point t = T conditional on the initial prices at time point t = 0. Then referring to Franke et al. (2015), trading strategy 1 can be illustrated by constructing a portfolio as follows:
+
+1. Long 1 share SPY at time t = 0 until time t = T .
+2. Short 1 share call option on SPY with delivery price K1 at time t = 0 until the maturity T .
+3. Short L21-0 K1-1 shares SSO at time t = 0 until time t = T . 4. Long L21-0 K1-1 shares call option on SSO with delivery price K2 = L10-2K12 at
+time t = 0 until the maturity T .
+
+The portfolio value at time t = T is presented in Table 1 and has a positive value.
+At the initial time t = 0, buying 1 share of SPY costs L10, selling a call option on 1 share of SPY results in receiving a premium C10, selling L12-0 K1-1 shares of SSO brings in L210K1-1 and buying L21-0 K1-1 call options on SSO costs L12-0 K1-1C20, so the initial profit/loss generated by constructing this portfolio is
+
+P0 = -L10 + C10 + L210K1-1 - L120-K1-1C20.
+
+(13)
+
+As shown in Table 1, this portfolio has a non-negative value at maturity T . If initially P0 > 0, then arbitrage opportunities are present and they can be realized by holding the portfolio until maturity and receive arbitrage profit at t = 0. Empirical results by
+14
+
+Position 1. 2. 3. 4.
+Sum
+
+Value at time T
+
+L1T  K1
+
+L1T > K1
+
+L1T
+0 -L21T K1-1
+0
+
+L1T
+
+1
+
+-
+
+L1T K1
+
+0
+
+L1T K1 - L1T -L21T K1-1 L21T K1-1 - K1
+0
+
+Table 1: Portfolio value at time T of trading strategy 1
+
+real data from the market in Section 3.2 show that there indeed exist such arbitrage opportunities.
+
+Similarly, we can also design the following trading strategy 2 based on SPY, SSO and the corresponding put options:
+
+1. Short 1 share SPY at time t = 0 until time t = T .
+2. Short 1 share put option on SPY with strike K1 at time t = 0 until the maturity T.
+3. Long L210-K1-1 shares SSO at time t = 0 until time t = T . 4. Long L21-0 K1-1 shares put option on SSO with strike K2 = L10-2K12 at time t = 0
+until the maturity T .
+
+with the initial profit/loss
+
+P0 = L10 + P10 - L210K1-1 - L12-0 K1-1P20.
+
+(14)
+
+The portfolio value at time t = T is presented in Table 2, which is also non-negative. Finally, if we combine both strategies, yet another trading strategy 3 ensues:
+
+15
+
+Position 1. 2. 3. 4.
+Sum
+
+Value at time T
+
+L1T < K1
+
+L1T  K1
+
+-L1T L1T - K1 L21T K1-1 K1 - L21T K1-1
+0
+
+-L1T
+0 L21T K1-1
+0
+
+L1T
+
+L1T K1
+
+-1
+
+0
+
+Table 2: Portfolio value at time T of trading strategy 2
+
+1. Short 1 share call option on SPY with strike K1 at time t = 0 until the maturity T.
+
+2. Short 1 share put option on SPY with strike K1 at time t = 0 until the maturity T.
+3. Long L21-0 K1-1 shares call option on SSO with strike K2 = L10-2K12 at time t = 0 until the maturity T .
+4. Long L21-0 K1-1 shares put option on SSO with strike K2 = L10-2K12 at time t = 0 until the maturity T .
+
+with the initial profit/loss
+
+P0 = C10 + P10 - L12-0 K1-1C20 - L210-K1-1P20.
+
+(15)
+
+The portfolio value for strategy 3 at time t = T is shown in Table 3 and is always positive or even strictly positive.
+
+16
+
+Position 1. 2. 3. 4.
+Sum
+
+Value at time T
+
+L1T < K1
+
+L1T  K1
+
+0
+
+L1T - K1
+
+0
+
+K1 - L12T K1-1
+
+L1T
+
+1
+
+-
+
+L1T K1
+
+>0
+
+K1 - L1T
+0 L21T K1-1 - K1
+0
+
+L1T
+
+L1T K1
+
+-1
+
+0
+
+Table 3: Portfolio value at time T of trading strategy 3
+
+3.2 Empirical application
+
+Since the trading strategies proposed in Section 3.1 promise non-negative profits at the maturity T , in order to get a "free lunch", the objective is to search for proper values of LETFs' prices and their corresponding options and strikes in the data such that P0  0. In this section, we examine strategy 1 using the data for SPY and SSO call options from Datastream with the maturity date 20160115 over the period 20150101 to 20151112. We also consider transaction costs of 1% when going long or short LETFs and LETF options.
+Table 4 presents arbitrage opportunities in the indicated period. It shows that one can get positive initial profits if holding portfolios according to strategy 1 on the days listed in the first column with particular strikes and shares listed in the second to fourth columns taking into account the transaction fee. The highest profit is as high as 0.897$ for holding one share of the portfolio.
+We plot implied volatility curves of SSO call options after moneyness scaling together with implied volatility curves of SPY call options on each of the trading days from Table 4 and mark the implied volatilities of SSO call options selected by Strategy I in Figure 7. As we can see, most of the implied volatilities marked by asterisks are smaller than their expected values from moneyness scaling. Looking at those trad-
+
+17
+
+Date
+
+K1 Shares of L2 K2
+
+P0
+
+Jun. 16, 2015 145
+
+4.482
+
+32.5 0.070
+
+Jul. 30, 2015 165
+
+3.952
+
+42 0.447
+
+Aug. 10, 2015 172
+
+3.795
+
+45.5 0.722
+
+173 3.773
+
+46 0.472
+
+Aug. 12, 2015 168
+
+3.883
+
+43.5 0.251
+
+170 3.837 44.5 0.116
+
+Aug. 17, 2015 168
+
+3.884
+
+43.5 0.767
+
+169 3.861
+
+44 0.658
+
+170 3.838 44.5 0.332
+
+172 3.793 45.5 0.043
+
+173 3.771
+
+46 0.082
+
+Aug. 27, 2015 151
+
+4.339
+
+35 0.897
+
+Sep. 15, 2015 146
+
+4.514
+
+32.5 0.372
+
+Oct. 2, 2015 152
+
+4.346
+
+35 0.068
+
+Oct. 5, 2015 157
+
+4.207
+
+37.5 0.726
+
+Oct. 15, 2015 157
+
+4.209
+
+37.5 0.840
+
+172 3.842
+
+45 0.089
+
+Table 4: Arbitrage opportunities from strategy 1
+
+ing days which present than one arbitrage opportunity such as Aug. 10, 2015, Aug. 12, 2015, Aug. 17, 2015 and Oct. 15, 2015, we find that the more implied volatility deviates from its "expected" value by moneyness scaling, the larger initial profit can be obtained by the trading strategy. Thus it is meaningful for traders to study the relationship between implied volatilities of LETF options with different leverage levels to gain arbitrage profits.
+
+18
+
+Implied vol
+
+Implied vol
+
+Implied vol
+
+2015/6/16
+
+0.4
+
+0.3
+
+0.2
+
+0.1
+
+0
+
+-0.3 -0.2 -0.1
+
+0
+
+LM
+
+2015/8/10
+
+0.4
+
+0.3
+
+0.2
+
+0.1
+
+0
+
+-0.3 -0.2 -0.1
+
+0
+
+LM
+
+2015/8/17
+
+0.4
+
+0.3
+
+0.2
+
+0.1
+
+0
+
+-0.3 -0.2 -0.1
+
+0
+
+LM
+
+2015/9/15
+
+0.4
+
+0.3
+
+0.2
+
+0.1
+
+0
+
+-0.3 -0.2 -0.1
+
+0
+
+LM
+
+2015/10/5
+
+0.4
+
+0.3
+
+0.2
+
+0.1
+
+0
+
+-0.3 -0.2 -0.1
+
+0
+
+LM
+
+0.1 0.2
+
+Implied vol
+
+0.4 0.3 0.2 0.1
+0 -0.3
+
+-0.2
+
+0.1 0.2
+
+Implied vol
+
+0.4 0.3 0.2 0.1
+0 -0.3
+
+-0.2
+
+0.1 0.2
+
+Implied vol
+
+0.4 0.3 0.2 0.1
+0 -0.3
+
+-0.2
+
+0.1 0.2
+
+Implied vol
+
+0.4 0.3 0.2 0.1
+0 -0.3
+
+-0.2
+
+Implied vol
+
+0.4
+
+0.3
+
+0.2
+
+0.1
+
+0.1 0.2
+
+0 -0.3 -0.2
+
+SPY SSO (after scaling) SSO (seltected by trading strategy)
+
+2015/7/30
+-0.1 0 LM
+2015/8/12
+-0.1 0 LM
+2015/8/27
+-0.1 0 LM
+2015/10/2
+-0.1 0 LM
+2015/10/15
+-0.1 0 LM
+
+0.1 0.2 0.1 0.2 0.1 0.2 0.1 0.2 0.1 0.2
+
+Implied vol
+
+Implied vol
+
+Figure 7: Implied volatilities of SSO call options selected by strategy 1
+
+19
+
+4 Dynamic option trading strategy
+
+4.1 The dynamic semiparametric factor model setup
+
+4.1.1 Model description
+
+A generalized version of the model in (6) represented by (7) assumes the implied volatility Yt to be a stochastic process driven by a latent stochastic factor process Zt contaminated by noise t. To be more specific, define J d=ef [min, max] × [min, max], Yt,j implied volatility, t = 1, . . . , T time index, j = 1, . . . , Jt option intraday numbering on day t, Xt,j d=ef (t,j, t,j) , t,j, t,j are, respectively, a moneyness measure (log-, forward, etc.) and time-to-maturity at time point t for option j. Then the dynamic semiparametric factor model (DSFM) is defined as follows: assume
+
+Yt,j = Zt m(Xt,j) + t,j,
+
+(16)
+
+where Zt = (1, Zt ), Zt = (Zt,1, . . . , Zt,L) unobservable L-dimensional stochastic process, m = (m0, . . . , mL) , real-valued functions; ml, l = 1, . . . , L + 1 are defined on a subset of Rd. The full description of the model is given in Park et al. (2009). One can estimate:
+
+Yt = Zt m(Xt) = Zt A(Xt),
+
+(17) (18)
+
+with (Xt) d=ef {1(Xt), . . . , K(Xt)} being a space basis such as a tensor B-spline basis, A is the (L + 1) × K coefficient matrix. In this case K denotes the number of tensor B-spline sites: let (su)uU=1, (sv)Vv=1 be the B-spline sites for moneyness and
+
+20
+
+time-to-maturity coordinates, respectively, then K = U · V . Given some spline orders n and n for both coordinates and sets of knots (ti )Mi=1, (tj )jN=1, one of the SchoenbergWhitney conditions requires that U = M - n, V = N - n , see De Boor (2001). The usage of the parameter K is roughly analogous to the bandwidth choice in Fengler et al. (2003) and Fengler et al. (2007); however the results of Park et al. (2009) demonstrate insensitivity of DSFM estimation results to the choice of K, n.
+The estimates for the IV surfaces ml are re-calculated on a fine 2-dimensional grid of tensor B-spline sites: the estimated coefficient matrix A is reshaped into a U × V × L + 1 array of L + 1 matrices A of dimension U × V . Factor functions ml can then be estimated as follows:
+
+UV
+
+ml;i,j =
+
+Al;i,j i,k (i)j,k (j ),
+
+ij
+
+(19)
+
+where k, k are knot sequences for the moneyness and time-to-maturity coordinates,
+
+respectively.
+
+The estimated factor functions ml together with stochastic factor loadings Zt are combined into the dynamic estimator of the implied volatility surface:
+
+L
+I V t;i,j = m0;i,j + Zl,tml;i,j ,
+l=1
+
+(20)
+
+can be modeled as a vector autoregressive process. It should be noted that ml and Zl,t
+
+are not uniquely defined, so an orthonormalization procedure must be applied.
+
+An indication of possible mispricing of LETF options allows to test an investment strategy based on the comparison of the theoretical price obtained from the moneyness scaling correction as well as the application of the DSFM model and the market
+
+21
+
+price. Such a strategy would mainly exploit the two essential elements of information from these two approaches. The first element is obtaining an indication of arbitrage opportunities resulting from the mismatch between ETF and LETF IVs. The moneyness scaling approach allows to estimate LETF IV using richer unleveraged ETF data which also would make the DSFM IV estimator more consistent. The second element is implied volatility forecasting. The DSFM model allows to forecast a whole IV surface via the dynamics of stochastic factor loadings Zt.
+
+4.1.2 Empirical results
+
+For the model's empirical testing, we use the data on SPY and SSO (L)ETF European call options in the period 20140920-20150630. The data summary statistics are outlined in Table 5 below.
+
+SPY SSO
+
+TTM Moneyness IV TTM Moneyness IV
+
+Min. 0.26 0.05 0.25 0.21 0.18 0.25
+
+Max. 1.05 1.43 1.55 1.04 1.69 1.34
+
+Mean 0.76 0.48 0.46 0.63 0.63 0.41
+
+Stdd. 0.19 0.17 0.23 0.25 0.29 0.11
+
+Skewn. -0.54 -0.34
+1.94 0.01 0.92 1.91
+
+Kurt. 2.76 3.15 7.17 1.76 3.61 10.81
+
+Table 5: Summary statistics on SPY, SSO (L)ETF options from 20140920 to 20150630 (in total t Jt = 9828, 7619 datapoints, respectively). Source: Datastream
+
+To avoid computational problems, the estimation space [min, max] × [min, max] for covariates Xt = (t, t) , which covers in (forward) moneyness   [0.3, 1.5] and in time-to-maturity   [0.3, 1.0], is re-scaled (via marginal distribution functions) to [0, 1]2. The model is estimated using numerical methods, see Park et al. (2009). The number of the dynamic functions has to be chosen in advance. One should also notice that for ml to be chosen as eigenfunctions of the covariance operator
+
+22
+
+K(u, v) d=ef Cov{Y (u), Y (v)} in an L-dimensional approximating linear space, where Y is understood to be the random IV surface, they should be properly normalized, such that ml(·) = 1 and ml, mk = 0 for l = k.
+
+The choice of L can be based on the explained variance by factors:
+
+EV (L) d=ef 1 -
+
+T t=1
+
+Jt j=1
+
+Yt,j -
+
+L l=0
+
+Zt,lml
+
+(Xt,j
+
+)
+
+2
+
+T t=1
+
+Jt j=1
+
+(Yt,j
+
+-
+
+Y
+
+)2
+
+(21)
+
+The model's goodness-of-fit is evaluated by the root mean squared error (RMSE)
+
+criterion:
+
+RM SE d=ef
+
+1 T Jt t Jt t=1 j=1
+
+L2
+Yt,j - Zt,lml(Xt,j)
+l=0
+
+(22)
+
+The EV (L) and RM SE criteria are displayed in Table 6 below
+
+Criterion EV (L) RM S E
+
+L=2 0.915 0.090
+
+L=3 0.921 0.088
+
+L=4 0.925 0.087
+
+L=5 0.930 0.082
+
+Table 6: Explained variance and RMSE criteria for different model order sizes
+
+The model order L = 3 is chosen for model estimation. The data for the SPY ETF option are used with parameters n, n = 3; M = 9, N = 7, so that U = 6, V = 4, K = 6 · 4 = 24. The estimates for the factor functions ml according to (19) are plotted in Figure 9 below. Furthermore, we can study the statistical properties of the stochastic factor loadings Zt estimated by the model. Figure 8 shows the dynamics of Zt in time. The "spikes" in the values of Zt seem to be somewhat synchronized with Zt,3 showing the largest instability. Almost all of the loadings' hikes fall on trading weeks' ends, Thursdays or Fridays. This reflects the finding that market volatility tends to increase on Fridays with releases of corporate and macroeconomic news on
+23
+
+Thursdays and Fridays, see Berument and Kiymaz (2002), Charles (2010), the so-called "day-of-the-week" effect, see Lakonishok and Smidt (1988).
+
+Theoretical and simulation results in Park et al. (2009) justify using vector autoregression (VAR) analysis to model Zt. To select a VAR model, we computed the Schwarz (SC), the Hannan-Quinn (HQ) and the Akaike (AIC) criteria, as shown in Table 7. All three criteria select the VAR(1) model. Furthermore, the roots of the characteristic polynomial all lie inside the unit circle, which shows that the specified model is stationary. Portmanteau and Breusch-Godfrey LM test results with 12 lags for the autocorrelations of the error term fail to reject residual autocorrelation at 10% significance level.
+
+Model order n 1 2 3 4 5
+
+AIC(n) -4.20 -4.13 -4.07 -4.03 -3.97
+
+HQ(n) -4.10 -3.96 -3.83 -3.72 -3.59
+
+SC(n) -3.96 -3.72 -3.48 -3.27 -3.03
+
+Table 7: The VAR model selection criteria. The smallest value is marked by an asterisk
+
+The estimates of factor functions, stochastic loadings ml, Zt together determine the dynamics of implied volatility surfaces IV t, as in (20). As an illustration, both the observed IV "strings" and the fitted by DSFM IV surface are displayed in Figure 10.
+
+The degenerate nature of implied volatility data is reflected by the fact that empirical observations do not cover estimation grids at given time points. This is due to the fact that contracts at certain maturities or strikes are not always traded. The DSFM fitting procedure introduces basis functions which approximate a high-dimensional space and depend on time. This allows to account for all information in the dataset simultaneously in one minimization procedure which runs over all ml and Zt and avoid bias problems which would inevitably occur if some kernel smoothing procedure such
+24
+
+8 6 4 2 0 -2 -4 -6 Sep14
+
+Nov14
+
+Dec14
+
+Feb15
+
+Apr15
+
+May15
+
+Jul15
+
+Figure 8: Time dynamics of Zt,1, Zt,2, Zt,3
+
+LETFStochLoads
+
+as Nadaraya-Watson were applied for this type of degenerate data.
+
+4.2 The strategy
+4.2.1 Description
+Ability to forecast the whole surface of implied volatility can be used in combination with the moneyness scaling technique to exploit potential discrepancies in ETF and LETF option prices or implied volatilities to build an arbitrage trading strategy. A suitable strategy would be the so-called "trade-with-the-smile/skew" strategy adapted for the special case of ETF-LETF option IV discrepancy. It would use the ETF option data to estimate the model (theoretical) smile of the leveraged counterpart and the information from the IV surface forecast to recognize the future (one-period-ahead) possible IV discrepancy.
+Going back to the results in Section 2.2, one can come to a conclusion that there's 25
+
+m^ 0
+
+0.6
+0.4
+0.2
+0
+-0.2
+-0.4
+-0.6 1 0.8 0.6 0.4 0.2 TTM
+
+00
+
+1 0.8 0.6 0.4 0.2 Moneyness
+
+m^ 2
+
+8
+6
+4
+2
+0
+-2
+-4
+-6
+-8
+-10 1 0.8 0.6 0.4 0.2 TTM
+
+00
+
+1 0.8 0.6 0.4 0.2 Moneyness
+
+m^ 1
+
+6
+
+4
+
+2
+
+0
+
+-2
+
+-4 1
+0.8
+0.6
+0.4
+0.2 TTM
+
+00
+
+1 0.8 0.6 0.4 0.2 Moneyness
+
+m^ 3
+
+6
+4
+2
+0
+-2
+-4
+-6
+-8
+-10
+-12 1 0.8 0.6 0.4 0.2 TTM
+
+00
+
+1 0.8 0.6 0.4 0.2 Moneyness
+
+Figure 9: Factor functions m^ 0, m^ 1, m^ 2, m^ 3 for SPY option LETFFactorFuncs
+a certain discrepancy between SPY and SSO option implied volatilities from the statistical point of view, so we consider these two options in the strategy setup. The strategy can be outlined as follows: choose a moving window width w; then for each t = w, . . . , T , T is the final time point in the sample do the following:
+
+1. Given two leverage ratios 2 = 1, 1, re-scale the log-moneyness coordinate LM 2 according to the moneyness scaling formula (3) to obtain LM 1. This will be the "model" moneyness coordinate for DSFM estimation.
+2. Estimate the DSFM model (16) on the space [LM m1in, LM m1ax] × [mSPinY , mSPaxY ] (re-scaled to [0, 1]2, as suggested above). This will yield the IV surface estimates IV 1, . . . , IV t.
+3. Forecast the IV surface estimate IV t+1 using the VAR structure of the estimated
+26
+
+IV ticks and fitted surface on 20150409
+
+IV
+
+1.6
+1.4
+1.2
+1
+0.8
+0.6
+0.4
+0.2 0 0.2 0.4 0.6 0.8 Moneyness
+
+10
+
+1 0.8 0.6 0.4 0.2 TTM
+
+Figure 10: Implied volatility real-data "strings" and the DSFM-fitted surface on 20150409
+LETFIVSurfPlot
+
+stochastic loadings Zt and factor functions ml.
+
+4. Choose a specific IV "string" for some time-to-maturity   at time point t using
+
+SSO
+
+option
+
+data
+
+and
+
+calculate
+
+the
+
+marginally
+
+transformed
+
+value
+
+LM
+
+1 
+
+of
+
+the
+
+true SSO log-moneyness LM 1 using the marginal distribution of LM 1.
+
+5.
+
+Using
+
+LM
+
+1 
+
+,
+
+
+
+and
+
+IV t+1,
+
+interpolate
+
+the
+
+"theoretical"
+
+IV
+
+IV t+1
+
+over
+
+the
+
+marginally
+
+re-scaled
+
+[LM
+
+1 min
+
+,
+
+LM
+
+1 max
+
+]
+
+×
+
+[ ,  ]
+
+to
+
+obtain
+
+"theoretical"
+
+values
+
+I V t+1;LM1 ,  .
+
+6. Compare "theoretical" values IV t+1;LM1, with "true" IVt;LM1, and construct a delta-hedged option portfolio:
+
+· if IV t+1;LM1, > IVt;LM1, for the whole LM1, then buy (long) options corresponding to the largest difference IV t+1;LM1, - IVt;LM1,
+
+27
+
+· if IV t+1;LM1, < IVt;LM1, for the whole LM1, then sell (short) options corresponding to the largest difference IVt;LM1, - IV t+1;LM1,
+· if IV t+1;LM1, and IVt;LM1, intersect, then buy (long) an option with the absolute largest negative deviation from the "theoretical" IV (IV expected to fall) and sell (short) an option with the smallest positive deviation from the "theoretical" IV (IV expected to increase). In all three cases use the underlying SSO LETF asset to make the whole portfolio delta-neutral.
+7. At time point t + 1, terminate the portfolio, calculate profit/loss and repeat until time T .
+The strategy described above aims to exploit the information from the discrepancies between the forecast "theoretical" (model) SSO LETF implied volatilities and the historical ("true") ones. It protects the portfolio against unfavorable moves in the underlying asset Lt through delta-hedging and aims to gain from forecast moves in another option risk factor, the implied volatility via its explicit estimation and forecasting. The basic strategy presented here can be extended in several ways: further, including higher-order, option price sensitivities may be accounted for, such as gamma, theta hedging or charm-adjusted delta hedging. The amounts of bought and sold options can also be adjusted according to investor risk and return profiles and preferences.
+4.2.2 Empirical application
+Steps 2 and 3 of the dynamic strategy described above involve estimation out-of-sample forecasting of the IV surface IV t+1 using the model estimates. The model parameters are taken to be the same as in Section 4.1.2. The rolling window width is 100 and the forecasting horizon is 1 day ahead. The prediction quality at time point t + 1 is
+28
+
+measured by the root mean squared prediction error (RMSPE) given by
+
+RM SP E d=ef
+
+1 Jt+1 Jt+1 j=1
+
+L2
+Yt+1,j - Zt+1,lml(Xt+1,j )
+l=0
+
+(23)
+
+The starting point of rolling-window estimation of the strategy is 20150415. The plot in Figure 11 below shows the RMSPE measure in time for three different model orders: L = 2, 3, 4.
+RMSPE with L = 2, 3, 4 0.25
+0.2
+0.15
+0.1
+0.05
+0 04/12 04/19 04/26 05/03 05/10 05/17 05/24 05/31 06/07 06/14 06/21 06/28 07/05
+Time
+Figure 11: RMSPE for L = 2, L = 3, L = 4
+The average RMSPEs for L = 2, 3, 4 are, respectively, 0.095, 0.096 and 0.099; they decrease slightly as the order increases which reflects a well-known finding that more parsimonious models perform better in forecasting, see Zellner et al. (2002).
+The dynamic strategy performance in the period 20150415-20150701 is displayed in Figure 12. Out of 55 investment periods, in 13 periods long portfolios were constructed, the remaining 42 periods net short positions were taken. The strategy appears to be a self-financing one: no exogenous money infusions are done in its whole course. Furthermore, the potential of this strategy is even higher than displayed because only
+29
+
+Portfolio Wealth
+
+a fraction of already accumulated total proceeds was invested continuously following the simple setup in 4.2.1, where only two options were included into the portfolio each time.
+80 70 60 50 40 30 20 10
+0 04/12 04/19 04/26 05/03 05/10 05/17 05/24 05/31 06/07 06/14 06/21 06/28 07/05
+Figure 12: Cumulative performance of the dynamic strategy
+The presented strategy correctly guessed the direction of SSO LETF IV moves 82% of times. A large jump in accumulated gains on 20150521 is explained by a significant move in the value of two call options with a total delta of 1.98 before hedging in the portfolio with a net short exposure due to the sale of the underlying SSO ETF to make the portfolio delta-neutral. The real and forecasted IV "strings" used to take the decision about the construction of this portfolio, are shown in Figure 13.
+As is seen, the long position in options profits from a significant jump in implied volatility at the estimated (marginally transformed) log-moneyness LM0.18 = 0.55 point from less than 20% to almost 50%. The right panel of Figure 13 displays the situation where the true SSO LETF IV IVt;LM0.18,0.8 and its moneyness-scaling-DSFM forecast IV t+1;LM0.18,0.8 are quite close, so possible opportunities for arbitrage profit are potentially smaller, which is indeed the fact, as the gain on 20150522 is only $0.56 compared
+30
+
+IV IV
+
+20150520 0.9
+0.8
+0.7
+0.6
+0.5
+0.4
+0.3
+0.2
+0.1 0.1 0.15 0.2 0.25 0.3 0.35 0.4 0.45 0.5 0.55 0.6 Moneyness
+
+20150521 0.7
+0.6
+0.5
+0.4
+0.3
+0.2
+0.1 0.3 0.4 0.5 0.6 0.7 0.8 0.9 Moneyness
+
+1
+
+Figure 13: Comparison of true SSO LETF option (red dots) and moneyness-scaling predicted IV at   = 0.8 years before (left panel) and on the day of the jump (right panel)
+LETFIVTrueMonsc
+
+to $49.10 on 20150521.
+
+5 Conclusions
+In this paper, we study the statistical properties of the moneyness scaling transformation by Leung and Sircar (2015). This transformation adjusts the moneyness coordinate of the implied volatility smile in an attempt to remove the discrepancy between the IV smiles for levered and unlevered ETF options. We construct bootstrap uniform confidence bands which indicate that in a statistical sense there remains a possibility that the implied volatility smiles are still not the same, even after moneyness scaling has been performed. This presents possible arbitrage opportunities on the (L)ETF market which can be exploited by traders. We build possible arbitrage strategies by constructing portfolios with LETF shares and options which possibly have a positive value at the point of creation and non-negative value at the expiration time. An empirical data application shows that there are indeed such opportunities in the mar-
+31
+
+ket which result in risk-free gains for the investor. A dynamic "trade-with-the-smile" strategy based on a dynamic semiparametric factor model is presented. This strategy utilizes the dynamic structure of implied volatility surface allowing out-of-sample forecasting and information on unleveraged ETF options to construct theoretical onestep-ahead implied volatility surfaces. The proposed strategy has the potential to generate significant trading gains due to simultaneous use of the information from the discrepancies between the forecast "theoretical" (model) SSO LETF implied volatilities and the historical ("true") ones. It protects the portfolio against unfavorable moves in the underlying asset through delta-hedging and aims to gain from forecast moves in another option risk factor, the implied volatility via its explicit estimation and forecasting via an advanced statistical model.
+6 References
+Aït-Sahalia, Y., Bickel, P. J., Stoker, T. M. (2001): "Goodness-of-fit tests for kernel regression with an application to option implied volatilities", Journal of Econometrics, 105(2), 363­412
+de Boor, C. (2001): "A Practical Guide to Splines. Revised Edition", Springer
+Berument, H., Kiymaz, H. (2001): "The day of the week effect on stock market volatility", Journal of Economics and Finance, 25(2), 181­193
+Charles, A. (2010): "The day-of-the-week effects on the volatility: The role of the asymmetry", European Journal of Operational Research, 202(1), 143­152
+Cont, R., da Fonseca, J. (2002): "Dynamics of implied volatility surfaces", Quantitative Finance, 2(1), 45­60
+32
+
+Fengler, M. R., Härdle, W. K., Villa, C. (2003): "The dynamics of implied volatilities: a common principal components approach", Review of Derivatives Research, 6, 179­ 202
+Fengler, M. R., Härdle, W. K., & Mammen, E. (2007): "A semiparametric factor model for implied volatility surface dynamics", Journal of Financial Econometrics, 5(2), 189­218
+Franke, J., Härdle, W., & Hafner, C. (2015): "Statistics of Financial Markets: An Introduction", Springer, 4th edition
+Hall, P., Horowitz, J. (2013): "A simple bootstrap method for constructing nonparametric confidence bands for functions", The Annals of Statistics, 41(4), 1892­1921
+Härdle, W. (1989): "Asymptotic maximal deviation of M -Smoothers", Journal of Multivariate Analysis, 29, 163­179
+Härdle, W. (1990): "Applied Nonparametric Regression", Cambridge University Press
+Härdle, W. K., Ritov, Y., Wang, W. (2015): "Tie the straps: uniform bootstrap confidence bands for semiparametric additive models", Journal of Multivariate Analysis, 134, 129­145
+Huber, P. J. (1964): "Robust estimation of a location parameter", Annals of Mathematical Statistics, 35(1), 73­101
+Lakonishok, J., Smidt, S. (1988): "Are seasonal anomalies real? A ninety-year perspective", The Review of Financial Studies, 1(4), 403­425
+Leung, T., Sircar, R. (2015): "Implied volatility of leveraged ETF options", Applied Mathematical Finance, 22(2), 162­188
+33
+
+Park, B. U., Mammen, E., Härdle, W., Borak, S. (2009): "Time Series Modelling With Semiparametric Factor Dynamics", Journal of the American Statistical Association, 104(485), 284­298
+Ruppert, D., Wand, M. P. (1994): "Multivariate locally weighted least squares regression", The annals of statistics, 22(3), 1346­1370
+Zellner, A., Keuzenkamp, H. A., McAleer, M. (2002): "Simplicity, inference and modelling", Cambridge University Press
+
+7 Appendix
+
+7.1 Moneyness scaling formula
+
+Given the asset (S&P 500) price dynamics
+
+dSt St
+
+=
+
+rdt + dWtQ
+
+(24)
+
+with interest rate r and volatility ; WtQ standard Brownian motion under the riskneutral measure Q, the (L)ETF dynamics is given by:
+
+dLt =  dSt - {( - 1)r + c}dt Lt St
+= (r - c)dt + dWtQ,
+
+(25)
+
+34
+
+where 0  c r is the (L)ETF expense ratio (approximates an annual fee charged by the ETF from the shareholders to cover the fund's operating expenses). Then the general solution of (25) is given by:
+
+LT = Lt exp
+
+2 (r - c)(T - t) -
+2
+
+T
+s2ds + 
+t
+
+T sdWsQ
+t
+
+.
+
+(26)
+
+If we write (26) for L(T1), L(T2), we obtain
+
+L(T1) e(r-c) L(t1)
+
+=
+
+exp
+
+L(T2) e(r-c) L(t2)
+
+=
+
+exp
+
+- 12 2
+- 22 2
+
+
+s2ds + 1
+
+ sdWsQ
+
+00
+
+
+s2ds + 2
+
+ sdWsQ
+
+00
+
+, ,
+
+where s is the instantaneous volatility at time s.
+
+(27) (28)
+
+From (28) it follows:
+
+T sdWsQ = log
+t
+
+L(T2 ) e(r-c) Lt(2)
+
++ 22 2
+
+2
+
+ 0
+
+s2ds
+
+.
+
+(29)
+
+Substitute (29) into (27) to eliminate the stochastic term
+
+T t
+
+sdWsQ
+
+and
+
+obtain:
+
+L(T1) e(r-c) L(t1)
+
+=
+
+exp
+
+-
+
+1 2
+
+(1
+
+-
+
+2)
+
+
+s2ds
+0
+
+ 
+
+L(T2)
+
+ 1 2
+
+
+ e(r-c) Lt(2) 
+
+(30)
+
+Now take logarithms and expectations conditioned on K(1) = LT(1) and K(2) = LT(2)
+
+35
+
+and obtain:
+
+log(kf
+
+(1))
+
+=
+
+-
+
+1 2
+
+(1
+
+-
+
+2)EQ
+
++
+
+1 2
+
+log(kf (2))
+
+
+s2ds
+
+K (1)
+
+= LT(1), K(2)
+
+= LT(2)
+
+0
+
+Assuming constant  and exponentiating, one obtains (5).
+
+7.2 The local linear M-smoothing estimator
+
+M -type smoothers apply a nonquadratic loss function (·) to make estimation more
+
+robust. Given the model
+
+Yi = m(Xi) + i,
+
+(31)
+
+where Yi  R, Xi  Rd, i d=ef (Xi)ui, ui  (0, 1), iid, X d=ef {(Xi, Yi); 1  i  n}, the local linear M -smoothing estimator is obtained from:
+
+n
+
+min 
+R,Rp i=1
+
+Yi -  - 
+
+(Xi - x)
+
+Wih(x),
+
+(32)
+
+where
+
+Whi(x)
+
+d=ef
+
+h-2K
+
+{(x - Xi)/h} fh(x)
+
+-
+
+Kh(x - Xi)fh(x) fh2(x)
+
+(33)
+
+is a kernel weight sequence with fh(x) d=ef n-1
+
+n i=1
+
+Kh(x
+
+-
+
+Xi),
+
+h
+
+is
+
+the
+
+bandwidth,
+
+K
+
+is a kernel function; K(u)du = 1, Kh(·) d=ef h-1K(·/h). The function (·) is designed
+
+to provide more robustness than the quadratic loss. An example of such a function is
+
+given by Huber (1964), see also Härdle (1989):
+
+36
+
+
+
+  
+
+0.5u2,
+
+(u) =
+
+if |u|  c; ,
+
+  
+
+c|u|
+
+-
+
+0.5c2
+
+if |u| > c.
+
+with the constant c regulating the degree of resistance.
+
+(34)
+
+37
+
+SFB 649 Discussion Paper Series 2016
+For a complete list of Discussion Papers published by the SFB 649, please visit http://sfb649.wiwi.hu-berlin.de.
+001 "Downside risk and stock returns: An empirical analysis of the long-run and short-run dynamics from the G-7 Countries" by Cathy Yi-Hsuan Chen, Thomas C. Chiang and Wolfgang Karl Härdle, January 2016.
+002 "Uncertainty and Employment Dynamics in the Euro Area and the US" by Aleksei Netsunajev and Katharina Glass, January 2016.
+003 "College Admissions with Entrance Exams: Centralized versus Decentralized" by Isa E. Hafalir, Rustamdjan Hakimov, Dorothea Kübler and Morimitsu Kurino, January 2016.
+004 "Leveraged ETF options implied volatility paradox: a statistical study" by Wolfgang Karl Härdle, Sergey Nasekin and Zhiwu Hong, February 2016.
+SFSBF6B4694, 9S,pSapnadnaduaeureSrtrSatßraeß1e, 1D,-D10-1107187B8eBrleinrlin htthpt:t/p/:/s/fbs6fb4694.w9.iwwiiw.hiu.h-bue-brleinrl.idne.de
+ThTishrisesreasercahrcwhawsassupsuppoprtoerdtebdybtyhethDeeDuetsucthseche ForFsocrhsuchnugnsgesgmeeminesicnhsachftatfht rtohuroguhgthhethSeFSBF6B4694"9Ec"oEnconmoimc RicisRki"s.k".
+
+

@@ -1,0 +1,987 @@
+BERLIN
+
+SFB 6 4 9 E C O N O M I C R I S K
+
+SFB 649 Discussion Paper 2016-005
+The German Labor Market Miracle, 2003 -2015: An Assessment
+Michael C. Burda*
+* Humboldt-Universität zu Berlin, Germany This research was supported by the Deutsche Forschungsgemeinschaft through the SFB 649 "Economic Risk".
+http://sfb649.wiwi.hu-berlin.de ISSN 1860-5664
+SFB 649, Humboldt-Universität zu Berlin Spandauer Straße 1, D-10178 Berlin
+
+February 2016
+The German Labor Market Miracle, 2003 -2015: An Assessment
+Michael C. Burda Wirtschaftswissenschaftliche Fakultät
+Humboldt University Berlin
+Abstract: This paper reviews the dramatic and widely noted developments in the German labor market in the past decade and surveys the most plausible reasons for these changes. Alternative hypotheses are compared and contrasted. I argue that the labor market reforms associated with the Agenda 2010 ­ the Hartz reforms ­ played a role at least as great as that of increasing flexibility of wage determination and the allocation of hours across workers. Until 2010, the German economic miracle could be accounted for by an expansion of part-time work, which has since been supplanted by a sustained expansion of full-time employment. Supported by wage flexibility in this segment, part-time employment represents an important new margin of flexibility in the German labor market. JEL: E24, J21 Keywords: German labor market miracle, Hartz reforms, part-time work, wage inequality This report, prepared for the Swedish Labor Market Policy Council, summarizes research with Stefanie Seele (Burda and Seele 2016). Her capable input, as well as the excellent research assistance of Thomas Dengler, Niklas Flamang and Tobias König, are gratefully acknowledged. This research was supported by the Deutsche Forschungsgemeinschaft through the SFB 649 "Economic Risk."
+ 
+
+1 Introduction In the aftermath of the global financial crisis and Europe's own growth and
+sovereign debt difficulties, the world has taken renewed interest in the economic performance of Germany, the EU's largest and most central economy. In particular, the resilience of the German labor market has attracted considerable attention. This attention is justified: Since 2003, employment (in persons) in Germany increased cumulatively by 12%, compared to 5% in the EU, 4% in the Eurozone, and only 1% in Italy. Even after a sharp GDP decline of 6-7% on a quarterly basis during the Great Recession, Germany managed to maintain a trend of declining unemployment rates and rising employment (Burda and Hunt 2011).
+
+The German success story has inspired and informed reform efforts in many southern European countries and given fresh impetus to the view that labor market policy represents a central element of good supply side policy. It has also been criticized as a competitive internal devaluation that may impede rebalancing the large current account imbalances in the Eurozone, by increasing the relative depreciation needed for southern European periphery to recover international competitiveness.1 In any case, it illustrates how internal nominal wage and price flexibility between regions of a monetary union can compensate for a lack of exchange rate and increasingly, a lack of national fiscal policy options (Calmfors 1998). For policymakers, it is of central importance to know the scope for a sustained expansion of output in Germany without an increase in inflation. The ability of Germany to generate sustained, if only modest, economic growth while avoiding a deterioration of competitiveness points to a sustained decline in its equilibrium or non-accelerating inflation rate of unemployment. This development stands in sharp contrast to other
+
+                                                            1 See Thimann (2015) for a discussion of competitiveness, inflation and productivity differentials in the
+Euro area.
+
+   1 
+
+ 
+
+large EU countries, although the Netherlands, Belgium, Austria and Denmark have had similar track records. The transition of Germany from a post-unification "sick man of Europe" (Economist 1999) to a high-employment economy is central for understanding the frontier towards which Europe could move.2
+Wage flexibility has implications for the growing debate over income inequality in Europe. Many analysts see the German miracle as evidence for the "Krugman hypothesis" (Krugman 1994) that strong employment growth in the current environment is only possible with higher pay inequality. Two decades ago, the United States and the United Kingdom represented typical examples of this presumed tradeoff. Yet Sweden, with only modest rises in pay inequality, experienced employment growth comparable to Germany's during the same period.3
+In this background paper, I will first outline the salient features of the German labor market miracle (Section 2), before identifying numerous competing and complementary explanations (Section 3). In Section 4, I present empirical evidence to support the hypothesis that deregulation and reform of the labor market ("Agenda 2010," and in particular the Hartz reforms) were instrumental in bringing about these changes.4 While the labor market reforms were not sufficient for Germany's labor market miracle, I argue that they were necessary to induce significant changes in labor supply at both extensive and intensive margins. Finally, I review the central findings of this report and its implications for the future of Germany's labor markets in light of recent policy developments (Section 5).
+
+                                                            2 See the Economist (1999) "The sick man of the euro" for a notably pessimistic formulation of this diagnosis at
+the time. http://www.economist.com/node/209559. Accessed: 11 September 2015.  3 Over the period 2003-2014, Sweden's employment increased by 10.7%; yet its employment rate did not keep pace with the working age population, so the employment rate actually declined. Source: IMF World Economic Outlook database (https://www.imf.org/external/pubs/ft/weo/2015/01/weodata/index.aspx) and OECD. 4 The "Agenda 2010" refers to the general labor market reform initiative of Chancellor Schröder in March 2003, implemented over the period 2003-2005 on the basis of recommendations of the Hartz Commission.
+
+   2 
+
+ 
+
+2 Changes in the German labor market: The facts 2.1 Germany before and after 2003 from an aggregate perspective
+Figure 1 presents some key indicators for aggregate developments in Germany over the past forty-five years, encompassing the last period of strong preunification growth (the mid-1980s), a unification boom (1990-2002) and longer-term slump punctuated by the Neuer Markt/dot-com boom (1997-2000). The first three panels present annual data for the standardized unemployment rate (ILO concept), the employment ratio, and the implied labor force participation rate. The fourth panel, which displays real GDP, reveals a period of growth malaise, beginning with a postunification hangover and further slowing after the introduction of the Euro. The first panel confirms a pattern of unemployment rates observed since the oil shocks in the 1970s until 2005: every successive recession raised the trend rate of equilibrium unemployment around which the economy fluctuated. This "hysteresis" (Blanchard and Summers 1986) or at least an unusually high degree of time series persistence (Barro 1988) is generally attributed to institutions which create insiders and outsiders in the labor market (Lindbeck and Snower 1986,1987; Calmfors and Driffill 1988) as well as upward-ratcheting of unemployment benefits (Burda 1988). In addition, generous level of social insurance financed via "Bismarckian" funding schemes (i.e. taxing the wage bill) led to unsustainable increases in payroll tax rates (Burda and Weder, 2015) with negative effects on employment levels (Daveri and Tabellini, 2000). The four panels taken together summarize the German labor "miracle": A sustained reduction of unemployment rates, steady increases in the employment ratio starting in 2003 and rising labor force participation throughout, despite a significant slowdown in trend economic growth.
+
+   3 
+
+ 
+
+Figure 1 Key labor and macro indicators, Germany, 1970-2014
+(a) Unemployment (ILO concept, Eurostat), percent of the labor force
+12 10
+8 6 4 2 0
+
+1970 1972 1974 1976 1978 1980 1982 1984 1986 1988 1990 1992 1994 1996 1998 2000 2002 2004 2006 2008 2010 2012 2014
+
+(b) Employment ratio, percent of the working age population
+80 75 70 65 60 55
+
+1970 1972 1974 1976 1978 1980 1982 1984 1986 1988 1990 1992 1994 1996 1998 2000 2002 2004 2006 2008 2010 2012 2014
+
+(c) Labor force participation rate, percent of the working age population
+80 75 70 65 60 55
+
+1970 1972 1974 1976 1978 1980 1982 1984 1986 1988 1990 1992 1994 1996 1998 2000 2002 2004 2006 2008 2010 2012 2014
+
+Index, 2010 prices, log scale
+1970 1972 1974 1976 1978 1980 1982 1984 1986 1988 1990 1992 1994 1996 1998 2000 2002 2004 2006 2008 2010 2012 2014
+
+(d) Real GDP, logarithmic scale, millions of Euros in 2010 prices
+4,7 4,5 4,3 4,1 3,9 3,7
+
+Note: Real GDP index, chained series, 2010 Euros. West Germany until 1990, Germany thereafter. Participation rate computed as e/(1-u), where e=employment ratio and u=unemployment rate.
+Sources: AMECO database http://ec.europa.eu/economy_finance/ameco/user/serie/SelectSerie.cfm. 
+
+   4 
+
+ 
+
+The panels of Figure 1 show a sustained turnaround in unemployment rates which began in 2005, coinciding with the return to growth in the previous year. In the course of the recovery, unemployment declined with a lag as would be expected, but continued to fall throughout the next decade, despite the Great Recession.
+
+What can explain the German employment miracle? It is useful to start at the macroeconomic level, with the guidance of microeconomic fundamentals. In a market economy, the employability of labor reflects its value in production processes ­ productivity measured as value-added (GDP) per person or per hour ­ compared with its cost to firms. These costs include not only direct wage costs but also contributions to social insurance as well as amortization of unobservable training costs and expected costs arising in case of dismissal. When the marginal productivity of labor exceeds the cost of that labor, workers are hired or existing workers work more hours, ceteris paribus. (Naturally, conditions of aggregate demand are also relevant for the short-term determination of employment.) In practice, the standard measure of competitiveness is unit labor costs, the ratio of total hourly labor costs to hourly labor productivity. Because different sectors have different levels of productivity, aggregate level measures are influenced by the sectoral composition of output and are thus not directly comparable across countries. The change in unit labor costs from year to year, however, at the economy-wide or sectoral level, represents a useful metric of changing competitiveness that can be compared across countries ­ assuming the base year is chosen appropriately.
+
+Figure 2 presents a second set of measures related to nominal aggregate labor costs since 1980: Nominal unit labor costs, nominal hourly wages and real labor productivity. These indicators point to aggregate wage moderation beginning in the mid-1990s and continuing for fifteen years. Productivity growth continued until the
+
+   5 
+
+ 
+
+2000 decade, when it slowed marginally at first, then fell markedly in the Great Recession. In the meantime, hourly productivity appears to have recovered trend growth, and hourly earnings as well, albeit after a longer period of stagnation.
+
+1970 1972 1974 1976 1978 1980 1982 1984 1986 1988 1990 1992 1994 1996 1998 2000 2002 2004 2006 2008 2010 2012 2014
+
+Figure 2 Aggregate labor cost and productivity, total economy, 1970-2015 (a) Nominal unit labor costs, total economy (1970=100)
+300
+250
+200
+150
+100
+50
+(b) Nominal hourly wage and nominal labor productivity, total economy (1991=100)
+200 180 160 140 120 100
+80 60 40 20
+0
+
+1970 1972 1974 1976 1978 1980 1982 1984 1986 1988 1990 1992 1994 1996 1998 2000 2002 2004 2006 2008 2010 2012 2014
+
+Labor productivity (GDP per hour worked) 1991=100 Nominal wage per hour worked, total economy, 1991=100
+Source: AMECO. Data for West Germany before 1990, unified Germany after 1991.
+2.2 Comparison with other economies The evolution of nominal unit labor costs cannot be viewed in isolation; in a
+globalized economy, relative competitiveness is crucial, especially in the context of a
+
+   6 
+
+ 
+
+1980 1982 1984 1986 1988 1990 1992 1994 1996 1998 2000 2002 2004 2006 2008 2010 2012 2014 2016
+
+monetary union, where recourse to nominal exchange rate adjustments is ruled out.
+Figure 3 Real unit labor cost in manufacturing in international comparison (a) Index, 1980=100
+115 110 105 100
+95 90 85 80 75 70 65
+Germany France Italy Sweden U.K.
+(b) Index, 1995=100
+135 125 115 105
+95 85 75
+Germany France Italy Sweden U.K.
+Source: Macrobond.
+
+1995 1996 1997 1998 1999 2000 2001 2002 2003 2004 2005 2006 2007 2008 2009 2010 2011 2012 2013 2014 2015 2016
+
+Figure 3 gives two different perspectives of evolving competitiveness in Europe. Both plot the level of the standard indicator of real unit labor costs in manufacturing for France, Italy, Sweden and the United Kingdom along with Germany from a common base year of 1980 in the first panel, and normalized to 100 in 1995 in the second. Real unit labor cost is the ratio of total nominal hourly labor costs to nominal hourly labor productivity, and is equivalent to labor's share in value added. The latter figure is used frequently to illustrate the degree of "internal devaluation"
+
+   7 
+
+ 
+
+achieved by the Germany economy since the introduction of the Euro. The second panel fails, however, to portray the sharp increase in unit labor costs experienced by Germany immediately surrounding unification (1985-1995). While the improvement in competitiveness since 1995 or even after the introduction of the Euro is impressive, a longer perspective would suggest more caution. Unification led not only to a significant appreciation of the DM in the period 1989-1993, it also caused a significant increase in social security contributions for financing the new East German citizens' burden on the welfare state. Figure 2(b) makes it clear that the reduction of sharp increases in real unit labor costs after unification occurred more through nominal wage moderation than gains in nominal labor productivity, although these were significant over the period. Overall, the 1990s were a preiods of slow growth and restructuring, not only in eastern, but also western Germany (Bachmann and Burda 2008).
+
+3 Accounting for changes in German labor markets outcomes since 2003 3.1 The miracle drivers: A tour de force of different hypotheses
+The last section documented a significant and persistent reduction in real labor costs in Germany which began in the mid-1990s, associated first with nominal wage moderation which continued until 2009, but also accompanied by steady productivity growth over the entire period (with a significant interruption associated with the Great Recession). Real unit labor costs have fallen significantly since 1995, but in doing so have reversed a severe loss of competitiveness resulting from the reunification episode.
+
+It is generally believed that Germany achieved that reduction in average real unit labor costs at the price of a significant increase in earnings inequality (see for example Gernandt and Pfeiffer 2007, Antonczyk, et al. (2011), Dustman et al. 2014). This has brought it closer to levels of inequality in the US and UK, where this trend began
+
+   8 
+
+ 
+
+in the 1980s (Katz and Murphy 1992, Bound and Johnson 1992, Juhn et al. 1992, Berman, et al. 1994). The widening of the earnings distribution has been linked to pervasive labor-saving technical change, the rise of international trade and globalization, as well as the demise of collective wage-setting institutions and cutbacks in the generosity of the social welfare state. Technical change, in the form of rapidly advancing personal computing power and increasing automation of production processes, has made many routine workers obsolete. Increases in international trade, along the lines of Heckscher-Ohlin theory, is associated with a deterioration in the terms of trade for goods produced intensively with low-skill labor. The degradation of the labor movement, the decline of collective bargaining institutions in the Anglo-American OECD countries, and restrained minimum wage policies led to wages, which were probably as close to market clearing as they had ever been in the past four decades. The dismantling and modernization of social welfare programs also affected wage determination in the United States and the United Kingdom. On the European continent, in contrast, collective bargaining remains an important factor, even as union membership fell behind effective coverage (Visser 2006).
+These explanations are no longer considered mutually exclusive. Even along the lines of factor proportions theory, globalization and trade integration have induced continuous fragmentation of the value added chain, leading to developments which resemble labor saving technical change. New trade theories related to value added and export orientation (Melitz 2003) can explain divergent firm performance and worker remuneration within sectoral categories under conditions of heterogeneity. The putative deterioration of labor market corporatism, the degradation of institutions of the social safety net and the resulting flexibility in local wage formation may be
+
+   9 
+
+ 
+
+exogenous, but may also represent an endogenous reaction to external influences such as technology, trade, or shifts in labor supply.
+
+3.2 Lessons from supply and demand A simple model of supply and demand can yield useful insights and create a
+basis for inference regarding changes in observed labor market quantities (employment, hours worked) and prices (wages). Despite its somewhat limited perspective on unemployment, the Marshallian supply-and-demand paradigm remains the benchmark model in accounting for broad trends in wages and employment and remains the workhorse of labor market analysis.5 Shifts in demand for labor at given wage result from technical change, globalization and trade, including shifts related to intermediate input outsourcing and offshoring. Movements in the cost of labor induce firms to adjust their demand for labor in the opposite direction, as can be inferred from the first panel of Figure 4. Shifts in the supply of labor at given wages relate to both demographic changes, including migration (Borjas 2003), as well as changes in labor supply, holding demographics constant. The latter includes changing wealth and other determinants of household behavior and labor force participation, such as institutional features of the social insurance system, unemployment benefits and "activation policies" which affect workers' willingness to accept available job offers or expose them to more of them. The German labor market reforms discussed below belong to this class of determinants of labor supply.
+
+The Marshallian labor supply and demand framework has a lot to say about outcomes in labor markets. When shifts in labor demand predominate, wages and employment tend to move in the same direction. Similarly, a sufficient condition for
+
+                                                            5 See for example, Katz and Murphy (1992) and Borjas (2003). In the Marshallian perspective, unemployment is the difference between maximal potential labor supply and the observed level of employment and is voluntary by
+construction.
+
+   10 
+
+ 
+
+the co-movement between wages and employment to be negative is that supply shifts predominate. In the first panel of Figure 4, downward shifts of the labor supply curve under conditions of stable demand imply falling wages with rising employment; shifting demand along a stable supply curve induces a positive correlation between wages and employment. Katz and Murphy (1992) generalize this argument to many labor inputs: Changes in employment and wages across labor types will exhibit negative correlation if and only if demand shocks are negligible compared with supply shocks over the period considered.6 This central implication is revisited below in Section 4.
+
+The employment ratio considers total employment in persons as a fraction of the total available working-age population. As long as the exogenous determinants of labor force participation do not change, the Marshallian market-clearing view of labor
+
+                                                            
+
+6See Burda and Seele (2016). Naturally, there exist a number of potentially confounding factors, among
+which is the efficiency of job placement, frictions in the labor market, etc., which may also change over time.
+
+   11 
+
+ 
+
+markets implies that changes in the employment ratio and the wage are positively correlated. This holds for both shifts in labor demand as well as extensive shifts in labor supply. Similarly, changes in the participation rate itself, holding the working age population and all else constant, should be negatively associated with changes in the wage. A simple formal model in the Appendix demonstrates this point.
+
+Yet the world may not be adequately represented by Marshall's market-clearing perspective. This is implicitly the view of Dustmann et al. (2014): powerful agents in the German labor market, such as unions or employers associations, influence wagesetting in ways which may be inconsistent with market clearing, at least from time to time. The second panel of Figure 4 presents this "Pigouvian" perspective (Pigou 1933) of Marshall's framework to non-market-clearing conditions in which the wage is at least partially inflexible or "sticky." Under those conditions, unemployment is no longer solely voluntary (the segmentL­LS) but also includes an involuntary component (LS­LD), which more closely resembles unemployment as defined by the International Labor Organization (ILO).
+
+Under conditions of incomplete wage rigidity, a predominance of demand shocks will continue to induce a positive correlation between employment and wages, just as in the Marshallian case, and a negative correlation between wages and unemployment (the wage curve). If labor supply shocks predominate, wages and employment move in opposite directions, while wages and unemployment co-vary positively. Should exogenous wage changes in rigid wages be important, a negative association of changes of wages and employment, and a positive relation of wages and unemployment, are implied. In a qualitative sense, labor supply shocks in a Marshallian, and wage shocks in a distorted (Pigouvian) labor market have similar and potentially observationally equivalent implications for employment and wages. The
+
+   12 
+
+ 
+
+German labor market miracle discussed in Section 2 is consistent with either a positive shift to labor supply, holding potential labor force constant, or a negative shock to rigid wages, brought about by collective bargaining. This can be seen in the panels of Figure 5, which shows that in both cases, wages decline and employment increases.
+
+Interestingly, while positive shocks to labor supply and negative wage shocks to rigid
+
+wages both induce a negative correlation between wages and employment ratios, this
+
+is not the case for participation rates, as also can be seen from the panels of Figure 5.
+
+A positive shift to labor supply, as often associated with labor market reforms which
+
+"activate" those of working age, should raise employment, lower wages and increase
+
+participation rates; in contrast, a negative shock to rigid wages leads to higher
+
+employment, lower observed wages, and lower labor force participation. This potential
+
+clearing in the forest of identification problems will be difficult to exploit in practice,
+
+however, because labor force participation at the cell level is not a well-defined
+
+concept for many attributes. Given these limitations, the analyst is compelled to study
+
+aggregate evidence and institutional details in more depth. It is to these latter features
+
+   13 
+
+ 
+
+in Germany before and after the landmark reforms of 2003-2005 we now turn.
+3.3 Background: German labor market institutions before and after the Hartz reforms
+It is difficult to model labor market institutions, much less the effects of labor market reforms. Specifically, the regulation of collective dismissals, short-time working, part-time and marginal employment forms, collective bargaining structures and working time accounts are not always readily captured as a shock to the wage (although with some imagination it is possible to do so). Many of them also may have effects at the same time on labor demand, labor supply, or both. A plethora of factors associated with the way collective agreements affect the structure of wages, including unexplained variation, would merit discussion. Wages in Germany are set collectively for about 80% of employees, and a wealth of corporatist mechanisms enforce a degree of wage rigidity not observed in many industrial countries. This section reviews these institutions in more detail, in particular those institutions that were modified in the crucial reform years 2003-2005. I consider these aspects in three categories, discussing briefly the role of the Hartz reforms along the way.7
+Institutions of collective bargaining and wage determination. At the heart of wage determination in Germany are contracts governing wages, negotiated by labor unions on the one side and with employers' associations, or less frequently, large enterprises on the other.8 In general, employers' associations represent member employers and unions the workers employed in the sector, usually at an agreed subnational or regional level (so-called Tarifbezirk). Collectively bargained wages are not necessarily binding
+
+                                                           
+
+7 Hartz I and II were implemented on Jan 1, 2003; Hartz III on Jan 1 2004; Hartz IV on Jan1 2005. The
+law governing part-time (Teilzeit- und Befristungsgesetz) was enacted in Jan 2001. 8 Burda et al. (2008) report that wages for 61% of employment contracts are set by industry-level agreements,
+28% are determined by firm-level agreements, while 11% are determined individually.
+
+   14 
+
+ 
+
+for all workers, but are for all workers in firms which belong to the employer association. Dustmann et al. (2014) have stressed a generalized increase in the flexibility of collective bargaining, starting in the mid-1990s, reflected in the growing ability of distressed firms to opt out of the collective wage agreements and negotiate wage concessions in exchange for job security (assuming consent of the relevant works council).9 Wage flexibility ­ in this case, the reduction of labor costs as well as an increase in their rigidity upwards -- has been further enhanced by the widespread use of working time accounts (Arbeitszeitkonten).10 These accounts, first introduced in the 1990s, allow workers to bank overtime hours and collect them as paid vacation at some later date. Despite their appearance as forced loans to firms, working time accounts are very popular among workers; moreover, accumulated working time balances were used by firms during the Great Recession to postpone layoffs, thereby augmenting the positive effects of short-time work.
+
+The Hartz reforms were primarily about labor supply (see Jacobi and Kluve 2007 for an early survey), but there are aspects of Hartz I and Hartz II legislation as well as the Agenda 2010 that affected wage bargaining or even the structure of labor demand. Both reforms attenuated the bargaining power of workers and their representatives in a number of ways. First, the Hartz II law deregulated so-called "mini-jobs" by removing previous restrictions on total hours per week. When introduced, mini-jobs allowed employers to hire workers for a fixed monthly payment (first 400, then later raised to 450 per month) with no restriction on hours per month and a reduced social security contribution rate. This effectively removed the floor on hourly wages for flexible labor. Reform of the law governing temp agency work (Arbeitnehmerüberlassungsgesetz) constituted an important component of the Hartz I
+
+                                                            9 See Dustmann et al. (2014) and Burda and Hunt (2011) for more discussion of opening clauses. 10 See Burda and Hunt (2011) and Ellguth et al. (2013) for details on working time accounts.
+   15 
+
+ 
+
+law. Firms could more easily employ temporary workers "leased" from temporary help agencies. Both reforms reduced the fallback position of unions, as management could threaten to increase the use of mini-jobs and outsourced temporary workers, and helped keep wage growth in check for a decade.
+
+Institutions of job intermediation, training and employment protection. Public job placement was affected significantly by the Hartz reforms. Hartz III modernized the administration of employment agencies and improved governance and management structures, thereby implementing a more efficient, service-oriented approach to assisting job searchers. Increased pressure on the unemployed exerted by more active caseworkers undoubtedly increased the attractiveness and the expansion of temporary employment, which had been deregulated earlier, as noted above. Other aspects of employment flexibility, such as short-time working (Kurzarbeit), which preserves and encourages investment in human capital (Boeri and Bruecker 2011) were not affected directly. One interesting innovation was the "Ich-AG" program implemented in the Hartz I law, which allowed unemployed workers to convert 12 months of future unemployment benefit into a business startup grant.
+
+Institutions of the social safety net. The most controversial component of the Agenda 2010 was the Hartz IV law, which radically reduced and restructured passive labor market policy ­ unemployment benefits and assistance. In broad brushstrokes, the reforms consisted of:
+
+ a reduction of unemployment insurance replacement rates and the duration of unemployment insurance payments (Arbeitslosengeld I);
+
+ the merging of Arbeitslosenhilfe (follow-up unemployment assistance upon expiry of unemployment insurance, unlimited duration) with Sozialhilfe (social assistance,
+
+   16 
+
+ 
+
+normally administered by local governments) into a second stage of social assistance with a work requirement for those deemed fit (Arbeitslosengeld II);
+
+ rigorous application of a work requirement on recipients of Arbeitslosengeld II involving sanctions on those who repeatedly refuse offers of work from the employment offices;
+
+ in-work benefits to top up working incomes which do not reach social minimum income levels (Aufstocken).
+
+Reductions in the generosity of unemployment insurance and assistance affect labor markets in two ways. First, they reduce reservation wage of workers, which leads to greater turnover in the labor market (exits from unemployment) and lower wages at at all points of the distribution. Second, reducing unemployment benefits lowers the fallback position of workers in wage bargaining. Both effects cause observed real wages to decline and represent an exogenous increase in labor supply.
+
+Summary. In hindsight, the Hartz reforms, and more generally the Agenda 2010, can viewed as a cluster of measures, many of which were abandoned, while others ultimately became permanent components of labor market policy. For example, the "Ich-AG" program was successful in reducing the net fiscal burden of high unemployment, yet was dropped in 2006, as were the use of job vouchers (both part of Hartz I). Personal-Service-Agenturen (temporary help agencies run by the state employment offices) were abandoned only a few years after they were implemented. Reforms of job protection proposed by the Hartz Commission were never implemented at all. In contrast, Hartz III was strengthened by a managerial reorganization of the Federal Employment Agency in 2007 and is seen as instrumental in accelerating exits from unemployment (Fahr and Sunde, 2009). Retraining and public employment
+
+   17 
+
+ 
+
+programs are now routinely evaluated using modern statistical impact analysis methods (Jacobi and Kluve, 2007). Of all the reforms, the Hartz IV law is generally agreed to have been the "carrot and the stick" measure which shifted labor supply significantly outwards, mobilizing hundreds of thousands of unemployed and inactive individuals.
+
+4 Inspecting the miracle: The structure of German employment since 1995 The vaunted performance of the German labor market is not well-understood by
+the public and merits more detailed examination. As Figure 6 shows, overall employment in Germany was stagnant in the 1990s, rising only after 2003. Yet is this expansion of employment across the board, or is it concentrated in certain types of employment, certain sectors of the economy, or at certain segments of the wage distribution? Is it caused by demand or supply factors, or is it more accurately seen from a non-market clearing perspective, driven by an exogenous relaxation of wage rigidity in the system? In what follows, we pursue answers to these questions.
+
+Figure 6 Employment in Germany, millions of persons, 1991-2014
+44 42 40 38 36 34 32 30
+
+1991 1992 1993 1994 1995 1996 1997 1998 1999 2000 2001 2002 2003 2004 2005 2006 2007 2008 2009 2010 2011 2012 2013 2014
+
+Total employment
+Source: Arbeitszeitrechnung, IAB.
+
+Employees
+
+4.1 The distribution of employment growth across sectors The accelerating pace of globalization, the German unification episode and the
+
+   18 
+
+ 
+
+offshoring of economic activity to Eastern Europe in the economic integration process took their toll on Germany's labor market in the 1990s. In particular, fragmentation of the value added chain led to a surge in the openness of the German economy, raising the standard index from 40.5 in 1993 to 61.7 in 2003.11 Figure 7 considers the distribution of employment across broad sectoral activities before and after 2003, and indicates significant restructuring in the period 1992-2003, when total employment grew only by 400,000 workers (a cumulative increase of roughly 0.1%), despite an expansion of GDP of 14.8%. During that period, a decrease of 2.1 million in manufacturing was offset by an increase of 2.2 million in business services. Growth in the second period 2003-2014 totaled 3.2 million or a net growth of almost 10%. During the "miracle" period 2003-2014, employment grew in all sectors except construction and manufacturing (where it was constant).
+Figure 7 Change in employment by sector, thousands, 1992-2014
+
+Source: Federal Statistical Office (Statistisches Bundesamt).
+4.2. The distribution of employment growth across types of workers. Employment is defined as all persons in any form of paid work during the
+
+                                                             11 The openness index is the sum of imports and exports of goods and services expressed as percent of GDP. In comparison, Sweden's index rose over the same period from 59.1 to 76.3. By 2014, the index values of both
+countries were equal at 86, a remarkable development, given their relative sizes.
+
+   19 
+
+ 
+
+sample period (usually a week or a month), so it is the behavior of hours worked rather than their distribution across the working population that is decisive for economic growth.12 Germany's successful negotiation of the Great Recession was primarily about the redistribution of a sharp reduction of hours among workers (Burda and Hunt 2011). For that reason, it is important to distinguish between the extensive margin of employment (people) and the intensive margin (hours per person). Figure 8 displays the broad evolution of these categories since 1992 using the OECD definition, centered around the pivotal year 2003.
+Figure 8: Change in employment by type, OECD definition, 1992-2014
+
+Note: Full and part time employment based on a common OECD definition of less than 30 hours of work per week. Part-time in employment in this diagram also includes mini-jobs. Source: OECD labor force statistics
+Figure 8 reveals a surprising, little-known fact: The lion's share of employment growth since 1992 has been in part-time employment. It provided relief in the period 1992-2003 when full-time employment collapsed by almost 3.5 million and while high in the second period (+1.7 million) was exceeded by a robust recovery of full-time employment (+2 million employed). Below, I show that this pattern of employment changes is well-tracked by the evolution of wages in the two types of labor.
+
+                                                            
+12 It is noteworthy that in 2014, total hours worked in Germany was roughly equal to its level in 1994 (Arbeitszeitrechnung 2015).  
+
+   20 
+
+ 
+
+The outsized role placed by part-time work in Germany's employment success ­ especially until 2010, when full-time jobs finally began to grow again ­ is not widely recognized in public discussion.13 A more precise picture can be found in Figure 9, which presents the "Arbeitszeitrechnung," a comprehensive set of working time statistics published by the Federal Employment Agency. It defines part-time employment as those working less than contractual full-time hours; "Nebenjobber" are those with multiple jobs or moonlighting. Mini-jobs, which pay less than 450 per month, are classified as part-time if they are the sole job held by a worker, whereas they would be Nebenjobs if the job-holder already held another better-paid job. Figure 9 shows not only a secular increase in part-time employment, it also shows that average hours of part-time workers have increased, a trend that Burda and Seele (2016) confirm since 2002 using micro datasets. This trend reflects both a composition effect, as the number of mini-jobbers in the part-time category declined and hours worked by "true" part-timers increased.14
+
+Using a large sample of socially insured employees, Burda and Seele (2016) examine the regional distribution between eastern and western states (currently available up to 2010). Part-time employment in eastern Germany grew more rapidly (and from a small base) in the period 1993-1998 (39.2% versus 14.0% in the West); this trend was reversed in the immediate pre-Hartz period (1998-2003), when parttime was flat in the East and grew by 14.1% in the West. In the post-Hartz period 20032010, part-time work in both regions grew by virtually the same amount (West: 27.7%; East: 26.6%).
+
+                                                           
+13 Part-time employment is frequently perceived by the public as precarious or "atypical" and favorable to business
+interests, even though when asked, most part-time employees would prefer to maintain their status (Institut der deutschen Wirtschaft Köln, 2015).   14 According to the Institut für Arbeitsmarkt und Berufsforschung, part-time work is less than 35 hours per week, although the legal definition of part-time is more vague, simply as working less than "normal" contractual hours (§2 Teilzeit- und Befristungsgesetz). 
+
+   21 
+
+ 
+
+Figure 9 Employment by margin and type, 1991-2014
+(a) Total hours by full-time, part-time, and Nebenjob workers, trillions
+50 45 40 35 30 25 20 15 10
+5 0
+
+1991 1992 1993 1994 1995 1996 1997 1998 1999 2000 2001 2002 2003 2004 2005 2006 2007 2008 2009 2010 2011 2012 2013 2014
+
+Fulltime
+
+Parttime
+
+Nebenjob
+
+(b) Employees in full-time, part-time, and Nebenjob status, millions
+35 30
+
+25 20
+
+15
+
+10 5
+
+0
+
+1991 1992 1993 1994 1995 1996 1997 1998 1999 2000 2001 2002 2003 2004 2005 2006 2007 2008 2009 2010 2011 2012 2013 2014
+
+Fulltime
+
+Parttime
+
+Nebenjob
+
+(c) Annual hours worked per full-time, part-time and Nebenjob employees
+1800 1600 1400 1200 1000
+800 600 400 200
+0
+
+1991 1992 1993 1994 1995 1996 1997 1998 1999 2000 2001 2002 2003 2004 2005 2006 2007 2008 2009 2010 2011 2012 2013 2014
+
+Fulltime
+Source: Arbeitszeitrechnung, IAB
+
+Parttime
+
+Nebenjob
+
+   22 
+
+ 
+
+4.3. Trends in inequality in earnings and incomes in East and West Germany before and after unification
+In the previous section, I argued that strong employment growth in Germany since the 1990s largely reflected a sustained expansion of part-time employment, i.e. a redistribution of a given number of hours across more workers. While the number of persons in the labor market as "mini-jobbers" and other forms has increased, it alone cannot account for the labor market miracle. Part-time employment, in contrast, can. Yet it is still not clear why firms were willing to hire so many part-time workers over the period while reducing full-time employment at the same time (Figure 9). In this section, I look at the evolution of the price of labor to find an answer to the puzzle.
+In a widely-noted commentary at the time, Krugman (1994) surmised that employment growth in the US during the 1980s and early 1990s came at the expense of increasing wage inequality, reflecting either increasing labor supply or the attenuation or elimination of real wage rigidities. For Germany, this point is made forcefully by Dustmann et al. (2014). I reproduce one of their key findings in Figure 10, which displays annual real wage growth of full-time workers (Western Germany only) at the 15th, 50th (median), and 85th percentile of gross real wages. They confirm increasing pay inequality in Germany already noted by Dustmann et al. (2009), Antoncyzk et al. (2011) and others. More subtly, it is noteworthy that the "breakout" of inequality does not occur in both directions simultaneously; rather the increase in inequality at the upper end begins in the mid-1990s, while the bottom level of the wage distribution remains constant in absolute terms until 2004 ­ the year after the Hartz I and II reforms were implemented. While Dustmann et al. (2014) are dismissive of the role of the reforms, they provide little direct evidence to support a sweeping claim of irrelevance.
+
+   23 
+
+ 
+
+Figure 10 Cumulative real wage growth at the median 15th, 50th (median) and 85th percentile, 1990-2008, full-time workers in western Germany
+
+Note: Full-time workers employed in western German states. Source: Dustmann et al. (2014).
+
+It is interesting to compare the German experience with two important continental European neighbors that share many common institutional features: France and Sweden. While France has a rather high statutory minimum wage, Sweden's social partners enforce high collective wage agreements as minima; Swedish unions enjoy a very high coverage ratio and little excess coverage, while French unions typically represent less than 10% of employment, yet have a voice in the determination of 90% of wages (Boeri et al., 2001, Visser 2006). Figure 11 displays OECD evidence on the spread of earnings (the ratio of full-time pay at the 90th to the 10th percentile) for monthly earnings of full-time workers. The distribution of earnings became visibly more unequal in Germany relative to other countries over the past two decades, but significantly, this increase begins after 2003.15
+
+While earnings inequality has increased sharply in Germany, changing patterns of female labor force participation in families, increasing employment ratios across the population and the introduction of Hartz IV in-work benefits for workers in low-paid
+
+                                                             15 The OECD also reports the evolution of the 15th and 85th percentiles in the three countries but the disparate evolution of East and West German earnings distributions obfuscates the qualitatively distinctly different evolution
+of wages in the two regions.
+
+   24 
+
+ 
+
+jobs have mitigated comparable increases in household income inequality.16 Table 1, which tracks the evolution of income inequality measured by the Gini coefficient since 1996, shows that Germany hardly differs from other countries. It is noteworthy that while income inequality in Sweden is significantly lower than elsewhere, the rise in its Gini coefficient was the largest in the table. More significantly, the increase in income inequality in Germany since 2003 was the smallest of the countries considered.
+
+Figure 11 Inequality in pay levels in France, Germany and Sweden (90th-10th percentile ratios), full-time workers only
+3,6 3,4 3,2
+3 2,8 2,6 2,4 2,2
+2
+
+1995 1996 1997 1998 1999 2000 2001 2002 2003 2004 2005 2006 2007 2008 2009 2010 2011 2012
+
+Germany Source: OECD. Monthly gross earnings:
+
+Sweden
+
+France
+
+Do the findings of Dustmann et al. (2014) also apply to part-time workers? Do they apply to Eastern German workers, or are they fundamentally different from those in the West? It is essential to distinguish between the two regions, because mean and median earnings grew at dramatically different rates, and these growth rates changed over time; in the first ten years after reunification, wages in the East more than doubled; in the last decade they remained more or less stuck at 80% of western levels.
+
+                                                            16 In its 2014 annual report, the German Council of Economic Advisors (Sachverständigenrat 2014) found no change in household income inequality since 2005 and concluded that employment and in-work
+transfers largely offset the effects of increasing earnings inequality over the period.  
+
+   25 
+
+ 
+
+Table 1 Income Gini coefficients over the past two decades
+
+Country
+
+1996
+
+2003
+
+2011
+
+Change 1996-2011
+
+France
+
+0.280
+
+0.284
+
+0.310
+
++0.22
+
+Germany
+
+0.259
+
+0.286
+
+0.298
+
++0.39
+
+Sweden
+
+0.216*
+
+0.236
+
+0.268
+
++0.42
+
+United Kingdom
+
+0.334**
+
+0.333
+
+0.347***
+
++0.13
+
+USA
+
+0.354
+
+0.365
+
+0.387
+
++0.33
+
+*1995 **1994 ***2010
+
+Note: The Gini coefficient ranges from 0 to 1 and indicates the level of inequality in a wage or income distribution. A Gini coefficient of 1 indicates maximal possible inequality; zero corresponds to complete equality.
+
+Source: OECD.
+
+Figure 12 provides new evidence that the trajectory of wages for full- and parttime employment in East and West follow comparable patterns over time, but that the declines were the steeper for part-time workers. It displays the evolution of real hourly wages at three percentiles of the wage distribution. These data, discussed in detail in Burda and Seele (2016), allow the evaluation of competing accounts of labor market developments discussed in Section 3.2.17 They apply the framework of Katz and Murphy (1992) and examine total co-movement of wages and employment across cells (groupings by characteristics) of labor market participants over time to allow inference about the type of shocks affecting the labor market. In a market-clearing setting, it is possible to infer the predominance of labor demand or supply shocks. By adding the additional categories of part-time and full-time labor and exploiting the variability apparent in Figure 12, Burda and Seele (2016) show that West Germany is better characterized as subject to a labor supply shock following the Hartz reforms, with relatively little variability originating in demand. In contrast, the eastern part of Germany was subjected to enough demand shifts to dominate the covariance of wages and employment across cells.
+
+                                                            17 Unlike Dustmann et al. (2014), the analysis in Burda and Seele (2016) explicitly includes part-time workers. Because hours data are not available for the micro data set used, they had to be imputed for each year using cell averages for part and full-time workers from the German Socioeconomic Panel. 
+
+   26 
+
+ 
+
+Figure 12 Cumulative real wage growth at 25th, 50th and 75th percentiles, workers by full- and part-time status, 1993-2010
+
+Fulltime employment in West
+
+Fulltime employment in East 
+
+Year 
+Parttime employment in West
+
+Year
+Parttime employment in East 
+
+Year 
+
+Year
+
+Note: In each panel, the dark blue, middle curve depicts the cumulative evolution of the median real
+
+wage since 1993. The lower pale blue and upper gray curves depict the cumulative evolution of real
+
+wages at the 15th and 85th percentiles, respectively.
+
+Source: SIAB, Burda and Seele (2016).
+
+Evidence supporting this claim is presented in Table 2, which breaks down employment growth into three segments, by position in the wage distribution, for three sub-periods of the post-reunification era. The last column hints that the strongest growth in part-time employment coincides with the segments of the labor market in which wage declines were the largest, especially in the West. This finding militates towards an account of the German labor market miracle that assigns an important, if not central role to the increase in labor supply associated with the Hartz reforms. It would also explain the dramatic drop in low decile wage growth in Figures 10, 11 and 12 commencing around 2003-2005, the implementation of the reforms.18
+
+                                                             18 Using the approach employed for the US by Katz and Murphy (1992), Burda and Seele (2016) find strong
+
+   27 
+
+ 
+
+It should be emphasized that this interpretation of the Agenda 2010's labor
+
+market effects is complementary to the nominal wage flexibility stressed by Dustmann
+
+et al. (2014). Wage flexibility is a necessary condition for the market paradigm to be
+
+appropriate as a tool of labor market analysis; yet in an economy with freedom to
+
+contract, a necessary condition for an increase in employment at lower wages is that
+
+laborers are willing supply those hours at lower wages.
+
+Table 2 Full-time and part-time employment growth at different segments of the earnings distribution, percent, 1993-2010
+
+Full-time
+
+1993--1998
+
+1998-2003
+
+2003-2010
+
+Western Germany Lowest segment Middle segment Upper segment
+
+-0.5 -11.5
+0.9
+
+-7.2 -11.4 14.6
+
+24.6 -11.8 -3.0
+
+Eastern Germany Lowest segment Middle segment Upper segment
+
+-13.8 -27.6 20.9
+
+-11.2 -25.2 -4.3
+
+22.7 -12.3 -7.5
+
+Part-time
+
+Western Germany Lowest segment Middle segment Upper segment
+
+10.5 4.8
+38.1
+
+9.8 1.5 38.7
+
+Eastern Germany
+
+Lowest segment
+
+6.3
+
+-3.7
+
+Middle segment
+
+43.8
+
+-19.1
+
+Upper segment
+
+63.6
+
+36.7
+
+Source: Tabulations in Burda and Seele (2016) based on micro data (SIAB).
+
+59.7 10.4 27.3
+81.7 11.7 16.2
+
+To highlight the importance of the 2003-5 period for German labor market performance, it is instructive to compare employment rates by age group in Germany compared with a benchmark ­ Sweden ­ around the Hartz reforms. The data cover both young workers aged 16-29 and older workers 50 years and older. The data come from the OECD and the results are presented in Figure 13.
+
+                                                            negative correlations across cells (inner products of changes in wages and employment) defined according to age, gender, education, and work experience in western, but not eastern Germany.
+
+   28 
+
+ 
+
+The underlying idea behind the figure is simple. The Swedish economy did not implement the Hartz reforms in 2003-5. Sweden has long boasted very high labor force participation rates for older workers (over 50) which exceeded (West) German levels by a wide margin for decades. At the same time, Swedish youth generally have lower employment rates, probably due to Germany's apprenticeship system and its ability to absorb young secondary school leavers. What was the effect of the Hartz reforms on the differential, which under the plausible assumption of surprise ­ certainly no one expected Schröder's famous "Agenda speech" in the Bundestag on March 14, 2003! ­ can be interpreted as causal?
+
+Figure 13 Difference in employment rates between Sweden and Germany for different age groups, 1992-2014 (a) Older workers
+40 35 30 25 20 15 10
+5 0
+
+1992 1993 1994 1995 1996 1997 1998 1999 2000 2001 2002 2003 2004 2005 2006 2007 2008 2009 2010 2011 2012 2013 2014
+
+1992 1993 1994 1995 1996 1997 1998 1999 2000 2001 2002 2003 2004 2005 2006 2007 2008 2009 2010 2011 2012 2013 2014
+
+5054 years
+
+5559 years
+
+(b) Younger workers
+10
+
+6064 years
+
+6569 years
+
+5
+
+0
+
+5
+
+10
+
+15
+Source: OECD.
+
+1619 years
+
+2024 years
+
+2529 years
+
+   29 
+
+ 
+
+Of the group of older workers, those aged 60-64 show the most evidence of behavioral change surrounding the Hartz reforms. Until 2003, employment and participation rates of older Germans close to retirement were falling, especially those who were close enough to the retirement age to avoid significant loss of pension claims. In the decade since, labor force participation rose for this group dramatically, closing the gap with Sweden to below 15 percentage points in 2014 (from almost 35 in 2003). In contrast, the Hartz reforms seem to affect all younger age groups. It is also associated with a lower employment rate for those 25-29 ­ possible reflecting prolonged periods of study ­ and higher employment rates for young labor market participants, indicating that the Agenda 2010 has affected their take-up of work as well.
+Finally, this paper has unearthed a subtle distinction that can help further distinguish between market clearing and market non-clearing interpretations of the German labor market miracle. In Section 3.2 we saw that while exogenous wage moderation has effects similar to the "activation" of labor supply, this is not the case for labor force participation (Figure 5). Specifically, a positive shock to labor supply and a negative shock to wage rigidity both imply similar changes for observed wages and employment, but imply rising labor force participation in the first interpretation and declining labor force participation in the second.19 Because it is not plausible to define participation rates for most groups and because a very large sample would be necessary to generate sufficient wage cells for analysis, I will leave this analysis to future research. Yet the third panel of Figure 1 is unambiguous: Despite flat or median aggregate real wage growth, labor force participation in Germany ­ driven especially
+
+                                                            19 Intuitively, lower wages on their own would move workers back along a given, and presumptively backward sloping labor supply, reducing labor supply and participation. In contrast, an outward shift in willingness to work
+at given population in working age would increase labor supply and participation.
+
+   30 
+
+ 
+
+by older workers ­ continues to rise.
+5 Conclusion This survey has identified several important facts ­ some not well-known ­
+regarding the German labor market miracle. Given these facts, I have attempted to assemble cogent interpretations using simple demand and supply constructs to organize thinking about the episode.
+5.1 Summary of the facts
+(1) The German employment miracle really began in 2003-5, and not before. Measured in terms of employment (extensive margin), the episode can be explained by part-time employment until 2010, while full-time employment fell. Growth in part-time employment is consistent with enabling legislation in 2001 making part-time more attractive for workers. The comparison with Sweden also supports this hypothesis.
+(2) Mini-jobs, temporary help agency work and other forms of marginal employment, while significant at the margin over the business cycle, did not contribute significantly to the sustained rise of German employment, especially after 2005.
+(3) The dispersion of the German earnings distribution increased significantly over the same period, compared with France and Sweden, for both full- and part-time workers.
+(4) The spread of wage in the upper end of the wage distribution began in the mid- to late 1990s and is probably due to increasing heterogeneity of firm and sectoral outcomes, combined with union concessions or weakening worker bargaining power, beginning in Eastern Germany and then spreading to the West.
+
+   31 
+
+ 
+
+(5) The Hartz labor market reforms, implemented in the period 2003-2005, removed a key barrier to real wage flexibility at the lower end of the earnings distribution by significantly reducing unemployment benefits. It also increased pressure on the unemployed to accept job offers, which reduced the reservation wage. Increasing pressure on workers to search raised the frequency of job offers as well as the acceptance rate.
+
+(6) Increased employment coincided with a sharp increase of wage dispersion at the lower end as measured by the 50-10 percentile ratio, for both full and part-time workers, especially in West Germany. This is consistent with evidence presented in Dustmann et al. (2014). The most pronounced declines were for low-pay, parttime workers in the West.
+
+(7) In Western Germany, changes in employment and wages across cells aggregated from individual labor market data exhibit robust negative correlation in the postHartz period. This correlation is not present for Eastern Germany as shown by Burda and Seele (2016).
+
+5.2 Interpretation
+
+Economic theory gives us several lenses with which to view and judge the German labor market miracle. A classical Marshallian perspective would simply ignore institutional detail and look for levels of wages and employment which clear the market given the technology and tastes of the German population. A Pigouvian angle stresses involuntary unemployment and the institutions which stand in the way of Marshall's outcome. A search-and-matching perspective in the sense of Diamond, Mortensen and Pissarides would stress frictions preventing willing buyers and sellers from finding each other or transacting. In this background paper, I have focused on
+
+   32 
+
+ 
+
+the first two dimensions of the labor market. These have provided ample scope for interpreting the German labor market miracle.
+
+It is easy to imagine the German labor market miracle persisting for many years to come; wage settlements exhibit a high degree of persistence and relative wages play an important role in pay determination. Workers presently prefer to use their unions to protect jobs, not increase pay. It appears more likely, however, that labor market institutions will experience mean reversion to the European norm, evident for example in the acquis communautaires of the EU treaties. German unions are presently leading a successful political pushback against the use of temporary contracts and "precarious" employment forms as a substitute for low-skill labor, imposing tenure limits and "equal treatment" after two years.20 More importantly, increases in wage inequality led politicians across the political spectrum to enact Germany's first minimum wage law, which applies to all new contracts signed after January 1, 2015, and to all workers after 2017, with few exceptions.21 It is noteworthy that the minimum wage enjoys support of 80-85% of Germans surveyed in opinion polls.22 A minimum wage of 8.50/hour represented 50%-62% of the median wage in 2011 (Kluve 2013) and is likely to induce an "accordion effect," raising wages at all quantiles of the distribution and destroying many mini-jobs and other marginal forms of employment along the way. While these measures may have salutary effects on competitiveness in the rest of Europe and intraEurozone imbalances, in the long run they are likely to raise unemployment in Germany once again in the direction of more "European" levels.
+
+                                                            20 The law has not yet been enacted, but a first draft of amendments to the regulation of temporary help was published in mid-October 2015 and would impose severe limitations on contract service labor and temporary
+agency work, for example, 18 month maximal engagement for temporary agency workers and equal pay for
+temporary agency workers after nine months. 21 Workers for whom the minimum wage does not apply include apprentices and youth without a completed
+training program, internships comprising a mandatory part of a training program, newspaper delivery and long-
+term unemployed. 22 See for example, the recent Infratest-dimap survey in February 2015 commissioned by the DGB, the German
+confederation of labor unions: http://www.dgb.de/themen/++co++02e12b02-c246-11e4-bfbe-52540023ef1a.
+
+   33 
+
+ 
+
+Appendix 1. Market clearing case
+This appendix presents a simple formalization of the labor market models presented in diagrammatic form in the main text. Labor demand and labor supply are given by continuous functions LD(W, X) and LS(W, Z,L) with standard properties. The market-clearing real wage (W) and employment (L) obtain when L=LS=LD. L denotes the total potential working-age population or potential workforce; it is not the labor force in the ILO sense, but rather the total number of potentially employable hours or persons, thus incorporating factors such as demographics, migration, and sleep requirements. Z stands for all shifts in the supply of hours at a given wage and given value ofL and incudes measures that affect the "activation" of workers presently outside the labor force, for example. Using small letters to denote logarithms of wages and employment, write log-linearized deviations from equilibrium values as
+
+ 
+
+
+
+  D
+
+ S  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+(1)
+
+w  D  S   ,  
+
+(2)
+
+where   D , S  zz and  stand respectively for (logarithmic) exogenous shifts
+in labor demand, labor supply holding potential labor supply constant, and potential labor supply respectively; and  represent elasticities of demand and supply with
+respect to the wage, and z is the elasticity of labor supply to its determinants, excludingL. The outcome is depicted in the first panel (a) of Figure 4.
+
+Define e, the employment ratio, as the ratio of employed to the exogenous total
+
+   34 
+
+ 
+
+available working population: it follows that e  L / L , so ln e  ln L  ln L     and  ln(e)    . As a first approximation, e/e  ln e = ln(1-uN)  ­uN, where uN denotes the nonemployment rate, which is the unemployment rate if unemployment reflects purely voluntary choice. It follows that for constant Z (i.e. imposing   S =0)
+
+uN  -e/e = ¯l - l = (l ­ lD )/(+ ) = - w.
+
+(4)
+
+Equation (4) implies that changes in the nonemployment rate and the wage are negatively correlated across cells or groupings of individuals of the labor market by attributes. The employment ratio and the wage are positively correlated in the marketclearing model of the labor market as long as the intensive labor supply margin is constant. Movements of this margin can, however reverse the correlation.
+
+2. Non-clearing labor market Now suppose the labor market looks like the second, and not the first panel of
+Figure 5. In this case, the change in the realized wage change w is given by a linear combination of the market outcome (2) and some exogenously given change in "wage rigidity" given by w ; if  [0,1] is the weight attached to the market clearing wage, then values of  approaching zero represents the case of increasingly inflexible wages. Now supply does not equal demand; we assume that employment and wages are determined by the short side of the market. The unemployment rate according to
+an ILO-OECD definition, uILO, is (LS-LD)/LS, or approximately S D and its change given is by S  D. 23 In contrast, the employment rate L / L in logarithms is approximately D   with changes given by D   .
+
+                                                            23 Note that u = (LS-LD)/LS = 1 ­ LD/LS so ln(LD/LS)=ln(1-u)  -u; but ln(LD/LS) = lD­ lS, so u  lS ­ lD. 
+
+   35 
+
+ 
+
+In a market with some rigidity (<1) and constant potential labor force (that is,  =0), changes in wages and employment are:
+
+w
+
+
+
+
+
+ 
+
+D
+
+
+
+
+
+ 
+
+
+
+S  (1)w
+
+(5)
+
+
+
+
+
+ D
+
+
+
+1
+
+
+
+  
+
+D
+
+
+
+  
+
+S (1)w
+
+(6)
+
+while changes in the ILO unemployment rate and the employment rate are (recalling that   0 )
+
+u
+
+ILO 
+
+ S
+
+
+
+ D
+
+
+
+1
+
+
+
+  
+
+ S
+
+
+
+1 
+
+  
+
+D (1)w
+
+(7)
+
+e
+
+/
+
+e
+
+
+
+ D
+
+
+
+
+
+
+
+1 
+
+  
+
+ D
+
+
+
+  
+
+S (1)w
+
+(8)
+
+If wage rigidities are irrelevant and wages clear the market every period (=1), involuntary unemployment and its change are zero. If wages are perfectly rigid (=0), the change in both the nonemployment rate and the unemployment rate (ILO definition) equal the sum of contributions of exogenous shifts in labor demand, labor supply and wage rigidity.
+
+Finally, since labor supply is LS(W, Z,L) and log changes of labor supply are approximated by S  S    w , the participation rate changes with   0 as
+
+p /
+
+p
+
+
+
+S
+
+
+
+  1
+ 
+
+
+
+S
+
+   
+
+D  (1)w
+
+so w  0 alone will reduce labor force participation, ceteris paribus.
+   36 
+
+ 
+
+References
+
+Antonczyk, Dirk, Bernd Fitzenberger and Katrin Sommerfeld (2011) ,,Anstieg der Lohnungleichheit, Rückgang der Tarifbindung und Polarisierung" Zeitschrift für Arbeitsmarktforschung 44:15­27.
+
+Bachmann, Ronald and Michael Burda (2008) "Sectoral Transformation, Turbulence and Labor Market Dynamics in Germany" German Economic Review 11(1): 37­59
+
+Barro, Robert (1988) "The Persistence of Unemployment" American Economic Review 78, 3237.
+
+Berman, Eli, John Bound and Zvi Griliches (1994) "Changes in the Demand for Skilled Labor Within US Manufacturing: Evidence from the Annual Survey of Manufactures," Quarterly Journal of Economics 109(2), 367-97.
+
+Boeri, Tito, Michael Burda, Lars Calmfors, Alision Booth Daniel Checchi "The Future of Collective Bargaining in Europe," Boeri, Brugiavini and Calmfors, (eds.) The Role of Unions in the Twenty-First Century Oxford: Oxford University Press, 2001.
+
+Boeri, T. and Bruecker, H. (2011), Short-time Work Benefits Revisited: some Lessons from the Great Recession, Economic Policy, Vol. 26, Nr. 68, pp. 697-765.
+
+Borjas, George (2003) "The Labor Demand Curve is Downward Sloping: Reexamining the Impact of Immigration on the Labor Markets" Quarterly Journal of Economics 118 (4): 13351374.
+
+Bound, John, and George Johnson (1992), "Changes in the Structure of Wages During the 1980s: An Evaluation of Alternative Explanations," American Economic Review, 83:371-92.
+
+Burda, Michael (1988) "Wait Unemployment in Europe," Economic Policy 7 (October 1988), 391-416.
+
+Burda, Michael, Bernd Fitzenberger, Alexander Lembke and Thorsten Vogel (2008) "Unionization, Stochastic Dominance, and Compression of the Wage Distribution: Evidence from Germany" SFB 649 Discussion Paper 2008-041, March.
+
+Burda, Michael and Stefanie Seele (2016) "Changes in the German Labor Market: The Role of Demand and Supply Factors," mimeo, February.
+
+Burda, Michael and Jennifer Hunt (2011) "What Explains Germany's Labor Market Miracle in the Great Recession?" Brookings Papers on Economic Activity 42 1 (Spring 2011), 273-335.
+
+Calmfors, Lars (1998) "Macroeconomic Policy, Wage Setting, and Employment ­ What Difference Does the EMU Make?" Oxford Review of Economic Policy 14.
+
+Calmfors, Lars and John Driffill (1988) "Bargaining Structure, Corporatism and Macroeconomic Performance", Economic Policy, No. 3, 13-61.
+
+Daveri, Francesco and Guido Tabellini (2000) "Unemployment, Growth and Taxation in Industrial Countries" Economic Policy, 15: 47-104.
+
+   37 
+
+ 
+
+Dustmann, Christian, Johannes Ludsteck, and Uta Schönberg (2009) "Revisiting the German Wage Structure" Quarterly Journal of Economics 124:843-81.
+Dustmann, Christian, Bernd Fitzenberger, Uta Schönberg and Alexandra Spitz-Oener (2014) Journal of Economic Perspectives 28:167­188.
+Ellguth, Peter, Hans-Dieter Gerner and Ines Zapf (2013) "Vielfalt und Dynamik bei den Arbeitszeitkonten" IAB-Kurzbericht 3/2013.
+Fahr, Rene und Uwe Sunde (2009) "Did the Hartz Reforms Speed-Up the Matching Process? A Macro-Evaluation Using Empirical Matching Functions," German Economic Review 12:133.
+Flanagan, Robert (1999) "Macroeconomic Performance and Collective Bargaining: An International Perspective," Journal of Economic Literature, 37: 1150­75.
+Gernandt, J. and Pfeiffer, F. (2007). Rising wage inequality in Germany, Journal of Economics and Statistics (Jahrbuecher fuer Nationaloekonomie und Statistik) 227(4): 358­380.
+Herzog-Stein, Alexander, and Hartmut Seifert. 2010. "Der Arbeitsmarkt in der Großen Rezession--Bewährte Strategien in neuen Formen." WSI-Mitteilungen 11: 551­59.
+Institut der deutschen Wirtschaft Köln (2015) ,,Die Teilzeitlüge" taken from institute webpage http://www.iwkoeln.de/infodienste/iwd/archiv/beitrag/arbeitspensum-die-teilzeitluege-220539, April 23, 2015, accessed October 7, 2015.
+Jacobi, L. and Kluve, Jochen (2007) ,,Before and after the Hartz Reforms: The Performance of Active Labour Market Policy in Germany," Zeitschrift für Arbeitsmarktforschung - Journal for Labour Market Research 40(1): 45­64.
+Juhn, Chinhui, Kevin Murphy and Brooks Pierce "Wage Inequality and the Rise in the Return to Skill" Journal of Political Economy 101: 410-442.
+Katz, Larry and Kevin Murphy (1992) "Changes in Relative Wages, 1963-1987: Supply and Demand Factors" Quarterly Journal of Economics 107: 35-78.
+Kluve, Jochen (2013) ,,Was ist der optimale Mindestlohn? So hoch wie möglich, so niedrig wie nötig," RWI Position #53, 5. November 2013
+Krugman, Paul (1994) "Past and Prospective Causes of High Unemployment", in Reducing Unemployment: Current Issues and Policy Options, proceedings of the Jackson Hole Symposium, published in Kansas City Fed Economic Review 1994:4, 49-80.
+Lindbeck, Assar and Dennis Snower (1986) "Wage Setting, Unemployment, and InsiderOutsider Relations" American Economic Review, Vol. 76:2, 235-239
+_________ (1987) "Union Activity, Unemployment Persistence and Wage-Employment Ratchets", European Economic Review 3:1, 157-l67.
+
+   38 
+
+ 
+
+Melitz, Marc (2003), "The Impact of Trade on Intra-Industry Reallocations and Aggregate Industry Productivity" Econometrica, 71, 1695­1725.
+Pigou, Arthur Cecil (1933) The Theory of Unemployment. London: Macmillan.
+Sachverständigenrat zur Begutachtung der gesamtwirtschaftlichen Entwicklung (2014) Mehr Vertrauen in Marktprozesse Jahresgutachten 2014/15. Wiesbaden: Bonifatius.
+Stops, Michael (2015). "Revisiting German labour market reform effects: a panel data analysis for occupational labour markets," Institut für Arbeitsmarkt-und Berufsforschung (IAB), Nürnberg.
+Thimann, Christian (2015) "The Microeconomic Dimensions of the Eurozone Crisis and Why European Politics Cannot Solve Them," Journal of Economic Perspectives 29 (Summer 2015) 141­164.
+Visser, Jelle (2006) "Union membership statistics in 24 countries" Monthly Labor Review (January) 38-49.
+
+   39 
+
+ 
+
+SFB 649 Discussion Paper Series 2016
+For a complete list of Discussion Papers published by the SFB 649, please visit http://sfb649.wiwi.hu-berlin.de.
+001 "Downside risk and stock returns: An empirical analysis of the long-run and short-run dynamics from the G-7 Countries" by Cathy Yi-Hsuan Chen, Thomas C. Chiang and Wolfgang Karl Härdle, January 2016.
+002 "Uncertainty and Employment Dynamics in the Euro Area and the US" by Aleksei Netsunajev and Katharina Glass, January 2016.
+003 "College Admissions with Entrance Exams: Centralized versus Decentralized" by Isa E. Hafalir, Rustamdjan Hakimov, Dorothea Kübler and Morimitsu Kurino, January 2016.
+004 "Leveraged ETF options implied volatility paradox: a statistical study" by Wolfgang Karl Härdle, Sergey Nasekin and Zhiwu Hong, February 2016.
+005 "The German Labor Market Miracle, 2003 -2015: An Assessment" by Michael C. Burda, February 2016.
+SFSBF6B4694, 9S,pSapnadnaduaeureSrtrSatßraeß1e, 1D,-D10-1107187B8eBrleinrlin htthpt:t/p/:/s/fbs6fb4694.w9.iwwiiw.hiu.h-bue-brleinrl.idne.de
+ThTishrisesreasercahrcwhawsassupsuppoprtoerdtebdybtyhethDeeDuetsucthseche ForFsocrhsuchnugnsgesgmeeminesicnhsachftatfht rtohuroguhgthhethSeFSBF6B4694"9Ec"oEnconmoimc RicisRki"s.k".
+
+

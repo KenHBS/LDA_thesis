@@ -1,0 +1,1047 @@
+BERLIN
+
+SFB 6 4 9 E C O N O M I C R I S K
+
+SFB 649 Discussion Paper 2016-009
+Solving DSGE Portfolio Choice Models with
+Asymmetric Countries
+Grzegorz R. Dlugoszek*
+* Humboldt-Universität zu Berlin, Germany This research was supported by the Deutsche Forschungsgemeinschaft through the SFB 649 "Economic Risk".
+http://sfb649.wiwi.hu-berlin.de ISSN 1860-5664
+SFB 649, Humboldt-Universität zu Berlin Spandauer Straße 1, D-10178 Berlin
+
+Solving DSGE Portfolio Choice Models with Asymmetric Countries
+Grzegorz R. Dlugoszek February 24, 2016
+Abstract This paper proposes a combination of bifurcation methods and nonlinear moving average as a tool to solve asymmetric DSGE models with portfolio choice. Its performance is compared to the workhorse routine developed by Devereux and Sutherland (2010, 2011). The proposed technique has two advantages. First, it captures the direct effect of uncertainty on portfolio holdings. Second, it reflects the presence of asymmetries by yielding risk adjusted asset positions that lie close to the ergodic mean of the global solution. In terms of Euler equation errors, the proposed method is shown to be on average at least as good as the standard approach.
+Keywords: Country Portfolios, Solution Method, Asymmetric Countries
+JEL Classification Numbers: E44, F41, G11
+Humboldt-Universitt zu Berlin, School of Business and Economics, Spandauer Strasse 1, 10178 Berlin, Email: dlugoszg@hu-berlin.de. I am grateful to Michael Burda and Julien Albertini as well as participants of research seminars at HU Berlin for useful suggestions and discussions. This research was supported by the Deutsche Forschungsgemeinschaft through the CRC 649 'Economic Risk'. Any errors are entirely my own.
+1
+
+1 Introduction
+The explosion of cross-border gross asset positions over the last two decades, documented by Lane and Milessi-Feretti (2001,2007), has drawn researchers' attention to international portfolios. Obstfeld (2007) writes
+In light of these important implications of international portfolios, it is imperative to understand how investors make asset allocation decisions for different asset classes across countries and currencies. [...] the need for such an (general equilibrium) approach has become acute as asset trade has expanded.
+Investigating portfolio choice in a general equilibrium model under the assumption of incomplete markets is challenging, as such models are associated with indeterminacy of the nonstochastic steady state.1 As a consequence, standard local approximation methods cannot be applied. Furthermore, global methods suffer from curse of dimensionality and cannot be employed in models with richer state space. In response to these problems, new solution methods have been developed.
+The workhorse routine to solve a DGSE model with portfolio choice is a method developed by Devereux and Sutherland (2010, 2011), henceforth DS. It is fast, easy to implement and can be applied to a variety of models. Rabitsch et al. (2015) show that DS performs well in comparison to a global solution, but they also find some scope for improvement in a setup with asymmetric countries. In particular, they document that 1) DS fails to capture the direct effect of uncertainty on portfolio holdings and 2) approximates the policy function around net foreign positions equal to zero, even in presence of cross-country differences. Moreover, Rabitsch et al. (2015) show that iterative procedure proposed by Deveureux and Sutherland (2009) to update net foreign position deteriorates the accuracy of approximation even further. As a result, applying DS may yield unsatisfactory results, if , for instance, the focus lies on gross capital flows between developed and emerging market countries.
+1For that reason, first theoretical papers (e.g, Cole and Obstfeld, 1991) dealing with portfolio choice in a general equilibrium setup assume complete markets
+2
+
+The aim of this paper is to improve upon the two shortcomings of DS. To this end, it proposes a combination of bifurcation methods and nonlinear moving average (Lan and Meyer-Gohde, 2013, 2014) as a tool to solve asymmetric DSGE models with portfolio choice. The use of the former allows to overcome the problem of indeterminacy of portfolio holdings whereas the latter captures risk correction terms of the approximate policy evaluated at the stochastic steady state. The proposed technique is shown to yield risk-adjusted gross and net asset positions that are in line with the solution provided by global methods. The biggest difference in simulated means of portfolio holdings accounts to 3.63 % of the mean holdings implied by the global solution. On the other hand, this figure is twice as large for DS. Furthermore, in all numerical experiments, a combination of nonlinear moving average and bifurcation performs on average at least as good as DS in terms of Euler equation errors. The biggest documented average accuracy gain is of two orders of magnitude.
+This paper builds mostly on Judd and Guu (2001) who discuss theoretical foundations of bifurcation methods and employ them to solve a partial equilibrium model with portfolio choice. I aim at extending their methods to general equilibrium models. In this regard, my work is closely related to Winant (2014). He independently developed a bifurcation-based solution method for DSGE models with portfolio choice. The main difference between this paper and Winant (2014) is the use of nonlinear moving average. In particular, I show that using standard state space methods instead can lead to highly volatile portfolios.
+Implementation of the proposed methodology is based on root-finding algorithms and fixed point iteration techniques. Therefore, this work is also related to the paper by Tille and Wincoop (2010) who utilize numerical methods to obtain an approximation to portfolio holdings. However, as their method is virtually the same as DS (the only difference being the way of implementing), it suffers from the two aforementioned drawbacks.
+The rest of the paper is organized as follows. Section 2 presents the model which is used to explain and evaluate the proposed methodology. Section 3 discusses the key elements of the proposed method and the main steps of the solution algorithm. All results are discussed
+3
+
+in section 4. Section 5 concludes.
+
+2 The Model
+This section presents the model used in the following to evaluate the proposed local approximation method. It is a version of a real two-country Lucas tree model with portfolio choice employed by Rabitsch et al. (2015). The choice of this particular model enables a direct comparison to the literature and thus speeds up the assessment of proposed method's potential to improve on existing techniques.
+
+Economic environment. It is assumed that the world consists of two countries: Home (H) and Foreign (F ). Each country is endowed with two types of income. They are labeled as 'capital income' (Y K) and 'labor income' (Y L) for convenience. Total GDP is thus simply the sum of both types of income, i.e. Yit = YiKt + YiLt , with i = {H, F } being the country index. The logarithm of country is income streams follows an autoregressive process of order one:
+
+log(YiKt ) = K log(YiKt-1) + Kit ,
+
+(1)
+
+log(YiLt ) = L log(YiLt-1) + iLt.
+
+(2)
+
+Innovations are assumed to be normally distributed and independent across countries but correlation between the shocks within a country is allowed to be non-zero, i.e. ijt  N (0, i2) and corr(jHt, jF t) = 0, with j  {K, L}. Moreover, I introduce asymmetries into the model, by assuming that foreign income stream is twice as volatile as the endowment in the home
+country.2
+Following Lan and Meyer-Gohde (2013), the model is perturbed via future shocks. Thus,
+2This assumption should capture the empirical observation that emerging market country are characterized by higher macroeconomic risk (Aguiar and Gopinath, 2007). Thus, the foreign can be viewed as a developing country.
+
+4
+
+all future shocks are scaled by the perturbation parameter  which governs the size of the uncertainty in the model.  = 0 implies a deterministic setup, whereas  = 1 refers to fully stochastic world.3
+
+Household. Country i is populated by a representative agent whose preferences are given by the following lifetime utility function:
+
+E0
+
+
+
+it
+
+Ci1t- 1-
+
+.
+
+t=0
+
+(3)
+
+Cit stands for a single good consumption and it is the endogenous discount factor, one of the mechanisms proposed by Schmitt-Groh´e and Uribe (2003) to ensure stationarity of the approximate solution under the assumption of incomplete markets. Following Devereux and Sutherland (2011), the endogenous discount factor is given by:
+
+it = ¯CAit-it-1,
+
+i0 = 1.
+
+(4)
+
+with ¯ denoting the discount factor in the deterministic steady state. Note that endogenous discount factor does not depend on the individual consumption but on the economy average (CAit). This assumption prevents the agent from internalizing the effects of her savings choice on the discount factor and thus, avoids further complications. In the equilibrium, the individual consumption is equal to the aggregate level, as there exists one representative household in each country.
+A representative household allocates its wealth between two internationally traded assets which represent claims on 'capital income' of the respective country. Because of their definition, assets can be interpreted as equity shares.
+
+3One should distinguish between  measuring the size of the uncertainty, i being the standard deviation of shocks in country i and iY denoting the resulting standard deviation of the income.
+5
+
+The budget constraint of the representative agent in country i can be written as follows:
+
+Cit + QHtiHt + QF tiFt = (QHt + YHKt)iHt + (QF t + YFKt )iFt + YiLt ,
+
+(5)
+
+where Qit denotes the price of claims on country is 'capital income' whereas iHt and iFt stand respectively for home and foreign assets holdings. Household in country i maximizes its lifetime utility subject to the budget restriction. Solving this maximization problem yields the following Euler equations:
+
+QHt = Et
+
+
+
+Cit- Cit+1
+
+(QH
+
+t+1
+
++
+
+YHKt+1)
+
+(6)
+
+QF t = Et
+
+
+
+Cit- Cit+1
+
+(QF t+1
+
++
+
+YFKt+1)
+
+(7)
+
+Market clearing. Markets clear when supply is equal to demand. This implies the following condition for the goods market:
+
+YHt + YF t = CHt + CF t.
+
+(8)
+
+The supply of each asset is normalized to unity, so that financial markets clear if
+
+HHt + FHt = 1,
+
+(9)
+
+and
+
+HF t + FFt = 1.
+
+(10)
+
+Note that, because of normalization of the asset supply to one, HHt can be interpreted as the share of home equity held by home country.
+
+6
+
+3 Solution Methods
+
+3.1 Preliminaries
+Rewriting the model This section discusses solution methods that are employed to solve the underlying model. To apply local approximation techniques, it is helpful to rewrite the model such that the gross asset positions are in zero net-supply.4 To this end, I follow Rabitsch et al. (2015), and define HHt = HHt - 1 QHt and HF t = HF tQF t as funds invested in home and foreign assets by the home country. With these definitions, the budget constraint of the home agent can be written as:
+
+CHt + HHt + HF t = RHtHHt-1 + RF tHF t-1 + YHt,
+
+(11)
+
+where
+
+Rit
+
+=
+
+Qit + YiKt Qit-1
+
+(12)
+
+is the rate of return on equity issued by country i. Similarly, market clearing conditions for
+
+financial markets are then given by:
+
+HHt = -FHt
+
+(13)
+
+HF t = -FF t
+
+(14)
+
+According to (11), consumption in the deterministic steady state depends on steady state portfolio holdings. However, as explained below, the latter cannot be pinned down in a nonstochastic environment. Thus, the budget constraint has to be rewritten once again as:
+
+CHt + N F AHt = RF tHHt-1 + RxtN F AHt-1 + YHt,
+
+(15)
+
+4See Devereux and Yetman (2010).
+
+7
+
+where
+
+N F AHt = HHt + HF t
+
+(16)
+
+stands for the net foreign assets of the home country and Rxt = RHt - RF t denotes the excess rate of return on home equity. Market clearing conditions (13) and (14) imply that N F AHt = -N F AF t. The main focus of this paper lies on portfolio holdings reflected by 's. It is sufficient to obtain a solution for HHt to determine the entire asset holdings structure in the model.5. For this reason, I simplify the notation and denote HHt as t in what follows.
+
+Equilibrium and Model Solution. The full equilibrium of the rewritten model is described by equations (6)-(7), (12), (15)-(16) for both home and foreign country, and market clearing conditions (8), (13)-(14). This gives 13 equations and 12 endogenous variables: HH, HF , FH, FF , N F AH, N F AF , QH , QF , RH, RF , CH, CF , with one equation redundant by the Walras' law. A model solution is given by a set of time-invariant policy functions mapping state variables (x) and vector of shocks () to endogenous variables (y): yt = g(xt-1, t, ). Size of uncertainty enters as a separate argument, because it has a direct effect on the policy function. Due to nonlinearities present in the model, an exact solution is not feasible and thus one must rely on approximation methods. Consider as an example the second-order approximation of policy functions around the deterministic steady state in a fully stochastic environment. It can be written as follows 6
+
+y^t =
+
+y¯
+
++
+
+Gxx^t-1
+
++
+
+Gt
+
++
+
+G
+
++
+
+1 2
+
+G2
+
++
+
+1 2
+
+Gxxx^t-1
+
+
+
+x^t-1
+
++
+
+Gxx^t-1
+
+
+
+t
+
++
+
+1 2 Gt
+
+
+
+t,
+
+0-order
+
+1st-order
+
+2nd-order
+
+(17)
+
+5All other 's can be computed via clearing conditions for the financial markets and definition of home net foreign assets
+6All terms being equal to zero have been omitted from (17). However, first order risk adjustment term G is still present, despite being zero for all non-portfolio variables (certainty equivalence of first order approximations), as it is ex-ante not clear whether it is zero for portfolio holdings () as well.
+
+8
+
+where
+
+x^t
+
+=
+
+[Y^HKt, Y^HLt, Y^FKt , Y^FLt, N F^ AHt, Q^Ht, Q^F t],
+
+with
+
+N F^ AHt
+
+=
+
+N F AHt ¯Y¯
+
+and
+
+a
+
+hat
+
+over
+
+remaining variables denoting the log-deviation from the deterministic steady state. In the
+
+following, I discuss how one can pin down coefficients (G's) of the above approximation.
+
+3.2 Failure of Regular Perturbation Techniques
+Standard local approximation methods are based on the Taylor Approximation and the Implicit Function Theorem for Rn.
+Theorem (Implicit Function Theorem, Judd 1998). If F (x~, y): Rn × Rm  Rm is Ck, F (x~0, y0) = 0, and Fy(x~0, y0) is not singular, then there is a unique Ck function, g: Rn  Rm such that y0 = g(x~0) and for every x~ near x~0, F (x~, g(x~)) = 0. Furthermore, the derivatives of g can be computed by implicit differentiation of the identity F (x~, g(x~)) = 0.
+In the underlying framework, the F -function stands for the system of equations describing the equilibrium whereas x~ = [x, ] and y refers again to the vector of endogenous variables. (x~0, y0) is the deterministic steady state. Solving the underlying model with perturbation methods involves two difficulties. First, risk is completely eliminated in the deterministic steady state. As the two assets differ only in their risk characteristics, they become then perfect substitutes and yield the same rate of return. This can be seen by investigating the Euler equations (6) and (7). They imply that R¯H = R¯F , with bar over a variable standing for its steady state value. As a consequence, countries' gross asset positions cannot be uniquely pinned down in the nonstochastic steady state. This, in turn, implies that the Jacobian of the system is singular and the IFT cannot be applied. Second, even if the indeterminacy of the approximation point is somehow resolved, first order approximation is not sufficient to determine the dynamics of portfolio holdings. First order approximation of the Euler equation implies:
+
+Et R^Ht+1 = Et R^F t+1 . 9
+
+(18)
+
+Thus, up to first order all assets have the same expected rate of return and portfolio holdings are again indeterminate.7 As a result, higher order perturbations are necessary to obtain approximate dynamics of portfolio holdings.
+
+3.3 Devereux Sutherland Method
+Devereux and Sutherland (2010, 2011) propose a method that aims at overcoming the problem of indeterminacy of portfolio holdings. In particular, they look for the following approximation of the portfolio solution:
+
+t = ¯ + G~xx^t
+
+(19)
+
+with '' reflecting the fact that the coefficient measures the dependence on current values of state variables.8 The main idea is to solve for the N-th order component of portfolio holdings together with (N+1)-th approximation of non-portfolio variables. To this end, Devereux and Sutherland (2010, 2011) decompose the model into 'portfolio equation' and 'macroeconomic part'. The 'portfolio equation' can be obtained by combining the Euler equations as:
+
+Et CH-t+1 - CF-t+1 (RHt+1 - RF t+1) = 0.
+
+(20)
+
+In the 'macroeconomic part' of the model, portfolio holdings appear only in the budget constraints (15) and are multiplied by the excess return. Since the expected excess return is zero up to first order, one can eliminate the respective component portfolio holdings by introducing an auxiliary wealth shock. The 'macroeconomic part' can be then solved given this shock. This approximate solution is in turn used to build an approximation of portfolio holdings. In general, portfolio equation needs to be approximated up to order N+2, whereas
+7This is an implication of the 'certainty equivalence' of first order approximation (see Schmitt-Grohe and Uribe, 2004).
+8It does not matter whether the approximate solution links portfolio holdings to the current or past values of states, as both representations are equivalent. (19) follows the convention of DS.
+10
+
+the 'macroeconomic part' to the (N+1)-th order, to be able to pin down the Nth order component of portfolio holdings.
+
+3.4 Bifurcation Methods
+Standard perturbation methods cannot be employed to solve DSGE models with portfolio choice, as there are infinitely many optimal portfolio holdings if the risk is eliminated (i.e.  = 0). However, as long as some uncertainty is present, there is one unique solution, given that standard regulatory conditions are fulfilled (concavity of the objective function etc.). This change in the number of solutions, as the perturbation parameter varies, is an example of a 'bifurcation'.
+
+Definition (Bifurcation, Guu and Judd 2001). Suppose that H(y, ) is C2 and y() is implicitly defined by H(y(), ) = 0. One way to view equation H(y, ) = 0 is that for each  it defines a collection of y that solves it. Bifurcation occurs if number of such y changes as we change .
+
+Bifurcation problems can be tackled by employing bifurcation theory. In the following, I lay down its two building blocks.
+
+Definition (Bifurcation Point, Zeidler 1978). (y0, 0) is a bifurcation point of H iff the number of solutions y to H(y, ) changes as  passes through 0, and there are at least two distinct parametric paths (yA,n, A,n) and (yB,n, B,n) which converge to (y0, 0) as n  .
+
+Theorem (Bifurcation Theorem for Rn ). Suppose H: Rn × R  Rn, H is analytic for
+
+(y, ) in a neighborhood of (y0, 0), and H(y, 0) = 0 for all y  Rn. Furthermore suppose
+
+that
+
+Hy(y0, 0) = 0n×n
+
+H(y0, 0) = 0n
+
+det (Hy(y0, 0)) = 0
+
+.
+
+11
+
+Then (y0, 0) is a bifurcation point and there is an open neighborhood N of (y0, 0) and a function h(): R  Rn, such that h is analytic and H(h(), ) = 0 for (h(), )  N.
+Proof. See Appendix A.
+The bifurcation theorem cannot be directly applied to DSGE models with portfolio choice, because it requires that all endogenous variables are indeterminate at the approximation point (zero-Jacobian condition). This is true only for portfolio holdings, whereas all nonportfolio variables are pinned uniquely in the deteministic steady state. To solve this problem, I follow Devereux and Sutherland (2010, 2011) and decompose the model into 'portfolio equation' (20) and the 'macroeconomic part'.9 Given portfolio holdings t-1, a solution to the real part of the model can be obtained. This can then be exploited to express 'portfolio equation' in terms of portfolio holdings, perturbation parameter, shocks and state variables of the model:
+
+E e - et -C^Ht+1(x^t,t,t+1,) -C^F t+1(x^t,t,t+1,)
+
+e - eR^Ht+1(x^t,t,t+1,)
+
+R^F t+1(x^t,t,t+1,)
+
+=0
+
+(21)
+
+The left hand side of equation (21) fulfills all requirements and thus, it represents the H-
+
+function in the bifurcation theorem. 10
+
+The intuition behind the bifurcation theorem can be understood as follows. The original
+
+function H, characterized by a singular Jacobian in a nonstochastic environment, is replaced
+
+by some other function, H~ . Given that  = 0, this new function has a zero at bifurcation
+
+point of H. Moreover, since the indeterminacy issue does not apply to H~ , the IFT can be
+
+employed
+
+again.
+
+In
+
+the
+
+context
+
+of
+
+a
+
+DSGE
+
+model,
+
+it
+
+can
+
+be
+
+shown
+
+that
+
+H~
+
+=
+
+H 2
+
+.
+
+In the following, I will explain how to use the bifurcation theory to compute first order
+
+9This is also the approach adopted by Winant (2014) 10Note that the 'portfolio equation' is a scalar-valued expression, as it is sufficient to determine  in order to pin down all gross asset holdings. Therefore a scalar-version of the bifurcation theorem is applied.
+12
+
+approximation to the optimal portfolio holdings:
+
+t = ¯ + G~ + G~xx^t
+
+(22)
+
+Computing the bifurcation portfolio According to the bifurcation theorem, zeroorder portfolio holdings (¯) satisfy the following condition:
+
+H¯ := H|=0,x^t=0 = -2(GR H - GRF )(GCH  - GC F ) = 0
+
+(23)
+
+where G denotes vector of coefficients measuring the dependence on current shocks,  stands for variance-covariance matrix of the underlying shock process, and  refers to a transpose. Thus, to compute (23), one requires first order approximation of the non-portfolio variables. This depends in turn on zero-order portfolio holdings. To solve the resulting rootfinding problem standard nonlinear solvers can be applied. The iterative procedure can be summarized as follows:
+Algorithm 1. Computing the Bifurcation Portfolio
+1. Select an error tolerance  for the stopping criterion and an initial guess for ¯.
+2. Solve the 'macroeconomic part' of the model conditional on the guess.
+3. Use results from step 2 to evaluate (23). 4. Check stopping criterion: if |H¯| < , the guessed value of ¯ represents the bifurcation
+portfolio. Otherwise, update the guess (according to the numerical procedure used) and go back to step 2.
+Equation (23) coincides with the condition characterizing steady state portfolio holdings computed with DS.11 Thus, I provide a formal proof that DS always yield bifurcation point as steady state portfolio holdings.
+11See Devereux and Sutherland (2010), p. 1331, equation (21).
+13
+
+Computing first-order coefficients. Bifurcation theorem implies that first order coefficients of the approximate policy function for portfolio holdings can be computed as follows:
+
+G~ 
+
+=
+
+- 31
+
+H¯  H¯ 
+
+(24)
+
+G~ x
+
+=
+
+-
+
+H¯ x H¯ 
+
+(25)
+
+To evaluate (24) and (25), second order approximation of non-portfolio variables is neces-
+
+sary.12 These depend in turn on first order dynamics of portfolio holdings. Therefore, the
+
+problem at hand takes again a form of a fixed point search and can be solved by applying
+
+the following algorithm:
+
+Algorithm 2. Computing First Order Components of Portfolio Holdings
+1. Select an error tolerance  for the stopping criterion and an initial guess for G~(0) and G~x (0).
+2. Solve the 'macroeconomic part' of the model conditional on the guess G~(k) and G~x(k), where k is the iteration index.
+3. Use results from step 2 to compute (23) and (24): G~(k + 1) and G~x(k + 1) .
+4. Check the stopping criterion: if p(k + 1) - p(k) <  (1 + p(k) ) with p := [G~, G~x], a fixed point has been reached. Otherwise update the guess and go back to step 2.
+
+This procedure can be easily extended to pin down coefficients of higher order approximations of portfolio holdings.
+
+3.5 The Role of the Nonlinear Moving Average.
+The analysis so far highlights the need for an approximation of non-portfolio variables to evaluate required derivatives of the 'portfolio equation'. This can be obtained with standard
+12See Appendix B for expressions of respective derivatives of the portfolio equation.
+14
+
+state space methods (see e.g. Jin and Judd 2002) or with nonlinear moving average developed by Lan and Meyer-Gohde (2013). The latter represents a direct mapping of the history of shocks to endogenous variables, i.e., yt = yNLMA(, t, t-1, ..). The corresponding M-th order Taylor approximation can be written as:
+
+yt =
+
+M
+
+1 m!
+
+
+
+
+...
+
+m=0
+
+i1=0 i2=0 im=0
+
+M -m
+
+1 n!
+
+yn
+
+i1
+
+i2
+
+...im
+
+
+
+n
+
+n=0
+
+(t-i1  t-i2 ...  t-im )
+
+(26)
+
+Lan and Meyer-Gohde (2014) show that (26) can be represented recursively in the endogenous variables. This representation corresponds to policy function obtained with state space methods. However, nonlinear moving average still differs from state space representation in its correction for risk. In particular, it evaluates the risk adjustment terms at (an approximation to) the stochastic steady state. As an example, consider constant risk correction terms. Note that they can be used to directly compute an approximation to the stochastic steady state, defined as a fixed point in the presence of risk ( = 1), but in absence of shocks t = 0 (Meyer-Gohde, 2014). Setting history of the shocks to zero yields the following expression for the stochastic steady state:13
+
+y¯stoch  y¯ +
+
+M
+
+1 m! ym
+
+m=0
+
+(27)
+
+On the other hand, standard state space methods deliver risk adjustment terms evaluated at the deterministic steady state. Therefore, solving for an approximation of the stochastic steady by using state space representation is not as straightforward as in case of nonlinear moving average (see Juillard 2011 and Coeurdacier et al. 2011 )
+An additional advantage the nonlinear moving average is the fact that it is automatically pruned (Lan and Meyer-Gohde, 2014). As a result, an explosive behavior of the model is
+
+13This paper works mainly with second order approximations. Lan and Meyer-Gohde (2014) show that up to second order the difference between nonlinear moving average and standard state space methods vanishes asymptotically as the two methods differ only in the constant risk correction terms. However, this result does not carry over to higher orders of approximation.
+15
+
+ruled out. In the following, I distinguish between bifurcation used together with state space approach
+(henceforth BIF ) and a combination of bifurcation methods and nonlinear moving average (henceforth: BIFN ).
+4 Results
+This section evaluates three perturbation methods: DS, BIF and BIFN. For the sake of comparability, solutions obtained under DS and BIF are pruned. The main focus of the comparison lies on capturing risk characteristics of the model as well as their economic and numerical implications. However, I firstly want to investigate whether BIF and BIFN lead to different implications regarding first order dynamics of portfolio holdings (reflected by G~x) in absence of the direct effect of uncertainty.
+4.1 Calibration
+In all numerical exercises, I employ calibration used by Rabitsch et al. (2015). This allows me to use their global solution14 as a benchmark for evaluating accuracy of the proposed technique. Table 1 reports chosen parameter values. Almost all of them are commonly used in macroeconomic literature. The only exception is consumption elasticity of the endogenous discount factor which is set to 0.001, whereas the standard choice is 0.022 (Mendoza 1991, Schmitt-Grohe and Uribe 2003). Small value of  aims at minimizing the effect of this stationarity-inducing device on the predictions of the model.15
+4.2 First Order Dynamics
+Since the computation of bifurcation portfolio requires only first order approximation of non-portfolio variables of the model, all three methods yield the same result. However,
+14Rabitsch et al. (2015) use time iteration spline collocation algorithm to solve the model globally. 15See Rabitsch et al. (2015) for a more detailed discussion
+16
+
+Table 1: Calibration
+
+Parameter
+
+Value
+
+Discount factor in deterministic steady state Elasticity of the endogenous discount factor Risk aversion
+Capital income share Persistence Volatility of output in Home Volatility of output in Foreign Correlation
+
+¯
+
+
+Y¯K Y¯
+
+YK , YL YK , YL corr(YK, YL)
+
+0.95 0.001
+2
+0.3 0.8 0.02 0.04 0.2
+
+there exists a difference in implied first order dynamics of optimal portfolio holdings between BIF on the one side, and DS and BIFN on the other. In all numerical experiments, BIFN always yields the same first order dynamics as DS. On the other hand, portfolio holdings implied by BIF are more volatile with standard deviation increasing in the nonlinearities (higher values for ) of the model. Figure 1 reports first order accurate share of home equity held by domestic agent (HH ) in the ergodic set for home net foreign assets, given that all other state variables take their steady state values. Policy function under DS and BIFN are indistinguishable, whereas BIF predicts more variation of asset holdings. Figure 2 shows that higher volatility under BIF is not only a short-run outcome but is also reflected in the 'ergodic distribution' of HH which is obtained by simulating 10 million periods. Compared to the other two methods, BIF implies a standard deviation that is 4 times higher: 0.578 in contrast to 0.14.
+The difference in first order dynamics of portfolio holdings is caused by risk adjustment of the excess rate of return used to evaluate derivatives of the 'portfolio equation'.16 This result provides an additional evidence in support of DS by showing that it correctly captures the indirect effect of uncertainty on portfolio holdings, i.e., the effect of the uncertainty through the excess rate of return.17
+16Risk correction under state space methods is larger by two orders of magnitude 17DS does not require an explicit inclusion of the constant second-order risk correction terms in the com-
+17
+
+Share of Home Equity owned by the Home Country
+
+Figure 1: First Order Accurate Share of Home Equity owned by Home Country. Policy functions are depicted for the ergodic set of the home NFA implied by DS. Ergodic set is defined as an interval covering 95 % of the probability mass of the underlying distribution. It is determined by simulating 1 million periods and subsequently discretized by 1001 equidistant grid points.
+3 BIFN
+2.5 DS BIF
+2 Deterministic Steady State 1.5
+1 0.5
+0 -0.5
+-1 -1.5
+-2 -5 -4 -3 -2 -1 0 1 2 3 4 5
+Home NFA in t-1
+Figure 2: Ergodic Distribution of the Share of Home Equity owned by Home Country. A proxy for the ergodic distribution is obtained by simulating 10 million of periods.
+BIFN DS BIF
+-2 -1.5 -1 -0.5 0 0.5 1 1.5 2 2.5
+Home Equity Share
+18
+
+Perturbation Parameter
+
+Figure 3: Risk Adjusted Portfolio Holdings.  = 0 corresponds to the deterministic steady state whereas  = 1 denotes fully stochastic environment. Ergodic mean of the global solution is taken from Rabitsch et al. (2015)
+Asset Holdings BIFN Asset Holdings BIF Bifurcation Point 1 Stochastic Steady State Ergodic Mean of the Global Solution 0.8
+0.6
+0.4
+0.2
+0
+0.235 0.24 0.245 0.25 0.255 0.26 0.265 0.27
+Home Equity Share
+4.3 The Direct Effect of the Uncertainty on Portfolio Holdings
+One of the drawback of the DS highlighted by Rabitsch et al. (2015) is the fact that it fails to capture the direct effect of uncertainty on gross asset positions. By comparing (19) with (22) one can see that the former does not include the coefficient G~. The question arises whether this term makes an economic difference, as well as, whether its omission deteriorates the accuracy of the approximation. I show that under the normality of the underlying shock structure, this term is equal to zero, as it depends solely on the skewness of the underlying shock process.1819 This result can be seen as an extension of the 'uncertainty equivalence' of the first order approximations documented by Schmitt-Grohe and Uribe (2004). However, the question still remains whether higher order risk adjustment terms may improve the quality of local approximation. To tackle this question, I extend the first order approximation
+putation of first-order portfolio dynamics, as they are eliminated through clever substitution. See Devereux and Sutherland (2010), p. 1334. It turns out that this substitution still allows for correctly capturing indirect risk effects.
+18See Appendix B for a formal proof. 19Guu and Judd (2001) obtain a similar result in a partial equilibrium model.
+19
+
+Figure 4: Ergodic Distributions with Second-Order Risk Correction
+BIFN DS BIF
+
+-2 -1.5 -1 -0.5 0 0.5 1 1.5 2 2.5
+Home Equity Share
+BIFN DS BIF
+
+-0.5 0 0.5 1 1.5 2
+Foreign Equity Share
+
+of portfolio holdings (22) by including second-order risk adjustment term:20
+
+t
+
+=
+
+¯
+
++
+
+G~x x^t
+
++
+
+1 2
+
+G~ 
+
+(28)
+
+G~ is in general not equal to zero and its value depends on whether it is evaluated at the deterministic steady state or at (an approximation to) the stochastic steady state. Figure 3 compares risk adjusted portfolio holdings for a particular size of the uncertainty, given that all state variables take their steady state values. The ergodic mean of the global solution, reported by Rabitsch et al. (2015), is used as a benchmark. As the size of uncertainty goes asymptotically to zero and the bifurcation point is reached, home representative agent holds 26.7 % of home equity. This foreign equity bias is caused by the positive correlation between domestic 'labor' and 'capital income'. According to Figure 3, BIFN correctly captures the
+
+20Note that x^t still denotes to first-order approximate log-deviation of state variables from the deterministic steady state.
+20
+
+Table 2: Risky NFA Positions. The ergodic mean of the global solution (GS) is taken from Rabitsch et al. (2015). The value for NFA implied by the iterative DS procedure is taken from its working paper version. Entries for BIF and BIFN represent second order risk correction terms.
+
+Ergodic Mean of GS BIFN BIF DS plus Updating
+
+-0.168
+
+-0.2857 1.3021e-4
+
+-6.19
+
+sign of the direct effect of uncertainty. Since the foreign country is subject to more volatile shocks, its precautionary motive is stronger and thus, its long position in the home equity becomes larger as  increases. On the other hand, BIF fails to capture this effect, as it predicts that home country raises its holdings of the domestic equity.
+The second-order accurate effect of uncertainty on the ergodic distribution of asset holdings is visualized by Figure 4. Due to the stronger precautionary motive in the foreign country, the distribution under BIFN is slightly shifted to the left, compared to DS.
+
+4.4 Non-zero Net Foreign Asset Positions
+Another issue raised by Rabitsch et al. (2015) refers to the fact, that the approximation of an asymmetric two-country model is still started at zero net foreign assets, although the presence of asymmetries implies most likely non-zero positions. Alternatively, Devereux and Sutherland (2009) propose an iterative procedure to update the value for net foreign assets at the approximation point. However, Rabitsch et al. (2015) show that this procedure reduces the accuracy of the local approximation. In the following, I investigate whether BIFN can yield correctly risk adjusted net foreign assets. In particular, I propose to start with net position equal to zero and let model's risk characteristics endogenously determine the risk adjusted net foreign assets as a starting point for the approximation.
+Table 2 gives the risk adjusted net asset positions implied by different methods. The ergodic mean of the global solution reported by Rabitsch et al. (2015) is used again as a benchmark. Mean net foreign liabilities of the home country under global solution represent
+
+21
+
+16.8 % of steady state domestic output.21 BIFN correctly captures the sign of the effect of uncertainty and predicts a negative home net foreign asset position caused by a higher precautionary motive in the foreign country. On the other hand, BIF yields slightly positive net assets. However, as already mentioned, this difference between BIF and BIFN vanishes asymptotically as the constant risk correction under the former transits deterministically to the second-order accurate stochastic steady state (see Lan and Meyer-Gohde, 2014). Nevertheless, in short-run simulations, constant risk correction terms still differ.
+According to DS with an updating procedure, home country's debt adds up to 619 % of the steady state output. Thus, the iterative algorithm yields a net foreign positions that are far away from the ergodic mean of the global solution.
+
+4.5 Performance Evaluation
+The analysis so far shows that BIFN can capture second-order accurate direct effects of the size of uncertainty on both net and gross asset positions. In the following, I investigate whether capturing these effects improves the quality of the approximation. To this end, I compare ergodic moments implied by the different methods and conduct the Euler equation error test to measure their accuracy.
+
+4.5.1 Simulated Moments
+
+This section reports the ergodic moments of gross and net asset holdings implied by the three perturbation methods. As in a case of previous sections, the global solution, reported by Rabitsch et al. (2015), is used as a benchmark.
+To obtain the moments of local approximation techniques, the model is simulated 10 times. Each simulation contains 10 million observations. Table 4 reports the results of this exercise. All three methods imply mean and standard deviation of net foreign assets that are close to the moments of the global solution. This outcome is driven by the asymptotic
+
+21Steady state output is normalized to 1.
+
+22
+
+Table 3: Ergodic Moments. Mean and standard deviation of the global solution are taken from Rabitsch et al. (2015). To obtain moments of the local approximation methods, the model is simulated ten times. Each simulation consists of 10 million periods.
+
+GS BIFN BIF
+
+DS
+
+mean st. dev. mean st. dev. mean st. dev. mean st. dev.
+
+NFA -0.168 1.11 -0.1697 1.15569 -0.1686 1.2334 -0.1696 1.1569
+
+hh 0.248 0.13 0.239 0.1379 0.2656 0.5622 0.2645 0.1379 hf 0.723 0.066 0.7278 0.0701 0.7346 0.3598 0.7357 0.0701
+
+equivalence of constant risk terms given by nonlinear moving average and state space methods. However, there exist some differences regarding gross asset holdings. First, as already discussed, equity holdings (both home and foreign) of home country implied by BIF are characterized by high volatility. The standard deviation of home equity share is almost 5 times greater than predicted by the global solution. On the other hand, DS and BIFN yield the same second moments for both gross positions. Second, the mean of portfolio holdings under BIFN is in line with predictions of the global solution. The deviation of home equity share accounts to 3.63 % of the mean holdings implied by the global solution. On the other hand, this figure is twice as large for DS.
+
+4.5.2 Euler Equation Error Test
+
+Previous sections document that the difference between investigated methods lies in capturing the risk adjustment terms of portfolio holdings. In the underlying model, there is no Euler Equation embedding asset positions explicitly. Therefore, I use Pseudo Euler Errors, proposed by Kazimov (2012), to measure the accuracy of local approximations. In particular, I directly introduce assets into home Euler equations as follows:
+
+N F At = Et
+
+(CHt)
+
+CHt CHt+1
+
+
+
+(RHt+1t + RF t+1(N F At - t))
+
+(29)
+
+23
+
+Figure 5: Euler Equation Errors Euler Equation Errors are computed within respective ergodic sets under DS. All other state variables always take their steady state values. Each ergodic set is determined by simulating 1 million periods and subsequently discretized by 1001 equidistant grid points.
+
+Euler Equation Errors
+
+Euler Equation Errors
+
+0
+BIFN -0.5 DS pruned
+BIF pruned -1 Det. StSt
+Stoch. StSt
+-1.5
+
+-2
+
+-2.5
+
+-3
+
+-3.5
+
+-4
+
+-4.5
+
+-5 -0.1 -0.08 -0.06 -0.04 -0.02 0
+
+0.02 0.04 0.06 0.08
+
+YKH in t-1
+
+0.1
+
+(a) Home 'Capital Income'
+
+-1.5 BIFN DS pruned
+-2 BIF pruned Det. StSt Stoch. StSt
+-2.5
+-3
+-3.5
+-4
+-4.5
+-5 -4 -3 -2 -1 0 1 2 3 4 Home NFA in t-1
+(b) Home NFA
+
+-1 -1.5
+-2 -2.5
+-3 -3.5
+-4 -4.5
+-5 1.6
+
+BIFN DS pruned BIF pruned Det. StSt Stoch. StSt
+
+1.65 1.7 1.75 1.8 1.85 QH in t-1
+(c) Price of Home Equity
+24
+
+1.9
+
+Euler Equation Errors
+
+Table 4: Average Euler Equation Errors
+DS BIF BIFN YKH -2.6525 -2.6531 -4.4574 NFA -4.3950 -4.4158 -4.327 QH -3.6411 -3.642 ­3.6718
+
+N F At = Et
+
+(CF t)
+
+CF t CF t+1
+
+
+
+(RHt+1t + RF t+1(N F At - t))
+
+(30)
+
+Equations (29) and (30) can be interpreted as home and foreign agent's portfolio Euler
+
+equation. The underlying idea is that rate of return on optimally constructed portfolio must
+
+obey similar restrictions as individual asset returns. In the following, I use the common
+
+logarithm of the absolute value of approximation errors as a measure of accuracy. According
+
+to this definition an Euler equation error of -3 implies one dollar error for every thousand
+
+dollars spent. In order to obtain a scalar measure of accuracy, I average the errors associated
+
+with (29) and (30).
+
+Figure 5 evaluates the performance of local approximations within the ergodic set (under
+
+DS) of home capital income, home net foreign asset and price of home equity, respectively.
+
+All other state variables always take their steady state values. According to the figure, BIFN
+
+performs uniformly better over the entire ergodic set of home 'capital income', with maximal
+
+improvement being 4 orders of magnitude. On the other hand, the evidence is mixed for
+
+net foreign assets and price of home equity. Compared to DS and BIF, the pattern of Euler
+
+equation errors under BIFN is shifted to the right. As a result, the latter performs better
+
+in the immediate neighborhood of the second order approximation to the stochastic steady
+
+state. However, there exists also a subset where BIF and DS are associated with lower
+
+approximation errors. Table 3 shows that in case of net foreign assets and price of home
+
+equity, all three methods perform similarly on average. In case of the home 'capital income',
+
+BIFN leads to a significant improvement.
+
+Figure 6 (see appendix 3) depicts relative Euler equation errors associated with BIFN,
+
+25
+
+based on a two-dimensional grid (home NFA and 'capital income'). Relative Euler errors are defined as the difference between absolute values of errors under DS and BIFN. Negative values indicate areas in which the latter method performs better. This is the case for negative net foreign assets, whereas the opposite holds for DS. Both methods perform similarly on average, with BIFN yielding a slight improvement: -4.3245, in contrast to -4.2349.
+5 Conclusion
+I propose a combination of bifurcation methods and nonlinear moving average (BIFN ) as a technique to solve asymmetric DSGE models with portfolio choice. The use of the former allows to overcome the problem of indeterminacy of portfolio holdings, whereas the latter captures risk correction terms of the approximate policy evaluated at the stochastic steady state.
+The main advantage of the proposed method is the fact that it correctly captures the direct effect of uncertainty on both, gross and net asset holdings. This is reflected in the starting point for the approximation as well as in ergodic moments of the implied distributions. Moreover, BIFN performs on average at least as good as the workhorse routine developed by Devereux and Sutherland (2010, 2011) in terms of Euler equation errors. The biggest documented average accuracy gain is of two orders of magnitude.
+One possible extension of this paper is to introduce, both, risk shocks and recursive preferences into the model.22 This exercise will allow to evaluate BIFN in a setup where risk has a stronger impact on agents' decision. In such a framework, correctly captured risk correction terms may result in greater improvement in terms of quality of the approximation.
+
+22See, e.g, Caldara et al. (2012).
+
+26
+
+References
+Aruoba, S.B., Ferna´ndez-Villaverde, J., Rubio-Ram´irez, J. (2006). Comparing Solution Methods for Dynamic Equilibrium Economies. Journal of Economic Dynamics and Control, 30(12), 2477-2508.
+Aguiar, M., Gopinath, G. (2007). Emerging market business cycles: the cycle is the trend. Journal of Political Economy 115 (1), 69-102.
+Caldara, D., Ferna´ndez-Villaverde, J., Rubio-Ram´irez, J., and Yao, W. (2012). Computing DSGE Models with Recursive Preferences and Stochastic Volatility. Review of Economic Dynamics, 15(2), 188-206.
+Coeurdacier, N., Rey, H., and Winant, P. (2011) The Risky Steady State. American Economic Review, 101(3), 398-401.
+Cole, H. L. and Obstfeld, M. (1991). Commodity trade and international risk sharing: How much do financial markets matter. Journal of Monetary Economics, 28(1), 3-24.
+Devereux, M., B., and Sutherland, A. (2009)."A portfolio model of capital flows to emerging markets," Journal of Development Economics, vol. 89(2), pages 181-193.
+Devereux, M. B. and Sutherland, A. (2010). Country portfolio dynamics. Journal of Economic Dynamics and Control, 34, 1325-1342.
+Devereux, M. B. and Sutherland, A. (2011). Country Portfolios in Open Economy Macro Models. Journal of European Economics Association, 2011, 9(2), 337-369.
+Devereux, M. B. and Yetman, J. (2010). Leverage Constraints and the International Transmission of Shocks. Journal of Money, Credit and Banking, 42(6)
+Evans, M. D. and Hnatkowska, V. V. (2008). A Method for Solving General Equilibrium Models with Incomplete Markets and Many Financial Assets. Unpublished.
+Guu S., Judd, K.L. (2001). Asymptotic methods for asset market equilibrium analysis. Economic Theory, 18, 127157.
+27
+
+Jin, H.-H. and Judd, K. L. (2002). Perturbation methods for general dynamic stochastic models. Manuscript, Stanford University.
+Judd, K. L. (1998). Numerical Methods in Economics. MIT Press.
+Juillard M. (2011). Local approximation of DSGE models around the risky steady state. Department of Communication, University of Teramo.
+Kazimov, K. (2010). Comparing Methods for Solving General Equilibrium Models with Incomplete Markets and Portfolio Choice.Georgetown University manuscript.
+Lan, H., and Meyer-Gohde, A. (2013). Solving DSGE models with a nonlinear moving average. Journal of Economic Dynamics and Control 37.12: 2643-2667.
+Lan, H., and Meyer-Gohde, A. (2014). Pruning in Perturbation DSGE Models. Mimeo.
+Lane, P. R. and Milesi-Ferretti,G. M. (2001). The External Wealth of Nations: Measures of Foreign Assets and Liabilities for Industrial and Developing Countries. Journal of International Economics, 55, 263-94.
+Lane, P. R. and Milesi-Ferretti, G.M. (2007). The External Wealth of Nations Mark II: Revised and Extended Estimates of Foreign Assets and Liabilities, 1970-2004. Journal of International Economics, 73 (2), 223-250.
+Meyer-Gohde, A. (2014). Risky Linear Approximations. SFB 649 Discussion Papers.
+Obstfeld ,M. 2007. International Risk Sharing and the Costs of Trade. The Ohlin Lectures.
+Rabitsch, K., Stepanchuk, S., 2014. A two period model with portfolio choice: understanding results from different solution methods. Economic Letters 124 (2), 239-242.
+Rabitsch, K., Stepanchuk, S. and Tsyrennikov, V. (2015). International Portfolios: A comparison of Solution Methods. Journal of International Economics,
+Samuelson, P. (1970) .The fundamental approximation theorem of portfolio analysis in terms of means, variances and higher moments. Review of Economic Studies 37, 537-542.
+28
+
+Schmitt-Groh´e, S. and Uribe, M. (2003). Closing small open economy models. Journal of International Economics, 61, 163-185. Schmitt-Groh´e, S. and Uribe, M. (2004) Solving Dynamic General Equilibrium Models Using a Second-Order Approximation to the Policy Function. Journal of Economic Dynamics and Control, vol. 28, January 2004, pp. 755-775. Stepanchuk, S., Tsyrennikov, V. (2015). Portfolio and welfare consequences of debt market dominance. Journal of Monetary Economics 74, 89-101. Tille, C. and van Wincoop, E. (2010). International capital flows. Journal of International Economics, 80, 157-175. Winant, P. (2014). Dynamic Portfolios in DSGE Models. mimeo. Zeidler, E. (1986). Nonlinear functional analysis and its applications: Volume 1. Springer Verlag.
+29
+
+Appendix
+A. Proof of the Bifurcation Theorem
+Proof. The bifurcation theorem can be proven by dividing the H-function by its singularity (See Zeidler, 1986, and Guu and Judd, 2001). Define the following function H~ :
+
+
+
+ H(y,)
+
+H~ (y, ) =
+
+2
+
+if  = 0 .
+
+
+
+ 2 H (y,) ()2
+
+if
+
+=0
+
+Since H is analytic, and H(y, ) = 0 for all y, it follows that H(y, ) = H~ (y, )2 and H~ is analytic in (y,). Implicit differentiation yields:
+
+H|=0 = H~ |=0 = 0 H~y|=0 = Hy |=0 = 0
+
+(31) (32)
+
+Therefore, to obtain a root of H~ |=0,H|=0 must be set equal to zero. Moreover, IFT can be applied to H~ if and only if Hy|=0 = 0.
+
+30
+
+B. Computing First Order Coefficients of Portfolio Holdings
+Let H(, x, ) refer to the 'portfolio equation'.23 According to the bifurcation theorem:
+
+H(, x, ) = H~ (, x, )2
+
+(33)
+
+To obtain a policy function for portfolio holdings, H~ = 0 has to be solved. This equation
+
+can be written as:
+
+H~ ((x, ), x, ) = 0
+
+(34)
+
+Implicit differentiation yields:
+
+x
+
+=
+
+H~¯x H~¯
+
+(35)
+
+
+
+=
+
+H~¯ H¯~ 
+
+(36)
+
+To find the corresponding derivatives of the portfolio equation, I implicitly differentiate
+
+(33).
+
+As a result, the following relationship is obtained:
+
+H¯~
+
+=
+
+1 3
+
+H¯ 
+
+,
+
+H~¯
+
+=
+
+H¯  ,
+
+and
+
+H~¯ = H¯. Inserting these expressions into (35) and (36) yields (24) and (25).
+
+Finally, evaluating the respective derivatives of the 'portfolio equation' by using second
+
+order policy function of the 'macroeconomic part' of the model gives the following expres-
+
+sions:
+
+23Future shocks can be omitted as portfolio holdings depend only on the current shocks.
+31
+
+Hx|x^=0,=0 = 22(GxCH GCH  - GCx F GC F )(GR H  - GRF ) - 2Inx  ((GR H - GR F ))(GxCH  - GCxF ) - 2Inx  ((GCH - GC F ))(GRxH  - GxRF ) - (GxCH  - GCx F )(GRH GR H  - GRF GRF ) - (GxCH  - GCx F )(GRH - GRF )vec() - (GxCH  - GCx F ) GRH - GRF
+H|x^=0,=0 = -3(GCH - GCF )3(GR H  - GRF ) + 2Et[(GCH t+1t+1GCH  - GC F t+1t+1GC F ) (GRH t+1 - (GRF t+1)] - Et[(GCH  - GC F )t+1 (GR H t+1t+1GR H  - GR F t+1t+1GRF )] - (GCH - GC F )3 (GRH - GRF )
+
+(37) (38)
+
+where Inx stands for the identity matrix of dimension nx × nx, with nx being the number of state variables, and  denotes a transpose. Furthermore, 3 denotes a matrix of third moments of the underlying shock structure.
+Equation (36) shows that first order correction term of portfolio holdings depends solely on the skewness of the shock process. For that reason, it is equal to zero under the normality assumption.
+
+32
+
+C. Relative Euler Equation Errors
+Figure 6: Relative Euler Equation Errors. Relative Euler errors are defined as the difference between absolute values of errors under DS and BIFN. To compute them, a two-dimensional grid of 2500 points (50 points for each state variable) is used.
+
+Relative Euler Equation Errors
+
+2
+
+1
+
+0
+
+-1
+
+-2
+
+-3
+
+3
+
+2
+
+1
+
+0
+
+-1
+
+Home NFA
+
+-2
+
+-3
+
+Relative Euler Equation Errors Det.StSt Stoch. StSt
+
+2
+
+1
+
+0
+
+-1
+
+-0.08
+
+-0.02 -0.04 -0.06 Home Capital Income
+
+0
+
+0.02
+
+0.04
+
+0.06
+
+0.08
+
+-2 -3
+
+33
+
+SFB 649 Discussion Paper Series 2016
+For a complete list of Discussion Papers published by the SFB 649, please visit http://sfb649.wiwi.hu-berlin.de.
+
+001
+002 003
+004 005 006
+007 008 009
+
+"Downside risk and stock returns: An empirical analysis of the long-run and short-run dynamics from the G-7 Countries" by Cathy Yi-Hsuan Chen, Thomas C. Chiang and Wolfgang Karl Härdle, January 2016. "Uncertainty and Employment Dynamics in the Euro Area and the US" by Aleksei Netsunajev and Katharina Glass, January 2016. "College Admissions with Entrance Exams: Centralized versus Decentralized" by Isa E. Hafalir, Rustamdjan Hakimov, Dorothea Kübler and Morimitsu Kurino, January 2016. "Leveraged ETF options implied volatility paradox: a statistical study" by Wolfgang Karl Härdle, Sergey Nasekin and Zhiwu Hong, February 2016. "The German Labor Market Miracle, 2003 -2015: An Assessment" by Michael C. Burda, February 2016. "What Derives the Bond Portfolio Value-at-Risk: Information Roles of Macroeconomic and Financial Stress Factors" by Anthony H. Tu and Cathy Yi-Hsuan Chen, February 2016. "Budget-neutral fiscal rules targeting inflation differentials" by Maren Brede, February 2016. "Measuring the benefit from reducing income inequality in terms of GDP" by Simon Voigts, February 2016. "Solving DSGE Portfolio Choice Models with Asymmetric Countries" by Grzegorz R. Dlugoszek, February 2016.
+
+SFSBF6B4694, 9S,pSapnadnaduaeureSrtrSatßraeß1e, 1D,-D10-1107187B8eBrleinrlin htthpt:t/p/:/s/fbs6fb4694.w9.iwwiiw.hiu.h-bue-brleinrl.idne.de
+ThTishrisesreasercahrcwhawsassupsuppoprtoerdtebdybtyhethDeeDuetsucthseche ForFsocrhsuchnugnsgesgmeeminesicnhsachftatfht rtohuroguhgthhethSeFSBF6B4694"9Ec"oEnconmoimc RicisRki"s.k".
+
+

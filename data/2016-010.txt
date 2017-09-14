@@ -1,0 +1,1273 @@
+BERLIN
+
+SFB 6 4 9 E C O N O M I C R I S K
+
+SFB 649 Discussion Paper 2016-010
+No Role for the Hartz Reforms?
+Demand and Supply Factors in the German Labor Market,
+1993-2014
+Michael C. Burda* Stefanie Seele*
+* Humboldt-Universität zu Berlin, Germany
+This research was supported by the Deutsche Forschungsgemeinschaft through the SFB 649 "Economic Risk".
+http://sfb649.wiwi.hu-berlin.de ISSN 1860-5664
+SFB 649, Humboldt-Universität zu Berlin Spandauer Straße 1, D-10178 Berlin
+
+No Role for the Hartz Reforms?
+
+Burda and Seele
+
+No Role for the Hartz Reforms? Demand and Supply Factors in the German Labor Market, 1993-2014
+Michael C. Burda and Stefanie Seele
+February 28, 2016
+Abstract: The supply and demand framework of Katz and Murphy (1992) provides new evidence on the source of changes in socially insured full-time and part-time employment in years preceding and following the implementation of the landmark Hartz reforms in Germany. Our findings are consistent with a stable demand for labor, especially in western Germany, implying that supply factors were decisive for the evolution of the labor market after 2003. The correlation of changes in wages and labor force participation is also consistent with a positive labor supply shock at a given working-age population. We also show that part-time employment played a decisive role in the post-2003 improvement of the German labor market.
+JEL: E24, J21 Keywords: German labor market miracle, Hartz reforms, part-time work, wage inequality
+The capable research assistance of Thomas Dengler, Niklas Flamang and Tobias König is gratefully acknowledged. This research was supported by Collaborative Research Center (SFB) 649 of the German Science Foundation (DFG).
+ Humboldt Universität zu Berlin, CEPR, IZA, FSP 1659 and SFB 649.  Humboldt Universität zu Berlin, FSP 1659 and SFB 649.
+1
+
+No Role for the Hartz Reforms?
+1 Introduction
+
+Burda and Seele
+
+The German labor market witnessed a series of radical changes over the past two decades. The 1990s and early 2000s was a period of increasing unit labor costs, stagnant employment, and high and rising unemployment rates following reunification, prompting the Economist in 1999 to call Germany "the sick man of Europe" (Economist (1999)). In 2005, an ongoing implosion of the German labor market was reversed dramatically and sustainably, with unemployment rates declining year after year in the aftermath and employment increasing by 4.7 percent from 2005 to 2008. Although the trend of rising employment slowed during the Great Recession, it resumed soon thereafter, reflecting changes that transcend usual business cycle fluctuations. By 2013, socially insured employment had returned to levels not seen since 1992 ­ a veritable "labor market miracle" unmatched by any other OECD country over the period.1
+This paper provides new evidence on the sources of Germany's labor market success, including possible blemishes. First, we show that the strong German labor market performance since 2005 is entirely attributable to the extensive, rather than the intensive employment margin; that is, the supply of workers employed at a given working-age population. In 2014, total aggregate hours worked by all persons in Germany, including those in so-called "precarious" forms of employment, was only 0.4 percent higher than in 1993, while real GDP increased by 33 percent. At the same time, the employment in persons rose from 37.8 to 42.7 million persons, or about 11.4 percent, implying a marked reduction in average hours.2 Until 2011, all of the net increase was due to an unprecedented expansion of part-time employment.
+
+1 The term "labor market miracle" can be found in Möller (2010), Burda and Hunt (2011), Rinne and Zimmermann (2011, 2013), Krause and Uhlig (2012), Krebs and Scheffel (2013). 2 Since reaching its trough in 2003, total hours have risen cumulatively by 4.5% and employment by 8.0%. See
+IAB-Arbeitszeitrechnung (Februar 2015), Arbeitszeit Komponenten FB A2: IAB website.
+2
+
+No Role for the Hartz Reforms?
+
+Burda and Seele
+
+Second, we document that slow GDP and productivity growth were accompanied by a
+
+dramatic increase in hourly wage inequality across the employed labor force. Compensation,
+
+measured as gross hourly or daily pay of wage and salary of employees, has grown more
+
+unevenly across different types of labor, leading to a significant increase in wage dispersion.
+
+While this finding is already well-established for full-time workers (Dustmann et al. (2014),
+
+Gernandt and Pfeiffer (2007), and Goos et al. (2009)), we use a simple imputation procedure to
+
+show that it holds even more strongly when part-time workers are considered.3
+
+Third, we contribute important new evidence to an ongoing debate over the impact of
+
+labor market reforms implemented in Germany during the years 2003-2005 ­ the so-called
+
+"Hartz Reforms." Among other things, these reforms reduced unemployment benefits, improved
+
+public job intermediation, and relaxed regulations of temporary help agency and marginal
+
+employment. Among other things, a prime objective of the Hartz reforms was to increase
+
+incentives to participate in the labor force and to accept job offers.4 Despite a massive increase
+
+in the extensive labor margin, an ongoing debate in the scientific community and the broader
+
+public continues to question whether the German employment miracle is related to these reforms
+
+at all, reflecting rather the flexibility of German collective bargaining, the inherent
+
+competitiveness of the German economy, the business cycle, or simply good luck.5 Another
+
+critique of the reforms is that they merely replaced regular jobs with unstable, poorly paid, and
+
+precarious ones. In contrast, proponents argue that the Hartz reforms incentivized unemployed
+
+individuals to intensify job search and thereby increased employment.
+
+3 This is already evident from unadjusted registry data on daily earnings. While real daily wages of the median employee decreased by 4.5 percent over the period 1993-2010, those at the the 75th percentile increased by 5.3 percent, and the 25th percentile fell by 12.1 percent (authors' calculations using the SIAB). At the time of this writing, more recent data has yet to be made available by the IAB. For similar calculations using a different dataset, see Dustmann et al. (2014). 4 The Hartz reforms were an implementation of some but not all recommendations of a blue-ribbon commission headed by Peter Hartz, the personnel chief of Volkswagen at the time. See e.g. Jacobi and Kluve (2007), Burda and Hunt (2011). 5 See, for example, Dustmann et al (2014), or Launov and Walde (2014).
+3
+
+No Role for the Hartz Reforms?
+
+Burda and Seele
+
+To date, there has been little or no systematic evaluation of these claims.6 This paper
+
+contributes to the debate surrounding the Hartz reforms with suggestive results from a simple
+
+supply and demand approach, first proposed by Katz and Murphy (1992) to study the sources of
+
+increasing wage inequality in the United States in the context of technological change.
+
+Extending their approach, we can shed light on the cause of the evolution of median wages for
+
+different labor groups in Germany. In particular, we combine several data sets to provide
+
+estimates of the part-time hourly wages in Germany since 1993.
+
+Our main finding is that the overwhelming correlation of changes in wages and
+
+employment across cells in the aftermath of the Hartz reforms is negative. Seen through the lens
+
+of a cleared labor market, employment and wages moved along a relatively stable demand curve
+
+during this period and were the outcome of shifts to labor supply. Because this correlation is
+
+also consistent with an exogenous spell of wage moderation in a non-market clearing context,
+
+we examine the covariation of wages and labor force participation across similarly defined cells.
+
+Our findings are consistent with a positive shock to labor supply, in particular in West Germany,
+
+and thereby underscore the role of the Hartz reforms in increasing employment.
+
+Section 2 motivates the research question and summarizes the key features of the "German
+
+labor market miracle." In Section 3, we spell out the theoretical framework for assessing the
+
+hypothesis of stable labor demand and extend it to non-market clearing settings. In Section 4,
+
+we describe the datasets used in our investigation and the imputation procedure employed to
+
+estimate hourly wages for distinguished employment types. In Section 5, we present facts,
+
+trends, and correlations in the German labor market based on these data sets to inform about the
+
+evolution of employment and wages for different labor groups. Finally, Section 6 concludes and
+
+summarizes our findings.
+
+6 Fahr and Sunde (2005), Jacobi and Kluve (2007), Eichhorst and Marx (2011), Klinger and Rothe (2012), Launov and Wälde (2014), and Stops (2015) have evaluated the effect of the Hartz reforms on gross flows and labor market dynamics but have not examined these in conjunction with wage determination.
+4
+
+No Role for the Hartz Reforms?
+2 The German labor market miracle in brief
+
+Burda and Seele
+
+Since 2003, employment in persons in Germany increased cumulatively by 12 percent, compared to 5 percent in the EU, 4 percent in the Eurozone, and only 1 percent in Italy (IMF World Economic Outlook). Even after a sharp GDP decline of 6-7 percent on a quarterly basis during the Great Recession, the German economy managed to maintain a trend of declining unemployment and rising employment (Burda and Hunt 2011). Figure 1 presents some key indicators for aggregate developments over the past forty-five years, encompassing the last period of strong pre-unification growth (the mid-1980s), a unification boom (1990-2002) and an overall longer-term post-unification growth slump punctuated by the dot-com boom (1997-2000).
+The first three panels present annual data for the standardized unemployment rate (ILO concept), the employment ratio, and the implied labor force participation rate. The fourth panel, which displays real GDP, shows a period of growth malaise, beginning with a post-unification hangover and further slowing after the introduction of the Euro. The first panel confirms a pattern of unemployment rates observed since the oil shocks in the 1970s until 2005: every successive recession raised the trend rate of equilibrium unemployment around which the economy fluctuates. This "hysteresis" (Blanchard and Summers 1986) or at least an unusually high degree of time series persistence (Barro 1988) is generally attributed to institutions which create insiders and outsiders in the labor market (Lindbeck and Snower 1986,1987; Calmfors and Driffill 1988) well as upward-ratcheting of unemployment benefits (Burda 1988). In addition, generous level of social insurance financed via "Bismarckian" funding schemes (i.e. taxing the wage bill) led to unsustainable increases in payroll tax rates (Burda and Weder, 2015) with negative effects on employment (Daveri and Tabellini, 2000).
+
+5
+
+No Role for the Hartz Reforms?
+
+Burda and Seele
+
+Figure 1: Key labor and macro indicators, Germany 1970-2015 a) Unemployment rate (ILO concept, Eurostat), percent of the labor force
+12 10
+8 6 4 2 0
+
+1970 1972 1974 1976 1978 1980 1982 1984 1986 1988 1990 1992 1994 1996 1998 2000 2002 2004 2006 2008 2010 2012 2014
+
+b) Employment ratio, percent of the working age population
+80 75 70 65 60 55
+
+1970 1972 1974 1976 1978 1980 1982 1984 1986 1988 1990 1992 1994 1996 1998 2000 2002 2004 2006 2008 2010 2012 2014
+
+c) Labor force participation rate, percent of the working age population
+80 75 70 65 60 55
+
+1970 1972 1974 1976 1978 1980 1982 1984 1986 1988 1990 1992 1994 1996 1998 2000 2002 2004 2006 2008 2010 2012 2014
+
+d) Real GDP, logarithmic scale, millions of Euros in 2010 prices
+
+Note: Real GDP index, chained series, 2010 Euros. West Germany until 1990, Germany thereafter Sources: AMECO database http://ec.europa.eu/economy_finance/ameco/user/serie/SelectSerie.cfm. Participation rate computed as e/(1-u), where e=employment ratio and u=unemployment rate.
+6
+
+No Role for the Hartz Reforms?
+
+Burda and Seele
+
+Taken together, the four panels summarize the German labor "miracle": A sustained
+
+reduction of unemployment rates, steady increases in the employment ratio starting in 2003 and
+
+rising labor force participation throughout and especially after 2003, despite a significant
+
+slowdown in trend economic growth. Unemployment turned around beginning in 2005,
+
+coinciding with the return to growth in the previous year, and continued to fall throughout the
+
+next decade, despite the Great Recession. Simultaneously, employment and especially the
+
+number of employees increased noticeably after 2005, as shown in Figure 2.
+
+Millions of persons
+
+Figure 2: Employment in Germany, 1991-2014
+44 42 40 38 36 34 32 30
+
+1991 1992 1993 1994 1995 1996 1997 1998 1999 2000 2001 2002 2003 2004 2005 2006 2007 2008 2009 2010 2011 2012 2013 2014
+
+Total employment Source: Arbeitszeitrechnung, IAB
+
+Employees
+
+In Table 1, we deconstruct the evolution of total hours worked over the period 1993-2014
+
+into changes of underlying demographics, labor force participation, employment, and hours per
+
+employed. Relying on standard ILO concepts, we employ the following decomposition:
+
+Total hours worked = working age population  participation rate  (1­unemployment rate)  hours worked per employed person
+
+Remarkably, although real GDP rose over the period 1993-2014 by 33%, total hours worked in hardly rose ­ by roughly 0.4% . At the same time, the working-age population shrank by 4.1%, ruling out the most important extensive margin ­ demographics ­ as a proximate cause of the employment miracle. The more obvious place to look is labor force participation, which
+7
+
+No Role for the Hartz Reforms?
+
+Burda and Seele
+
+increased by 13.3 log points. This substantial increase in participation of working age
+
+individuals shows up in a sharp rise in employment, while unemployment fell sharply over the
+
+period, and hours per employed fell continuously, with a slowdown in the period 2003-8.
+
+Table 1: The German labor market miracle deconstructed
+
+Time Period:
+
+1993-
+
+1998-
+
+2003-
+
+2008-
+
+1998
+
+2003
+
+2008
+
+2014
+
+Log change in:
+
+Cumulative 1993-2003
+
+Cumulative 2003-2014
+
+Working age Population Labor force participation
+
+0.6 -0.9 -2.5 -1.3 2.2 3.0 4.7 3.4
+
+-0.3 5.2
+
+-3.8 8.1
+
+1 ­ unempl. rate
+
+-1.2
+
+0.0
+
+2.0
+
+2.3
+
+-1.2
+
+4.3
+
+Hours/employed
+
+-3.2
+
+-4.7
+
+-0.5
+
+-3.4
+
+-7.9
+
+-3.9
+
+Sum: Total hours
+
+-1.6
+
+-2.6
+
+3.7
+
+1.0
+
+-4.2
+
+4.6
+
+Note: Change in log points over period (1 log point of x = 100*ln(x)). Hours/employed is calculated by the authors
+
+to reconcile hour per employed (IAB Arbeitszeitrechnung) and employment (OECD) statistics.
+
+Source: IAB Arbeitszeitrechnung, Destatis and OECD Labor Force Statistics, authors` calculations.
+
+Table 1 confirms the central role in the German labor market miracle played by the reallocation of working hours across a given working age population. To show how this reallocation was achieved, we consider the following four standard categories: socially insured full-time employment, socially insured part-time employment, marginal employment, and self-employed.7 While socially insured part-time employment grew steadily since 1993, full-time employment only increased after 2010. As Figure 2 above shows, self-employment increased from 1993 until 2005 but has oscillated around 4-5 million since 2005. Marginal employment appears in official statistics since 1999 and has since increased to 5 million. In parallel, the number of moonlighters ("Nebenjobs") increased. In 2014, 8 percent of socially insured employees had a second job besides their main occupation. Focusing on workers in employee status since 1991, Figure 3 shows clearly that the expansion of part-time work has been a central mechanism for increasing the extensive margin of employment at given working age population.
+
+7 Moonlighters are counted once in their primary job.
+8
+
+No Role for the Hartz Reforms?
+Figure 3 Employment by margin and type, 1991-2014
+
+Burda and Seele
+
+(a) Total hours by full-time, part-time, and "Nebenjob" workers, trillions
+50 45 40 35 30 25 20 15 10
+5 0
+
+1991 1992 1993 1994 1995 1996 1997 1998 1999 2000 2001 2002 2003 2004 2005 2006 2007 2008 2009 2010 2011 2012 2013 2014
+
+Full-time
+
+Part-time
+
+Nebenjob
+
+(b) Employees in full-time, part-time, and "Nebenjob" status, millions
+35 30 25 20 15 10
+5 0
+
+1991 1992 1993 1994 1995 1996 1997 1998 1999 2000 2001 2002 2003 2004 2005 2006 2007 2008 2009 2010 2011 2012 2013 2014
+
+Full-time
+
+Part-time
+
+Nebenjob
+
+(c) Annual hours worked per full-time, part-time and "Nebenjob" employees
+1800 1600 1400 1200 1000
+800 600 400 200
+0
+
+1991 1992 1993 1994 1995 1996 1997 1998 1999 2000 2001 2002 2003 2004 2005 2006 2007 2008 2009 2010 2011 2012 2013 2014
+
+Full-time
+
+Part-time
+
+Nebenjob
+
+Note: "Nebenjobs" are second or third jobs ("moonlighting") Source: Arbeitszeitrechnung, IAB
+
+9
+
+No Role for the Hartz Reforms?
+
+Burda and Seele
+
+In the following analysis, we restrict our attention to socially insured part-time and full-
+
+time employees. With 70.7 percent in 2014, socially insured employment continues to represent
+
+the largest component of employment in Germany. To understand the market forces that might
+
+give rise to the reallocation of hours across employees, it is necessary to study the price of labor,
+
+in particular, the gross hourly wage. Yet there are no available official measures of hourly wages
+
+for part-time employees. One contribution of this paper is the construction of an hourly wage for
+
+both full-time and part-time employees. Section 4 explains in detail how we use imputation from
+
+the German Socioeconomic Panel to construct these data. At the time of this writing, data
+
+availability currently restricts our analysis to the years 1993-2010.
+
+Figure 4 summarizes how the wage distribution has changed over time. Once vaunted for
+
+low wage inequality in the 1980s (Krugman 1994), Germany has seen a dramatic increase in pay
+
+dispersion since unification, and especially since 2003, and the figures confirm the findings of
+
+Dustmann et al. 2014 for full-time workers. In particular, we find that the increase in
+
+(unconditional) inequality at the upper end begins in the mid-1990s, but is stronger at the bottom
+
+after 2004. While there is no minimum wage operative during this period in Germany, it is widely
+
+recognized that generous social welfare payments and very long potential durations for
+
+unemployment assistance before the Hartz reforms effectively created a floor on nominal wages
+
+(OECD 1994, Siebert 1997, Nickell and Layard 1999, and Sinn 2003). Furthermore, the sharpest
+
+decline in hourly wages occurred in part-time work, especially in the West and especially at the
+
+low end of the wage distribution. The expansion of part-time employment documented above has
+
+occurred with a stronger decline in effective real wages for these employees, and represents prima
+
+facie evidence for a shift in labor supply in this segment.
+
+In summary, the German labor market mobilized inactive workers and reallocated a
+
+relatively stable level of working hours across a shrinking working age population. At the same
+
+10
+
+No Role for the Hartz Reforms?
+
+Burda and Seele
+
+time, the dispersion of wages increased sharply. In the next section, we present a framework with
+
+which these events can be interpreted in the context of market outcomes.
+
+Figure 4: Indexed cumulative real wage growth of socially insured employees, by employment status and region in Germany, 1993-2010
+
+Sources: SIAB, SOEP, and destatis (CPI). Note: Socially insured employment includes full-time and part-time employees. Marginal employment is excluded.
+11
+
+No Role for the Hartz Reforms?
+
+Burda and Seele
+
+Evidence supporting the claim that West Germany is better characterized as subject to a labor
+
+supply shock following the Hartz reforms is presented in Table 2, which breaks down
+
+employment growth into three segments, by position in the wage distribution of 1993, for three
+
+sub-periods of the post-reunification era. The last column clearly shows that the strongest
+
+growth in part-time employment coincides with the labor market segments where declines in
+
+wages were the largest. This finding militates towards an account of the German labor market
+
+miracle that assigns an important, if not central role to the increase in labor supply associated
+
+with the Hartz reforms. It would also explain the dramatic decline in wage growth at the low
+
+deciles around 2003-2005, the period when the Hartz reforms were implemented.
+
+Table 2: Employment growth at different segments of the hourly wage distribution,
+
+cumulative change in percent, 1993-2010
+
+1993--1998
+
+1998-2003
+
+2003-2010
+
+Full-time
+
+Western Germany
+
+Lowest segment
+
+-0.5
+
+-7.2
+
+24.6
+
+Middle segment
+
+-11.5
+
+-11.4
+
+-11.8
+
+Upper segment
+
+0.9
+
+14.6
+
+-3.0
+
+Eastern Germany
+
+Lowest segment
+
+-13.8
+
+-11.2
+
+22.7
+
+Middle segment
+
+-27.6
+
+-25.2
+
+-12.3
+
+Upper segment
+
+20.9
+
+-4.3
+
+-7.5
+
+Part-time
+
+Western Germany
+
+Lowest segment
+
+10.5
+
+9.8
+
+59.7
+
+Middle segment
+
+4.8
+
+1.5
+
+10.4
+
+Upper segment
+
+38.1
+
+38.7
+
+27.3
+
+Eastern Germany
+
+Lowest segment
+
+6.3
+
+-3.7
+
+81.7
+
+Middle segment
+
+43.8
+
+-19.1
+
+11.7
+
+Upper segment
+
+63.6
+
+36.7
+
+16.2
+
+Note: Employment in the lowest segment is characterized by real hourly wages below the 25th percentile of the
+
+1993-wage distribution. Employees in the middle segment earn wages between 25th and 75th percentile, and
+
+employees in the upper segment receive higher wages than the 75th percentile.
+
+Source: SIAB, SOEP, and destatis (CPI).
+
+12
+
+No Role for the Hartz Reforms?
+
+Burda and Seele
+
+3 Assessing demand and supply factors
+In an important contribution, Katz and Murphy (1992) used the lens of a Marshallian market-clearing model to assess the role of demand and supply forces in the US labor market and to exploit intratemporal variation to identify which of the two drives these outcomes. They considered changes in US full-time employment and changes in the wage structure from 1963 to 1987, and were concerned primarily with the role of shifting demand for skill in the 1980s, in contrast to earlier labor supply shifts of previous decade. The beauty of their approach is that it abstracts from single sources of changes in the labor markets in favor of more robust demand or supply factors. In the models below, we introduce their framework and generalize it to incorporate labor market outcomes in which the market does not clear.
+
+3.1. Katz-Murphy: The basic model
+
+The original framework of Katz and Murphy (1992) assumes a representative firm using
+
+a linearly homogenous and concave aggregate production function of K different labor inputs.
+
+The system of factor demands in vector notation which result from profit maximization can be
+
+written as
+
+(1)
+
+L
+
+D t
+
+
+
+D (W t , X t )
+
+where LD is a (K1) vector of labor inputs employed in year t, Wt is a (Kx1) vector of market
+
+prices of those inputs, Xt is a (Mx1) vector of demand shift variables such as technology, product demand or other input prices.8
+
+The production function giving rise to (1) is strictly concave, continuous and
+
+differentiable, so it can be expressed in terms of small changes as
+
+8 In principle, the analysis can be generalized to a conditional formulation of the demand curve that would include other non-labor inputs that affect the demand for labor inputs or the level of output.
+13
+
+No Role for the Hartz Reforms?
+(2) dLDt  DW dWt  DX dX t
+
+Burda and Seele
+
+where DW is a (KxK) negative definite matrix. Rearranging and premultiplying by dWt´results in a quadratic form:
+
+(3)
+
+dW
+
+t
+
+´(
+
+dL
+
+D t
+
+
+
+D X dX t )
+
+
+
+dWt ´DW dWt
+
+
+
+0
+
+where the last inequality follows from the concavity of the production function, which under
+
+profit maximization implies that Dw is negative definite. Expressed net of demand shifts, observed
+
+changes in factor supplies and changes in wages must co-vary negatively.
+
+Katz
+
+and
+
+Murphy
+
+assume
+
+that
+
+labor
+
+supply
+
+is
+
+exogenous,
+
+i.e.,
+
+dLSt
+
+
+
+d
+
+L
+
+S t
+
+.
+
+Suppose
+
+that
+
+relative demands for labor are stable (dXt = 0, i.e. Xt is fixed). If labor markets clear, then
+
+d
+
+L
+
+S t
+
+
+
+dL
+
+D t
+
+ dLt .
+
+Thus equation (3) reduces to
+
+(4) dWt ´dLt  0 . The more stable dXt is relative to stable observed employment dLt, the more likely that
+supply shifts predominate and render the correlation negative. Katz and Murphy (1992) write:
+
+"Periods of time in which the inequality [...] is satisfied (i.e., the inner product of changes in wages and changes in factor supplies is non-positive) have the potential to be explained solely
+by supply shifts. When this inequality is not satisfied, no story relying entirely on supply shifts is consistent with the data." (p. 48).
+
+In our implementation of this framework, we focus on explaining relative wage changes
+
+as a function of relative supply and relative factor demand shifts. We thus abstract from general
+
+trends such as a growing or a shrinking economy, which would lead to changes in absolute levels
+
+of employment and wages. Following Katz and Murphy (1992), we define relative wage and
+
+relative labor supply measures for each cell. The relative wage measure is equal to the hourly
+
+wage sample (based on SOEP and SIAB) divided by a wage index9 and weighted by the average
+
+employment shares over the entire sample of the specific labor group. The relative supply measure
+
+9 By cell, we divide each median real wage in year t by the average real wage of the whole period.
+14
+
+No Role for the Hartz Reforms?
+
+Burda and Seele
+
+(based on SOEP, SIAB, and IAB-Arbeitszeitrechnung data sets) is divided by total employment
+
+in the economy measured in efficiency units. Here, efficiency units express that total employment
+
+in the economy (measured in hours worked per year) is weighted by the average relative wage
+
+over the entire sample.
+
+3.2. Katz-Murphy 2.0: Rigid wages and exogenous labor supply
+
+The Katz-Murphy framework lends itself to a number of extensions; we consider one here.
+
+Consider the case in which labor markets do not clear, and the short side determines the outcome:
+ Lt  min LDt , LSt . Note that if labor supply is inelastic, the change of the market-clearing wage
+W* is given by
+
+ (5)
+
+dW t * 
+
+DW 1
+
+dL
+
+S t
+
+
+
+D X dX t
+
+.
+
+Let wages observed in the market be a weighted sum of changes in market-clearing wages and
+
+current levels Wt . Then the change in observed wages is:
+
+(6) dW t  (1   )dW t * d Wt ,
+
+where  operationalizes the notion of wage rigidity;  =0 corresponds to the Marshallian
+
+paradigm of the previous subsection and  =1 represents the case of complete wage rigidity. If
+
+firms are on the short side of the market, then
+
+(7)
+
+dLt
+
+
+
+dLDt
+
+
+
+(1
+
+
+
+
+
+)d
+
+L
+
+S t
+
+ DW dWt
+
+ DX dX t
+
+and
+
+(8) dWt  (1 )DW 1d LtS  (1 )DW 1DX dXt  dWt .
+
+Involuntary unemployment is given by LtS  LDt . Changes in labor supply holding the population
+
+of working age constant are given by d LtS ; changes in unemployment dUt , are
+
+(9)
+
+dU t
+
+
+
+d
+
+L
+
+S t
+
+ DW dWt
+
+ DX dX t
+
+15
+
+No Role for the Hartz Reforms?
+
+Burda and Seele
+
+and change
+
+in labor
+
+force
+
+participation dPt at given demographics simply equals
+
+d
+
+L
+
+S t
+
+.
+
+3.3. Application
+
+In the Katz-Murphy framework, distinct labor groups represent imperfect substitutable
+
+labor inputs, distinguished in our study by gender, location in West or East Germany, and age.
+
+For the most part, the German labor market reforms in the years 2003 - 2005 were unanticipated
+
+and are generally interpreted as exogenous labor supply shocks.10 A standard textbook model of
+
+labor demand and supply predicts the implications of such exogenous supply shocks; moreover,
+
+they represent increases in the intensive use of a given population (i.e. participation) rather than
+
+demographic shifts. The shift in supply captures increased pressure on the unemployed to accept
+
+wage offers and increased willingness of currently employed individuals to supply labor at a
+
+given wage. Our extension of the model will allow us to examine labor force participation to the
+
+extent that labor supply can be considered exogenous.
+
+4 Data
+We rely on three data sources for our empirical analysis. First, we use the Sample of Integrated Labor Market Biographies (SIAB), a two percent sample of social security records for the years 1975 to 2010 made available by the German Federal Employment Agency (Bundesagentur für Arbeit, or BA), to construct cell aggregates for employment and wages. Second, we exploit the Socio-Economic Panel (SOEP), a longitudinal household survey conducted since 1984 and produced by the German Institute of Economic Research (DIW Berlin) to construct hours imputations for the SIAB cells. Third, the IAB-Arbeitszeitrechnung (henceforth: aggregate hours accounts) from February 2015 offers detailed estimates for total working-time of total employment and its sources. Those data are constructed at an annual
+10 There is a broad consensus (e.g. Dyson 2005, Seeleib-Kaiser and Fleckenstein 2007) that Gerhard Schröder's social democratic government was not expected to introduce such wide-ranging cuts in the social insurance system.
+16
+
+No Role for the Hartz Reforms?
+
+Burda and Seele
+
+frequency by the German Institute for Employment Research (IAB). Our analysis is restricted to
+
+socially insured employees that were actively participating in the labor force in the period from
+
+1993 to 2010. The SIAB contains wage and employment information on approximately half a
+
+million socially insured employees each year. The SOEP provides information on actual hours
+
+worked annually by approximately eight thousand socially insured employees.
+
+There is no clear distinction in the German data between full- and part-time socially
+
+insured employment. Current law only stipulates that contracted hours of a part-time employee
+
+should be measurably less than those of a full-time employee in the same establishment. In the
+
+SIAB, the employer reports the employment status, i.e. full-time or part-time employment.
+
+Whereas in the SOEP, the employed individual as a respondent gives this information.
+
+4.1 Construction of Synthetic Panel Data
+
+The synthetic panel constructed from the SIAB, SOEP, and IAB aggregate hours accounts are aggregated into the following cell categories, which comprise the basis of our analysis:
+(a) Gender: male or female (2)
+
+(b) Region: East or West Germany (2) (c) Age group: 15-19, 20-24, 25-29, 30-34, 35-39, 40-44, 45-49, 50-54, 55-59, 60-64 (10) yielding a total of 40 potential cells. Of these, 37 have more than 15 observations per year. These 37 observations are generated using the SIAB data set for the following two variables: (1) a median daily wage of each SIAB cell, (2) an employment count in each cell based on the SIAB. On average, each cell constructed from the SIAB aggregates 12,646.3 individual observations per year with a standard deviation of 10,360.3. In addition, a sample of average hours worked based on matching cell definitions using the SOEP was constructed for each year. In our synthetic panel, 37 SOEP cells were imputed to SIAB cells. These cells are retained for further analysis in a balanced panel.
+
+17
+
+No Role for the Hartz Reforms?
+Table 3: Sample means of synthetic panel data
+
+Burda and Seele
+
+In the first instance, the SOEP oversamples certain groups of interest in the population. We therefore apply sample weights provided by DIW Berlin to compute the representative mean of weekly actual hours by cell. The hours sample is also used to calculate total hours worked by socially insured employment applying information about average working days from the IAB aggregate hours accounts.
+In the SIAB, the employment biographies are recorded in spells while the SOEP is an annual survey. The SIAB is converted into a panel on an annual basis using December 31 of each year as date of measurement when combining these data with publicly available time series of the BA. We use the median daily gross payment of socially insured full-time and part-time employees in each cell rather than its mean because social security records are top-coded. The count sample measures the number of socially insured individuals by cell. The hours sample
+18
+
+No Role for the Hartz Reforms?
+
+Burda and Seele
+
+measures the mean weekly actual hours of individuals in each cell as aggregate of contracted
+
+weekly hours and overtime. As found in earlier studies, the number of actual weekly hours
+
+worked by full-time employees based on SOEP data is higher than the number of hours estimated
+
+in the IAB aggregate hours accounts.11 Furthermore, estimates of actual weekly hours worked by
+
+socially insured part-time employees are constructed but not comparable to the numbers in the
+
+IAB aggregate hours accounts because the latter estimates of mean hours worked by part-time
+
+employment includes some forms of marginal employment.
+
+To construct the panel of hourly wage estimates, we divide the reported daily wage by
+
+one fifth of average weekly hours worked (hours sample from the SOEP) for each imputed
+
+aggregate. The count sample is multiplied by the fifth of the weekly hours sample to receive the
+
+employment in hours per day, the total hours worked (SOEP-based). Using the IAB aggregate
+
+hours accounts, we construct weights which are applied in the estimation process later on.
+
+Figure 5: Employment trends in Germany: SIAB and BA (1993 ­ 2013)
+
+11 See Wanger et al. (2014), and Schief (2003).
+
+19
+
+No Role for the Hartz Reforms?
+4.2 External Validity
+
+Burda and Seele
+
+The descriptive statistics reported in Table 3 are consistent with aggregate information provided by the Federal Employment Agency. For example, wages of socially insured employees track the trends in the SIAB and the BA data.12 In Figure 5, the time series for socially insured employment and marginal employment published by the BA are compared with calculations based on the SIAB.13 Overall, calculations for socially insured employment deviate by less than 2 percent from official estimates. The time series for marginal employment is less precise with deviations of up to 5 percent compared to BA's data.
+
+5 Results: Facts, trends, and correlations in the German labor market 1993­2010
+5.1 The role of part-time employment versus "precarious" or marginal employment
+In Figure 5, the aggregate number of marginal employment besides other employment is plotted because of the on-going German debate whether marginal employment became a substitute for socially insured employment after the deregulation of marginal employment in 2003.14 The number of marginal employment jumped from 4.2 million in 2002 (BA) to 4.8 million in 2005 but remained on a relatively stable level thereafter. In contrast, socially insured employment declined from 27.5 million in 2002 (BA) to 26.2 million in 2005. Subsequently, the number of socially insured employed increased year by year with exception of the crisis year 2009.
+
+12 See Bundesagentur für Arbeit (2014a), Table IV. B. 12, page 91.
+13 See e.g. Bundesagentur für Arbeit (2014b), Table 3.2, page 18. 14 On the first of April 2003, the threshold for payments which are exempt from social security contribution has been raised from 325 to 400 Euro per month and the former limitation on the weekly working time (<15 hours) was abolished.
+20
+
+No Role for the Hartz Reforms?
+
+Burda and Seele
+
+In Table 4, we look behind the aggregate number of employed individuals. Here, the
+
+heterogeneity of the labor market is apparent. West German socially insured employment
+
+decreased by more than 5 percent between 1993 and 2010, but increased by 4 percent from 2003
+
+to 2010. In East Germany, socially insured employment declined by almost 20 percent from 1993
+
+to 2010. Two decades after unification, East and West German labor markets appear to follow
+
+different paths. The overall diversity of socially insured employment increased, as employees
+
+became older, and better educated between 1993 and 2010. Demographic change in Germany has
+
+already affected employment levels. Employment of older individuals increased while fewer
+
+young people entered employment. The baby boomer generation is now close to retirement. In
+
+addition, the education level of socially insured employees has increased significantly, shifting
+
+the structure of employment in Germany significantly.
+
+Table 4: Cumulative change in socially insured employment, 1993­2010 (in percent)
+
+21
+
+No Role for the Hartz Reforms?
+
+Burda and Seele
+
+Table 5: Cumulative change in employment, 1993­2010 (in percentage points)
+
+Table 6: Cumulative change of participation rate, 1993­2010 (in percentage points)
+
+22
+
+No Role for the Hartz Reforms?
+
+Burda and Seele
+
+Table 6 shows a sharp increase in labor force participation surrounding the Hartz reforms, concentrated around age groups near retirement age. This behavioral shift is well-documented (see Statistische Ämter (2012, page 42 ff.)) and will later help to distinguish competing explanations of the employment boom in Germany.
+
+5.2 The importance of female participation
+Women's participation in the labor market has continued to increase and there is evidence that it has accelerated in the West since unification. In 2010, almost 46 percent of socially insured employees were female compared to 43 percent in 1993. More significantly, 38.9 percent of women in socially insured employment worked part-time in 2010, compared to 25.7 percent in 1993. Overall, the fraction of part-time employees to employment with social security contribution increased from around 11 percent to almost 20 percent.
+5.3 The rise in the intensive margin for part-time workers
+As noted above, the strong recent German labor market performance is a story about reallocation of a stable number of hours worked over many more people. By merging information from the SIAB, the SOEP and the IAB-aggregate hours accounts, we can also study the evolution of the intensive margin more closely. The disaggregated SIAB-time series from Figure 5 are decomposed into full-time employment, part-time employment and employment in vocational training. Second, we merge these count measures with the average hours worked from the SOEPdata (including overtime) by these respective employment classes. Third, information from the IAB-aggregate hours accounts on effective days worked per calendar year (excluding vacation, holidays, and sick days) is applied to get an estimate of aggregate number of hours worked by socially insured employment in Germany.
+23
+
+No Role for the Hartz Reforms?
+
+Burda and Seele
+
+Part-time employees worked 6.5 percent of the aggregate hours by socially insured
+
+employment in 1993, and increased to 12.9 percent in 2010. In 1993, part-time employees worked
+
+on average 22.9 hours per week including overtime while full-time employees worked 40.4 hours.
+
+By 2010, average hours of part-time employment had increased to 25.5 hours per week, compared
+
+with 41.1 hours for full-time workers. During the same period, the work time of apprentices was
+
+stable around 39.3 hours per week. As with the aggregate hours account data, we find that the
+
+number of hours in socially insured employment is two percent lower in 2010 than in 1993.
+
+Compared to the extensive margin in Figure 4, the intensive margin is remarkably stable.
+
+5.4 Real median wages and wage dispersion after the Hartz reforms
+Although nominal wages experienced double-digit growth over the period, real median wages increased only moderately between 1993 and 2010. In fact, some employment groups experienced negative median wage changes. While real hourly median wages increased for most of the groups of employees between 1993 and 2003, they decreased from 2003 to 2010 for all groups. Comparing real median hourly wage changes of East and West German employees from 1993 to 2010, the wage gap between the two regions appears to have declined, but wages of East and West Germans did not completely converge.15 In 2010, the median West German full-time employee earned 28.4 percent more per hour than the median full-time employee in East Germany.
+Summing up, the implementation of the German labor market reforms are associated with different regional outcomes. In the Western half of the country, the labor market turned from shrinking with increasing real wages to growing employment, especially part-time employment, with falling real wages. East Germany, in contrast, experienced labor demand shifts following structural change after unification, followed by the Hartz shock after 2003. In both East and West
+
+15 Compare the first columns of Table 6 for East and West Germany.
+24
+
+No Role for the Hartz Reforms?
+
+Burda and Seele
+
+Germany, part-time employment increased markedly. In the next section, we will apply the
+
+methodology proposed by Katz and Murphy (1992) to make more precise statements about the
+
+preponderance of demand versus supply shocks in Eastern and Western Germany over the periods
+
+of interest.
+
+Table 7: Cumulative real median hourly wage change of socially insured employment, 1993­ 2010 (in percent)
+
+5.5 Can supply shifts explain wage changes?
+The central bone of contention in the debate surrounding the Hartz reforms in Germany is whether they really induced increases in labor supply in the face of stable demand, leading to more employment and more dispersed wages. Alternative hypotheses are that demand shifts predominated, or that market clearing as a maintained hypothesis is inappropriate and the shift in wages was exogenous ­ collapse of union power, or an increase in local wage flexibility (Dustmann, et al. 2014), for example. In the following, we use the framework of Katz and Murphy
+25
+
+No Role for the Hartz Reforms?
+
+Burda and Seele
+
+(1992) to evaluate these questions. Recall from Section 3 that the stable demand hypothesis
+
+allows us to evaluate the supply shift story between year t and year  to the extent that the
+
+following inequality holds:
+
+(10) (Wt W )´(Lt L ) 0.
+
+Table 8 presents correlations between relative wage changes and relative employment
+
+changes across three time intervals. The empirical evidence militates in favor of the stable demand
+
+hypothesis for West German employment, as changes of wages and employment co-vary negatively
+
+and significantly in the period following 2003, the implementation of the Hartz reforms. The results
+
+support the hypothesis that the West-German labor market is supply-driven since 2003.
+
+Table 8: Correlation of changes in relative real median hourly wages with changes in relative employment (1993­2010)
+
+26
+
+No Role for the Hartz Reforms?
+
+Burda and Seele
+
+Recall that a negative correlation between changes in wages and employment is also consistent
+
+with an exogenous wage moderation in a non-market clearing model. Following Section 3, we
+
+test additionally the correlation between changes in wages and labor force participation across
+
+cells between which substitution is difficult or impossible. Specifically, we have:
+
+(8) dWt  (1 )DW 1d LtS  (1 )DW 1DX dXt  dWt
+
+(11)
+
+dPt
+
+
+
+
+
+L
+
+S t
+
+Suppose that, as a maintained hypothesis, demand shocks are negligible (dX t  0) , wage rigidity
+
+shocks are relevant (  0 ) and that wage rigidity shocks and labor supply shocks are
+
+uncorrelated. If wage rigidity shocks predominate (d L st  0, dW t  0) , then dWt´dPt  0 . In contrast, if only non-demographic labor supply shocks are important in the period under
+
+consideration (d L st  0, dW t  0) , then dWt´dPt  0 .16 To summarize, the stable labor demand hypothesis and market clearing imply not only
+
+(Wt W )´(Lt L ) 0, but also (Wt W )´(Pt P ) 0 between years t and . In contrast, the
+
+stable demand hypothesis under rigid wages only implies (Wt W )´(Lt L ) 0, assuming, of
+
+course, that labor supply shocks are zero or uncorrelated with the shocks to wage rigidity.
+
+Table 9 presents the evidence for our dataset and shows that the data for West Germany
+
+are consistent with a preponderance of positive labor supply shocks in a Marshallian market-
+
+clearing setting. The negative correlations after 2003 in West Germany represent a sign reversal. The decomposition in Table 1 strongly suggest that this shock is directly associated with the first-
+
+order effect of the Hartz reforms, which is an increase in participation margins at given population
+
+of working age.
+
+16 In the absence of further a priori restrictions, coincidence of labor supply and wage rigidity shocks (d L st  0, dW t  0) would unravel our identification strategy.
+27
+
+No Role for the Hartz Reforms?
+
+Burda and Seele
+
+Table 9: Correlation of changes in relative real median hourly wages with changes in labor force participation rates and employment rates (1993­2010)
+
+a) Participation rates
+
+b) Employment rates
+
+To examine the robustness of our results, we compute correlations of wage changes and employment ratios in our cells. The second panel of Table 9 shows very similar results. Additionally, we check the correlation between hours and employment changes to see whether this correlation drives the results in Table 8. These time series covary positively but not significantly. This implies a potential downward bias of the correlations in Table 8 because the number of employment is multiplied by hours, while wages are divided by hours.
+6 Conclusion
+Two important findings characterize our study of the labor market "miracle" in Germany since 2005. First, we document the central role played by part-time employment in reallocating a modest increase of total hours worked over a large number of new workers, leading to net
+28
+
+No Role for the Hartz Reforms?
+
+Burda and Seele
+
+employment growth. Until 2010, part-time work accounted for all employment growth; since then,
+
+full-time jobs have increased faster. Evidently, part-time employment represents a new and
+
+important adjustment mechanism in the German labor market.
+
+We have adapted Katz and Murphy's (1992) framework to study the sources employment
+
+growth in full and part time employment. Our findings indicate a flip in the correlation between
+
+changes in wages and employment following the Hartz reforms in 2003-2005. Before 2003,
+
+employment levels across cells declined while real median wages increased. After 2005, wages
+
+decreased and employment rose. Cells with slower median wage growth experienced expansion
+
+of employment when compared with cells of slower wage growth. This reversal appears to begin
+
+between 2003 and 2005.
+
+The weight of the evidence presented in this paper thus lends support to the hypothesis that
+
+the West German labor market was dominated by labor supply shifts after 2003, and that these
+
+shifts reflected increases in labor force participation at given demographic determinants of labor
+
+supply. In contrast, East Germany behaves somewhat differently, and it would appear erroneous
+
+to treat the two regions as a single labor market. Confounding demand factors ­ such as the
+
+ongoing industrial restructuring of the post-unification economy ­ is likely to have influenced the
+
+evolution of wages and employment in eastern Germany. Structural change following unification
+
+and significant migration flows to the West are just two factors that could have affected local labor
+
+demand and supply differently. Future research should direct more attention to understanding how
+
+employment, wages and participation differed across specific demographic groups in the two
+
+regions.
+
+29
+
+No Role for the Hartz Reforms?
+
+References
+
+Burda and Seele
+
+Blanchard, O. J., and Summers, L. J. (1986). "Hysteresis and the European unemployment problem." NBER Macroeconomics Annual 1986, Volume 1. Mit Press, 15-90.
+Bundesagentur für Arbeit (2014a). Amtliche Nachrichten der Bundesagentur für Arbeit 62. Jahrgang (2. Sondernummer).
+Bundesagentur für Arbeit (2014b). Analytikreport der Statistik, Arbeitsmarkt in Deutschland ­Zeitreihen bis 2013.
+Burda, M. C. and Weder, M. (2015) Payroll Taxes, Social Insurance and Business Cycles, Journal of the European Economic Association, forthcoming.
+Burda, M. C. and Hunt, J. (2011). What Explains the German Labor Market Miracle in the Great Recession?, Brookings Papers on Economic Activity p. 273.
+Burda, M. C. (1988) "Wait Unemployment in Europe," Economic Policy 7 (October 1988), 391-416.
+
+Calmfors, L. and Driffill, J. (1988) "Bargaining Structure, Corporatism and Macroeconomic Performance", Economic Policy, No. 3, 13-61.
+Daveri, F. and Tabellini, G. (2000) "Unemployment, Growth and Taxation in Industrial Countries" Economic Policy, 15: 47-104.
+Dustmann, C., Fitzenberger, B., Schönberg, U. and Spitz-Oener, A. (2014). From sick man of Europe to economic superstar: Germany's resurgent economy, The Journal of Economic Perspectives 28(1): 167­188.
+Eichhorst, W. and Marx, P. (2011). Reforming German labour market institutions: A dual path to flexibility, Journal of European Social Policy 21(1): 73­87.
+Fahr, R. and Sunde, U. (2005). Job and vacancy competition in empirical matching functions, Labour Economics 12(6): 773­780.
+Gernandt, J. and Pfeiffer, F. (2007). Rising Wage Inequality in Germany, Journal of Economics and Statistics (Jahrbuecher fuer Nationaloekonomie und Statistik) 227(4): 358­380.
+Goos, M., Manning, A. and Salomons, A. (2009). Job polarization in Europe, The American Economic Review pp. 58­63.
+
+Jacobi, L. and Kluve, J. (2007). Before and after the Hartz reforms: The performance of active labour market policy in Germany, Zeitschrift für ArbeitsmarktForschung-Journal for Labour Market Research 40(1): 45­64.
+Katz, L. F. and Murphy, K. M. (1992). Changes in Relative Wages, 1963-1987: Supply and Demand Factors, The Quarterly Journal of Economics 107(1): 35­78.
+Klinger, S. and Rothe, T. (2012). The Impact of Labour Market Reforms and Economic Performance on the Matching of the Short-term and the Long-term Unemployed, Scottish Journal of Political Economy 59(1): 90­114.
+Krause, M. U. and Uhlig, H. (2012). Transitions in the German labor market: Structure and crisis, Journal of Monetary Economics 59(1): 64­79.
+Krebs, T., & Scheffel, M. (2013). Macroeconomic evaluation of labor market reform in Germany. IMF
+30
+
+No Role for the Hartz Reforms?
+
+Burda and Seele
+
+Economic Review, 61(4), 664-701.
+
+Krugman, Paul (1994) "Past and Prospective Causes of High Unemployment", in Reducing Unemployment: Current Issues and Policy Options, proceedings of the Jackson Hole Symposium, published in Kansas City Fed Economic Review 1994:4, 49-80.
+
+Launov, A. and Wälde, K. (2014). Folgen der Hartz-Reformen für die Beschäftigung, Wirtschaftsdienst 94(2): 112­117.
+Lindbeck, A., & Snower, D. J. (1987). Efficiency wages versus insiders and outsiders. European Economic Review, 31(1), 407-416.
+Lindbeck, A and Snower, D. (1986) "Wage Setting, Unemployment, and Insider-Outsider Relations" American Economic Review, Vol. 76:2, 235-239.
+Möller, J. "Das deutsche Arbeitsmarktwunder-Versuch einer Erklärung." (2010).
+Nickell, S., & Layard, R. (1999). Labor market institutions and economic performance. Handbook of labor economics, 3, 3029-3084.
+OECD (1994). The OECD jobs study, evidence and explanations, Vols. I and II OECD, Paris.
+Rinne, U. and Zimmermann, K. F. (2011) Another economic miracle? The German labor market and the Great Recession. Forschungsinstitut zur Zukunft der Arbeit GmbH, 2011.
+
+_________(2013) "Is Germany the North Star of Labor Market Policy?" IMF Economic Review 61.4 (2013): 702-729.
+Schief, S. (2003). Arbeitszeiten in Deutschland ­ eine Frage der Messung, Mitteilungen aus der Arbeitsmarkt- und Berufsforschung 36(2): 187­198.
+Seeleib-Kaiser, M., and Fleckenstein, T. (2007). Discourse, learning and welfare state change: the case of German labour market reforms. Social Policy & Administration, 41(5), 427-448.
+Siebert, H. (1997). Labor market rigidities: at the root of unemployment in Europe. The Journal of Economic Perspectives, 11(3), 37-54.
+Sinn, H.-W. (2003). Ist Deutschland noch zu retten? München: Econ.
+Statistische Ämter des Bundes und der Länder (2012). Arbeitsmärkte im Wandel. Statistisches Bundesamt, Wiesbaden, Germany.
+Stops, M. (2015). Revisiting German labour market reform effects: A panel data analysis for occupational labour markets, Technical report, Institut für Arbeitsmarkt-und Berufsforschung (IAB), Nürnberg[Institute for Employment Research, Nuremberg, Germany].
+The Economist (1999). The sick man of the euro, http://www.economist.com/node/209559. Accessed: 2015-08-23.
+Wanger, S., Weigand, R. and Zapf, I. (2014). Revision der IAB-Arbeitszeitrechnung 2014: Grundlagen, methodische Weiterentwicklungen sowie ausgewählte Ergebnisse im Rahmen der Revision der Volkswirtschaftlichen Gesamtrechnungen, Technical report, IAB-Forschungsbericht.
+
+31
+
+SFB 649 Discussion Paper Series 2016
+For a complete list of Discussion Papers published by the SFB 649, please visit http://sfb649.wiwi.hu-berlin.de.
+
+001
+002 003
+004 005 006
+007 008 009 010
+
+"Downside risk and stock returns: An empirical analysis of the long-run and short-run dynamics from the G-7 Countries" by Cathy Yi-Hsuan Chen, Thomas C. Chiang and Wolfgang Karl Härdle, January 2016. "Uncertainty and Employment Dynamics in the Euro Area and the US" by Aleksei Netsunajev and Katharina Glass, January 2016. "College Admissions with Entrance Exams: Centralized versus Decentralized" by Isa E. Hafalir, Rustamdjan Hakimov, Dorothea Kübler and Morimitsu Kurino, January 2016. "Leveraged ETF options implied volatility paradox: a statistical study" by Wolfgang Karl Härdle, Sergey Nasekin and Zhiwu Hong, February 2016. "The German Labor Market Miracle, 2003 -2015: An Assessment" by Michael C. Burda, February 2016. "What Derives the Bond Portfolio Value-at-Risk: Information Roles of Macroeconomic and Financial Stress Factors" by Anthony H. Tu and Cathy Yi-Hsuan Chen, February 2016. "Budget-neutral fiscal rules targeting inflation differentials" by Maren Brede, February 2016. "Measuring the benefit from reducing income inequality in terms of GDP" by Simon Voigts, February 2016. "Solving DSGE Portfolio Choice Models with Asymmetric Countries" by Grzegorz R. Dlugoszek, February 2016. "No Role for the Hartz Reforms? Demand and Supply Factors in the German Labor Market, 1993-2014" by Michael C. Burda and Stefanie Seele, February 2016.
+
+SFSBF6B4694, 9S,pSapnadnaduaeureSrtrSatßraeß1e, 1D,-D10-1107187B8eBrleinrlin htthpt:t/p/:/s/fbs6fb4694.w9.iwwiiw.hiu.h-bue-brleinrl.idne.de
+ThTishrisesreasercahrcwhawsassupsuppoprtoerdtebdybtyhethDeeDuetsucthseche ForFsocrhsuchnugnsgesgmeeminesicnhsachftatfht rtohuroguhgthhethSeFSBF6B4694"9Ec"oEnconmoimc RicisRki"s.k".
+
+

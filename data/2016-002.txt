@@ -1,0 +1,704 @@
+BERLIN
+
+SFB 6 4 9 E C O N O M I C R I S K
+
+SFB 649 Discussion Paper 2016-002
+Uncertainty and Employment Dynamics in the
+Euro Area and the US
+Aleksei Netsunajev* Katharina Glass*²
+* Freie Universität Berlin, Germany *² Universität Hamburg, Germany This research was supported by the Deutsche Forschungsgemeinschaft through the SFB 649 "Economic Risk". http://sfb649.wiwi.hu-berlin.de
+ISSN 1860-5664 SFB 649, Humboldt-Universität zu Berlin
+Spandauer Straße 1, D-10178 Berlin
+
+Uncertainty and Employment Dynamics in the Euro Area and the US
+Aleksei Netsunajev, Katharina Glass  January 13, 2016
+Abstract In this paper we investigate transmission and spillovers of local and foreign economic policy uncertainty shocks to unemployment in two largest economic regions in the world - the United States (US) and the Euro area (EA). For this purpose we deploy Bayesian Markov-switching structural vector autoregressive (MS-SVAR) model identified via heteroskedasticity. In addition to local effects we find foreign uncertainty shocks influence the Euro area but not the US unemployment. Moreover we document weaker spillovers of both local and foreign uncertainty shocks in the more volatile times.
+Keywords: economic policy uncertainty, EPU index, unemployment, Markov-switching, structural vector autoregression, identification via heteroskedasticity, Bayesian inference
+JEL classification: D80, C32, C11, E24
+The author gratefully acknowledges support from Deutsche Forschungsgemeinschaft (DFG) through SFB649 "Economic Risk". Freie Universität Berlin, School of Business and Economics, Boltzmannstr 20, 14195 Berlin, Germany. e-mail:Aleksei.Netsunajev@fu-berlin.de. University of Hamburg, Welckerstr.8, 20354 Hamburg, Germany. e-mail:katharina.glass@wiso.uni-hamburg.de.
+1
+
+1 Introduction
+Macroeconomic uncertainty has been a subject of intensive research during the past decade. Different uncertainty proxies and modeling techniques are introduced to capture the effects of uncertainty shocks on real economic activity. Empirical literature especially in the aftermath of the Great Recession provides evidence on the importance of uncertainty shocks to real economic and monetary policy variables. The consensus is that uncertainty, notwithstanding the applied method, is countercyclical and exhibits temporary negative influence on output and employment. A significant part of uncertainty shocks research is performed with the structural vector autoregressive models: Shields et al. (2005), Alexopoulos and Cohen (2009), Bloom (2009), Baker et al. (2013), Nodari (2014), Caggiano et al. (2014b), Caggiano et al. (2014a), Leduc and Liu (2014), Benati (2014), Mumtaz and Theodoridis (2014), Pesaran et al. (2014) among others.
+Additionally to the importance and significance of uncertainty shocks some of the recent papers address the issue whether there are any spillovers from the United States (US) economy to Europe. Previous studies e.g. Kim (2001), Favero and Giavazzi (2008), Ehrmann and Fratzscher (2009), Savva et al. (2009), Billio et al. (2014) conclude that there are transatlantic spillovers concerning financial markets and real economic activity.1
+To the best of our knowledge there are only few papers that are focused primarily on the uncertainty spillovers so far. Colombo (2013) concludes that a shock of the US uncertainty contributes to the shortrun reduction in European industrial production and prices (Colombo, 2013, p.41-42). Another boarder study dealing with US-European uncertainty spillovers to the rest of the world by International Monetary Fund (2013) comes to the similar result: the US and European uncertainty shocks have temporary negative effects on each other real economic activity as well as on another regions (International Monetary Fund, 2013, p.73-74). A recent paper by Klößner and Sekkel (2014) determines spillovers for Canada, France, Germany, Italy, the UK and the US by Diebold and Yilmaz spillover index. However these studies are not without problems in our point view. While Colombo (2013) is interested only in the transmission of the US shocks, the International Monetary Fund (2013) study is a non-structural one and Klößner and Sekkel investige uncertainty spillovers without controlling for any other variables.
+In the present paper we scrutinize the spillovers between the Euro area (EA) and the US economies with the focus on uncertainty shocks originating in both economic areas. We apply a more sophisticated approach than the above mentioned papers, Bayesian Markov-switching structural vector autoregessive (MS-SVAR) model and identify uncertainty shocks via heteroscedasticity following Kulikov and Netsunajev (2013).
+As the measure of uncertainty we apply Baker et al. (2013) news-based economic policy uncertainty index (EPU). Though economic policy conveys uncertainty from a different channel comparing to stock market based measures, the estimated effects of uncertainty on output, investment and employment remain robust within different specifications. Prior work, i.a. Benati (2014), Caggiano et al. (2014b) underline that the EPU index seems to be more general in uncertainty coverage than uncertainty captured by stock market volatility indices. Due to the differences in computation of the EA and the US
+1This list is far from being exhaustive.
+2
+
+indices, we use the news-based EPU indices for both areas.
+In our study the real side of the economy is represented by a measure of unemployment. To this extent we follow recent work by Bloom (2009), Alexopoulos and Cohen (2009), Baker et al. (2013), Born et al. (2014), Leduc and Liu (2014), and Caggiano et al. (2014a), who explicitly analyze interaction of uncertainty and unemployment in a single country, mainly the US, case.
+Our model includes five variables: EPU indices and unemployment series for the Euro area and the US, as well as the index of global real economic activity by Kilian (2009). Our approach in terms of VAR modeling combines those of Caggiano et al. (2014a) and Colombo (2013). From perspective of economic theory the transition channel from uncertainty shock to the labor market is highlighted by several recent papers by Basu and Bundick (2014), Leduc and Liu (2014) among others.
+The applied methodology allows us to analyze the EA and the US economies within the same model. Following the studies by Lanne et al. (2010), Lütkepohl and Netsunajev (2014) and Kulikov and Netsunajev (2013) we identify the structural VAR via changes in volatility and label the economic policy uncertainty shocks based on the approach of Uhlig (2004). We estimate the model with two regimes of volatility that can be labeled as the Great Moderation and the Great Recession. Similar to the previous studies by Colombo (2013) and International Monetary Fund (2013) we reassure negative effects of economic policy uncertainty on unemployment. However, the impacts of uncertainty shocks are stronger than those verified by Colombo (2013) and International Monetary Fund (2013). We find local and spillover effects of uncertainty shocks for both US and EA: the increase in the US economic policy uncertainty tends to rise the unemployment in the Euro area, but not the other way round. The EA economic policy uncertainty follows the elevated economic policy uncertainty in the US. The higher economic policy uncertainty in the US tends to dampen the global real economic activity as well. Moreover, the influence of uncertainty shocks, both local and foreign, in the less volatile times is stronger. Our findings fit into the recent theoretical discussion of uncertainty shocks transmission channels to the real economy and in particular, to unemployment dynamics. Our evidence lends support to theoretical models with job market imperfections and price stickiness.
+The remainder of this paper is organized as follows. The next section 2 presents related literature and explains the transmission channel we highlight within this paper. Section 3 describes the data we apply. Section 4 introduces our main model - the Bayesian Markov-switching structural vector autoregressive model. The results are documented and discussed in section 5. The subsequent section 6 concludes.
+2 Related Literature
+This paper contributes to the several research issues. Firstly, we show the influence of economic policy uncertainty shocks to the real economy. Secondly, we disentangle spillovers between the Euro area and the US and focus on transition of uncertainty shocks to the real economy. The transmission channel we highlight within this paper - from uncertainty shock to the labor market - has been theoretically established by Leduc and Liu (2014) and Basu and Bundick (2014).
+The evidence on uncertainty shocks has been the subject of recent growing research. Though the meth-
+3
+
+ods and uncertainty proxies differ, the non-exhaustive list of authors agree about the fact that macroeconomic uncertainty is countercyclical and has a negative effect on industrial production, employment, consumption and investment: Bloom (2009); Alexopoulos and Cohen (2009); Fernandez-Villaverde et al. (2011); Baker and Bloom (2013); Mumtaz and Theodoridis (2014); Caggiano et al. (2014b); Caggiano et al. (2014a); Benati (2014); Nodari (2014) among many others. Moreover the impact of shocks have changed over time, as pointed out by Beetsma and Giuliodori (2012)2 and Mumtaz and Theodoridis (2014)3. Born et al. (2014) claim, contrary to the previously mentioned literature, that uncertainty might be overstated and economic policy uncertainty measure by Baker et al. has only minor effects on economic activity comparing with more general macroeconomic uncertainty measure by Jurado et al.4 (Born et al., 2014, p.4).
+Alternative way to consider uncertainty is a microeconomic perspective. Bachmann et al. (2013) constructed survey-based uncertainty measures for the US and Germany.5 Because of adjustment frictions and strong labor market regulations German firms exhibit "wait and see" attitude6 but not the US. Bachmann et al. suggest that financial frictions can be more promising explanations of persistent economic activity drops (Bachmann et al., 2013, p.242). Bachmann and Moscarini (2012) verify opposite causation between uncertainty and aggregated economic activity. In our paper we concentrate on economic policy uncertainty as a special case of macroeconomic uncertainty.
+The seminal paper on impact of uncertainty shocks by Bloom (2009) introduces structural framework to analyze transmission channels of uncertainty as second moment shocks to the real economy. Hereby Bloom (2009) applies stock market volatility index - the traditional proxy for uncertainty. However this measure may miss or misinterpret uncertainty of individual consumers because per definition the index is linked to financial market activities. A very recent paper by Jurado et al. (2015) applies statistical decompositions to identify common macroeconomic aspects of uncertainty based on factor models. Another possibility to measure uncertainty is to compute media based index, like for instance Alexopoulos and Cohen (2009)7, Bloom et al. (2013) or Donadelli (2014)8. The uncertainty shocks identified using these measures have similar influence on macroeconomic variables.
+The approach we use within this paper is nonlinear and from the modeling perspective we relate more closely to Caggiano et al. (2014b), Caggiano et al. (2014a), Benati (2014) or Nodari (2014). Caggiano et al. (2014b) estimate a smooth transition vector autoregression model and underline asymmetric effects of uncertainty shocks over the business cycle.9 There are clear differences in responses to uncertainty shocks dependent on the state of the economy for both nominal and real variables. For instance, industrial production and employment are more sensitive in recessions: the drop, rebound and overshoot
+2 Beetsma and Giuliodori (2012) apply stock market volatility as a proxy for uncertainty. 3Mumtaz and Theodoridis (2014) estimate factor augmented VAR to capture macroeconomic uncertainty. 4A recent paper by Jurado et al. (2015) apply statistical decompositions to identify macroeconomic aspects of uncertainty using the factor augmented VAR. 5The German data index is constructed from the monthly IFO Business Climate Survey and the US index is based on the Federal Reserve Bank of Philadelphia's Business Outlook Survey. Refer to the details to Bachmann et al. (2013). 6The "wait and see" channel defined by (Bloom, 2009, p.639) is referred to the cautious behavior of firms: During uncertain times firms basically tend to pause both hiring and investment which leads to reduction in economic activity. 7The Main Street Uncertainty index is calculated using the total number of articles appearing each month in New York Times that contain references to uncertainty and the economy. 8Donadelli (2014) proposed google-search-based uncertainty index for the US, relying on the volume of Internet searches: (i) an index based on the volume of Google searches on the word `US stock market'; (ii) an index based on the volume of Google searches on the word `US politics'; (iii) an index based on the volume of Google searches on the word `US Fed'. 9Caggiano et al. use the same macroeconomic data as Bloom (2009) and proxy uncertainty by the VIX index.
+4
+
+effects are larger than in expansions where the influences are gradual and without medium-term overshoot (Caggiano et al., 2014b, p.10). Caggiano et al. (2014a) pin down the effect of uncertainty shocks on unemployment within nonlinear framework of Caggiano et al. (2014b). They underline that uncertainty shocks on unemployment are clearly underestimated within linear models. Thus the state of economy has to be explicitly modeled. Moreover, comparing to monetary policy shocks, uncertainty shocks exhibit larger effects on the US unemployment (Caggiano et al., 2014a, p.79).10
+Benati (2014) applied Bayesian time-varying parameter structural VARs with stochastic volatility for the EPU index, inflation, industrial production, real monetary policy rate in the United States, the Euro area, the United Kingdom and Canada. The main finding of Benati is that there is a "normal" non-negligible response to policy uncertainty shocks and after the outbreak of the financial crisis the magnitude of these shocks returned to its pre-crisis level (Benati, 2014, p.15-16).
+Nodari (2014) applies financial regulation policy uncertainty index by Baker et al.11 under financial frictions. She follows asymmetric shocks idea of Caggiano et al. (2014b) and Caggiano et al. (2014a) papers and estimates smooth transition VAR. The financial regulation policy uncertainty shocks are more pronounced during the recessions especially for unemployment and spreads but they induce adverse effects on industrial production instead of "wait and see" behavior, related to the previous linear results by Bachmann et al. (2013).
+Additionally to the importance and significance of uncertainty shocks some of the recent papers address the issue whether there are any spillovers from the US economy to Europe or to the Euro area in particular. Previous studies conclude that there are transatlantic spillovers concerning financial markets and real economic activity, e.g. Kim (2001); Favero and Giavazzi (2008); Ehrmann and Fratzscher (2009); Savva et al. (2009); Billio et al. (2014) and this list is far from being exhaustive. Favero and Giavazzi (2008) study spillovers of monetary policy between the Euro area and the US and Ehrmann and Fratzscher (2009) show monetary policy spillovers from the US to 50 equity markets. Savva et al. (2009) investigate transmission effects on financial markets in New York, London, Frankfurt and Paris to estimate price and volatility spillovers. One of the recent studies on this topic by Billio et al. (2014) investigates interactions between booms and busts in the six Euro area countries and the US in a panel Markov-switching VAR with a particular focus on similarities and differences in cyclical co-movements, turning points, transmission mechanisms and analysis of shock effects.
+To the best of our knowledge there are only few papers that are focused in particular on uncertainty spillovers so far: Colombo (2013); International Monetary Fund (2013); Klößner and Sekkel (2014). Though the main idea of these papers - estimation of spillovers - is similar to ours, there are significant methodological differences as well as countries of interest. Colombo (2013) analyses the US and the European Union spillovers within a linear VAR framework. She concludes that a shock of the US uncertainty contributes to the short-run reduction in European industrial production and prices (Colombo, 2013, p.41-42). Another boarder study by International Monetary Fund (2013) deals with US-European uncertainty spillovers to the rest of the world by estimating (linear) individual countries VAR models. International Monetary Fund concludes that the US and European uncertainty shocks have temporary
+10 Notice that in the studies by Caggiano et al. (2014b) and Caggiano et al. (2014a) known transition pattern between two extreme regimes is assumed, thus they model changing volatility in a more restrictively fashion than we do.
+11The financial regulation policy uncertainty index is a subindex of the new-based EPU index.
+5
+
+negative effects on each other real economic activity as well as on another regions (International Monetary Fund, 2013, p.73-74). These studies are not without problems in out point view. While Colombo (2013) is interested only in the transmission of the US shocks, the International Monetary Fund (2013) study is a non-structural one. Further, recent paper by Klößner and Sekkel (2014) determines spillovers for Canada, France, Germany, Italy, the UK and the US by Diebold and Yilmaz spillover index. To proxy uncertainty they apply EPU individual country data. In case of the European Union countries of this sample the news-based component of the EPU is calculated using only two newspapers per country (Bloom et al., 2013, p.9), which is far from being a perfect source to measure country specific economic policy uncertainty. Klößner and Sekkel investigate whether policy uncertainty in one country influences uncertainty in the remaining ones (Klößner and Sekkel, 2014, p.508) and estimate VAR only with EPU indices without controlling for any other variables.
+Seminal papers by Bloom (2009) and Blanchard and Gali (2010) as well as recent research by Leduc and Liu (2014) and Basu and Bundick (2014) establish theoretical framework for transmission channel between uncertainty and employment: Uncertainty shock has a negative aggregate demand shock effect on the economy. Basu and Bundick (2014) build non-competitive one-sector model12 with sticky prices and allow for both flexible and sticky wages. As Basu and Bundick adumbrate uncertainty shocks13 are transmitted to the economy through labor market in two steps. Firstly in uncertain environment households want to accumulate assets and reduce consumption. Increased hours worked cause higher labor supply at lower real wages. Hence, marginal production costs of intermediate goods decreases and markups of firms increase. Higher markups induce reduction of labor demand and further even lower real wages earned by the representative household. Therefore an uncertainty shocks cause significant fall in investment, output, consumption, hours worked and real wages.14 (Basu and Bundick, 2014, p.12)
+Leduc and Liu (2014) build a Dynamic Stochastic General Equilibrium Model with sticky prices and labor market search frictions. They state that labor search frictions combined with nominal rigidities lead the transmission of uncertainty shocks to labor market and then to macroeconomy (Leduc and Liu, 2014, p.15). Leduc and Liu distinguish between two kinds of uncertainty shocks: preference uncertainty shocks by the households and technology uncertainty shocks by the firms which are intermediate good producers. After the optimization both uncertainty shocks influence the value of a firm with a job match, which depends on the profit flow and the continuation value of the job match discounted by the real interest rate (Leduc and Liu, 2014, p.19). Their simulation showed that uncertainty shock firstly reduce the demand of retail and followed by intermediate goods. Secondly, the price falls and the profit flow of the firms goes down. Further the value of the job match declines as well. As the job finding rate falls, the unemployment rises, followed by lower household income and finally the aggregate demand decline. (Leduc and Liu, 2014, p.25)
+Hence, these theoretical model papers disentangle uncertainty influences from different labor market perspectives: While Leduc and Liu consider unemployment rate, Basu and Bundick incorporate employment captured by hours worked in their model. Nevertheless, the uncertainty shocks exhibit recessionary characteristics through the labor channel.
+12Alternatively to non-neoclassical framework Basu and Bundick (2014) show the effects of uncertainty shocks within flexible prices and wages framework.
+13The model by Basu and Bundick (2014) imply technology and household demand uncertainty shocks. 14These findings hold for the sticky wages model as well (Basu and Bundick, 2014, p.13).
+6
+
+3 Data
+We use five dimensional VAR with yt = [UtEA, UtUS, EP UtEA, EP UtUS, GEAt] where
+· UtEA is the log of number of unemployed people in the EA (month-on month growth rate)
+· UtUS is the log of number of unemployed people in the US (month-on month growth rate)
+· EP UtEA is the log of measure of the economic policy uncertainty in the EA (demeaned)
+· EP UtUS is the log of measure of the economic policy uncertainty in the US (demeaned)
+· GEAt is the index of global real economic activity.
+The data is shown in Figure 1. Detailed information on download is in appendix B. Our study is focused on the effects of uncertainty shocks on unemployment. Thus the first two variables are meant to capture the effects of interest on the local labor market. Further two variables represent economic policy uncertainty measures for the EA and the US. The general EPU index relies on newspaper coverage of policy-related economic uncertainty, the number and projected revenue effects of federal tax code provisions and disagreement among economic forecasters about policy relevant variables based on the US Survey of Professional Forecasters (SPF) data. The European news-based EPU index encompasses Germany, Spain, France, Italy and the UK. Therefore we adjusted the index for the available Euro area countries and exclude the UK, using Baker et al. individual country data15 for Germany, Spain, France and Italy. Since these countries account for about 80% to the total Euro area GDP, their uncertainty contribution is a suitable proxy for the hole Euro area uncertainty.16 The last variable in the VAR is the index of global real economic activity (GEA), which controls for possible global effect. The GEA index is introduced by Kilian (2009) to reflect global demand for industrial commodities. Based on dry cargo single voyage ocean freight rates17, it is explicitly designed to capture shifts in the demand for industrial commodities in global business markets.18
+In order to use identification via heteroskedasticity the residuals of the VAR and, consequently, the data should exhibit this property. In general there is a large literature interested in the time varying volatility of macroeconomic series, see Kim and Nelson (1999) or Blanchard and Simon (2001) among others. Admittedly we do not test formally for the presence of changing second moments of the residuals, since the applied modeling device is very flexible. First, the pattern of heteroskedasticity is fully obtained from the data. Second, absence of the desired properties of the residuals would be immediately seen in the posterior regime probabilities. Hence, the model would provide clear indication of misspecification when the changing variances are absent in the data. The studies by Caggiano et al. (2014b) and Caggiano et al. (2014a) also take into account the changing volatility in the context of uncertainty data. Nevertheless they assume known transition pattern between two extreme regimes, which makes their approach more restrictive than ours.
+15The media data includes two newspapers per European Union country. 16For the illustration see appendix C, figure 5. Single country EPU new-based index and compiled Euro area EPU index is on figure 6. 17Single-voyage freight rates available in the monthly report on "Shipping Statistics and Economics" published by Drewry Shipping Consultants Ltd. 18All details concerning computation of the index are provided in (Kilian, 2009, p.1055-1058).
+7
+
+The data in our VAR is monthly going from 1997M2 to 2014:M2. This is much more recent then in the other studies analyzing the effects of uncertainty. We use 12 lags of augmentation to capture the dynamics of the monthly data.
+
+Figure 1: The data
+
+UtEA
+6 5 4 3 2 1 0 -1 -2 -3 1997 2002 2007 2012
+
+UtUS
+10
+
+EPUEt A
+1.5
+
+EPUtUS
+1.5
+
+GEAt
+60
+
+8 40
+611
+
+4 20
+
+0.5 0.5 2
+0 00
+
+0
+
+-2 -20
+
+-4 -0.5 -0.5 -6
+
+-40
+
+-8 1997 2002 2007 2012
+
+-1 1997 2002 2007 2012
+
+-1 -60 1997 2002 2007 2012 1997 2002 2007 2012
+
+4 The Model
+
+Let the time evolution of an n × 1 vector yt of endogenous variables be given by the following structural VAR model:
+
+yt = k0 + A1yt-1 + . . . + Apyt-p + B t(st) ,
+
+(1)
+
+where k0 is (optional) deterministic intercept, B is an invertible n × n impact effect matrix, A1, . . . , Ap are autoregressive matrices, and t(st) is a vector of uncorrelated structural innovations that depends on the hidden state parameter st  {1, . . . , m}. The conditional distribution of the structural innovations is normal:
+t(st) | st  N( 0, (st) ) ,
+
+where {(s) : s = 1, ..., m} is a family of distinct n × n diagonal matrices with (1)  In imposed for normalization. We assume that the hidden volatility state evolution is given by:
+
+st | st-1  Markov( P, 0 ) ,
+where the m × m matrix P governs conditional distribution of state transitions, and s0 is distributed according to the m-dimensional vector 0. With the hidden Markov regimes model (1) is further referred to as Markov­switching structural vector autoregression (MS-SVAR).
+
+The model can be written in the usual reduced­form VAR style with time­varying volatility of errors:
+
+yt = k0 + A1yt-1 + . . . + Apyt-p + ut(st) ,
+
+(2)
+
+8
+
+where ut(st) = B t(st) is a vector of reduced form residuals satisfying:
+ut(st) | st  N( 0, (st) ) ,
+where (s) = B(s)B is the reduced­form variance­covariance matrix in each volatility state s  {1, . . . , m}.
+Identification of structural innovations is the major problem in the SVAR analysis. In contrast to the traditional schemes to be discussed later we use the properties of the data to obtain the shocks of interest. We start with the estimation of the reduced-form VAR model in (2). The main issue is to recover the matrix B from the the family of variance­covariance matrices {(s) : s = 1, 2}. A result of matrix analysis states that for any pair of Hermitian matrices 1 and 2, where at least one is positive definite there exists a non-singular matrix A such that both A 1A and A 2A are diagonal (Horn and Johnson (2013), Theorem 7.6.4). Thus given two covariance matrices of the reduced form innovations the following decomposition allows to back out the structural parameters of the model:
+(1) = BB , (2) = B (2)B .
+To rely on this result we use assumptions that (i) there are two regimes of volatility, i.e m = 2 and (ii) the matrix B stays the same across the states. These assumptions are not too restrictive: two regimes MS models allows for a rich patterns in volatility while regime independent B is standard for structural VAR models.
+Staying in the world of two volatility regimes and given the result of matrix algebra the unique SVAR model is statistically identified. Nevertheless the resulting orthogonal shocks may be lacking economic interpretation. Therefore a plausible way to label observed shocks has to be found. In the context of the present paper we take the following way. To find a suitable label for a shock we examine impact effects, forecast error variance decompositions and impulse response functions. In principle, as we are interested in the uncertainty shocks, a minimum requirement for such a shock to exist, is to exhibit a pronounced reaction of uncertainty variable, at least on impact. Accordingly we first analyze the impact effect of shocks and verify whether there are some shocks that can be qualified as uncertainty shocks. Second, we consider the percentages of explained variances to confirm the preliminary labeling. This is related to the method introduced by Uhlig (2004). Finally, after labeling, we analyze the effects of shocks by the means of impulse response functions and forecast error variance decompositions (FEVD).
+The Bayesian methods are used for inference. Conditional on a trajectory of hidden states ST := {s1, . . . , sT } obtained by simulation using the algorithm of Chib (1996), the reduced­form variance­ covariance matrices {(s) : s = 1, ..., m} can be drawn from the appropriate conditional distribution. Bayesian inference on the remaining parameters  := vec(k0, A1, . . . , Ap) is based on draws form conditional distribution with the parameters obtained, as shown by Geweke (1993) and Krolzig (1997). The draws from the posterior distributions of the parameters is done by the Gibbs sampler described in detail by Kulikov and Netsunajev (2013). Precisely, the prior distributions are as follows:
+P0  Dirichlet(s1, . . . , sm), -0 1(s)  Wishart(C-1, ),
+0  N(v, V).
+9
+
+The prior distributions are independent of volatility regimes partly to avoid the label permutation problem discussed by Celeux et al. (2000). The exact choices of the hyperparameters for priors as well as the Gibbs sampler are discussed in the appendix A.
+5 Results
+We start this section with a brief review of the conventional restrictions that are used for identification of the uncertainty shocks in SVARs. As long as the EPU measures are monthly it is common to consider the VARs with the same frequency in most of the studies. Bloom (2009) analyzes stock market volatility shocks identified in a recursive fashion. Alexopoulos and Cohen (2009), Bloom et al. (2013), Nodari (2014), Leduc and Liu (2014) use zero restrictions based on recursive ordering of the variables. The main reasoning behind the zero restrictions is that the real side of the economy reacts to uncertainty shocks within a lag of at least one month. This seems plausible for the industrial production, unemployment and monetary policy rate. Caggiano et al. (2014b) apply a non-linear VAR and analyze generalized impulse response function which is non-standard in the SVAR literature. Benati (2014) considers both impact and sign restrictions, while non-negligible role of uncertainty shocks is documented for identification based on Uhlig (2004) approach. In the latter case the uncertainty shock is the shock which explains the largest fraction of the forecast error variance of the policy uncertainty index at a specific horizon. Caggiano et al. (2014a) use quarterly data and allow for possible impact effects of uncertainty shocks. They order the uncertainty measure first and rely on Cholesky decomposition for identification. This brief and non-exhaustive overview brings to the conclusion that there is hardly a consensus on the way of identifying uncertainty shocks. The crucial choice criterium herewith is to consider identification that is "somehow reasonable" from an economic point of view.
+In our paper we tackle a challenging task of jointly modeling several economic regions in the structural VAR framework. Therefore the decision about conventional restriction is more complex than in the case of a single country VAR. For instance, Colombo (2013) includes both US and EU variables, with the EU uncertainty index ordered last. Cholesky based identification in this system is rather ad-hoc and questionable from our point of view. Colombo (2013) is interested in the effects of US shock solely. In contrast, we aim to pin down both US and EA uncertainty shocks. Hence, identification via changes in volatility is useful for our purposes because it does not impose any questionable distortions on impact effects of shocks and allows to analyze both US and EA uncertainty shocks identified under the same conditions. For the labeling of shocks our approach is similar to the identification via maximizing the fraction of the forecast error variance, but is more data-driven. More precisely, we locate the shock that has a pronounced effect on impact of uncertainty measure and maximizes the variance of this variable. When these two conditions are satisfied the shock identified via changes in volatility may be labeled as an uncertainty shock.
+The posterior regime probabilities are shown in Figure 2. The figure conveys that the changes in the volatility of shocks are indeed present in the data. The first regime is associated with the periods of high volatility and thereby increased uncertainty. This regime covers economic downturns in the late 90s and beginning of 2000s (the dot-com bubble for instance) as well as the Great Recession and the European sovereign debt crisis. Thus the regime picks up most of the known periods of the elevated volatility in the recent times. The second state exhibits concentration in the first part of the sample
+10
+
+1 0.5
+0 1998: 02
+
+2000:02
+
+1 0.5
+0 1998:02
+
+2000:02
+
+Figure 2: Posterior regime probabilities
+State 1
+
+2002:02
+
+2004:02
+
+2006:02
+State 2
+
+2008:02
+
+2010:02
+
+2002:02
+
+2004:02
+
+2006:02
+
+2008:02
+
+2010:02
+
+2012:02 2012:02
+
+2014:02 2014:02
+
+during the Great Moderation. It is characterized by low volatility and hence lower economic policy uncertainty.
+Figure 3 shows the prior and posterior distribution of the impact effects of shocks. We have to determine shocks that would preliminary qualify as the uncertainty shock originating in the US and EA. The two conditions for labeling the shocks require the pronounced impact on the uncertainty variable and the maximization of FEV. We turn to the first condition now. Concerning EA EPU measure it is evident that the fourth and perhaps the third shock exhibits pronounced reaction on it. Thus we will need further evidence to understand the shocks deeper. For the measure of the US uncertainty the situation is not ambiguous. The shock ordered third pushes the US EPU measure on impact away from zero. Hence we have a single candidate for the US uncertainty shock. Given that, we may refer to the fourth shock as an EA uncertainty shock. Further evidence for labeling will be obtained from the FEV decomposition.
+
+UtEA
+
+UtUS
+
+EPUtEA
+
+Figure 3: Prior (dashed line) and posterior (solid line) distributions of B
+US uncertainty shock EA uncertainty shock
+1 2 4 10 10
+
+0.5 1 2 5 5
+
+0 -5 0 5
+
+0 -2 0 2
+
+0 -1 0 1
+
+0 -1 0 1
+
+0 -1 0 1
+
+0.4 1 1 2 2
+
+0.2 0.5 0.5 1 1
+
+0 -4 -2 0 2 4
+
+0 -2 0 2 4
+
+0 -2 0 2
+
+0 -2 0 2
+
+0 -2 0 2
+
+10 10
+
+5 10 10
+
+55
+
+55
+
+0 000 0
+
+-0.5 0 0.5
+
+-1 0 1
+
+-0.5 0 0.5 1
+
+-0.5
+
+0
+
+0.5
+
+-0.5 0
+
+0.5
+
+10 10 10 20 40
+
+5 5 5 10 20
+
+0 000 0
+
+-0.5 0 0.5
+
+-1 0 1
+
+-0.5
+
+0
+
+0.5
+
+-0.5
+
+0
+
+0.5
+
+-0.1 0
+
+0.1
+
+0.2 0.4 0.5 1 1
+
+0.1 0.2
+
+0.5 0.5
+
+0 -10 0 10 20 30
+
+0 -20 0 20
+
+0 -10 0 10
+
+0 -5 0
+
+5
+
+0 -5 0 5
+
+EPUtUS
+
+GEAt
+
+11
+
+To conserve space the FEVD is shown only for shocks ordered third and fourth, the other shocks are summed up. The variance decomposition of the global real economic activity is omitted as well.19 The FEVD of the economic policy unceratinty measures is presented in Table 1. The third shock maximizes the variance of the relevant US measure in both regimes and can be labeled as an "US uncertainty" shock. The fourth shock maximizes the variance of the EP UtEA definitely in the second state. Since this state is associated with the Great Moderation period and is considerably longer than the Great Recession, therefore we can label 4 as an "EA uncertainty" shock. As the recession originated in the States, the strong spillover effect of the US uncertainty on other countries is plausible. Moreover US uncertainty in a high volatility regime may be very important for the Euro area. Thus considering the evidence from the high volatility regime may be misleading from the labeling point of view. Further we continue to discuss the variance decomposition after analyzing impulse response functions.
+
+Table 1: Posterior means of FEVD of the EPU measures to shocks
+
+Variable EP UtEA
+EP UtUS
+
+State 1 2 1 2
+
+Shock
+3 4 1,2,5 3 4, 1,2,5 3 4 1,2,5 3 4 1,2,5
+
+Horizon 0 6 12 0.418 0.459 0.459 0.280 0.185 0.158 0.302 0.355 0.382 0.248 0.335 0.360 0.446 0.365 0.338 0.306 0.300 0.203 0.681 0.607 0.569 0.047 0.051 0.050 0.272 0.342 0.381 0.733 0.664 0.638 0.101 0.120 0.126 0.166 0.216 0.236
+
+Impulse responses to the uncertainty shocks are shown in Figure 4. The impulse responses are normalized to the mean increase of 0.25 units of the EPU measure. This is close to represent the change in the mean of EPU measures before the Great Recession and after it. The increase in the US economic policy uncertainty tends to increase the unemployment in the Euro area with a lag. There is a substantial mass of positive responses of the EA unemployment on horizons 6-24. The mean response peaks at around 0.1 percentage points after a year. The US unemployment does exhibit positive reaction to the domestic uncertainty shock as well. The mean spikes by 0.5 percentage points on impact but the reaction dies away very quickly. The EA economic policy uncertainty follows the elevated economic policy uncertainty in the US. The magnitude of this reaction is comparable to the one of the US EPU. The higher economic policy uncertainty in the US also tends to dampen the real economic activity in the world with a lag. The minimum reaction is observed after a year.
+Turning to the EA uncertainty shock it is obvious that the local effect is rather strong. The mean reaction of unemployment peaks at around 0.1 percentage points on impact. Notably the reaction of the EA unemployment is much stronger to the foreign shock. The reaction of the US labor market to EA shock is inexistent. The economic policy uncertainty tends to be elevated in the US for some time.
+19Complete forecast error variance decomposition is available by authors on request.
+12
+
+Notwithstanding, the magnitude of this reaction is nearly 10 times smaller than the reaction of the EA EPU measure. The real economic activity does not seem to be harmed.
+To check the robustness of our results we repeat the exercise for the standard Bayesian VAR model identified based on Cholesky decomposition. The impulse response functions on Figure 7 document similar effects of uncertainty shocks on both US and EA unemployment. The responses are more pronounced if we identify shocks via changes in volatility.
+
+Figure 4: Posterior impulse responses to uncertainty shock. Solid line mean response, dashed lines 68% credible sets.
+
+US uncertainty shock
+
+0.4 0.2
+0 -0.2 -0.4
+0
+
+UEA
+t 12 24
+
+1 0.5
+0 -0.5 36 0
+
+UUS
+t 12 24
+
+0.4 0.3 0.2 0.1
+0 36 0
+
+EPUEA
+t 12 24
+
+0.3 0.2 0.1
+0 36 0
+
+EPUUS
+t 12 24
+
+0 -2 -4 -6 36 0
+
+GEA
+t 12 24 36
+
+EA uncertainty shock
+
+0.3 0.2 0.1
+0 -0.1 -0.2
+0
+
+2 1 0 -1 -2 12 24 36 0
+
+0.3 0.2 0.1
+0 12 24 36 0
+
+0.1 0.05
+0 -0.05
+-0.1 12 24 36 0
+
+3 2 1 0 -1 -2 12 24 36 0
+
+12 24 36
+
+The variance decomposition of unemployment measures is presented in Table 2. Concerning the EA unemployment we observe that in the first regime the contribution of both uncertainty shocks reaches 11.1%. The local shocks are close to negligible, while the US shock explains nearly 10% of the variation in the EA unemployment. In the second regime around 15.5% of the variance is jointly explained by the US and EA uncertainty shocks at horizon zero, rising to 28.1% at horizon 12. Foreign shock to the Euro area plays more important role and explains up to 17.7% of variation, with the local shock becoming more pronounced with the flow of time. Thus the spillovers of uncertainty are non-negligible and they are even more crucial in less volatile times.
+Referring to the US unemployment the following should be noticed. In both regimes the total contribution of the EA and US uncertainty shocks remains rather constant independent of the horizons and constitutes around 30% of the variation in unemployment. The spillovers of the EA shocks constitute up to 14.4% in the regime one and 25.7% in regime two. Hence the foreign shocks are important for the US unemployment as well. During the tranquil times the spillovers of foreign uncertainty shocks are more influential.
+Consequently we document that the importance of the uncertainty shocks in the normal times is similar for both US and EA unemployment and is around 30%, though the spillovers are more pronounced for the US labor market. In the volatile times the contribution of the local uncertainty shock to EA unemployment becomes negligible, however the same is not true for the US. While non-uncertainty shocks
+13
+
+Table 2: Posterior means of FEVD of the unemployment to shocks
+
+Variable UtEA
+UtU S
+
+State 1 2 1 2
+
+Shock
+3,U S 4,EA 1,2,5 3,U S 4,EA 1,2,5 3,U S 4,EA 1,2,5 3,U S 4,EA 1,2,5
+
+Horizon 0 6 12 0.063 0.075 0.095 0.008 0.013 0.016 0.929 0.912 0.889 0.111 0.136 0.177 0.055 0.090 0.104 0.833 0.774 0.719 0.099 0.125 0.128 0.188 0.151 0.144 0.714 0.724 0.728 0.047 0.069 0.073 0.266 0.258 0.257 0.687 0.673 0.670
+
+are the drivers of the EA unemployment in the crisis times, the labor market in the US continues to be extensively influenced by the uncertainty shocks, with spillovers becoming less important and local shocks taking over. Our results for the US are similar to those of Caggiano et al. (2014a), who estimate the contribution of a single uncertainty shock to the variation in the unemployment to be around 23% in the recessions (Caggiano et al., 2014a, p.89-90).
+Colombo (2013) and International Monetary Fund (2013) report negative effects of the US uncertainty shocks on investigated European Union variables. Though the direction is the same, this finding according to Caggiano et al. (2014a) is only partly credible because the uncertainty effects within a simple VAR are underestimated (Caggiano et al., 2014a, p.83). However from methodological aspect, the studies by Caggiano et al. (2014b) and Caggiano et al. (2014a) assume known transition pattern between two extreme regimes and model changing volatility more restrictively than we do. In our framework we reassure negative effects of economic policy uncertainty on unemployment. Moreover the impacts of uncertainty shocks are stronger than those verified by Colombo (2013) and International Monetary Fund (2013).
+Aforementioned conclusions correspond to recent research: uncertainty shocks have negative influence on the real economy and are similar to demand shock effect. Theoretical background for the idea that uncertainty shocks have a demand effect on real economy is founded by Blanchard and Gali (2010), extended to uncertainty by Basu and Bundick (2014) and Leduc and Liu (2014) in the DSGE framework. They question pure Real Business Cycle (RBC) models with Walrasian labor market, where uncertainty shocks have expansionary effect on potential output. Following Gilchrist and Williams (2005) expansionary uncertainty shocks cause reduction of household wealth, increase in marginal utility of consumption and labor supply (Gilchrist and Williams, 2005, p.20-21). Admittedly this literature ignores search frictions on the labor market and nominal rigidities, which is stressed by Basu and Bundick (2014) and Leduc and Liu (2014). Under nominal rigidities uncertainty shock has a multiplier effect. The reduction of an aggregate demand lowers relative prices. As the firms post fewer vacancies, unemployment rate increases and household income decreases, leading to a new reduction in relative prices, which further depresses aggregate demand (Leduc and Liu, 2014, p.4). Moreover in model with search frictions, job
+14
+
+match captures long-term employment relationship. If uncertainty increases, the present value of a job match can decline and the unemployment rises. (Leduc and Liu, 2014, p.5) Therefore uncertainty shocks generate decline in aggregate demand and lead to decrease in unemployment through the option-value channel described above. These effect are clearly supported by our results.
+6 Conclusion
+In the present paper we extend the literature on the economic policy uncertainty and study the cross effects of uncertainty shocks in two biggest economic regions: the US and Euro Area. We use number of unemployed people to proxy the effects of uncertainty shocks on the labor market. For structural analysis we deploy a structural VAR model with Markov switching in the variances of shocks and use Bayesian methods for inference. The shocks are statistically identified via changes in their volatility. The economic labeling of "US uncertainty" and "EA uncertainty" shocks is succeeded using the method of Uhlig (2004).
+The applied methodology allows us to analyze the EA and the US economies within the same model with two endogenously determined states: the Great Moderation and the Great Recession. The impacts of uncertainty shocks in our framework are stronger than those verified by Colombo (2013) and International Monetary Fund (2013). The EA economic policy uncertainty follows the elevated uncertainty in the US. Similar to the previous studies by Colombo (2013) and International Monetary Fund (2013) we reassure negative effects of economic policy uncertainty on unemployment. We document that the influence of uncertainty shocks, both local and foreign, is stronger in less volatile times. The increase in the US economic policy uncertainty tends to increase the unemployment in the Euro area, but no effect from the EA uncertainty to US labor market is observed. In the period of high volatility variation in unemployment is mostly due to US uncertainty and other none-uncertainty shocks, while variation in the US unemployment is to a large extent due to both local and foreign uncertainty shocks. Moreover, the higher economic policy uncertainty in the US also tends to dampen the global real economic activity. These findings add to the previous empirical literature. Our conclusion fits into the recent theoretical discussion of uncertainty shocks transmission channels into the real economy and especially to unemployment dynamics.
+15
+
+References
+Alexopoulos, M. and J. Cohen, "Uncertain Times, Uncertain Measures," Working Paper 352, University of Toronto, Department of Economics February 2009.
+Bachmann, Ruediger and Giuseppe Moscarini, "Business Cycles and Endogenous Uncertainty," Mimeo, Yale University, Department of Economics December 2012.
+, Steffen Elstner, and Eric R. Sims, "Uncertainty and Economic Activity: Evidence from Business Survey Data," American Economic Journal: Macroeconomics, 2013, 5 (2), 217­49.
+Baker, Scott and Nicholas Bloom, "Does Uncertainty Reduce Growth? Using Disasters as Natural Experiments," Working Paper 19475, NBER September 2013.
+, , and Steven J. Davis, "Measuring Economic Policy Uncertainty," Technical Report May 2013.
+Basu, Susanto and Brent Bundick, "Uncertainty Shocks in a Model of Effective Demand," Working Paper RWP 14-15, Federal Reserve Bank of Kansas City November 2014.
+Beetsma, Roel and Massimo Giuliodori, "The changing macroeconomic response to stock market volatility shocks," Journal of Macroeconomics, 2012, 34 (2), 281 ­ 293.
+Benati, Luca, "Economic Policy Uncertainty and the Great Recession," Technical Report, University of Bern, Department of Economics 2014.
+Billio, Monica, Roberto Casarin, Francesco Ravazzolo, and Herman K. van Dijk, "Interactions between eurozone and US booms and busts: A Bayesian panel Markov-switching VAR model," Center for macro- and petrolium research working paper 8/2014, Norwegian Business School 2014.
+Blanchard, Olivier and John Simon, "The Long and Large Decline in U.S. Output Volatility," Brookings Papers on Economic Activity, 2001, 32 (1), 135­174.
+and Jordi Gali, "Labor Markets and Monetary Policy: A New Keynesian Model with Unemployment," American Economic Journal:Macroeconomics, 04 2010, 2 (2), 1­30.
+Bloom, Nicholas, "The impact of uncertainty shocks," Econometrica, 2009, 3, 623­685.
+, Max Floetotto, Nir Jaimovich, Itay Saporta-Eksten, and Stephen J. Terry, "Really Uncertain Business Cycles," Working Paper 1195, Centre for economic performance March 2013.
+Born, B., S. Breuer, and S. Elstner, "Uncertainty and the Great Recession," Working Paper 04/2014, German Council of Economic Experts 2014.
+Caggiano, Giovanni, Efrem Castelnuovo, and Nicolas Groshenny, "Uncertainty Shocks and Unemployment Dynamics: An Analysis of Post-WWII U.S. Recessions," Journal of Monetary Economics, 2014, 67, 78­92.
+Caggiano, Goivanni, Efrem Castelnuovo, and Gabriela Nodari, "Uncertainty and Monetary Policy in Good and Bad Times," (unpublished) Working Paper, University of Padova September 2014.
+Celeux, Gilles, Merrilee Hurn, and Christian P. Robert, "Computational and Inferential Difficulties with Mixture Posterior Distributions," Journal of the American Statistical Association, 2000, 95 (451), pp. 957­970.
+16
+
+Chib, Siddhartha, "Calculating posterior distributions and modal estimates in Markov mixture models," Journal of Econometrics, 1996, 75, 79­97.
+Colombo, Valentina, "Economic Policy Uncertainty in the US: Does it matter for the euro area?," Economic Letters, 2013, 121, 39­42.
+Diebold, Francis X. and Kamil Yilmaz, "Measuring Financial Asset Return and Volatility Spillovers, with Application to Global Equity Markets*," The Economic Journal, 2009, 119 (534), 158­171.
+Donadelli, Michael, "Google search-based metrics, policy-related uncertainty and macroeconomic conditions," Applied Economics Letters, 2014.
+Ehrmann, Michael and Marcel Fratzscher, "Global financial transmission of monetary policy shocks," Oxford Bulletin of Economics and Statistics, 2009, 71 (6), 739­759.
+Favero, Carlo and Francesco Giavazzi, "Should the euro area be run as a closed economy?," American Economic Review, 2008, 98 (2), 128­145.
+Fernandez-Villaverde, Jesus, Pablo Guerran-Quintana, Juan F. Rubin-Ramirez, and Martin Uribe, "Risk Matters: The Real Effects of Volatility Shocks," American Economic Review, 2011, 101 (6), 2530­61.
+Geweke, John, "Bayesian Treatment of the Independent Student-t Linear Model," Journal of Applied Econometrics, 1993, 8 (Supplement), S19­S40.
+Gilchrist, Simon and John Williams, "Investment, Capacity, and Uncertainty," Review of Ecnomic Dynamics, 2005, 8 (1), 1­27.
+Horn, Roger A. and Charles R. Johnson, Matrix Analysis, 2nd ed., Camridge University Press, 2013.
+International Monetary Fund, Spillover Feature: Spillovers from Policy Uncertainty in the United States and Europe, International Monetary Fund, April
+Jurado, Kyle, Sydney C. Ludvigson, and Serena Ng, "Measuring Uncertainty," American Economic Review, 2015, 105 (3), 1177­1216.
+Kilian, Lutz, "Not All Oil Price Shocks Are Alike: Disentangling Demand and Supply Shocks in the Crude Oil Market," American Economic Review, 2009, 99 (3), 1053­69.
+Kim, Chang-Jin and Charles R. Nelson, "Has The U.S. Economy Become More Stable? A Bayesian Approach Based On A Markov-Switching Model Of The Business Cycle," The Review of Economics and Statistics, 1999, 81 (4), 608­616.
+Kim, Soyoung, "International transmission of US monetary policy shocks: evidence from VARs," Journal of Monetary Economics, 2001, 48 (2), 339­372.
+Klößner, Stefan and Rodrigo Sekkel, "International spillovers of policy uncertainty," Economics Letters, 2014, 124 (3), 508 ­ 512.
+Kolesnikova, Natalia A. and Yang Liu, "Jobless Recoveries: Causes and Consequences," The Regional Economist, Federal Reserve Bank of St. Louis April 2011.
+17
+
+Krolzig, Hans-Martin, Markov-Switching Vector Autoregressions: Modelling, Statistical Inference, and Application to Business Cycle Analysis, Berlin: Springer-Verlag, 1997.
+Kulikov, Dmitry and Aleksei Netsunajev, "Identifying monetary policy shocks via heteroscedasticity: a bayesian approach," Working Paper 9/2013, Eesti Pank 2013.
+Lanne, Markku, Helmut Lütkepohl, and Katarzyna Maciejowska, "Structural vector autoregressions with Markov switching," Journal of Economic Dynamics and Control, 2010, 34 (2), 121­131.
+Leduc, Sylvain and Zheng Liu, "Uncertainty Shocks are Aggregate Demand Shocks," Working Paper 2012-10, Federal Reserve Bank of San Francisco 2014.
+Litterman, Robert, "Forecasting with Bayesian Vector Autoregressions - Five years of experience," Journal of Business and Economic Statistics, 1986, 4, 25­38.
+Lütkepohl, Helmut and Aleksei Netsunajev, "Disentangling Demand And Supply Shocks In The Crude Oil Market: How To Check Sign Restrictions In Structural Vars," Journal of Applied Econometrics, 04 2014, 29 (3), 479­496.
+Mumtaz, Haroon and Konstantinos Theodoridis, "the changing transmission of uncertainty shocks to the US: an empirical analysis," Working Paper 735, University of London, Queen Mary College December 2014.
+Nodari, Gabriela, "Financial Regulation Policy Uncertainty and Credit Spreads in the U.S.," Journal of Macroeconomics, 2014, 41, 122­132.
+Pesaran, Hashem, Ambrogio Cesa-Bianchi, and Alessandro Rebucci, "Uncertainty and Economic Activity: A Global Perspective," Cambridge Working Papers in Economics 1407, University of Cambridge 2014.
+Petrakis, Panagiotis E., Dionysis G. Valsamis, and Pantelis C. Kostis, "Uncertainty Shocks in Eurozone Periphery Countries and Germany," Cyprus Economic Policy Review, 2014, 8 (2), 87­106.
+Savva, Christos S., Denise R. Osborn, and Len Gill, "Spillovers and correlations between US and major European stock markets: the role of the euro," Applied Financial Economics, 2009, 19, 1595­ 1604.
+Shields, Kalvinder, Nilss Olekalns, O´ lan T. Henry, and Chris Brooks, "Measuring the response of macroecomacro uncertainty," The Review of Economics and Statistics, 2005, 87 (2), 362­370.
+Uhlig, Harald, "Do Technology Shocks Lead to a Fall in Total Hours Worked?," Journal of the European Economic Association, 04/05 2004, 2 (2-3), 361­371.
+18
+
+A Gibbs sampler for the MS-SVAR
+
+The appendix presents the Gibbs sampler for the MS-SVAR outlined in the text of the paper. The sampling includes the following five steps, repeated over a desired number of iterations. Although the current draw of the sampler partially depends on the previous iteration, we skip dependence on Gibbs draws within the same sampler iteration to economize on notation. In addition, all Gibbs sampler expression in this section are conditioned on "pre-sample" observations y0, . . . , y1-p.
+1. ST is generated by drawing in reverse time order from the posterior distribution:
+
+p(st | YT , st+1)  p(st | Yt) · p(st+1 | st) ,
+
+(3)
+
+where the first term in the expression is generated recursively using Chib (1996) Bayesian simulation algorithm for hidden Markov models. It involves the prediction:
+
+m
+p(st | Yt-1) = p(st | st-1 = s) · p(st-1 = s | Yt-1) ,
+s=1
+
+and update steps:
+
+p(st | Yt)  p(st | Yt-1) · (yt | Yt-1; , (st)) ,
+
+where Yt denotes sample data up to 1  t  T , and (yt | Yt-1; , (st)) is the Gaussian likelihood function of yt for a given state st  {1, . . . , m};
+
+2. Given a simulated trajectory ST from the previous step, the Markov transition kernel P is updated element-by-element, where for each s  {1, . . . , m} the posterior probability of leaving the state s is given by the following discrete distribution:
+
+ps | YT , ST  Dirichlet( s1 + ns1(ST ), . . . , sm + nsm(ST ) ) ,
+
+(4)
+
+where {sk : 1  s, k  m} are hyper­parameters of the Dirichlet prior for P, and nsk(ST ) is the number of transitions from state s to state k in the given trajectory ST ;
+
+3. Posterior distributions of the reduced­form variance­covariance matrices for each state s  {1, . . . , m}
+
+are given by:
+
+-1(s) | YT , ST  Wishart( [C + C¯ (s)]-1,  + T (s) ) ,
+
+(5)
+
+where the non-singular matrix C and scalar {} are hyper­parameters of the Wishart priors for {(s) : s  {1, . . . , m}}, and C¯ (s) are sums of residual cross products for the errors belonging to a
+particular state s, and 0  T (s)  T is the number of occurrences of s in ST :
+
+TT
+C¯ (s) := u¯t() u¯t() · 1{st = s} , T (s) := 1{st = s} ,
+t=1 t=1
+
+u¯ t() := yt - k0 - A1yt-1 - . . . - Apyt-p ;
+
+4. For two volatility regimes the posterior draws of the impact effect matrices B are obtained from the reduces form variance covariance matrices using the relationship:
+
+19
+
+(1) = BB , (2) = B (2)B .
+
+5. Given the prior Gaussian distribution of the VAR parameters:
+
+  N (v, V),
+
+posterior distribution is Gaussian:  | YT , ST , {(s) : 1  s  m}  Normal( v¯, V¯ ) ,
+
+(6)
+
+where parameters of this distribution are given by the expressions:
+
+v¯ = V¯ (V-1v + (X  In) (ST ) y) ,V¯ = V-1 + (X  In) (ST ) (X  In) -1 ,
+
+where nT × nT block­diagonal matrix (ST ) is defined as follows:
+
+ -1(s1) . . .
+
+ 0
+
+(ST
+
+)
+
+:=
+
+ 
+
+...
+
+...
+
+...
+
+ 
+
+,
+
+
+
+0 . . . -1(sT )
+
+y := (y1, . . . , yT ) is a nT × 1 data vector where each row of a T × (1 + np) data matrix X contains the following elements:
+(1, yt-1, . . . , yt-p) .
+
+Given the properties of the data the prior mean of the parameter vector v can be set to represent the random walk or unit rout prior. In our case we work with stationary data hence the prior mean of VAR parameters, i.e each element in the vector v is set to 0. In the spirit of Litterman (1986) the prior covariance matrix V is specified as a diagonal matrix with the following elements on the diagonal:
+
+V = diag([v01, ..., v0n, v11,1, ..., vn1,1, v12,1, ..., vn2,1, ..., v1n,p, ..., vnn,p])
+where [v01, ..., v0n] are prior variances of the constant term and
+vij,l = (i/lj )2
+is the prior variance of the specific element aij,l of the VAR coefficient matrix Al,  is the prior standard deviation of the coefficients,  is a parameter and i is the standard deviation of the AR(1) residuals estimated on the individual data series i. The parameter  controls how tightly the coefficient of the first lag of the variable is thought to be concentrated around the prior mean. We take  = 0.2 and  = 1.
+
+For inference the following hyper­parameters of the prior distributions are used: the hyper­parameters of the Dirichlet prior on the elements of the Markov transition kernel P are sk = 5 for s = k and sk = 1 for s = k, where s, k  {1, 2}. These priors reflect the persistence of volatility regimes. The Wishart prior hyper­parameters on the reduced­form variance­covariance matrices -1(1) and -1(2) are given by the standard deviation of the variables within first 30 observations. Number of degrees of freedom is taken to be close to the dimensionality of the system to reflect rather diffuse priors:  = 6.
+
+20
+
+Normal informative priors on  are implemented in the spirit of Litterman (1986). The prior mean of the VAR coefficients is concentrated around zero with the variance shrinking with lags. Alterations in the priors do not change the results dramatically. The results presented in the text are based on 10000 Gibbs sampler draws with first 8000 discarded as burn-in period.
+B Data Sources
+The data is obtained from the following sources: number of unemployed people in the EA is published by the ECB, number of unemployed people in the US comes from the Bureau of Labor Statistics. Both series are seasonally adjusted. The EPU measures are downloaded from the Scott Baker, Nicholas Bloom and Steven J. Davis economic policy uncertainty homepage20. The GEA index is available on the web page of Kilian.21
+20The US data: http://www.policyuncertainty.com/us_monthly.html and the EU: http://www.policyuncertainty.com/ europe_monthly.html. Downloaded on 12.09.2014.
+21http://www-personal.umich.edu/~lkilian/paperlinks.html. Downloaded on 12.09.2014.
+21
+
+C Supplementary Figures
+Figure 5: Shares of Germany, Spain, France and Italy GDP to the total Euro area GDP
+Source: Eurostat. 2014 figures are estimates. Figure 6: German, Spanish, French and Italian EPU vs. Euro area EPU index
+Source: Baker et al..
+22
+
+UEA
+t
+
+UUS
+t
+
+EPUEA
+t
+
+0.5
+0 0
+0.5
+0
+-0.5 0
+0.05
+0
+-0.05 0
+0.05
+0
+-0.05 0
+4 2 0 -2
+0
+
+UEA shock
+t 5 10 15 20 5 10 15 20 5 10 15 20 5 10 15 20 5 10 15 20
+
+Figure 7: Impulse Responses of Bayesian VAR
+
+UUS shock
+t 0.2
+
+EPUEA shock
+t 0.1
+
+0.2
+
+0.1 0.1 0
+00
+
+-0.1 0
+2
+1
+0
+0 0.02
+
+5 10 15 20 5 10 15 20
+
+-0.1 0
+0.4 0.2
+0 -0.2
+0
+
+5 10 15 20 5 10 15 20
+
+-0.1 0
+0.4 0.2
+0 -0.2
+0 0.1
+
+0.2 0 0.05
+0.1
+
+-0.02 0
+0.02
+
+5 10 15 20
+
+0 0
+0.05
+
+5 10 15 20
+
+0 0
+0.2
+
+0 0 0.1
+
+-0.02 0
+2
+0
+-2 0
+
+5 10 15 20 5 10 15 20
+
+-0.05 0
+2 0 -2
+0
+
+5 10 15 20 5 10 15 20
+
+0 0
+0
+-2
+-4 0
+
+EPUUS shock
+t 5 10 15 20 5 10 15 20 5 10 15 20 5 10 15 20 5 10 15 20
+
+EPUUS
+t
+
+GEA
+t
+
+Note: The model is estimated using Bayesian methods for infernce with 12 lags. Solid line - posterior mean response, dotted lines - 68% credible sets.
+
+23
+
+SFB 649 Discussion Paper Series 2016
+For a complete list of Discussion Papers published by the SFB 649, please visit http://sfb649.wiwi.hu-berlin.de.
+001 "Downside risk and stock returns: An empirical analysis of the long-run and short-run dynamics from the G-7 Countries" by Cathy Yi-Hsuan Chen, Thomas C. Chiang and Wolfgang Karl Härdle, January 2016.
+002 "Uncertainty and Employment Dynamics in the Euro Area and the US" by Aleksei Netsunajev and Katharina Glass, January 2016.
+SFSBF6B4694, 9S,pSapnadnaduaeureSrtrSatßraeß1e, 1D,-D10-1107187B8eBrleinrlin htthpt:t/p/:/s/fbs6fb4694.w9.iwwiiw.hiu.h-bue-brleinrl.idne.de
+ThTishrisesreasercahrcwhawsassupsuppoprtoerdtebdybtyhethDeeDuetsucthseche ForFsocrhsuchnugnsgesgmeeminesicnhsachftatfht rtohuroguhgthhethSeFSBF6B4694"9Ec"oEnconmoimc RicisRki"s.k".
+
+

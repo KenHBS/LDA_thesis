@@ -61,3 +61,13 @@ print("The exact hit rate on the test data is %.4f%%" % (100*sum(hits)/len(hits)
 
 #lvb_docs = new_docs_prep(new_docs = [lvb, lvb2], lda_dict = cgs.dict)
 #lvb_theta = cgs.post_theta(lvb_docs)
+
+## POSTERIOR ON FULL DOCUMENTS:
+doc1 = open_txt_doc('/Users/Ken/Desktop/Basecamp/txtdata/2015-001.txt')
+doc2 = open_txt_doc('/Users/Ken/Desktop/Basecamp/txtdata/2016-001.txt')
+doc3 = open_txt_doc('/Users/Ken/Desktop/Basecamp/txtdata/2016-002.txt')
+doc4 = open_txt_doc('/Users/Ken/Desktop/Basecamp/txtdata/2016-003.txt')
+docs = [doc1, doc2, doc3, doc4]
+prep_docs = doc_prepare.new_docs_prep(docs, cgs.dict)
+
+fulldoc_thetas = cgs.post_theta(prep_docs)

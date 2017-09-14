@@ -17,6 +17,20 @@ def new_docs_prep(new_docs, lda_dict):
     return [new_doc_prep(doc, lda_dict) for doc in new_docs]
 
 
+def open_txt_doc(filename):
+    """
+    Convenient function that drops all non-utf8 characters
+    and therefore allows for smooth transformation between latin1 encoded txt
+    files and the utf8 format required by gensim text preparation.
+    :param filename: Absolute path to .txt document
+    :return: Whole document as bytes
+    """
+    f = open(filename, 'rb')
+    doc = f.read()
+    doc = doc.decode('utf-8', 'ignore').encode('utf-8')
+    return doc
+
+
 class PrepLabeledData:
     """
     This class transform extracts of databases to objects that can be used

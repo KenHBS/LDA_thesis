@@ -1,0 +1,278 @@
+BERLIN
+
+SFB 6 4 9 E C O N O M I C R I S K
+
+SFB 649 Discussion Paper 2016-008
+Measuring the benefit from reducing income
+inequality in terms of GDP
+Simon Voigts*
+* Humboldt-Universität zu Berlin, Germany This research was supported by the Deutsche Forschungsgemeinschaft through the SFB 649 "Economic Risk".
+http://sfb649.wiwi.hu-berlin.de ISSN 1860-5664
+SFB 649, Humboldt-Universität zu Berlin Spandauer Straße 1, D-10178 Berlin
+
+Measuring the benet from reducing income inequality in terms of GDP
+Simon Voigts
+February 22, 2016
+Abstract
+Given that well-being is a concave function of income, inequality is inecient from a utilitarian perspective. This paper proposes a way to express the utilitarian benet from redistributive reforms in terms of output, i.e. as a share of GDP. Three applications are presented: First, in nine European countries under study, a mild increase in government redistribution allows for gains in well-being equivalent to 8.9%-20.2% of higher GDP, and 55.8% for the US. Second, in the US, redistributing income in excess of the level at the 99th percentile is as benecial as a 39.5% GDP-increment. Third, revoking government redistribution in Germany reduces welfare by the same amount as a 25.4% decline in output.
+JEL classication: D31, D63. Keywords: Income Distribution, Inequality.
+Humboldt-Universität zu Berlin, School of Business and Economics, Spandauer Straÿe 1, 10178 Berlin, Germany, email: s.voigts@hu-berlin.de. This research was supported by the Deutsche Forschungsgemeinschaft through the CRC 649 Economic Risk. I thank Niklas Flamang, Davud Rostam-Afschar, Giacomo Corneo, Michael Burda and Benjamin Friedman for valuable suggestions.
+
+1 Introduction
+Economists long understood that utility from consumption is a concave function. In the same spirit, literature in the eld of Happiness Economics reports
+that an agent's well-being is a concave function of his or her income.1 As a
+result, income inequality is inecient under a utilitarian social welfare function, since it does not maximize aggregate welfare for a given level of total income. This paper proposes a simple method to quantify the benet from reducing income inequality, which lends itself for the assessment of redistributive policies. The benet of an inequality-reducing policy is represented by the amount of GDP growth that would yield the same gain in utilitarian social welfare. The dependency of individual happiness on income used in the computation is taken from the estimate of Layard et al. (2008), which is reported to be stable across countries and cultures.
+The paper presents two applications. The rst is to quantify possible welfareimprovements from implementing hypothetical redistributive reforms in ten advanced economies. Based on observed after-tax income, the reforms introduce an additional tax rate of 75% on after-tax income in excess of the income of the individual at the 90th percentile. Additional revenues are reimbursed to the poorest individuals of the distribution. Across European countries, the resulting gains in social welfare correspond to GDP growth from 8.9% in the Netherlands to 20.2% in Italy. In the US, it amounts to 55.8%. Interestingly, implementing perfect income equality on top of these reforms yields additional gains in social welfare that are smaller than the gains from implementing the above mentioned reform only. This suggests that most of the gains from redistribution can already be realized by relatively mild redistributive policies. An additional exercise pertains to the Top 1% in the United States. Redistributing observed after-tax income in excess of the income at the 99th percentile to the poorest individuals increases social welfare by the same amount as a 39.5% rise in GDP. The second application is to asses the utilitarian benet of government redistribution by taxes and transfers in Germany. Revoking existing government redistribution would induce the same loss in social welfare as a 25.4% reduction of GDP.
+The approach proposed in this paper abstracts from costs of redistribution, as e.g. diminishing working incentives or tax evasion. Therefore, this paper
+is not directly related to the literature on optimal income taxation2, and the
+results alone should not be taken as a sucient basis for normative statements on income redistribution. The contribution is to quantify the utilitarian ineciency of income inequality, and to give it a tangible interpretation.
+Section 2 presents the methodology, and sections 3 and 4 present the applications. Section 5 concludes.
+1For a recent survey of the literature on the relationship between happiness and income,
+see Clark et al. (2008).
+2See Mirrlees (1971) for a classic contribution.
+2
+
+2 Methodology
+
+For some income distribution A, 100 individuals (indexed by i) are generated to represent society. Incomes of these individuals (each denoted by income(A, i))
+correspond to the incomes at the 100 percentiles of distribution A. The de-
+pendency of individual happiness on income (the happiness-income function) is
+denoted by U (·) and introduced later on. Social welfare is dened as average
+well-being:
+
+100
+social welfare(A) = 0.01  U (income (A, i))
+i=1
+
+.
+
+Since U (·) is concave, Jensen's inequality implies that social welfare is smaller
+the more unequally income is distributed, holding total income constant. Note that the dependency of each individual's well-being on income is assumed to be functionally identical. This can be justied by the law of large numbers.
+Provided that the dependency of well-being on income governed by U (·) holds
+on average, errors due to random deviations of individual dependencies drop out in the social welfare measure.
+To compute the percentage GDP-increment  that is welfare-equivalent to
+some redistributive policy, pre-reform and post-reform income distributions are denoted by A and B respectively. It holds that if the pre-reform distribution is
+scaled by , social welfare is the same as under the post-reform distribution.
+
+100 100
+0.01  U (income (A, i)  (1 + )) = 0.01  U (income (B, i)) .
+i=1 i=1
+
+(1)
+
+If total income is the same for A and B, but B is more equally distributed than
+A,  is positive because upward-scaling of A compensates for the higher degree
+of ineciency in the sense of utilitarian welfare. Total income is assumed to
+be constant in the course of all redistributive policies considered in the paper,
+so we abstract from costs of redistribution. Note that  is invariant to ane transformations of U (·).3
+The co-domain of the happiness-income function U (·) is in units of the Self-
+Anchoring Striving Scale developed by Cantril (1965). The scale ranges from 0
+to 10, with 0 (10) representing the worst (best) imaginable life of an individual.
+The functional form is taken from Layard et al. (2008), who estimate U (·) using
+data from six surveys conducted in advanced economies. The study focuses
+on the curvature of the function  which drives the results of this analysis 
+and nds that it is remarkably stable across countries and sub-groups of the
+
+3Consider U (·) being scaled by  and shifted by . Both parameters are redundant in
+equation (1):
+
+100 100
+0.01  [  U (income (A, i)  (1 + )) + ] = 0.01  [  U (income (B, i)) + ]
+
+i=1
+
+i=1
+
+3
+
+population. Neglecting scaling and level parameters, the authors assume that happiness from income is governed by:
+
+u=
+
+y1- - 1 / (1 - ) if  = 1
+
+log (y)
+
+if  = 1
+
+(2)
+
+where u is subjective happiness measured by the Striving Scale and y is dis-
+posable annual household income. Layard et al. (2008) estimate  for all six
+surveys individually, and nd point estimates in the narrow range [1.19-1.34].
+The value of  that best explains the pooled data of all surveys is  = 1.26,
+which lies within the 95% condence intervals of all the six estimates obtained
+for each survey individually. Function (2) with  = 1.26 is used as the bench-
+mark happiness-income function. For robustness, the results are also computed under the assumption that
+happiness from income is governed by some ane transformation of the logarithm with base 10. This is done by Diener et al. (2010), who use data from the 2005 Gallup World Poll to estimate the happiness-income function.
+
+3 Redistributive reforms in advanced economies
+This section uses income distributions of nine European countries and the US. EU data from 2014 is taken from the EU Statistics on Income and Living
+Conditions provided by Eurostat.4 The US data comes from the University of Michigan's 2013 Panel Study of Income Dynamics.5 To be compatible
+with the estimated happiness-income function, both series are converted to 2004 international dollars. I thank Davud Rostam-Afschar for compiling the data.
+The hypothetical reform analyzed in this section is self-nancing. It increases tax revenues by introducing an additional round of taxation on currently observed after-tax income. In particular, a 75% tax rate is levied on income in excess of the income at the 90th percentile of the distribution. Additional revenues nance a minimum income for the poorest individuals (implemented by lump-sum transfers), chosen such that the additional revenues are fully ex-
+hausted.6 Figure 1 shows the pre-reform and the post-reform distribution for
+the UK, as well as the resulting dierences in well-being across percentiles. Additional tax revenues allow to nance a minimum annual household income of 29,696 2005 international dollars. Due to the concavity of the happiness-income
+4The data provides top cut-o points for percentiles 1 to 5, 10, 20, 25, 30, 40, 50, 60, 70,
+75, 80, 90 and 95 to 99. Income at the 100th percentile is imputed by assuming that it is 33% above the 99th; a conservative approach since a higher value would increase the benet from redistribution. Other percentiles missing in the data are imputed by assuming that the distribution is linear between the observed percentiles.
+Since the original series are in per-capita terms, they are scaled up by the average household size in the respective country (from Eurostat), in order to be compatible with (2).
+5Percentiles 1 to 99 are cut-o points compiled from the panel data. To account for income
+inequality within the Top-1%, the 100th percentile is the average of the 100 quantiles 99.01 to 100.00. The same approach is followed in the context of German SOEP-data in the subsequent section.
+6This structure of transfers maximizes the welfare gain for a given amount of total transfers.
+
+4
+
+function, the gain in well-being enjoyed by the recipients of transfers greatly exceeds the loss suered by those who pay higher taxes. In the aggregate, the reform increases social welfare by the same amount as a 12.5% GDP increase.
+
+2004 int. Dollars
+
+5
+x 10 2
+1.5
+1
+
+observed after reform
+
+Income
+
+0.5
+
+0 0 10 20 30 40 50 60 70 80 90 100
+
+Differences in well-being 0.15
+
+0.1
+
+0.05
+
+0
+
+-0.05 0
+
+10 20 30 40 50 60 70 80 90 100
+
+Striving Scale
+
+Figure 1: Mild redistribution in the UK.
+In Figure 2, bars labeled Reform report for ten advanced economies the
+increase in GDP that is welfare-equivalent to the reform.7 The gures are com-
+puted for the baseline happiness-income function from Layard et al. (2008), as well as for the function from Diener et al. (2010). The non-weighted average of welfare-equivalent GDP increases in the nine European sample countries amounts to 13.3%. In the US, it is 55.8%. We also examine the eects of a second, more drastic reform that implements perfect income equality. Bars labeled Equality show the associated gains in social welfare. In most countries, the additional gain from implementing income equality on top of the milder reform is smaller than the gain from implementing the milder reform only. This suggests that mild redistribution is sucient to realize a substantial share of the utilitarian gain from equality.
+7For Germany, Spain, Italy and the US, income at the rst percentile is below 3000 int.$.
+In theses cases, it is set to 3000 int.$ in order to account for non-monetary aid. Omitting this adjustment would increase the benet enjoyed by transfer-recipients and therefore strengthen the results.
+
+5
+
+Figure 2: Gains from hypothetical redistributive reforms
+Next we consider a dramatic increase in the taxation of the Top 1% in the US. A tax rate of 100% is levied on observed after-tax income in excess of the income at the 99th percentile, i.e. in excess of 295.000 Dollars in 2005. Figure 3 shows the pre-reform and post-reform distributions as well as the resulting changes in well-being. Regardless of suering a reduction in income by more than half of its pre-reform level, individuals at the 100th percentiles only suer a negligible reduction in well-being. In contrast, individuals at the poor end of the distribution benet greatly from the transfers they receive. The gain in social welfare from this reform corresponds to the gain from a 39.5%-increment of GDP.
+6
+
+2004 int. Dollars
+
+5
+x 10 8
+6
+4
+
+observed after reform
+
+Income
+
+2
+
+0 0
+0.2 0.1
+0 -0.1
+0
+
+10 20 30 40 50 60 70 80 90 100 Differences in well-being
+10 20 30 40 50 60 70 80 90 100
+
+Striving Scale
+
+Figure 3: Redistributing from the Top 1 in the US%.
+
+4 Taxes and transfers in Germany
+This section uses 2013 pre-government and post-government income distributions from the Socio-Economic Panel (SOEP) to asses the benet from existing
+government redistribution in Germany.8 The pre-government distribution re-
+ports combined annual household income (the sum of labor earnings, asset ows, private retirement income and private transfers) before taxes and government transfers. The post-government data additionally includes public transfers and social security pensions, but deducts total household taxes.
+Total income in the original post-government distribution is 22.3% lower than in the original pre-government distribution, because tax revenues used to nance government consumption are not reimbursed to households and therefore not included in the post-government distribution. In order to isolate the redistributive impact of the existing tax and transfer system, the value of government consumption is deducted from the pre-government distribution by uniform down-scaling. The pre-government distribution is further adjusted by assuming that there is a minimum income of 4,500 2005 international dollars, which
+is funded by a at-rate tax on income in excess of this level.9 Without this
+basic transfer, the pre-government distribution would not constitute a suitable
+8The data is converted to 2004 international dollars. Both distributions are ordered in-
+dependently, so the identity of individuals at dierent percentiles can be dierent in both distributions. This is irrelevant for the utilitarian welfare measure used in the computations.
+9This income corresponds to the 1st percentile in the post-government distribution.
+
+7
+
+no-government benchmark. The poorest individuals have an income of zero in
+the original pre-government distribution, but it is not sensible to assume that
+people would starve absent a government.10 Figure 4 shows both distributions
+and corresponding dierences in well-being. Undoing redistribution by taxes
+and transfers would reduce social welfare in the same way as a 25.4%-decline of
+GDP.
+
+2004 int. Dollars
+
+5
+x 10 3.5
+
+3 pre-government (adjusted) 2.5 post-government
+
+2
+
+1.5
+
+1
+
+0.5
+
+0 0
+0.15
+
+10 20 30 40 50 60 70 80 90 100 Percentile
+Differences in well-being
+
+0.1
+
+0.05
+
+0
+
+-0.05 0
+
+10 20 30 40 50 60 70 80 90 100
+
+Striving Scale
+
+Figure 4: Eects of government redistribution in Germany
+5 Conclusion
+This study proposes a simple method to evaluate the ineciency of income inequality  from a utilitarian perspective  as a share of GDP. The method is based on estimates of the happiness-income function, which are reported to be
+10This adjustment makes the results more conservative, since lower income at the bottom
+of the pre-government distribution would boost the benet of transfer-recipients.
+
+8
+
+stable across countries and cultures. The rst application shows that a relatively mild intensication of government redistribution allows to unlock gains in utilitarian social welfare that are equivalent to the gains from dramatic rises in GDP. This holds especially for the US. In most countries, a large fraction of the welfare gains associated with income inequality can already be achieved by policies that only increase the tax burden on the richest individuals in the society. The second applications shows that revoking existing government redistribution in Germany would lead to a collapse in social welfare equivalent to a one-quarter decline in GDP.
+The results are derived under the assumption that the size of the economy is not aected by redistributive policies. The gures should therefore not be taken as sucient to reach normative conclusions, but they can help to grasp the size of potential benets from intensifying redistribution. Having a more tangible understanding of the benet of redistribution can help to further illuminate the trade-o between equality and growth. Further research should aim at incorporating the costs of taxation, in order to draw closer to a cost-benet analysis.
+References
+Cantril, Hadley (1965) Pattern of human concerns, New Brunswick, NJ: Rutgers University Press.
+Clark, Andrew E, Paul Frijters, and Michael A Shields (2008) Relative income, happiness, and utility: An explanation for the Easterlin paradox and other puzzles, Journal of Economic literature, pp. 95144.
+Diener, Ed, Weiting Ng, James Harter, and Raksha Arora (2010) Wealth and happiness across the world: material prosperity predicts life evaluation, whereas psychosocial prosperity predicts positive feeling., Journal of personality and social psychology, Vol. 99, p. 52.
+Layard, Richard, Guy Mayraz, and Stephen Nickell (2008) The marginal utility of income, Journal of Public Economics, Vol. 92, pp. 18461857.
+Mirrlees, James A (1971) An exploration in the theory of optimum income taxation, The review of economic studies, Vol. 38, pp. 175208.
+9
+
+SFB 649 Discussion Paper Series 2016
+For a complete list of Discussion Papers published by the SFB 649, please visit http://sfb649.wiwi.hu-berlin.de.
+001 "Downside risk and stock returns: An empirical analysis of the long-run and short-run dynamics from the G-7 Countries" by Cathy Yi-Hsuan Chen, Thomas C. Chiang and Wolfgang Karl Härdle, January 2016.
+002 "Uncertainty and Employment Dynamics in the Euro Area and the US" by Aleksei Netsunajev and Katharina Glass, January 2016.
+003 "College Admissions with Entrance Exams: Centralized versus Decentralized" by Isa E. Hafalir, Rustamdjan Hakimov, Dorothea Kübler and Morimitsu Kurino, January 2016.
+004 "Leveraged ETF options implied volatility paradox: a statistical study" by Wolfgang Karl Härdle, Sergey Nasekin and Zhiwu Hong, February 2016.
+005 "The German Labor Market Miracle, 2003 -2015: An Assessment" by Michael C. Burda, February 2016.
+006 "What Derives the Bond Portfolio Value-at-Risk: Information Roles of Macroeconomic and Financial Stress Factors" by Anthony H. Tu and Cathy Yi-Hsuan Chen, February 2016.
+007 "Budget-neutral fiscal rules targeting inflation differentials" by Maren Brede, February 2016.
+008 "Measuring the benefit from reducing income inequality in terms of GDP" by Simon Voigts, February 2016.
+SFSBF6B4694, 9S,pSapnadnaduaeureSrtrSatßraeß1e, 1D,-D10-1107187B8eBrleinrlin htthpt:t/p/:/s/fbs6fb4694.w9.iwwiiw.hiu.h-bue-brleinrl.idne.de
+ThTishrisesreasercahrcwhawsassupsuppoprtoerdtebdybtyhethDeeDuetsucthseche ForFsocrhsuchnugnsgesgmeeminesicnhsachftatfht rtohuroguhgthhethSeFSBF6B4694"9Ec"oEnconmoimc RicisRki"s.k".
+
+

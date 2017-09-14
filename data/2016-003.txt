@@ -1,0 +1,3779 @@
+BERLIN
+
+SFB 6 4 9 E C O N O M I C R I S K
+
+SFB 649 Discussion Paper 2016-003
+College Admissions with Entrance Exams:
+Centralized versus Decentralized
+Isa E. Hafalir* Rustamdjan Hakimov*²
+Dorothea Kübler*² Morimitsu Kurino*³
+* Carnegie Mellon University, United States of America *² Wissenschaftszentrum Berlin für Sozialforschung, Germany
+*³ University of Tsukuba, State of Japan This research was supported by the Deutsche Forschungsgemeinschaft through the SFB 649 "Economic Risk".
+http://sfb649.wiwi.hu-berlin.de ISSN 1860-5664
+SFB 649, Humboldt-Universität zu Berlin Spandauer Straße 1, D-10178 Berlin
+
+College Admissions with Entrance Exams: Centralized versus Decentralized
+Isa E. Hafalir Rustamdjan Hakimov Dorothea Kübler§ Morimitsu Kurino¶
+December 18, 2015
+Abstract
+We study a college admissions problem in which colleges accept students by ranking students' efforts in entrance exams. Students' ability levels affect the cost of their efforts. We solve and compare the equilibria of "centralized college admissions" (CCA) where students apply to all colleges and "decentralized college admissions" (DCA) where students only apply to one college. We show that lower ability students prefer DCA whereas higher ability students prefer CCA. Many predictions of the theory are supported by a lab experiment designed to test the theory, yet we find a number of differences that render DCA less attractive than CCA compared to the equilibrium benchmark.
+JEL Classification: C78; D47; D78; I21 Keywords: College admissions, incomplete information, student welfare, contests, all-pay auctions, experiment.
+We would like to thank Ken Binmore, Francis Bloch, Vincent Crawford, David Danz, Aytek Erdil, Youngwoo Koh, Fuhito Kojima, Kai A. Konrad, Vijay Krishna, Benny Moldavanu, Ariel Rubinstein, Aner Sela, Ron Siegel, Naoki Watanabe, Alistair Wilson and participants at seminars in Boston College, Fukuoka, Georgetown, Hitotsubashi, HKUST, Kyoto, Lisbon, McMaster, Michigan, Max-Planck Institute Munich, NYU, Otaru, Rice, Tokyo, Waseda, the 14th SAET conference at Waseda, the "Designing Matching Markets" workshop at WZB Berlin, the Economic Theory workshop at Penn State University, the Match-up conference at the University of Glasgow, for helpful discussions as well as Nina Bonge for programming and helping us to run the experiments and Jennifer Rontganger for copy editing. Hafalir acknowledges financial support from National Science Foundation grant SES1326584. Kübler acknowledges financial support from the Deutsche Forschungsgemeinschaft (DFG) through CRC 649 "Economic Risk." Kurino acknowledges financial support from JSPS KAKENHI Grant Number 15K13002. All remaining errors are our own.
+Tepper School of Business, Carnegie Mellon University, Pittsburgh, PA, 15127, USA; e-mail: isaemin@cmu.edu. WZB, Reichpietschufer 50, 10785, Berlin, Germany; e-mail: rustamdjan.hakimov@wzb.eu §WZB, Reichpietschufer 50, 10785, Berlin, Germany; and Technical University Berlin; e-mail: kuebler@wzb.eu ¶Faculty of Engineering, Information and Systems, University of Tsukuba, 1-1-1 Tennodai, Tsukuba, Ibaraki 305-8573, Japan; e-mail: kurino@sk.tsukuba.ac.jp
+1
+
+1 Introduction
+Throughout the world and every year, millions of prospective university students apply for admission to colleges or universities during their last year of high school. Admission mechanisms vary from country to country, yet in most countries there are government agencies or independent organizations that offer standardized admission exams to aid the college admission process. Students invest a lot of time and effort in doing well in these admission exams, and they are heterogeneous in terms of their ability to do so.
+In some countries, the application and admission process is centralized. For instance, in Turkey university assignment is solely determined by a national examination called YGS/LYS. After learning their scores, students can then apply to a number of colleges. Applications are almost costless as all students need only to submit their rank-order of colleges to the central authority.1 On the other hand, Japan has a centralized "National Center test," too, but all public universities, including the most prestigious universities, require the candidate to take another, institution-specific secondary exam which takes place on the same day. This effectively prevents the students from applying to more than one public university.2 The admissions mechanism in Japan is decentralized, in the sense that colleges decide on their admissions independent of each other. Institution-specific exams that prevent students from applying to all colleges have also been used and debated in the United Kingdom, notably between the University of Cambridge and the University of Oxford. Currently, the students cannot apply to both the University of Cambridge and the University of Oxford.3 Moreover, till 1994 the college admission exams in South Korea were only offered on two dates each year, and students were allowed to apply for only one college per exam date (see Avery, Lee, and Roth, 2014, for more details). In the Soviet Union, everyone had to submit the original of the school certificate together with the application to a college, and colleges had an institution-specific exam. Thus, college admissions were fully decentralized. Although most of the former Soviet republics and Russia have lately introduced centralized exams and a centralized college admissions process, some colleges, typically the best ones, still run their own entry exams and thus opt out of the centralized system.
+In the United States, students take both centralized exams like the Scholastic Aptitude Test (SAT), and also complete college-specific requirements such as college admission essays. Students
+1Greece, China, South Korea, and Taiwan have similar national exams that are the main criterion for the centralized mechanism of college admissions. In Hungary, the centralized admission mechanism is based on a score that combines grades from school with an entrance exam (Biro, 2012).
+2There are actually two stages where the structure of each stage corresponds to our description and modeling of the decentralized mechanism in section 4. The difference between the stages is that the capacities in the first stage are much greater than those in the second stage. Those who do not get admitted to any college spend one year preparing for the next year's exam. Moreover, the Japanese high school admissions authorities have adopted similar mechanisms in local districts. Although the mechanism adopted varies across prefectures and is changing year by year, its basic structure is that each student chooses one among a specified set of public schools and then takes an entrance exam at his or her chosen school. The exams are held on the same day.
+3We thank Aytek Erdil and Ken Binmore for discussions on college admission systems in the UK.
+2
+
+can apply to more than one college, but since the application process is costly, students typically
+
+send only a few applications (the majority being between two to six applications, see Chade, Lewis,
+
+and Smith, 2014). Hence, the United States college admissions mechanism falls inbetween the two
+
+extreme cases.
+
+In this paper, we compare the institutional effects of different college admission mechanisms
+
+on the equilibrium efforts of students, student welfare, and sorting. To do this, we model college
+
+admissions with admission exams as contests (or all-pay auctions) in which the cost of effort
+
+represents the payment made by the students. We focus on two extreme cases: in the centralized
+
+model (as in the Turkish mechanism) students can freely apply to all colleges, whereas in the
+
+decentralized model (as in the Japanese mechanism for public colleges) students can only apply to
+
+one college. For simplicity, in our main model we consider two colleges that differ in quality and
+
+assume that students have homogeneous preferences for attending these colleges.4
+
+More specifically, each of the n students gets a utility of v1 by attending college 1 (which can accommodate q1 students) and gets a utility of v2 by attending college 2 (which can accommodate q2 students). College 2 is the better and college 1 is the worse of the two colleges. The students' utility from not being assigned to any college is normalized to 0. Hence, 0 < v1 < v2. Following most of the literature on contests with incomplete information, we assume that an ability level in
+
+the interval [0, 1], is drawn i.i.d. from the common distribution function, and the cost of exerting
+
+an
+
+effort
+
+e
+
+for
+
+a
+
+student
+
+with
+
+ability
+
+level
+
+a
+
+is
+
+given
+
+by
+
+e a
+
+.
+
+Thus,
+
+given
+
+an
+
+effort
+
+level,
+
+the
+
+higher
+
+the ability the lower the cost of exerting effort.
+
+In the centralized college admissions problem (CCA), all students rank college 2 over college 1.
+
+Hence, the students with the highest q2 efforts get into college 2, students with the next highest q1 efforts get into college 1, and students with the lowest n - q1 - q2 efforts are not assigned to any college. In the decentralized college admissions problem (DCA), students need to simultaneously
+
+choose which college to apply to and how much effort to exert. Then, for each college i  {1, 2},
+
+students with the highest qi efforts among the applicants to college i get into college i. It turns out that the equilibrium of CCA can be solved by standard techniques, such as those
+
+in Moldovanu, Sela, and Shi (2012). In this monotone equilibrium, higher ability students exert
+
+higher efforts, and therefore the students with the highest q2 ability levels get admitted to the good college 2, and students with ability rankings between q2 + 1 and q1 + q2 get admitted to the bad college 1 (Proposition 1).
+
+Finding the equilibrium of DCA is not straightforward. It turns out that in equilibrium, there
+
+is a cutoff ability level that we denote by c. All higher ability students (with abilities in (c, 1]) apply
+
+to the good college, whereas lower ability students (with ability levels in [0, c]) use a mixed strategy
+
+when choosing between the good and the bad college. Students' effort functions are continuous
+
+and monotone in ability levels (Theorem 1). We also establish that the equilibrium we have found
+
+is the unique symmetric and monotone equilibrium.
+
+4In section 6, we discuss the case with three or more colleges.
+
+3
+
+Our paper therefore contributes to the all-pay contests literature. To the best of our knowledge, ours is the first paper to model and solve a game of competing contests with multiple prizes where the players have private information regarding their abilities and sort themselves into different contests.5
+After solving for the equilibrium of CCA and DCA and proving their uniqueness, we compare the equilibria in terms of students' interim expected utilities. We show that students with lower abilities prefer DCA to CCA when the number of seats is smaller than the number of students (Proposition 2). The main intuition for this result is that students with very low abilities have almost no chance of getting a seat in CCA, whereas their probability of getting a seat in DCA is bounded away from zero due to the fewer number of applications than the capacity. Moreover, we show that students with higher abilities prefer CCA to DCA (Proposition 3).6 The main intuition for this result is that high-ability students (i) can only get a seat at the good college in DCA, whereas they can get seats at both the good and the bad college in CCA, and (ii) their equilibrium probability of getting a seat at the good college is the same across the two mechanisms.
+We test the theory with the help of lab experiments. We implement five markets for the college admissions game that are designed to capture different levels of competition (in terms of the supply of seats, the demand ratio, and the quality difference between the two colleges). We compare the two college admission mechanisms and find that in some markets the comparisons of the students' ex-ante expected utilities, their effort levels, and the students' preferences regarding the two mechanisms given their ability are well organized by the theory. However, the experimental subjects exert a higher effort than predicted. The overexertion of effort is particularly pronounced in DCA, which makes it relatively less attractive for the applicants compared to CCA. We also find significant differences between the two mechanisms with respect to the sorting of students that are in part due to out-of-equilibrium choices of the experimental subjects.
+1.1 Related literature
+College admissions have been studied extensively in the economics literature. Following the seminal paper by Gale and Shapley (1962), the theory literature on two-sided matching mainly considers centralized college admissions and investigates stability, incentives, and the efficiency properties of various mechanisms, notably the deferred-acceptance and the top trading cycles algorithms. The student placement and school choice literature is motivated by the centralized mechanisms of public school admissions, rather than by the decentralized college admissions mechanism in the US. This literature was pioneered by Balinski and Sönmez (1999) and Abdulkadirolu and Sönmez (2003).
+5There is a large literature on competing auctions and competing mechanisms, and competing contests with unit prizes and incomplete information are analyzed by DiPalantino and Vojnovic (2009). We discuss this literature in the next subsection.
+6More specifically, we obtain a single crossing condition: if a student who applies to college 2 in DCA prefers CCA to DCA, then all higher ability students also have the same preference ranking.
+4
+
+We refer the reader to Sönmez and Ünver (2011) for a recent comprehensive survey regarding centralized college admission models in the two-sided matching literature. Recent work regarding centralized college admissions with entrance exams include Abizada and Chen (2015) and Tung (2009). Abizada and Chen (2015) model the entrance (eligibility) criterion in college admissions problems and extend models of Perach, Polak, and Rothblum (2007) and Perach and Rothblum (2010) by allowing the students to have the same scores from the central exam. On the other hand, by allowing students to submit their preferences after they receive the test results, Tung (2009) adjusts the multi-category serial dictatorship (MSD) analyzed by Balinski and Sönmez (1999) in order to make students better off.
+One crucial difference between the modeling in our paper and the literature should be emphasized: In our paper student preferences affect college rankings over students through contests among students, while student preferences and college rankings are typically independent in the two-sided matching models and school-choice models.
+The analysis of decentralized college admissions in the literature is more recent. Chade, Lewis, and Smith (2014) consider a model where two colleges receive noisy signals about the caliber of applicants. Students need to decide which colleges to apply to and application is costly. The two colleges choose admissions standards that act like market-clearing prices. The authors show that in equilibrium, college-student sorting may fail, and they also analyze the effects of affirmative action policies. In our model, the colleges are not strategic players as in Chade, Lewis, and Smith (2014). Another important difference is that in our model the students do not only have to decide which colleges to apply to, but also how much effort to exert in order to do well in the entrance exams. Che and Koh (2015) study a model in which two colleges make admission decisions subject to aggregate uncertainty about student preferences and linear costs for any enrollment exceeding the capacity. They find that colleges' admission decisions become a tool for strategic yield management, and in equilibrium, colleges try to reduce their enrollment uncertainty by strategically targeting students. In their model, as in Chade, Lewis, and Smith (2014), students' exam scores are costlessly obtained and given exogenously. Avery and Levin (2010), on the other hand, analyze a model of early admission at selective colleges where early admission programs give students an opportunity to signal their enthusiasm to the college they would like to attend. More recently, motivated by the South Korean college admission system that went through a policy change in 1994, Avery, Lee, and Roth (2014) compare the two (with and without early admissions) regimes and conclude that lower-ranked colleges may gain in competition with higher-ranked colleges by limiting the number of possible applications.
+In another related paper, Hickman (2009) also models college admissions as a Bayesian game where heterogeneous students compete for seats at colleges. He presents a model in which there is a centralized allocation mechanism mapping each student's score into a seat at a college. Hickman (2009) is mostly interested in the effects of affirmative action policies and the solution concept used is "approximate equilibrium" in which the number of students is assumed to be large so that
+5
+
+students approximately know their rankings within the realized sample of private costs.7 Similarly, Olszewski and Siegel (2014) consider contests with many players and prizes and show that the equilibrium outcomes of such contests are approximated by the outcomes of an appropriately defined set of mechanisms. In contrast to Hickman (2009) and Olszewski and Siegel (2014), our results are also applicable when the number of agents is not large.
+In another recent paper by Salgado-Torres (2013), students and colleges participate in a decentralized matching mechanism called Costly Signaling Mechanism (CSM) in which students first choose a costly observable score to signal their abilities, then each college makes an offer to a student, and finally each student chooses one of the available offers. Salgado-Torres (2013) characterizes a symmetric equilibrium of CSM which is proven to be assertive and also performs some comparative statics analysis. CSM is decentralized just like the decentralized college admissions model developed in this paper. However, CSM cannot be used to model college admission mechanisms (such as the ones used in Japan) that require students to apply to only one college.
+Our paper is also related to the all-pay auction and contests literature. Notably, Baye, Kovenock, and de Vries (1996) and Siegel (2009) solve for all-pay auctions and contests with complete information. We refer the reader to the survey by Konrad (2009) about the vast literature on contests. Related to our decentralized mechanism, Amegashie and Wu (2006) and Konrad and Kovenock (2012) both model "competing contests" in a complete information setting. Amegashie and Wu (2006) study a model where one contest has a higher prize than the other. They show that sorting may fail in the sense that the top contestant may choose to participate in the contest with a lower prize. In contrast, Konrad and Kovenock (2012) study all-pay contests that are run simultaneously with multiple identical prizes. They characterize a set of pure strategy equilibria and a symmetric equilibrium that involves mixed strategies. In our decentralized college admissions model, the corresponding contest model is also a model of competing contests. The main difference in our model is that we consider incomplete information as students do not know each others' ability levels.
+A series of papers by Moldovanu and Sela (and Shi) studies contests with incomplete information, but they do not consider competing contests in which the participation in contests is endogenously determined. In Moldovanu and Sela (2001), the contest designer's objective is to maximize expected effort. They show that when cost functions are linear or concave in effort, it is optimal to allocate the entire prize sum to a single first prize. Moldovanu and Sela (2006) compare the performance of dynamic sub-contests whose winners compete against each other with static contests. They show that with linear costs of effort, the expected total effort is maximized with a static contest, whereas the highest expected effort can be higher with contests with two divisions. Moldovanu, Sela, and Shi (2012) study optimal contest design where both awards and punishments
+7In a related paper, Morgan, Sisak, and Vardy (2012) study competition for promotion in a continuum economy. They show that a more meritocratic profession always succeeds in attracting the highest ability types, whereas a profession with superior promotion benefits attracts high types only under some assumptions.
+6
+
+can be used. Under some conditions, they show that punishing the bottom is more effective than rewarding the top.
+There is a large literature on competing auctions and mechanisms; notable examples are Ellison, Fudenberg, and Möbius (2004), Biais, Martimort, and Rochet (2000), McAfee (1993), and more recently, Moldovanu, Sela, and Shi (2008), Virág (2010), and Ovadia (2014). Two papers that are most related to our papers are DiPalantino and Vojnovic (2009) and Buyukboyaci (2012). DiPalantino and Vojnovic (2009) consider multiple contests where each contest gives a single prize and show the existence of a symmetric monotone equilibrium using the revenue equivalence theorem. They are mostly interested in participation rates among different contests and establish that in the large system limit (i.e., as the population gets large) the number of players that participate in a given contest class is a Poisson random variable. Buyukboyaci (2012), on the other hand, theoretically and experimentally compares the performance of one contest with a single prize and two parallel contests each with a single prize. In her model agents can be either a high ability or a low ability type. Her main finding is that the designer's profit is higher in the parallel tournaments when the contestants' low and high ability levels are sufficiently differentiated.
+This paper also contributes to the experimental literature on contests and all-pay auctions, summarized in a recent survey article by Dechenaux, Kovenock, and Sheremeta (2014). Our setup in the centralized mechanism with heterogeneous agents, two non-identical prizes, and incomplete information is closely related to a number of existing studies by Barut, Kovenock, and Noussair (2002), Noussair and Silver (2006), and Müller and Schotter (2010). These studies observe that agents overbid on average compared to the Nash prediction. Moreover, they find an interesting bifurcation, a term introduced by Müller and Schotter (2010), in that low types underbid and high types overbid. Regarding the optimal prize structure, it turns out that if players are heterogeneous, multiple prizes can be optimal to avoid the discouragement of weak players (see Müller and Schotter, 2010). Higher effort with multiple prizes than with a single prize was also found in a setting with homogeneous players by Harbring and Irlenbusch (2003).
+We are not aware of any previous experimental work related to our decentralized admissions mechanism where agents simultaneously choose an effort level and decide whether to compete for the high or the low prize.
+The paper also belongs to the experimental literature on two-sided matching mechanisms and school choice starting with Kagel and Roth (2000) and Chen and Sönmez (2006).8 These studies as well as many follow-up papers in this strand of the literature focus on the rank-order lists submitted by students in the preference-revelation games, but do not study effort choice. Thus, the rankings of students by the schools are exogenously given in these studies unlike in our setup where the colleges' rankings are endogenous.
+8A recent example of theory combined with experiments in the school choice literature is Chen and Kesten (2015).
+7
+
+2 The Model
+
+The college admissions problem with entrance exams, or simply the problem, is denoted by
+
+(S, C, (q1, q2), (v1, v2), F ). There are two colleges ­ college 1 and college 2. We denote colleges by C. Each college C  C := {1, 2} has a capacity qC which represents the maximum number of students that can be admitted to college C, where qC  1.
+There are n students. We denote the set of all students by S. Since we suppose homogeneous
+
+preferences of students, we assume that each student has the cardinal utility vC from college C  {1, 2}, where v2 > v1 > 0. Thus, we sometimes call college 2 the good college and college 1 the bad college. Each student's utility from not being assigned to any college is normalized to be
+
+0. We assume that q1 + q2  n.9 Each student s  S makes an effort es. Each student is assigned to one college or no seat
+
+in any college by the mechanisms which take the efforts into account while deciding on their
+
+admissions.10 The students are heterogeneous in terms of their abilities, and the abilities are their
+
+private information. More specifically, for each s  S, as  [0, 1] denotes student s's ability.
+
+Abilities are drawn identically and independently from the interval [0, 1] according to a continuous
+
+distribution function F that is common knowledge. We assume that F has a continuous density
+
+f = dF > 0. For a student s with ability as, putting in an effort of es results in a disutility of
+
+.es
+as
+
+Hence, the total utility of a student with ability a from making effort e is vC - e/a if she is
+
+assigned to college C, and -e/a otherwise.
+
+Before we move on to the analysis of the equilibrium of centralized and decentralized college
+
+admission mechanisms, we introduce some necessary notation.
+
+2.1 Preliminary notation
+
+First, for any continuous distribution T with density t, for 1  k  m, let Tk,m denote the distribution of the kth-(lowest) order statistics out of m independent random variables that are
+identically distributed according to T. That is,
+
+Tk,m(a) :=
+
+m
+
+m T (a)j(1 - T (a))m-j. j
+
+j=k
+
+(1)
+
+Moreover, let tk,m(·) denote Tk,m(·)'s density:
+
+tk,m(a)
+
+:=
+
+d da Tk,m(a)
+
+=
+
+(k
+
+-
+
+m! T (a)k-1(1 - T (a))m-kt(a). 1)! (m - k)!
+
+(2)
+
+9Many college admissions, including ones in Turkey and Japan, are competitive in the sense that the total number of seats in colleges is smaller than the number of students who take the exams.
+10In reality the performance in the entrance exams is only a noisy function of efforts. For simplicity, we assume that efforts completely determine the performance in the tests.
+
+8
+
+For convenience, we let T0,m be a distribution with T0,m(a) = 1 for all a, and t0,m  dT0,m/da = 0.
+Next, define the function pj,k : [0, 1]  [0, 1] as follows: for all j, k  {0, 1, . . . , n} and x  [0, 1],
+
+pj,k(x) :=
+
+j+k j
+
+xj(1 - x)k.
+
+(3)
+
+The function pj,k(x) is interpreted as the probability that when there are (j+k) students, j students are selected for one event with probability x and k students are selected for another event with probability (1 - x). Suppose that p0,0(x) = 1 for all x. Note that with this definition, we can write
+
+m
+
+Tk,m(a) =
+
+pj,m-j(T (a)).
+
+j=k
+
+(4)
+
+3 The Centralized College Admissions Mechanism (CCA)
+
+In the centralized college admissions game, each student s  S simultaneously makes an effort es. Students with the top q2 efforts are assigned to college 2 and students with the efforts from the top (q2 + 1) to (q1 + q2) are assigned to college 1. The rest of the students are not assigned to any colleges.11 We now solve for the symmetric Bayesian Nash equilibrium of this game. The following proposition is a special case of the all-pay auction equilibrium which has been studied by Moldovanu and Sela (2001) and Moldovanu, Sela, and Shi (2012).
+Proposition 1. In CCA, there is a unique symmetric equilibrium C such that for each a  [0, 1], each student with ability a chooses an effort C(a) according to
+^a C (a) = x {fn-q2,n-1(x) v2 + (fn-q1-q2,n-1(x) - fn-q2,n-1(x)) v1} dx.
+0
+where fk,m(·) for k  1 is defined in Equation (2) and f0,m(x) is defined to be 0 for all x.
+Proof. Suppose that C is a symmetric equilibrium effort function that is strictly increasing. Consider a student with ability a who chooses an effort as if her ability is a . Her expected utility is
+
+C(a )
+
+v2 Fn-q2,n-1(a ) + v1 (Fn-q1-q2,n-1(a ) - Fn-q2,n-1(a )) -
+
+. a
+
+11In a setup with homogeneous student preferences, this game reflects how the Turkish college admission mechanism works. In the centralized test that the students take, since all students would put college 2 as their top choice and college 1 as their second top choice in their submitted preferences, the resulting assignment would be the same as the assignment described above. In a school choice context, this can be described as the following two-stage game. In the first stage, there is one contest where each student s simultaneously makes an effort es. The resulting effort profile (es)sS is used to construct a single priority profile such that a student with a higher effort has a higher priority. In the second stage, students participate in the centralized deferred acceptance mechanism where colleges use the common priority .
+
+9
+
+The first-order condition at a = a is
+[ C (a)] v2 fn-q2,n-1(a) + v1 (fn-q1-q2,n-1(a) - fn-q2,n-1(a)) - a = 0. Thus, by integration and as the boundary condition is C(0) = 0, we have
+^a C (a) = x {fn-q2,n-1(x) v2 + (fn-q1-q2,n-1(x) - fn-q2,n-1(x)) v1} dx.
+0
+The above strategy is the unique symmetric equilibrium candidate obtained via the "first-order approach" by requiring no benefit from local deviations. Standard arguments show that this is indeed an equilibrium by making sure that global deviations are not profitable (for instance, see section 2.3 of Krishna, 2002).
+4 The Decentralized College Admissions Mechanism (DCA)
+In the decentralized college admissions game, each student s chooses one college Cs and an effort es simultaneously. Given the college choices of students (Cs)sS and efforts (es)sS, each college C admits students with the top qC effort levels among its set of applicants ({s  S | Cs = C}).12
+For this game, we focus on "symmetric and monotone" Bayesian Nash equilibrium. More specifically, we consider the case in which (i) the students' strategies only depend on their ability levels and not their names, and (ii) when we consider the effort levels of students who are applying to a particular college, higher ability students choose higher efforts.
+A natural equilibrium candidate is to have a cutoff c  (0, 1), students with abilities in [0, c) to apply to college 1, and students with abilities in [c, 1] to apply to college 2. It turns out that we cannot have an equilibrium of this kind. In such an equilibrium, (i) type c has to be indifferent between applying to college 1 or college 2, (ii) type c's effort is strictly positive in case of applying to college 1, and 0 when applying to college 2. Hence there is a discontinuity in the effort function. These two conditions together imply that a type c + student would benefit from mimicking type c. We show this in Proposition 4 in Appendix B.1.
+Therefore, some students have to use mixed strategies when choosing which college to apply to. Next, as we formally show in Proposition 5 in Appendix B.1, we argue that when the students use mixed strategies in a symmetric and monotone equilibrium, they choose the same effort level when they apply to either of the colleges. This is surprising at first sight, yet it follows from a
+12In a setup with homogeneous student preferences, this game reflects how the Japanese college admissions mechanism works: all public colleges hold their own tests and accept the top performers among the students who take their tests. In the school choice context, this can be described as the following two-stage game. In the first stage, students simultaneously choose which college to apply to, and without knowing how many other students have applied, they also choose their effort level. For each college C  {1, 2}, the resulting effort profile (es){sS | Cs=C} is used to construct one priority profile C such that a student with a higher effort has a higher priority. In the second stage, students participate in two separate deferred acceptance mechanisms where each college C uses the priority C .
+10
+
+"revelation principle" argument: when students mix, they have to be indifferent between applying
+
+to either colleges, but since both games are Bayesian incentive compatible, expected utilities being
+
+the same implies expected payments or efforts being the same. In this equilibrium, lower ability
+
+students choose the same effort level independent of whether they are applying to college 1 or 2.
+
+Note that this is an equilibrium property, not a restriction on effort functions. In other words,
+
+students are allowed to choose different effort levels when they are applying to different colleges,
+
+yet they choose the same effort level in equilibrium.
+
+In what follows, by considering a symmetric and monotone equilibrium we show that low-
+
+ability students use mixed strategies while the high-ability students are certain to apply to the
+
+better college. More specifically, ((·), D(·); c) where c  (0, 1) is a cutoff,  : [0, c]  (0, 1) is
+
+the mixed strategy that represents the probability of lower ability students applying to college 1,
+
+and D : [0, 1]  R is the continuous and strictly increasing effort function. Each student with type a  [0, c] chooses college 1 with probability (a) (hence chooses college 2 with probability
+
+1 - (a)), and makes effort D(a). Each student with type a  (c, 1] chooses college 2 for sure,
+
+and makes effort D(a).
+
+We now move on to the derivation of symmetric and monotone Bayesian Nash equilibrium. Let
+
+a symmetric strategy profile ((·), (·); c) be given. For this strategy profile, the ex-ante probability
+
+that a student to college 2 is
+
+applies to college 1
+
+1
+
+-
+
+´c
+0
+
+(x)f
+
+(x)dx.
+
+is
+
+´c
+0
+
+(x)f (x)dx,
+
+while
+
+the
+
+probability
+
+that
+
+a
+
+student
+
+applies
+
+Let us define a function  : [0, c]  [0, 1] that represents the
+
+ex-ante probability that a student has a type less than a and she applies to college 1:
+
+^a (a) := (x)f (x)dx.
+0
+
+(5)
+
+With this definition, the ex-ante probability that a student applies to college 1 is (c), while the probability that a student applies to college 2 is 1 - (c). Moreover, pm,k((c)) is the probability that m students apply to college 1 and k students apply to college 2 where pm,k(·) is given in Equation (3) and (·) is given in Equation (5).
+Next, we define G(·) : [0, c]  [0, 1], where G(a) is the probability that a type is less than or equal to a, conditional on the event that she applies to college 1. That is,
+
+(a) G(a) := .
+(c)
+
+Moreover let g(·) denote G(·)'s density. Gk,m is the distribution of the kth-order statistics out of m independent random variables that are identically distributed according to G as in equations (1) and (4). Also, gk,m(·) denotes Gk,m(·)'s density.
+Similarly, let us define H(·) : [0, 1]  [0, 1], where H(a) is the probability that a type is less
+
+11
+
+than or equal to a, conditional on the event that she applies to college 2. That is, for a  [0, 1],
+
+
+F (a)-(a)
+ H(a) = 1-(c)
+F (a)-(c)
+ 1-(c)
+
+if a  [0, c], if a  [c, 1].
+
+Moreover, let h(·) denote H(·)'s density. Note that h is continuous but is not differentiable at c. Let Hk,m be the distribution of the kth-order statistics out of m independent random variables distributed according to H as in equations (1) and (4). Also, hk,m(·) denotes Hk,m(·)'s density.
+We are now ready to state the main result of this section, which characterizes the unique symmetric and monotone Bayesian Nash equilibrium of the decentralized college admissions mechanism. The sketch of the proof follows the Theorem, whereas the more technical part of the proof is relegated to Appendix B.2.
+
+Theorem 1. In DCA, there is a unique symmetric and monotone equilibrium (, D; c) where a student with type a  [0, c] chooses college 1 with probability (a) and makes effort D(a); and a student with type a  [c, 1] chooses college 2 for sure and makes effort D(a). Specifically,
+
+^ a n-1
+
+D(a) = v2 x
+
+pn-m-1,m((c))hm-q2+1,m(x)dx.
+
+0 m=q2
+
+The equilibrium cutoff c and the mixed strategies (·) are determined by the following four requirements: (i) (c) uniquely solves the following equation for x
+
+q1-1
+
+q2-1
+
+v1 pm,n-m-1(x) = v2 pn-m-1,m(x).
+
+m=0
+
+m=0
+
+(ii) Given (c), c uniquely solves the following equation for x
+
+q2-1
+
+n-1
+
+m
+
+v1 = v2 pn-m-1,m((c)) + v2
+
+pn-m-1,m((c))
+
+pj,m-j
+
+m=0
+
+m=q2
+
+j=m-q2+1
+
+F (x) - (c) 1 - (c)
+
+.
+
+(iii) Given (c) and c, for each a  [0, c), (a) uniquely solves the following equation for x(a)
+
+n-1 m F (a) - x(a)
+
+v2 pn-m-1,m((c))
+
+pj,m-j 1 - (c)
+
+m=q2
+
+j=m-q2+1
+
+n-1 m x(a)
+
+= v1
+
+pm,n-m-1((c))
+
+pj,m-j (c) .
+
+m=q1
+
+j=m-q1+1
+
+(iv) Finally, for each a  [0, c], (a) is given by
+
+(a)
+
+=
+
+(c)B(a) (1 - (c))A(a) + (c)B(a)
+
+
+
+(0, 1),
+
+12
+
+where
+
+n-1 (a)
+
+A(a) := v1
+
+pm,n-m-1((c)) m pm-q1,q1-1 (c) ,
+
+m=q1
+
+n-1 F (a) - (a)
+
+B(a) := v2
+
+pn-m-1,m((c)) m pm-q2,q2-1 1 - (c) .
+
+m=q2
+
+Proof. Suppose that each student with type a  [0, 1] follows a strictly increasing effort function D and a type a  [0, c] chooses college 1 with probability (a)  (0, 1), and a type in (c, 1] chooses college 2 for sure.
+We first show how to obtain the equilibrium cutoff c and the mixed strategy function . A necessary condition for this to be an equilibrium is that each type a  [0, c] has to be indifferent between applying to college 1 or 2. Thus, for all a  [0, c],
+
+q1-1
+
+n-1
+
+v1
+
+pm,n-m-1((c)) +
+
+pm,n-m-1((c))Gm-q1+1,m(a)
+
+m=0
+
+m=q1
+
+q2-1
+
+n-1
+
+= v2
+
+pn-m-1,m((c)) +
+
+pn-m-1,m((c))Hm-q2+1,m(a)
+
+m=0
+
+m=q2
+
+.
+
+(6)
+
+The left-hand side is the expected utility of applying to college 1, while the right-hand side
+
+is the expected utility of applying to college 2. To see this, note that
+
+q1-1 m=0
+
+pm,n-m-1
+
+(
+
+(c))
+
+and
+
+q2-1 m=0
+
+pn-m-1,m
+
+(
+
+(c))
+
+are
+
+the
+
+probabilities
+
+that
+
+there
+
+are
+
+no
+
+more
+
+than
+
+(q1
+
+-
+
+1)
+
+and
+
+(q2
+
+-
+
+1) applicants in colleges 1 and 2, respectively. For m  q1, pm,n-m-1((c))Gm-q1+1,m(a) is the
+
+probability of getting a seat in college 1 with effort a when there are m other applicants in college
+
+1. Similarly, for m  q2, pn-m-1,m((c))Hm-q2+1,m(a) is the probability of getting a seat in college 2 with effort a, when there are m other applicants in college 2.
+
+Note that we have
+
+m
+
+Gm-q1+1,m(a) =
+
+pj,m-j
+
+j=m-q1+1
+
+(a) (c)
+
+m F (a) - (a)
+
+and Hm-q2+1,m(a) =
+
+pj,m-j
+
+1 - (c)
+
+j=m-q2+1
+
+for all a  [0, c]. The equation (6) at a = 0 and a = c can hence be written as
+
+q1-1
+
+q2-1
+
+v1 pm,n-m-1((c)) = v2 pn-m-1,m((c)), and
+
+m=0
+
+m=0
+
+q2-1
+
+n-1
+
+m
+
+v1 = v2 pn-m-1,m((c)) + v2
+
+pn-m-1,m((c))
+
+pj,m-j
+
+m=0
+
+m=q2
+
+j=m-q2+1
+
+F (c) - (c) 1 - (c)
+
+(7) , (8)
+
+13
+
+respectively. We show in Appendix B.2 that there is a unique (c) that satisfies Equation (7), and that
+given (c), the only unknown c via F (c) in Equation (8) is uniquely determined. Moreover, using (7), we can rewrite Equation (6) as
+
+n-1
+
+m
+
+v1 pm,n-m-1((c))
+
+pj,m-j
+
+m=q1
+
+j=m-q1+1
+
+(a) (c)
+
+n-1
+
+m
+
+= v2
+
+pn-m-1,m((c))
+
+pj,m-j
+
+m=q2
+
+j=m-q2+1
+
+F (a) - (a) 1 - (c)
+(9)
+
+for all a  [0, c]. In Appendix B, we show that given (c) and c, for each a  [0, c], there is a
+
+unique (a) that satisfies Equation (9) and, moreover, we show that we can get the mixed strategy
+
+function (a) by differentiating Equation (9).
+
+Finally we derive the unique symmetric effort function D by taking a "first-order approach" in
+
+terms of G(·) and H(·) which are determined by the equilibrium cutoff c and the mixed strategy
+
+function . Consider a student with type a  [0, c]. A necessary condition for the strategy to be an
+
+equilibrium is that she does not want to mimic any other type a in [0, c]. Her utility maximization
+
+problem is given by
+
+,
+
+max v2
+a [0,c]
+
+q2-1
+
+n-1
+
+pn-m-1,m((c)) +
+
+pn-m-1,m((c))Hm-q2+1,m(a )
+
+m=0
+
+m=q2
+
+D(a ) -.
+a
+
+where the indifference condition (6) is used to calculate the expected utility.13 The first-order necessary condition requires the derivative of the objective function to be 0 at a = a. Hence,
+
+n-1 (D(a)) v2 pn-m-1,m((c))hm-q2+1,m(a) - a = 0.
+m=q2
+Solving the differential equation with the boundary condition (which is D(0) = 0), we obtain
+
+for all a  [0, c]
+
+^ a n-1
+
+D(a) = v2 x
+
+pn-m-1,m((c))hm-q2+1,m(x)dx
+
+0 m=q2
+
+13Equivalently, we can write the maximization problem as
+
+max v1
+a [0,c]
+
+q1 -1
+
+n-1
+
+pm,n-m-1((c)) +
+
+pm,n-m-1((c))Gm-q1+1,m(a)
+
+m=0
+
+m=q1
+
+-
+
+ D (a
+
+) ,
+
+a
+
+With the same procedure, this gives the equivalent solution as
+
+for each a  [0, c].
+
+^ a n-1
+
+D(a) = v1 x
+
+pm,n-m-1((c))gm-q1+1,m(x)dx
+
+0 m=q1
+
+14
+
+Next, consider a student with type a  [c, 1]. A necessary condition is that she does not want to mimic any other type a in [c, 1]. Her utility maximization problem is then
+
+max v2
+a [c,1]
+
+q2-1
+
+n-1
+
+pn-m-1,m((c)) +
+
+pn-m-1,m((c))Hm-q2+1,m(a )
+
+m=0
+
+m=q2
+
+-
+
+D(a
+
+) .
+
+a
+
+Note that although the objective function is the same for types in [0, c] and [c, 1], it is not
+
+differentiable at the cutoff c. The first-order necessary condition requires the derivative of the
+
+objective function to be 0 at a = a. Hence,
+
+n-1 (D(a)) v2 pn-m-1,m((c))hm-q2+1,m(a) - a = 0.
+m=q2
+
+Solving the differential equation with the boundary condition of continuity (which is D(c) =
+
+v2
+
+´c
+0
+
+x
+
+n-1 m=q2
+
+pn-m-1,m((c))hm-q2+1,m(x)dx),
+
+we
+
+obtain
+
+^ a n-1
+
+D(a) = v2 x
+
+pn-m-1,m((c))hm-q2+1,m(x)dx
+
+0 m=q2
+
+for each a  [c, 1].
+
+To complete the proof, we need to show that not only local deviations, but also global deviations
+
+cannot be profitable. In Appendix B.3, we do that and hence show that the uniquely derived
+
+symmetric strategy (, D; c) is indeed an equilibrium.
+
+5 Comparisons
+As illustrated in sections 3 and 4, the two mechanisms result in different equilibria. It is therefore natural to ask how the two equilibria compare in terms of interim student welfare. We denote by EU C(a) and EU D(a) the expected utility of a student with ability a under CCA and DCA, respectively.
+Our first result concerns the preference of low-ability students.
+Proposition 2. Low-ability students prefer DCA to CCA if and only if n > q1 + q2.
+Proof. First, let us consider the case of n > q1 + q2. For this case it is not difficult to see that EU C(0) = 0 (because the probability of being assigned to any college is zero), and EU D(0) > 0 (because with a positive probability, type 0 will be assigned to a college). Since the utility functions are continuous, it follows that there exists an > 0 such that for all x  [0, ], we have EU D(x) > EU C(x).
+Next, let us consider the case of n = q1 + q2. For this case, we have EU C(0) = v1. This is because with probability 1, type 0 will be assigned to college 1 by exerting 0 effort. Moreover, we
+15
+
+Figure 1: Efforts (left) and expected utility (right) under CCA and DCA
+Note: The figures were created with the help of simulations for the following parameters: n = 12, (q1, q2) = (5, 4), and (v1, v2) = (5, 20). The equilibrium cutoff under DCA is calculated as c = 0.675.
+
+have EU D(0) < v1. This is because type 0 should be indifferent between applying to college 1 and college 2, and in the case of applying to college 1, the probability of getting assigned to college 1 is strictly smaller than 1. Since the utility functions are continuous, it follows that there exists an
+> 0 such that for all x  [0, ], we have EU C(x) > EU D(x).
+
+Intuitively, when the seats are over-demanded (i.e., when n > q1 + q2), very low-ability students have almost no chance of getting a seat in CCA, whereas their probability of getting a seat in DCA is bounded away from zero. Hence they prefer DCA.
+Although this result merely shows that only students in the neighborhood of type 0 need to have these kinds of preferences, explicit equilibrium calculations for many examples (such as the markets we study in our experiments) result in a significant proportion of low-ability students preferring DCA. We provide a depiction of equilibrium effort levels and interim expected utilities for a specific example in Figure 1.
+Moreover, we establish the reverse ranking for the high-ability students. That is, the highability students prefer CCA in the following single-crossing sense: if a student who applies to college 2 in DCA prefers CCA to DCA, then all higher ability students have the same preference ranking.
+
+Proposition 3. Let c be the equilibrium cutoff in DCA. We have (i) if EU C (a)  EU D (a) for
+
+some a > c, then EU C (a ) > EU D (a ) for all a > a, and (ii) if EU C (a) < EU D (a) for some
+
+a
+
+>
+
+c,
+
+then
+
+d da
+
+E
+
+U
+
+C
+
+(a)
+
+>
+
+d da
+
+EU
+
+D
+
+(a)
+
+.
+
+16
+
+Proof. Let us define
+
+K (a)  v2Fn-q2,n-1 (a) ,
+
+L (a)  v1 (Fn-q1-q2,n-1 (a) - Fn-q2,n-1 (a)) ,
+
+M (a)  K (a) + L (a) ,
+
+N (a) = v2
+
+q2-1
+pn-m-1,m ( (c)) +
+m=0
+
+n-1
+m=q2 pn-m-1,m ( (c)) Hm-q2+1,m (a) .
+
+Then we have
+
+EUC
+
+(a)
+
+=
+
+M
+
+(a)
+
+-
+
+´a
+0
+
+M
+
+(x) xdx .
+
+a
+
+By integration by parts, we obtain
+
+EUC
+
+(a)
+
+=
+
+´a
+0
+
+M
+
+(x) dx .
+
+a
+
+Similarly,
+
+EU
+
+D
+
+(a)
+
+=
+
+N
+
+(a)
+
+-
+
+´a
+0
+
+N
+
+(x) xdx ,
+
+a
+
+and by integration by parts, we obtain
+
+EUD
+
+(a)
+
+=
+
+´a
+0
+
+N
+
+(x) dx .
+
+a
+
+Note that, for a > c, we have
+
+N (a) = K (a) .
+
+This is because students whose ability levels are greater than c apply to college 2 in DCA, and therefore a seat is granted to a student with ability level a > c if and only if the number of students with ability levels greater than a is not greater than q2. This is the same condition in CCA, which is given by the expression K (a). (Also note that we have N (a) = K (a) for a < c, in fact we have N (a) > K (a) , but this is irrelevant for what follows.)
+Now, for any a > c, we obtain
+
+d aEU C (a) = M (a) da
+= K (a) + L (a)
+
+and
+d aEU D (a) = N (a) da
+= K (a) .
+
+17
+
+Since L (a) > 0, for any a > c, we have
+
+d aEU C (a) > d aEU D (a) , da da
+
+or EU C (a) + a d EU C (a) > EU D (a) + a d EU D (a) . da da
+
+This
+
+means
+
+that
+
+for
+
+any
+
+a
+
+>
+
+c,
+
+whenever
+
+EUC
+
+(a)
+
+=
+
+EUD
+
+(a) ,
+
+we
+
+have
+
+d da
+
+EU
+
+C
+
+(a)
+
+>
+
+d da
+
+E
+
+U
+
+D
+
+(a) .
+
+Then we can conclude that once EU C (a) is higher than EU D (a), it cannot cut through EU D (a)
+
+from above to below and EU C (a) always stays above EU D (a) . To see this suppose EU C (a) >
+
+EU D (a) and EU C (a ) < EU D (a ) for some a > a > c, then (since both EU C (a) and EU D (a)
+
+are continuously differentiable) there exists a  (a, a ) such that EU C (a ) = EU D (a ) and
+
+d da
+
+EU
+
+C
+
+(a
+
+)
+
+<
+
+d da
+
+E
+
+U
+
+D
+
+(a
+
+),
+
+a
+
+contradiction.
+
+Hence (i) is satisfied.
+
+Moreover, (ii) is obviously
+
+satisfied
+
+since
+
+whenever
+
+EUC
+
+(a)
+
+<
+
+EUD
+
+(a),
+
+we
+
+have
+
+to
+
+have
+
+d da
+
+E
+
+U
+
+C
+
+(a)
+
+>
+
+d da
+
+EU
+
+D
+
+(a) .
+
+Intuitively, since high-ability students (i) can only get a seat in the good college in DCA whereas they can get a seat in both the good and the bad college in CCA, and (ii) their equilibrium probability of getting a seat in the good college is the same across the two mechanisms, they prefer CCA.
+One may also wonder whether there is a general ex-ante utility ranking of DCA and CCA. It turns out that examples where either DCA or CCA result in higher ex-ante utility (or social welfare) can be found. Specifically, markets 1 and 2 in our experimental sessions result in higher social welfare in CCA and DCA, respectively.
+
+6 Extensions
+In this section, we consider two extensions of the model. In the first, we allow for more than two colleges, again ranked in terms of quality. The second extension looks at a larger market in the following sense: as before, a setup is studied with two types of colleges resulting in utilities v1 and v2 and with capacities q1 and q2, but there are k colleges of each type and there are k × n students.
+6.1 The case of colleges
+Let us consider colleges, 1, ..., , where each college k has the capacity qk > 0 and each student gets the utility of vk from attending college k (v > v -1 > ... > v2 > v1 > 0).
+We conjecture that in the decentralized mechanism there will be a symmetric Bayesian Nash equilibrium ((k)k=1, D, (ck)k=0):14 (i) c0, . . . , c are cutoffs such that 0 = c0 < c1 < . . . < c -1 <
+14As explained below, the strategies are not formally shown to be an equilibrium since we do not have a proof to show that global deviations are not profitable.
+
+18
+
+c = 1; (ii) D is an effort function where each student with ability a makes an effort level of D(a);
+
+(iii) 1, . . . ,  are mixed strategies such that for each k  {1, . . . , - 1}, each student with ability a  [ck-1, ck) applies to college k with probability k(a) and college k +1 with probability 1-k(a). Moreover, each student with ability a  [c -1, 1] applies to college , equivalently,  (a) = 1. The
+
+equilibrium effort levels can be identified as follows.
+
+Let k  {1, . . . , } be given. Let k(a) denote the ex-ante probability that a student has a
+
+type less than or equal to a and she applies to college k.
+
+Then,
+
+1(a)
+
+=
+
+´a
+0
+
+1(x)dF
+
+(x).
+
+For
+
+k  {2, . . . , } and a  [ck-2, ck],
+
+k(a)
+
+=
+
+´´ccackkk---221((11
+
+- -
+
+k-1(x))dF (x) k-1(x))dF (x)
+
++
+
+´a
+ck-1
+
+k(x)dF
+
+(x)
+
+if a  ck-1, if a  ck-1.
+
+We define Hk to be the probability that a type is less than or equal to a, conditional on the
+
+event that she applies to college k:
+
+H k (a)
+
+=
+
+k(a) k(ck) .
+
+In this equilibrium, each student with ability a  [ck-1, ck] exerts an effort of
+
+^ a n-1
+
+D(a) = D(ck-1) +
+
+x pm,n-m-1(k(ck))hkm-qk+1,m(x)dx
+
+ck-1 m=qk
+
+where D(0) = 0 and hmk -qk+1,m is the density of Hmk -qk+1,m. Similar to Theorem 1, it is possible to determine the formulation for cutoffs c1, . . . , c -1 and mixed strategies 1, . . . ,  using the indif-
+
+ference conditions (see Appendix C). This set of strategies can be shown to satisfy immunity for
+
+"local deviations," but prohibitively tedious arguments to check for immunity to global deviations
+
+(as we have done in Appendix B) prevent us from formally proving that it is indeed an equilibrium.
+
+By supposing an equilibrium of this kind, we can actually show that propositions 2 and 3 hold for colleges. Proposition 2 trivially holds, as students with the lowest ability levels get zero utility from CCA and strictly positive utility from DCA. We can also argue that Proposition 3 holds since the students with ability levels a  [c -1, 1] only apply to college . This can be observed by noting that a seat is granted to these students in college k if and only if the number of students with ability levels greater than a is no greater than q , which is the same condition in CCA. Hence, even in this more general setup of colleges, we can argue that low-ability students prefer DCA whereas high-ability students prefer CCA.
+
+19
+
+6.2 The case of a k-replication
+
+Consider an environment in which we have, (i) k type-1 colleges: C11, ..., C1k such that each of them has q1 seats and gives a utility of v1 to students, (ii) k type-2 colleges: C21, ..., C2k such that each of them has q2 seats and gives a utility of v1 to students, and (iii) k × n students. In other words, in
+this extension we consider a "k-replication" of our model.
+
+With this extension, in CCA it is easy to see that there is a monotone equilibrium very similar
+
+to the original equilibrium. The students will list all type-2 colleges above all type-1 colleges (in
+
+an arbitrary fashion), students with the top k × q2 effort levels will get one of the type-2 colleges' seats, and students with the next top k × q1 effort levels will get one of the type-1 colleges' seats. In this equilibrium a student with type a will choose the effort
+
+^a
+
+C(k) (a) =
+
+x{fkn-kq2,kn-1 (x) v2 - (fkn-kq2-kq1,kn-1 (x) - fkn-kq2,kn-1 (x)) v1}dx.
+
+0
+
+Moreover, we have that C(k) (a) will be very close to C (a) for all k = 2, ..., . In fact, when F is uniform we have
+
+C(k) (a) = a =a
+
+n
+
+- n
+
+q2
+
+v2
+
+-
+
+n - q1 - q2 - n - q2 nn
+
+v2
+
++
+
+q1v1
+
+- n
+
+q2v2
+
+v1
+
+for all k = 1, 2, ..., . Hence, for uniform distributions, any k-replica economy bidding function is
+
+the same as in the no-replica economy.
+
+In DCA, on the other hand, one can observe that the equilibrium of the k-replica economy
+
+essentially remains the same as in the no-replica economy: the cutoff c and equilibrium effort
+
+functions will be the same. The only differences would be that (i) each student of ability lower
+
+than
+
+c
+
+will
+
+apply
+
+to
+
+each
+
+type-1
+
+college
+
+with
+
+probability
+
+(a) k
+
+and
+
+each
+
+type-2
+
+college
+
+with
+
+probability
+
+1-(a) k
+
+,
+
+and
+
+(ii)
+
+each
+
+student
+
+of
+
+ability
+
+higher
+
+than
+
+c
+
+will
+
+apply
+
+to
+
+each
+
+type-2
+
+college
+
+with
+
+probability
+
+1 k
+
+.
+
+Hence, if there are many students and many colleges (belonging to one of the two types), our
+
+predictions remain valid.
+
+7 The Experiment
+In this section, we present an experiment designed to test the results of the model and generate further insights into the performance of the centralized (CCA) and the decentralized college admissions mechanism (DCA). We compare the two mechanisms and study which of them leads to higher (interim and ex-ante) student welfare, higher efforts of the students, and how they affect the sorting of students by ability.
+20
+
+Table 1: Overview of market characteristics
+
+Number of seats at [value of] college 2 college 1
+
+Predicted utility higher
+
+Predicted effort higher
+
+Market 1 Market 2 Market 3 Market 4 Market 5
+
+6 [2000] 2 [2000] 2 [2000] 3 [2000] 9 [2000]
+
+6 [1000] 2 [1000] 8 [1000] 9 [1800] 1 [1000]
+
+CCA DCA depends; DCA in expectation CCA no diff. in expectation
+
+depends; DCA in expectation no diff. in expectation CCA DCA no diff. in expectation
+
+Notes: In some markets, one of the two mechanisms dominates the other for all students. In other markets the ranking of the mechanisms depends on the students' ability in which case we compare the expected values.
+
+7.1 Design of the experiment
+
+In the experiment, there are two colleges, college 1 (the bad college) and college 2 (the good
+
+college). There are 12 students who apply for positions, and these students differ with respect
+
+to their ability. Every student learns her ability as that is drawn from the uniform distribution
+
+over the interval from 1 to 100. Students choose an effort level es that determines their success
+
+in the application process.
+
+The
+
+cost
+
+of
+
+effort
+
+is
+
+determined
+
+by
+
+100
+
+es as
+
+.
+
+(Note that we use the
+
+range of abilities from 1 to 100 instead of 0 to 1 in order to simplify the calculations for subjects.
+
+Accordingly, we scaled up the cost function by a constant of 100.)
+
+In the centralized college admissions mechanism (CCA), all students simultaneously choose
+
+an effort level. Then the computer determines the matching by admitting the students with the
+
+highest effort levels to college 2 up to its capacity q2 and the next best students, i.e., from rank
+
+q1 + 1 to rank q1 + q2, to college 1. All other students are unassigned.
+
+In the decentralized college admissions mechanism (DCA), the students simultaneously decide
+
+not only on their effort level but also on which college to apply to. The computer determines
+
+the matching by assigning the students with the highest effort among those who have applied to
+
+college C, up to its capacity qC.
+
+We implemented five different markets that differ with respect to the total number of open
+
+slots (q1 + q2), the number of slots at each college (q1 and q2) as well as the value of the colleges
+
+for the students (v1 and v2), see Table 1. This allows us to investigate behavior under very
+
+different market conditions. The parameters in each market were chosen so as to generate clear-
+
+cut predictions regarding the two main outcome variables, effort and the expected utility of each
+
+student.
+
+Figure 2 shows the interim expected utility of students for each market. CCA dominates DCA
+
+with respect to the interim expected utility of students (market 1) and the reverse (market 2).
+
+Figure 3 shows the equilibrium effort levels given abilities for each market. Effort is higher for all
+
+types in CCA in market 3 while the reverse holds for market 4. The fifth market is designed to
+
+make the two mechanisms as similar as possible.
+
+In order to provide a valid comparison of the observed average effort and utility levels in the
+
+21
+
+Figure 2: Equilibrium expected utility by ability 22
+
+Figure 3: Equilibrium efforts by ability 23
+
+markets where there is no dominance relationship, i.e., the cells in Table 1 for which the predicted difference depends on the ability of the applicant, we compute the equilibrium effort and utility levels for the realizations of abilities in our experimental markets. We then take expected values given the realized abilities.
+An important distinction for the theoretical predictions and for the intuition behind the predicted differences is whether the number of students is equal to the number of seats (markets 1 and 4) or whether there are more students than seats (markets 2, 3, and 5). As illustrated by Figure 3, in markets 1 and 4 with an equal number of seats and applicants, a positive effort in CCA is only exerted by those who can expect to get into the good college. In DCA, efforts are overall higher in these two markets because of the risk of miscoordination. In markets 2 and 3 in contrast, high-ability students tend to exert less effort in DCA than in CCA because the expected return is higher in CCA: in CCA one can obtain v2, v1 and 0, while in DCA only v2 (or v1) and 0 are achievable.
+Note that our design aims at comparing the two mechanisms. We do not study the comparative statics of the equilibria of CCA and DCA by systematically varying one parameter. This would require a completely different design that is beyond the scope of this study.
+We employed a between-subjects design. Students were randomly assigned either to the treatment with CCA or the treatment with DCA. In each treatment, subjects played 15 rounds with one market per round. Each of the five different markets was played three times by every participant, and abilities were drawn randomly for every round. These draws were independent, and each ability was equally likely. We employed the same randomly drawn ability profiles in both treatments in order to make them as comparable as possible. Markets were played in blocks: first, all five markets were played in a random order once, then all five markets were played in a random order for a second time, and then again randomly ordered for the last time. We chose this sequence of markets in order to ensure that the level of experience does not vary across markets. Participants faced a new situation in every round as they never played the same market with the same ability twice. They received feedback about their allocation and the points they earned after every round.
+At the beginning of each round of the experiment, students received an endowment of 2,200 points. At the end of the experiment, one of the 15 rounds was randomly selected for payment. The points earned in this round plus the 2,200 endowment points were paid out in Euro with an exchange rate of 0.5 cents per point. The experiment lasted 90 minutes and the average earnings per subject were EUR 14.10.
+The experiment was run at the experimental economics lab at the Technical University Berlin. We recruited student subjects from our pool with the help of ORSEE by Greiner (2004). The experiments were programmed in z-Tree, see Fischbacher (2007). For each of the two treatments, CCA and DCA, independent sessions were carried out. Each session consisted of 24 participants that were split into two matching groups of 12 for the entire session. In total, six sessions were conducted, that is, three sessions per treatment, with each session consisting of two independent
+24
+
+matching groups of 12 participants. Thus, we end up with six fully independent matching groups and 72 participants per treatment.
+At the beginning of the experiment, printed instructions were given to the participants (see Appendix E). Participants were informed that the experiment was about the study of decision making, and that their payoff depended on their own decisions and the decisions of the other participants. The instructions were identical for all participants of a treatment, explaining in detail the experimental setting. Questions were answered in private. After reading the instructions, all individuals participated in a quiz to make sure that everybody understood the main features of the experiment.
+7.2 Experimental results
+We first present the aggregate results in order to compare the two mechanisms. In a second step, we study behavior in the two mechanisms separately to compare it to the point predictions and to shed light on the reasons for the aggregate findings. The significance level of all our results is 5%, unless otherwise stated.
+7.2.1 Treatment comparisons: Aggregate results
+We compare the two mechanisms with respect to three properties, summarized in results 1 to 3. The first comparison concerns the utility of students in the two mechanisms which is equal to the number of points earned, due to the assumption of risk neutrality. Second, we investigate whether one of the mechanisms induces higher effort levels than the other mechanism. And the third aspect is whether individuals of different abilities prefer different mechanisms.
+Result 1 (Average utility): In markets 1 and 4 (where the number of seats equals the number of students), the average utility of students in CCA is significantly higher than in DCA, as predicted by the theory. In markets 2 and 3 (where there are less seats than applicants), the average utility of students in DCA is not significantly higher than in CCA, in contrast to the theoretical predictions. In market 5, there is no significant difference either in theory or in the data.
+Support. Table 2 presents the average number of points or the average utility of the participants in the two mechanisms in all five markets. The third column provides the equilibrium prediction as to which mechanism, CCA or DCA, leads to a higher utility of the students. To generate this prediction, we compute the equilibrium utilities given the realized draws of abilities in the experiment for both mechanisms. And then we test for each market whether these equilibrium utilities are significantly different between the two mechanisms. Thus, the third column also displays the p-values for the two-sided Wilcoxon rank-sum test for the equality of distributions of equilibrium utilities. In markets 1 to 4, we expect that the utility of students in the two mechanisms is significantly different. The last column in the table provides the p-values for the
+25
+
+two-sided Wilcoxon rank-sum test for the equality of distributions of the observed number of points earned in the two mechanisms.
+
+Table 2: Average utility
+
+Utility higher Average utility higher Average utility Average utility Observed utilities
+
+Market for all students
+
+for realized types
+
+in CCA
+
+in DCA
+
+different in
+
+(predicted)
+
+(predicted)
+
+(observed)
+
+(observed) CCA and DCA
+
+1 CCA 2 DCA 3 N/A 4 CCA 5 N/A
+
+CCA, 0.00 DCA, 0.02 DCA, 0.00 CCA, 0.00 N/A, 0.63
+
+1001 -122 342 1507 809
+
+716 -169 305 1014 797
+
+0.02 0.75 0.63 0.00 1.00
+
+Notes: Columns 3 and 6 show the p-values of the Wilcoxon rank-sum test for equality of the distributions, based on averages of the six matching groups per treatment.
+
+In markets 1 and 4, the equilibrium predictions for the comparison of utilities of students are consistent with the experimental data, as the average utility in CCA is significantly higher in both markets. Thus, with an equal number of applicants and seats, CCA is preferable to DCA if the goal is to maximize the utility of the students. This is due to the potential miscoordination of applicants in DCA in these markets, inducing higher effort levels. However, we fail to observe the superiority of DCA in both markets where this is predicted, namely markets 2 and 3. The relationship is even reversed, with the average utility being higher in CCA than in DCA in both markets. Note also that the average utility is negative in the competitive market 2 (with only four seats for 12 students) such that, contrary to the prediction, the subjects earn less than the 2,200 points they are endowed with.
+Result 2 (Average effort): In markets 1 and 4 (where the number of seats equals the number of students), the average effort level of students in DCA is significantly higher than in CCA. This is in line with the predictions. In market 3, the average effort levels of students in CCA are not significantly higher than in DCA, in contrast to the theoretical prediction. In markets 2 and 5, there is no significant difference in effort between the two mechanisms, as predicted.
+Support. Table 3 presents the average effort levels of the participants by different mechanisms and markets. Analogously to Table 2, the third column displays the equilibrium prediction regarding which mechanism leads to significantly higher effort levels. For this prediction, we compute the equilibrium effort levels given the realization of abilities in the five markets. To generate this prediction, we compute the equilibrium utilities given the realized draws of abilities in our markets in the experiment. The column also indicates the p-values of the Wilcoxon rank-sum test regarding the difference between equilibrium efforts in CCA and DCA. We expect effort to differ significantly between the two mechanisms only in markets 3 and 4 (with a marginally significant difference in market 1). The last column provides the p-values for the two-sided Wilcoxon rank-sum test for the equality of distributions of the observed effort levels in the two mechanisms. The equilibrium
+
+26
+
+predictions regarding the comparison of efforts in markets 1 and 4 are confirmed by the data because observed average effort is significantly higher in DCA. In market 3 average efforts are higher in CCA than in DCA as predicted, but the difference is not significant.
+
+Table 3: Average effort
+
+Effort higher Average effort higher Average effort Average effort Observed efforts
+
+for all students
+
+for realized types
+
+in CCA
+
+in DCA
+
+different in
+
+Market (predicted)
+
+(predicted)
+
+(observed)
+
+(observed) CCA and DCA
+
+1 N/A 2 N/A 3 CCA 4 DCA 5 N/A
+
+DCA, 0.06 276 362 N/A, 0.15 389 410 CCA, 0.00 397 354 DCA, 0.00 191 340 N/A, 0.75 400 395
+
+0.04 0.75 0.42 0.02 1.00
+
+Notes: Columns 3 and 6 show the p-values of the Wilcoxon rank-sum test for equality of the distributions, based on averages of the six matching groups per treatment.
+
+Taking results 1 and 2 together, we observe that in markets without a shortage of seats (market 1 and market 4) students are on average better off in CCA where they exert less effort. In market 5 the results are also in line with the theoretical predictions with almost identical effort and expected utility levels in both mechanisms. In the two remaining markets with a surplus of students over seats, markets 2 and 3, the results are not in line with the theory. Markets 2 and 3 should lead to a higher average utility of the students in DCA than in CCA, which is not observed in the lab. Therefore, the overall results suggest that with respect to the utility of students, CCA performs better than predicted relative to DCA.
+Next we turn to the question of whether students of different abilities prefer different mechanisms by providing an experimental test of propositions 2 and 3. According to Proposition 2, low-ability students prefer DCA over CCA if there are more applicants than seats in the market, as in our markets 2, 3, and 5. Proposition 3 implies that if any student who is above the cutoff in DCA prefers CCA over DCA, then all students with a higher ability must also prefer CCA. (Remember that in markets 1 and 4, all students prefer CCA, and we therefore do not consider these markets here.)
+Result 3 (Expected utility of low- and high-ability students): In markets 2 and 3 (with fewer seats than applicants), the average utilities of students with low abilities are higher in DCA, and the average utilities of students with high abilities are higher in CCA. However, significantly fewer students than predicted prefer DCA to CCA. There is no significant difference between the average utilities of students in DCA and CCA in market 5.
+Support: In three of our markets - namely 2, 3, and 5 - low-ability students prefer DCA in equilibrium. We refer to the predicted switching point as the maximum ability at which students prefer DCA in equilibrium. The predicted switching points by markets are represented in Figure 4 by the intersection of the broken lines. For market 2, the switching point is 100, for market 3
+
+27
+
+Figure 4: Predicted expected utilities and kernel regression of observed utilities by abilities.
+it equals 81, and for market 5 it equals 26. Figure 4 also shows the observed switching points as the intersection of the solid lines in markets 2, 3, and 5. The figure reveals that in markets 2 and 3, the observed switching points are substantially lower than the predicted switching points. This suggests that fewer students than predicted prefer DCA to CCA in these markets.
+To assess the statistical significance of these differences in switching points, we use bootstrapping. That is, we sample from the dataset with replacement to generate new samples and calculate the bootstrap confidence intervals of the observed switching points in markets 2 and 3.15 Before
+15Bootstrap confidence intervals are calculated by the percentile method (Efron, 1982). We perform block resampling to account for the dependence of observations within matching groups (see Davison and Hinkley, 1997). For each set of 50,000 bootstrap samples, we draw six random matching groups with replacement and calculate the bootstrap switching point for each market based on the polynomial smoothing of the observed utilities (we use lpoly in STATA with bandwidth 15 both for the bootstrap and for producing Figure 4) in the online appendix. We
+28
+
+turning to the bootstrap confidence intervals, we first use the bootstrap samples to assess the theoretical prediction of a unique switching point with ability types above the switching point preferring CCA in all markets. The vast majority of the bootstrap samples indeed produce a unique switching point in the predicted direction, i.e., lower-ability students prefer DCA while students with abilities above the switching point prefer CCA. In market 2, 77.5% of the bootstrap samples yield a unique bootstrapped switching point in the predicted direction.16 In market 3, 80.1% of the bootstrap samples provide a bootstrapped switching point that is unique and in the predicted direction. Overall, the bootstrap samples confirm the single-crossing property of Proposition 3.17
+Finally, we study the bootstrap distribution of the observed switching points where we restrict attention to bootstrap samples with a unique switching point in the predicted direction. The average switching point in market 2 is 48.4 with a 95% confidence interval of [30.5, 68.4], clearly indicating that the observed switching point is below the theoretical prediction of 100. In market 3, the average switching point is 37.6 with a 95% confidence interval of [9.2, 69.3], also indicating that the observed switching point is below the theoretical prediction of 81. Thus, we conclude that the observed switching points are significantly lower than the predicted switching points in markets 2 and 3, implying that students from a smaller range of abilities prefer DCA than the theory suggests.18
+7.2.2 Point predictions for effort choices and utility
+Next we test the point predictions regarding the utility and effort levels in CCA and DCA. This will help to gain a better understanding of the deviations from the predicted outcomes, in particular the relatively poor performance of DCA with respect to student utility.
+Result 4 (Average utility and effort by markets): (i) The average utility is significantly lower than predicted across all markets and mechanisms. (ii) Average effort levels in the experiments are higher than the equilibrium efforts in all 10 markets. This overexertion of effort is significant in all five markets in DCA and in three out of five markets in CCA.
+Support: Table 4 displays the equilibrium and observed averages for utility and effort levels by markets. Note that the average utility of subjects is significantly lower than predicted in all five markets and under both mechanisms. In addition, Figure 4 shows that average utility levels are always below the predicted level for all abilities. This is consistent with the fact that in all markets and mechanisms, average effort levels are higher than predicted, as can be taken from a
+did not calculate bootstrap confidence intervals for market 5, because Figure 4 shows that there is no significant difference in the expected utility for high- and low-ability students in the two systems, as predicted.
+16In this market, a number of draws resulted in two switching points. This can be explained by the fact that in DCA two students with very low abilities of 2 and 6, respectively, took dominated effort choices by spending all their endowment, which resulted in a utility of -2200 points. In some bootstrap samples, these two observations shift the smoothed line of the expected utility in DCA below the line for CCA for the lowest ability types.
+17See Table 7 in the online appendix for detailed results of bootstrapping and the number of switching points. 18See Figure 7 in the online appendix for a histogram of the bootstrapped switching points.
+29
+
+Table 4: Average utility and effort by markets
+
+Average equilibrium utility (1)
+
+Average observed utility (2)
+
+p-value obs.=pred. (3)
+
+Average equilibrium efforts (4)
+
+Average observed efforts (5)
+
+p-value obs.=pred. (6)
+
+CCA Market 1 Market 2 Market 3 Market 4 Market 5
+
+1173 107 609 1809 1011
+
+1001 -122 342 1507 809
+
+0.04 0.01 0.01 0.01 0.02
+
+230 364 280 35 305
+
+276 0.19 389 0.54 397 0.02 191 0.01 400 0.05
+
+DCA Market 1 Market 2 Market 3 Market 4 Market 5
+
+975 152 699 1430 1019
+
+715 -169 305 1014 797
+
+0.01 0.00 0.00 0.00 0.00
+
+262 309 195 125 307
+
+362 0.02 410 0.00 354 0.00 340 0.00 395 0.00
+
+Notes: Column (3) [(6)] shows the p-values for the significance of the constant when regressing the difference between (1) and (2) [(4) and (5)] on a constant, with standard errors clustered at the level of matching groups.
+
+comparison of columns (4) and (5) in Table 4.19 In CCA the difference is significant for three out of five markets (market 3, 4, and 5) while in DCA it is significant for all five markets. Thus, DCA leads to significant overexertion in more markets than CCA.
+We also find that in spite of the negative results regarding the point predictions, the equilibrium effort levels have significant predictive power. This emerges from an OLS estimation of observed efforts based on clustered robust standard errors at the level of matching groups.20 Furthermore, there is no significant difference with respect to the predictive power of the equilibrium efforts in the two mechanisms, as the interaction of the predicted effort and the dummy for CCA is not significant. Moreover, the regression confirms that there is on average less overexertion in CCA than in DCA, since the dummy for CCA is significant when controlling for equilibrium efforts.
+
+7.2.3 Sorting of students
+In a next step, we study how students sort across colleges with respect to their ability. In particular we ask whether the best students end up at the good college 2, the lower-ability students receive a seat at the bad college 1, and the students with the lowest ability are unassigned. In equilibrium, sorting by ability is always perfect in CCA while it is likely to be imperfect in DCA. Equilibrium miscoordination in DCA is due to the mixed strategy of low-ability students and the possibility
+19Figure 6 in the online appendix depicts the observed efforts of individuals, the kernel regression estimation of efforts, and the equilibrium predictions for each of the markets and mechanisms. All 10 panels for the 10 markets show that the kernel of effort increases in ability, as predicted. Moreover, the observed effort levels typically lie above the predicted values, except for high-ability students in a few markets.
+20See Table 8 in the online appendix.
+
+30
+
+that the number of students with realized abilities below and above the cutoff does not correspond to the number of seats in the two colleges. As a consequence, miscoordination in DCA can lead to more unassigned students and less sorting by ability than in CCA.
+Before investigating the average ability levels at the colleges, we study the choice of participants to apply to college 1 or college 2 in DCA. Recall that the symmetric Bayesian Nash equilibrium characterized in Theorem 1 has the property that students with an ability above the cutoff should always apply to the better college (college 2) whereas students with an ability below the cutoff should mix between the two colleges.
+Result 5 (Choice of college in DCA): In DCA, students above the equilibrium ability cutoff choose the good college 2 more often than students below the cutoff. However, high-ability students apply to the good college significantly less often than predicted in all markets while low-ability students apply to the good college more often than predicted (significant in three markets).
+Support: Table 5 displays the equilibrium cutoff ability for each market in column (1). In column (2) it provides the average equilibrium probability of choosing the good college 2 for students with abilities below the cutoff in the respective markets. This average is calculated given the actual realization of abilities in the experiment. It can be compared to the observed frequency of choosing the good college by these students in column (3) and the 95% confidence intervals with standard errors clustered at the level of matching groups in column (4). It emerges that subjects below the cutoff choose the good college 2 more often than predicted in all five markets. The difference is significant for markets 1, 3, and 5. Column (5) displays the proportion of subjects above the cutoff applying to college 2, followed by the 95% confidence interval with standard errors clustered at the level of matching groups in column (6). Note that in equilibrium these high-ability students should apply to college 2 with certainty, but we can reject this hypothesis in all five markets.21 Finally, the last column of Table 5 presents the p-values for the Wilcoxon rank-sum test of equality of the distributions of the choice of college 2 below and above the market-specific equilibrium cutoff based on averages of six matching groups. In all markets except market 4, the differences are significant at the 1% significance level, and the difference is marginally significant for market 4. Further evidence of the predictive power of the model is provided by a probit regression of the observed choices of college 2. The coefficient for the equilibrium probability of choosing the good college is significant.22 Thus we conclude that the choices of the subjects reflect the predicted equilibrium pattern, but that the point predictions fail.
+In order to better understand why the point predictions fail, we investigate the application decision of students by ability. Figure 5 presents the choices of subjects in DCA by markets
+21In markets 1, 2, and 5 the observed proportions are close to the equilibrium. In market 3 fewer high-ability students choose the good college, which may be due to the large bad college (eight seats) relative to the good college (two seats). In market 4, the relatively low proportion of high-ability students applying to the good college may be driven by the similarity of payoffs for both colleges (1,800 points versus 2,000 points).
+22See Table 9 in the online appendix. The same table shows that there is no gender difference in the choice of the good college.
+31
+
+Table 5: Proportion of choices of good college 2
+
+Equilibrium ability cutoff
+
+Equ. prop. of choices of college 2 below the cutoff
+
+Obs. prop. of choices of college 2 below the cutoff mean 95% conf. int
+
+Obs. prop. of choices of college 2 above the cutoff mean 95% conf. int
+
+p-values for equality of proportions above and below the cutoff
+
+(1) (2) (3) (4) (5) (6)
+
+(7)
+
+Market 1 Market 2 Market 3 Market 4 Market 5
+
+50 85.5 85.5 89.5 23.5
+
+13% 33% [25%-44%] 85% [75%-92%] 43% 51% [41%-61%] 92% [77%-98%] 15% 27% [20%-36%] 68% [49%-82%] 16% 17% [11%-27%] 42% [21%-67%] 51% 64% [54%-72%] 91% [84%-95%]
+
+0.00 0.00 0.00 0.07 0.00
+
+Notes: Column (7) displays the p-values of the Wilcoxon rank-sum test for equality of the distributions, based on averages of the six matching groups. Confidence intervals are estimated with standard errors clustered at the level of matching groups.
+
+and ability quantiles, together with the equilibrium predictions. Students above the equilibrium cutoff in markets 1, 2, and 5 choose the good college 2 almost certainly, in line with the theory. The proportions of choices of students with low ability are also close to the equilibrium mixing probabilities. The biggest difference between the observed and the equilibrium proportions is due to students who are slightly above or below the cutoff. This finding is particularly evident in markets 1, 2, and 4. Remember that the equilibrium is characterized by a discontinuity regarding the probability of the choice of college 2: students with abilities just above the cutoff have a pure strategy of choosing college 2, while students just below the cutoff choose college 1 with almost 100% probability. Not surprisingly, the choices of universities by our subjects are smooth around the cutoff. In line with this, we also do not observe the predicted kink in the effort choices shown in Figure 2. These findings can be due to the fact that students with an ability level around the cutoff under- or overestimate the cutoff, which would result in the observed smoothing.
+As a final step, we compare CCA and DCA with respect to the resulting average abilities of the students in each college. Panels A, B, and C of Table 6 present the equilibrium and observed average abilities of students assigned to the good and bad college and of unassigned students, respectively.23 Panel D presents the equilibrium and the observed percentage of unfilled seats by markets.
+Result 6 (Composition of colleges): (i) (Good college) There is no significant difference in the average ability of students in CCA and DCA. This is in line with the theory except for markets 3 and 4 where a significantly higher ability of students in CCA is predicted. (ii) (Bad college) Ability levels are not significantly different in markets 1 and 5, as predicted. The average ability
+23The equilibrium assignment in CCA is straightforward to calculate given the ability draws. For DCA the choice of the college is random for students below the ability cutoff. We generate one realization of the choice of the college for all abilities below the cutoff, given the equilibrium probabilities. The resulting equilibrium allocation is determined and used for the calculation in this table.
+
+32
+
+Figure 5: Choice of college in DCA 33
+
+Table 6: Average abilities of students and unfilled seats by colleges
+
+Panel A Panel B Panel C Panel D
+
+Assigned to good college, equil. CCA (1) DCA (2) CCA=DCA, equil., p-value (3) Assigned to good college, observed CCA (4) DCA (5) CCA=DCA, observed, p-value (6) CCA observed=CCA equil., p-value (7) DCA observed=DCA equil., p-value (8)
+Assigned to bad college, equil. CCA (1) DCA (2) CCA=DCA, equil., p-value (3) Assigned to bad college, observed CCA (4) DCA (5) CCA=DCA, observed, p-value (6) CCA observed=CCA equil., p-value (7) DCA observed=DCA equil., p-value (8)
+Not assigned, equil. CCA (1) DCA (2) CCA=DCA, equil., p-value (3) Not assigned, observed CCA (4) DCA (5) CCA=DCA, observed, p-value (6) CCA observed=CCA equil., p-value (7) DCA observed=DCA equil., p-value (8)
+Percentage of unfilled seats, equil. CCA (1) DCA (2) Percentage of unfilled seats, observed CCA (3) DCA (4)
+
+Market 1 234
+74.4 91.4 91.9 86.9 73.8 89.6 82.7 54.5 0.69 0.69 0.05 0.00
+66.2 80.2 84.5 65.6 67.2 82.7 80.9 66.1 0.81 0.87 0.52 0.87 0.07 0.02 0.02 0.00 0.04 0.02 0.63 0.06
+25.3 77.2 52.4 38.1 27.2 72.3 50.8 51.5 0.63 0.08 0.26 0.00
+33.5 75.3 52.4 45.2 31.0 43.7 45.5 49.6 0.42 0.01 0.04 0.15 0.00 0.70 1.0 0.00 0.40 0.00 0.05 0.29
+35.3 10.6 25.4 37.2 29.7 12.2 N/A 0.47 0.01 N/A
+- 38.5 18.0 39.8 45.8 49.1 25.6 N/A 0.04 0.01 N/A N/A 0.26 0.09 N/A 0.32 0.02 0.01 0.14
+0% 0% 0% 0% 12.0% 1.4% 3.3% 5.1%
+0% 0% 0% 0% 10.2% 1.4% 7.8% 9.3%
+
+5
+62.0 61.2 0.93
+58.2 59.1 0.63 0.04 0.13
+24.0 42.0 0.34
+40.9 34.5 0.52 0.05 0.04
+10.9 16.9 0.01
+18.5 20.5 0.52 0.09 0.14
+0% 2.2%
+0% 2.8%
+
+Notes: Rows (3) and (6) of panels A, B, and C display the p-values of the Wilcoxon rank-sum test for equality of the distributions, based on averages of the six matching groups. Rows (7) and (8) of panels A , B, and C display the p-values of t-test of equality of the averages of the six matching groups and the predicted constant value.
+
+34
+
+of students in DCA is significantly lower than predicted and than in CCA in markets 2 and 3.
+Support: We consider each market separately and mainly refer to rows (3) and (6) in panels A and B of Table 6. In markets 1 and 5, both the theory and the experimental data show no significant difference between ability levels in the good and bad college when comparing CCA with DCA.
+In market 4 where the two colleges have almost the same value for the students, the average ability of students in the good college is predicted to be significantly lower in DCA, and conversely, the average ability is predicted to be higher in the bad college in DCA. We fail to observe this significant difference for both colleges because the average ability levels at both colleges are more similar than predicted under both mechanisms. Thus, there is no sorting advantage of CCA in market 4, other than predicted.
+In markets 2 and 3, the observed abilities of students assigned to the bad college are significantly higher in CCA than in DCA (see row (6) of Panel B). In equilibrium the difference has the same sign but is much smaller and is not significant. Thus, in DCA low-ability students have a better chance than predicted of being admitted to the bad college in markets 2 and 3, at the cost of some high-ability students who remain unassigned (cf. rows (2) and (5) for markets 2 and 3 in Panel C). The reason for abilities being higher at the bad college in CCA than in DCA in these markets is due to a purely mechanical effect: in both mechanisms, students with abilities lower than predicted are able to get a seat in the bad college, due to imperfect sorting. But CCA allows high-ability students who are unable to get into the good college to obtain a seat in the bad college. This raises the average ability in the bad college compared to DCA where the students who are unsuccessful at the good college remain unassigned.
+Table 6 also reports on the point predictions for each market separately, with test results in rows (7) and (8) of Panels A, B, and C. The point predictions are rejected in more than half of the cases, but we refrain from discussing them here in detail since our main focus is on the comparison of the two mechanisms.
+7.3 Discussion
+In this section we discuss possible explanations of the observed deviations from equilibrium behavior. Overbidding is a common finding in all-pay auction experiments (see Barut et al., 2002, and Noussair and Silver, 2006) and our results confirm this in the well-known context of a single contest with multiple prizes (CCA), but we also show it to hold in parallel contests (DCA). Our experiments allow us to compare the two mechanisms, and our main result is the relative unattractiveness of DCA relative to CCA, even in markets where it should be preferred by all students.
+One candidate to explain the difference between predicted and observed utility levels in the two mechanisms is the number of unfilled seats in DCA. If students coordinate worse than predicted
+35
+
+in equilibrium, the attractiveness of DCA is reduced relative to CCA. Table 6, Panel D presents the equilibrium and observed shares of unassigned seats by markets. The share of unfilled seats in DCA is somewhat higher than in equilibrium only in markets 3 and 4, and the difference is small. Thus, unfilled seats can at best partially explain the unattractiveness of DCA in our experiment relative to the equilibrium predictions.
+Apart from welfare losses due to seats remaining unfilled, the aggregate welfare of students is affected by their choice of effort levels. Thus, overexertion of effort in DCA relative to CCA is a potential explanation. Inspecting the observed and predicted average effort levels in the two markets where DCA should be preferable for students (markets 2 and 3, see Table 4), it emerges that overbidding is more pronounced in DCA.24 Moreover, it can be taken from Table 4 that efforts fail to be significantly higher in CCA than in DCA in market 3, in contrast to the prediction. Thus, the fact that DCA leads to more overbidding in markets 2 and 3 destroys its relative advantage for the students in these two markets.
+To understand the structure of overbidding in DCA, we investigate whether the students condition their effort choice on the choice of the college in DCA.25 Note that in equilibrium, students with abilities below the cutoff choose to apply to the good and the bad college with a certain probability, while they exert the same effort irrespective of the college choice. However, we observe that participants tend to exert higher effort when applying to the good as compared to the bad college.26 We even observe differences in effort of high-ability students, depending on their choice of college although they should apply to the good college in equilibrium. Some of these students underbid, especially when applying to the bad college, but these are relatively rare instances. To sum up, relative overbidding in DCA goes along with students conditioning their effort choice on the choice of the college.
+The level-k model and limited depth of reasoning provides a parsimonious explanation for overexertion of effort in DCA relative to CCA. Moreover, it can organize our other main findings. To see this, fix level-0 students as students who randomly choose the college to apply to in DCA. Thus, level-0 students do not sort according to ability. However, level-0 students apply to colleges in proportion to the number of seats at the college, i.e., they take into account the relative size of the two colleges. Furthermore, assume that level-0 students choose effort levels randomly from the
+24In market 2, average observed efforts and equilibrium efforts differ by (389-364)=25 points in CCA while the difference is 101 in DCA; similarly for market 3 with average overbidding of 117 in CCA and 159 in DCA.
+25Table 10 in the online appendix presents the average overbidding in terms of cost of effort by markets for students above and below the equilibrium ability cutoff. One unit of cost of effort corresponds to 50 cents, thus the maximum effort is 11 units. We use the costs of effort instead of effort in order to control for the scale of the overbidding that depends on ability. Presenting this data in units of effort would not be informative as the same deviation of, say, 100 units of effort means a small deviation for a high-ability student but a very large deviation for a low-ability student.
+26The difference is significant in two markets for low-ability students. Column 4 of Table 10 in the online appendix presents the p-values for the significance of the dummy variable for applying to the good college when regressing overbidding in money terms on the dummy and a constant for abilities below the theoretical cutoff in DCA (with standard errors clustered at the level of matching groups).
+36
+
+interval of possible effort choices that is determined by their ability. This results in effort choices being proportional to ability.
+Now consider level-1 students who play a best response to the belief that all other students are level-0, as described above. First, if the distribution of abilities is the same at the good and at the bad college and if the number of applicants is proportional to the number of seats, the good college is more attractive. This explains our observation that low-ability students apply to the good college more often than predicted. Regarding the effort level chosen by level-1 students, they will choose a different effort level at both colleges, namely a higher effort at the good college than at the bad college, because the competition is the same but the reward is higher at the good college. Again, this is reflected in our data.
+Moreover, the level of effort is higher than in equilibrium if the randomization (or proportional rule) that level-1 players believe level-0 players to adopt yields higher than equilibrium efforts. This is due to the strategic complementarity of effort. The level-k model also predicts that the effort level of the highest-ability types may be lower than in equilibrium. This is the case if equilibrium efforts are higher than average random efforts, which is caused by competition for the good college being weaker than in equilibrium due to worse sorting. We observe this for markets with a strong competition for seats at the good college, namely markets 2 and 3.27
+Finally, note that in the case of CCA, level-1 players overexert or underexert effort depending on whether the average random effort is smaller or greater than the equilibrium effort. For low enough abilities (i.e., not the very high types), the average random effort is always higher than the equilibrium effort, thus level-1 players overexert. In DCA overexertion is higher than in CCA for these types, as they exert similar efforts, but the predictions of efforts in DCA are much lower than in CCA for middle types around the cutoff. This also explains why we observe the biggest violations of equilibrium efforts for these middle types.
+Another candidate explanation for the overexertion of effort especially in DCA is risk-aversion. Although we cannot provide a full analysis of this case due to technical difficulties, we would like to elaborate on the possible effects of risk aversion in our setup. Fibich, Gavious, and Sela (2006) have shown that in a single contest, players with high values bid higher than they would have bid in the risk-neutral case (as compared to low-value bidders who bid less). The intuitive reason for this is that bidders who bid more have more to lose in case of not winning the prize, due to concave utility functions. Let us use this intuition to compare the overexertion of effort in CCA versus DCA. In CCA, a high-ability student can get a high prize (v2), a low prize (v1), or no prize (0), whereas in DCA she would get either a high prize (v2) or no prize (0). Therefore, in CCA just failing to win a high prize would still give this bidder a low prize, whereas this would result in no prize in DCA. In other words, this bidder has more to lose in a decentralized mechanism. Hence, we could expect that an overexertion of effort would be more pronounced in DCA than in CCA.
+27To illustrate these points, the graphs of the random, predicted, and observed efforts (all smoothed) in market 2 can be found in the online appendix, Figure 8.
+37
+
+8 Conclusion
+In this paper, we study college admissions exams which concern millions of students every year throughout the world. Our model abstracts from many aspects of real-world college admission games and focuses on the following two important aspects: (i) colleges accept students by considering student exam scores, (ii) students have differing abilities which are their private information, and the costs of getting ready for the exams are inversely related to ability levels. We focus on two extreme policies that capture practices in a number of countries. In the centralized model students can freely and without cost apply to all colleges, whereas in the decentralized mechanism students can only apply to one college. We consider a model that is as simple as possible by assuming two colleges and homogeneous student preferences over colleges in order to derive analytical results as Bayesian Nash solutions to the two mechanisms.28
+The solution of the centralized admissions mechanism follows from standard techniques in the contest literature. The solution to the decentralized model, on the other hand, has interesting properties such as lower ability students using a mixed strategy when deciding which college to apply to. Our main theoretical result is that low- and high-ability students differ in terms of their preferences between the two mechanisms where high-ability students prefer the centralized mechanism and low-ability students the decentralized mechanism.
+We employ experiments to test the theory and to develop insights into the functioning of centralized and decentralized mechanisms that take into account behavioral aspects. Overall, many predictions of the theory are supported by the data, despite a few important differences. We find that in our markets with an equal number of seats and applicants, the centralized mechanism is better for all applicants, as predicted by the theory. Again in line with the theory we observe that in the markets with an overdemand for seats, low-ability students prefer a decentralized admissions mechanism whereas high-ability students prefer a centralized mechanism. However, in these markets the predicted superiority of the decentralized mechanism for the students is weaker than predicted. Thus, only a smaller group of (low-ability) students than predicted profits from the decentralized system. This can be ascribed to one robust and stark difference between theory and observed behavior, namely overexertion of effort, which is more pronounced in the decentralized mechanism. Moreover, the decentralized mechanism leads to less sorting by ability and to more high-ability students being unassigned, both compared to the centralized mechanism and compared to the equilibrium prediction. Overall, our findings resonate with a number of countries having moved from a decentralized to a more centralized procedure in the past years, e.g., Russia and other former Soviet states as well as South Korea.
+For the evaluation of the two mechanisms from a welfare perspective, it matters whether the effort spent preparing for the exam has no benefits beyond improving the performance in the exam or whether this effort is useful. If effort is purely a cost, then welfare can be measured by the mean
+28We also discuss the extension to more colleges in section 6.
+38
+
+utility of the students. In all our markets, the centralized mechanism outperforms the decentralized mechanism with respect to this criterion. However, if the effort exerted by the students increases their productivity, then the decentralized mechanism becomes relatively more attractive, where efforts are weakly higher than in the centralized mechanism across markets.
+References
+Abdulkadirolu, A., and T. Sönmez (2003): "School Choice: A Mechanism Design Approach," American Economic Review, 93, 729­747.
+Abizada, A., and S. Chen (2015): "Stability and Strategy-proofness for College Admissions with an Eligibility Criterion," Review of Economic Design, 19(1), 47­66.
+Amegashie, J. A., and X. Wu (2006): "Adverse Selection in Competing All-pay Auctions," Working paper.
+Avery, C., S. Lee, and A. E. Roth (2014): "College Admissions as Non-Price Competition: The Case of South Korea," Working paper.
+Avery, C., and J. Levin (2010): "Early Admissions at Selective Colleges," American Economic Review, 100, 2125­2156.
+Balinski, M., and T. Sönmez (1999): "A Tale of Two Mechanisms: Student Placement," Journal of Economic Theory, 84, 73­94.
+Barut, Y., D. Kovenock, and C. N. Noussair (2002): "A Comparison of Multiple-Unit AllPay and Winer-Pay Auctions Under Incomplete Information," International Economic Review, 43, 675­708.
+Baye, M. R., D. Kovenock, and C. G. de Vries (1996): "The All-pay Auction with Complete Information," Economic Theory, 8, 291­305.
+Biais, B., D. Martimort, and J.-C. Rochet (2000): "Competing Mechanisms in a Common Value Environment," Econometrica, 68(4), 799­837.
+Biro, P. (2012): "University Admission Practices - Hungary," Working paper.
+Buyukboyaci, M. (2012): "Parallel Tournaments," Working paper.
+Chade, H., G. Lewis, and L. Smith (2014): "Student Portfolios and the College Admissions Problem," Review of Economic Studies, 81(3), 971­1002.
+Che, Y.-K., and Y. Koh (2015): "Decentralized College Admissions," Journal of Political Econmy, forthcoming.
+39
+
+Chen, Y., and O. Kesten (2015): "College and High School Admissions Reforms in China: A Theoretical Analysis," Journal of Political Econmy, forthcoming.
+Chen, Y., and T. Sönmez (2006): "School Choice: An Experimental Study," Journal of Economic Theory, 127, 202­231.
+Davison, A. C., and D. V. Hinkley (1997): Bootstrap methods and their application, vol. 1. Cambridge university press.
+Dechenaux, E., D. Kovenock, and R. M. Sheremeta (2014): "A survey of experimental research on contests, all-pay auctions and tournaments," Experimental Economics, pp. 1­61.
+DiPalantino, D., and M. Vojnovic (2009): "Crowdsourcing and All-pay Auctions," in Proceedings of the 10th ACM conference on Electronic commerce, pp. 119­128. ACM.
+Efron, B. (1982): The Jackknife, the Bootstrap, and Other Resampling Plans, vol. 38. SIAM.
+Ellison, G., D. Fudenberg, and M. Möbius (2004): "Competing Auctions," Journal of the European Economic Association, 2(1), 30­66.
+Fibich, G., A. Gavious, and A. Sela (2006): "All-pay auctions with risk-averse players," International Journal of Game Theory, 34(4), 583­599.
+Fischbacher, U. (2007): "z-Tree: Zurich Toolbox for Ready-made Economic Experiments," Experimental Economics, 10, 171­178.
+Gale, D., and L. S. Shapley (1962): "College Admissions and the Stability of Marriage," American Mathematical Monthly, 69, 9­15.
+Greiner, B. (2004): "An Online Recruitment System for Economic Experiments," in Forschung und wissenschaftliches Rechnen, ed. by K. Kremer, and V. Macho, vol. 1A, pp. 79­93. Göttingen: Ges. für Wiss. Datenverarbeitung.
+Harbring, C., and B. Irlenbusch (2003): "An Experimental Study on Tournament Design," Labour Economics, 10, 443­464.
+Hickman, B. (2009): "Effort, Race Gaps, and Affirmative Action: A Game Theoric Analysis of College Admissions," Working paper.
+Kagel, J., and A. E. Roth (2000): "The Dynamics of Reorganization in Matching Markets: A Laboratory Experiment motivated by a Natural Experiment," Quarterly Journal of Economics, 115, 201­235.
+Konrad, K. A. (2009): Strategy and Dynamics in Contests. Oxford University Press, Oxford.
+40
+
+Konrad, K. A., and D. Kovenock (2012): "The Lifeboat Problem," European Economic Review, 27, 552­559.
+Krishna, V. (2002): Auction Theory. Academic Press, New York.
+McAfee, R. P. (1993): "Mechanism Design by Competing Sellers," Econometrica, 61(6), 1281­ 1312.
+Moldovanu, B., and A. Sela (2001): "The Optimal Allocation of Prizes in Contests," American Economic Review, 91(3), 542­558.
+(2006): "Contest Architecture," Journal of Economic Theory, 126, 70­96.
+Moldovanu, B., A. Sela, and X. Shi (2008): "Competing Auctions with Endogenous Quantities," Journal of Economic Theory, 141(1), 1­27.
+(2012): "Carrots and Sticks: Prizes and Punishments in Contests," Economic Inquiry, 50(2), 453­462.
+Morgan, J., D. Sisak, and F. Vardy (2012): "On the Merits of Meritocracy," Working paper.
+Müller, W., and A. Schotter (2010): "Workaholics and Dropouts in Organizations," Journal of the European Economic Association, 8, 717­743.
+Noussair, C. N., and J. Silver (2006): "Behavior in All-Pay Auctions with Incomplete Information," Games and Economic Behavior, 55, 189­206.
+Olszewski, W., and R. Siegel (2014): "Large Contests," Working paper.
+Ovadia, D. A. (2014): "Sorting through Information Disclosure," Working paper.
+Perach, N., J. Polak, and U. Rothblum (2007): "A Stable Matching Model with an Entrance Criterion applied to the Assignment of Students to Dormitories at the Technion," International Journal of Game Theory, 36, 519­535.
+Perach, N., and U. Rothblum (2010): "Incentive Compatibility for the Stable Matching Model with an Entrance Criterion," International Journal of Game Theory, 39, 657­667.
+Salgado-Torres, A. (2013): "Incomplete Information and Costly Signaling in College Admissions," Working paper.
+Siegel, R. (2009): "All-pay Contests," Econometrica, 77, 71­92.
+Sönmez, T., and U. Ünver (2011): "Matching, Allocation, and Exchange of Discrete Resources," in Handbook of Social Economics, ed. by J. Benhabib, A. Bisin, and M. O. Jackson, vol. 1A, pp. 781­852. North Holland.
+41
+
+Tung, C. Y. (2009): "College Admissions under a Centralized Entrance Exam: A Compromised Solution," Working paper.
+Virág, G. (2010): "Competing Auctions: Finite Markets and Convergence," Theoretical Economics, 5(2), 241­274.
+
+A Appendix
+
+A.1 Preliminaries
+
+The following lemmata are useful for the results given in the rest of the Appendix.
+
+Lemma 1. Let l, m be given integers. Then,
+
+dl dx pj,m-j(x)
+j=0
+dm dx pj,m-j(x)
+j=l
+
+= -m pl,m-l-1(x) when 0  l < m, = m pl-1,m-l(x) when 0 < l  m,
+
+dl dx pm-j,j(x)
+j=0
+dm dx pm-j,j(x)
+j=l
+
+= m pm-l-1,l(x) when 0  l < m, = -m pm-l,l-1(x) when 0 < l  m.
+
+Proof. We use the following equation:
+
+m j-1
+
+(m - j + 1)
+
+=
+
+(j
+
+-
+
+m! 1)!(m -
+
+j
+
++
+
+(m 1)!
+
+-
+
+j
+
++
+
+1)
+
+=
+
+(j
+
+-
+
+m! 1)!(m
+
+-
+
+j)!
+
+=
+
+m j
+
+j. (10)
+
+The first formula: Suppose 0 = l. Then,
+
+l j=0
+
+pj,m-j (x)
+
+=
+
+p0,m(x)
+
+=
+
+(1
+
+-
+
+x)m.
+
+Its derivative is
+
+-m(1 - x)m-1 = -m p0,m-1(x). Thus the formula holds. Consider another case where 0 < l. Then
+
+we have
+
+42
+
+dl dx pj,m-j(x)
+j=0
+Thus,
+
+d =
+
+l m xj(1 - x)m-j
+
+dx j
+
+j=0
+
+= l m j xj-1(1 - x)m-j - l m (m - j)xj(1 - x)m-j-1 jj
+j=1 j=0
+
+=
+
+l
+
+m
+
+l+1
+j xj-1(1 - x)m-j -
+
+m (m - j + 1)xj-1(1 - x)m-j
+
+j j-1
+
+j=1 j=1
+
+=
+
+l
+
+m
+
+l+1
+j xj-1(1 - x)m-j -
+
+m
+
+j xj-1(1 - x)m-j
+
+(by (10))
+
+jj
+
+j=1 j=1
+
+dl dx pj,m-j(x)
+j=0
+
+=-
+
+m (l + 1) xl(1 - x)m-l-1 = -
+
+m!
+
+xl(1 - x)m-l-1
+
+l+1
+
+l!(m - l - 1)!
+
+=-
+
+(m - ml!(m - l
+
+1)! xl(1 - 1)!
+
+-
+
+x)m-l-1
+
+=
+
+-m
+
+pl,m-l-1(x).
+
+The second formula: Suppose l = m. Then,
+
+m j=l
+
+pj,m-j (x)
+
+=
+
+pm,0(x)
+
+=
+
+xm.
+
+Its derivative is
+
+mxm-1 = mpm-1,0(x). Thus the formula holds. Consider another case where l < m. Then we have
+
+dm dx pj,m-j(x)
+j=l
+
+d =
+
+m m xj(1 - x)m-j
+
+dx j
+
+j=l
+
+=
+
+m
+
+m
+
+m-1
+j xj-1(1 - x)m-j -
+
+m (m - j)xj(1 - x)m-j-1
+
+jj
+
+j=l j=l
+
+= m m j xj-1(1 - x)m-j - m
+
+m (m - j + 1)xj-1(1 - x)m-j
+
+j j-1
+
+j=l j=l+1
+
+= m m j xj-1(1 - x)m-j - m m j xj-1(1 - x)m-j (by (10)) jj
+j=l j=l+1
+
+Thus,
+
+dl dx pj,m-j(x)
+j=0
+
+= m l xl-1(1 - x)m-l =
+
+m! xl-1(1 - x)m-l
+
+l (l - 1)!(m - l)!
+
+=
+
+m (l
+
+(m - 1)! - 1)!(m -
+
+l)!
+
+xl-1(1
+
+-
+
+x)m-l
+
+=
+
+m
+
+pl-1,m-l(x).
+
+The third formula: By the second formula, we have
+
+43
+
+dl
+
+dm
+
+dx
+
+pm-j,j (x)
+
+= dx
+
+pj,m-j(x) = m pm-l-1,l(x).
+
+j=0 j=m-l
+
+The fourth formula: By the first formula, we have
+
+dm
+
+d m-l
+
+dx
+
+pm-j,j (x)
+
+= dx
+
+pj,m-j(x) = m pm-l,l-1(x).
+
+j=l j=0
+
+B On Equilibria of Decentralized College Admissions
+
+B.1 On properties of monotone and symmetric equilibrium of decentralized college admissions
+
+We focus on symmetric and monotone equilibrium. More specifically, each student will use the
+
+same probability mixing function  (a) , and the same effort function i (a) while applying to college
+
+i  {1, 2}. Moreover, for all values i is defined (i.e., for all types a which apply to college i with
+
+positive probability) i (a) is increasing in a and  (a) is integrable (continuous except for a zero
+
+measure set). We define
+
+^a  (a) =  (x) f (x) dx.
+0
+
+We then define the conditional distributions
+
+H1 (a) =  (a) and H2 (a) = F (a) -  (a)
+
+ (1)
+
+1 -  (1)
+
+We then define the probability of being in the top qi among applicants to college i by Ki (a) and its corresponding density by ki (a) . That is, we have
+
+q1-1
+
+n-1
+
+K1(a) =
+
+pm,n-m-1((1)) +
+
+pm,n-m-1((1))Hm1 -q1+1,m(a),
+
+m=0
+
+m=q1
+
+q2-1
+
+n-1
+
+K2(a) =
+
+pn-m-1,m((1)) +
+
+pn-m-1,m((1))Hm2 -q2+1,m(a).
+
+m=0
+
+m=q2
+
+We first prove that there cannot be a pure strategy equilibrium (i.e.,  (a)  {0, 1} for all a  [0, 1]).
+
+Proposition 4. There cannot be a pure-strategy symmetric and monotone equilibrium.
+
+Proof. By method of contradiction, suppose that there is one. It is easy to see that the measure of both {a  [0, 1] :  (a) = 0} and {a  [0, 1] :  (a) = 1} are strictly positive. Then there exist c, d with 0 < c < d  1 such that all a  [0, c] applies to college i and all a  (c, d] applies to college j.
+
+44
+
+Then Now,
+
+it is easy we argue
+
+to see that (i) i (c) > that any a  c, j-1 (i
+
+0 and limac j (c)) would be
+
+(a)
+
+=
+
+0,
+
+and
+
+(ii)
+
+viKi (c)
+
+-
+
+i(c) c
+
+=
+
+vj Kj
+
+(c) .
+
+strictly better off by "mimicking" type c. To
+
+see this, consider
+
+f
+
+(a)
+
+
+
+viKi
+
+(c)
+
+-
+
+i (c) a
+
+-
+
+vj Kj
+
+(a)
+
+-
+
+j (a) a
+
+which represents the gain from mimicking type c. We obtain f (a) > 0 for all a  c, j-1 (i (c)) by noting that f (c) = 0 and
+f (a) = i (c) - j (a) > 0 a2 a2
+
+by the envelope theorem.
+
+We then show that in any mixed strategy equilibrium,  (a)  (0, 1) implies that 1 (a) = 2 (a) .
+
+Proposition 5. If  (a)  (0, 1) , then 1 (a) = 2 (a).
+
+Proof. Let a  [0, 1] such that (a)  (0, 1). There is an interval I = [a, a] such that a  I and for
+
+all b  I,  (b)  (0, 1) . Then, for all b  I, since type b is indifferent applying to colleges 1 and 2,
+
+we have
+
+EU1 (b)
+
+
+
+v1K1 (b) -
+
+1 (b) b
+
+=
+
+v2K2 (b) -
+
+2 (b) b
+
+
+
+EU2
+
+(b) .
+
+Since the first-order conditions imply
+
+^b ^b i (b) = vi xki (x) dx + Di = vi Ki (b) b - Ki(a)a - Ki (x) dx + Di,
+aa
+
+where Di is a constant. Thus
+
+EUi(b)
+
+= =
+
+´b
+
+a
+
+viKi(b) viKi(a)
+
+- viKi(b) + viKi(a)
+
+a b
+
++
+
+´b vi a
+
+Ki(x)dx b
+
+-
+
++ b Di .
+b
+
+vi
+
+a
+
+Ki(x)dx b
+
+-
+
+Di b
+
+Then, as EU1(a) = EU2(a), we have
+
+v1K1(a) -
+
+D1 a
+
+=
+
+v2K2(a) -
+
+D2 . a
+
+Moreover, for all b  I, as EU1(b) = EU2(b),
+
+(11)
+
+45
+
+
+
+v1K1(a) v1K1(a)
+
+ab++v1v´1ab´Kab K1a(1xb()xd)xdx--DaD1b1==v2vK2K2(2a()a+) abv+2 ´vab2K´a2ba(Kx)2bd(xx)-dxD-a2
+
+D2 b
+
+
+
+´b v1 a
+
+K1(x)dx a
+
+=
+
+´b v2 a
+
+K2(x)dx a
+
+( (11))
+
+^b ^b
+
+ v1 K1(x)dx = v2 K2(x)dx.
+
+aa
+
+Thus, we have
+
+(12)
+
+for all b  I, v1K1(b) = v2K2(b).
+
+(13)
+
+Therefore, using the equalities (11), (12), and (13), we can conclude that for all b  I, 1(b) = 2(b). Hence,
+
+1(a) = 2(a).
+
+Hence, it is without loss of generality that we focus on the equilibria in the main body: when students mix between applying to colleges, they choose the same effort level while applying to either college.
+
+B.2 Derivation of the symmetric equilibrium
+We show how to obtain the function  : [0, c]  (0, 1) and the cutoff c from Equation (6).
+
+Step 1: We show that there is a unique value (c) that satisfies Equation (7). Define a function 1 : [0, 1]  R: for each x  [0, 1],
+
+q2-1
+
+q1-1
+
+1(x) = v2 pn-m-1,m(x) - v1 pm,n-m-1(x).
+
+m=0
+
+m=0
+
+Differentiate 1 at each x  (0, 1): using Lemma 1, we have
+
+1(x) = v2(n - 1) p(n-1)-(q2-1)-1,q2-1(x) + v1(n - 1) pq1-1,(n-1)-(q1-1)-1(x) > 0.
+Thus, 1 is strictly increasing. Moreover, 1(0) = -v1 < 0 and 2(1) = v2 > 0. Thus, since 1 is a continuous function on [0, 1], there is a unique x  (0, 1) such that 1(x) = 0. Thus, since 1((c)) = 0 by (7), there is a unique (c)  (0, 1) that satisfies Equation (7).
+
+46
+
+Step 2: Given a unique (c), we now show that there is a unique cutoff c  (0, 1). In Equation (8), since (c) is known by Step 1, the the only unknown is c via F (c). Define a function 2 : [(c), 1]  R as follows: for each x  [(c), 1],
+
+q2-1
+
+n-1
+
+2(x) = v2 pn-m-1,m((c)) + v2
+
+pn-m-1,m((c))
+
+m
+
+pj,m-j
+
+x - (c) 1 - (c)
+
+- v1.
+
+m=0
+
+m=q2
+
+j=m-q2+1
+
+Differentiate 2 at each point x  ((c), 1): using Lemma 1, we have
+
+n-1 1 x - (c)
+
+2(x) = v2
+
+pn-m-1,m((c)) 1 - (c) m pm-q2,q2-1 1 - (c) > 0.
+
+m=q2
+
+Thus,  is strictly increasing. Moreover, 2(1) = v2 - v1 > 0 and
+
+q2-1
+
+n-1
+
+m
+
+2((c)) = v2 pn-m-1,m((c)) + v2
+
+pn-m-1,m((c))
+
+pj,m-j(0) - v1
+
+m=0
+
+m=q2
+
+j=m-q2+1
+
+q2-1
+
+= v2 pn-m-1,m((c)) - v1 ( pj,m-j(0) = 0 for j  m - q2 + 1  1)
+
+m=0
+
+q1-1
+
+= v1 pm,n-m-1((c)) - v1 ( (7))
+
+m=0
+< 0.
+
+Therefore, there is a unique x  ((c), 1) such that 2(x) = 0. Since 2(F (c)) = 0, x = F (c). Thus, since F is strictly increasing, there is a unique cutoff c  (F -1((c)), 1) such that c = F -1(x).
+
+Step 3: From steps 1 and 2, (c) and c are uniquely determined. We now show that for each a  [0, c), there is a unique (a)  (0, 1) that satisfies (9). Fix a  [0, c). Define a function 3 : [0, F (a)]  R:
+
+n-1
+
+3(x) = v2
+
+pn-m-1,m((c))
+
+m
+
+pj,m-j
+
+F (a) - x 1 - (c)
+
+n-1
+
+- v1
+
+pm,n-m-1((c))
+
+m
+
+x pj,m-j (c) .
+
+m=q2
+
+j=m-q2+1
+
+m=q1
+
+j=m-q1+1
+
+Let us differentiate 3 at each x  (0, F (a)) by using Lemma 1:
+
+47
+
+n-1 1 F (a) - x
+
+3(x) = v2
+
+pn-m-1,m((c)) - 1 - (c) m pm-q2,q2-1 1 - (c)
+
+m=q2
+
+n-1
+-v1 pm,n-m-1((c))
+
+1 (c)
+
+m=q1
+
+x m pm-q1,q1-1 (c)
+
+< 0.
+
+Thus,  is strictly decreasing. Moreover,
+
+n-1
+
+m
+
+F (a)
+
+n-1
+
+m
+
+3(0) = v2
+
+pn-m-1,m((c))
+
+pj,m-j 1 - (c) - v1
+
+pm,n-m-1((c))
+
+pj,m-j (0)
+
+m=q2
+
+j=m-q2+1
+
+m=q1
+
+j=m-q1+1
+
+n-1 m F (a)
+
+= v2
+
+pn-m-1,m((c))
+
+pj,m-j 1 - (c)
+
+m=q2
+
+j=m-q2+1
+
+( pj,m-j(0) = 0)
+
+> 0.
+
+and
+
+n-1 m n-1 m F (a)
+
+3(F (a)) = v2
+
+pn-m-1,m((c))
+
+pj,m-j (0) - v1
+
+pm,n-m-1((c))
+
+pj,m-j (c)
+
+m=q2
+
+j=m-q2+1
+
+m=q1
+
+j=m-q1+1
+
+n-1 m F (a)
+
+= -v1
+
+pm,n-m-1((c))
+
+pj,m-j (c)
+
+m=q1
+
+j=m-q1+1
+
+( pj,m-j(0) = 0)
+
+< 0.
+
+Thus, there is a unique x  (0, F (a)) such that 3(x) = 0. Since 3((a)) = 0, x = (a). Hence, there is a unique (a)  (0, 1) that satisfies Equation (9).
+
+Step
+
+4:
+
+Finally,
+
+we
+
+derive
+
+(a)
+
+for
+
+each
+
+a  (0, c).
+
+Recall
+
+that
+
+in
+
+(9),
+
+(a)
+
+=
+
+´a
+0
+
+(x)f (x)dx
+
+and
+
+(c) and (a) are known by previous steps. Differentiate (9) with respect to a by using Lemma 1:
+
+n-1
+
+(a)f (a)
+
+(a)
+
+v1
+
+pm,n-m-1((c)) (c)
+
+m pm-q1,q1-1 (c)
+
+m=q1
+
+n-1 f (a) - (a)f (a)
+
+= v2
+
+pn-m-1,m((c))
+
+1 - (c)
+
+m pm-q2,q2-1
+
+m=q2
+
+F (a) - (a) 1 - (c)
+
+.
+
+Let us define the following functions:
+
+n-1 (a)
+
+A(a) := v1
+
+pm,n-m-1((c)) m pm-q1,q1-1 (c) > 0,
+
+m=q1
+
+n-1 F (a) - (a)
+
+B(a) := v2
+
+pn-m-1,m((c)) m pm-q2,q2-1 1 - (c)
+
+> 0.
+
+m=q2
+
+(14)
+
+48
+
+Then, we can write (14) as
+
+(a)f (a)
+
+f (a)(1 - (a))
+
+A(a) = (c)
+
+1 - (c) B(a).
+
+Solving for (a) in (15), we obtain
+
+(a)
+
+=
+
+(c)B(a) (1 - (c))A(a) + (c)B(a)
+
+
+
+(0, 1).
+
+By construction, function  we have derived satisfies Equation (9).
+
+(15)
+
+B.3 Verification: the candidate is an equilibrium
+
+In this appendix, we check for global deviations and confirm that the unique symmetric equilibrium candidate we have derived in Theorem 1 is indeed an equilibrium. As a preliminary notation and analysis, let us calculate the probability, denoted by P [1, b|c, , D], that a student who makes effort e = D(b) and applies to college 1 ends up getting a seat in college 1:
+
+
+
+ P [1, b|, D] =
+
+q1-1 m=0
+
+p^m,n-m-1(c)
+
++
+
+1
+
+n-1 m=q1
+
+p^m,n-m-1(c)Gm-q1+1,m(b)
+
+if b  [0, c] if b  c.
+
+Obviously, if the student chooses an effort more than (c), he will definitely get a seat in college 1. Otherwise, the first line represents the sums of the probability of events in which e is one of the highest q1 efforts among the students who apply to college 1.
+Similarly, let us calculate the probability, denoted by P [2, b|, ], that a student who makes effort e = (b) and applies to college 2 ends up getting a seat in college 2.
+
+
+
+ P [2, b|, D] =
+
+q2-1 m=0
+
+p^n-m-1,m(c)
+
++
+
+1
+
+n-1 m=q2
+
+p^n-m-1,m(c)Hm-q2+1,m(b)
+
+if b  [0, 1] if b  1.
+
+Obviously, if the student chooses an effort greater than (1), he will definitely get a seat in college 2.29 Otherwise, the first line represents the sums of probability of events in which e is one of the
+highest q2 efforts among the students who apply to college 2. Next, denote by U (r, b|, D, a) (or U (r, b|a) for short) the expected utility of type a who
+chooses college 1 with probability r and makes effort e = D(b) when all of the other students follow the strategy (, D). We have,
+
+U (r,
+
+b|a)
+
+:=
+
+rP
+
+[1,
+
+b|,
+
+ D ]v1
+
++
+
+(1
+
+-
+
+r)P
+
+[2,
+
+b|,
+
+ D ]v2
+
+-
+
+e .
+a
+
+We need to show that for each a  [0, 1], each r  [0, 1] and each b  0, U^ (a)  U ((a), a|a) 
+
+29Of course, there is no type b with b > 1, if a student chooses an effort e strictly greater than D(1), we represent him as mimicking a type b > 1.
+
+49
+
+U (r, b|a). Fix a  [0, 1]. It is sufficient to show that U^ (a)  U (0, b|a) and U^ (a)  U (1, b|a), as these two conditions together implies required "no global deviation" condition. Below, we show that for any a  [0, 1], and for b  0, both U^ (a)  U (0, b|a) and U^ (a)  U (1, b|a) hold. We consider two cases, one for lower-ability students (a  [0, c]), one for higher-ability students (a  [c, 1]). As sub-cases, we analyze b to be in the same region (b is low for a low, and b is high for a high), different region (a high, b low; and a low, b high), and b being over 1. The no-deviation results for the same region is standard, whereas deviations across regions need to be carefully analyzed.
+Case 1: Type a  [0, c]
+Case 1-1: b  [0, c]. Then, by our derivation, we have U (0, b|a) = U (1, b|a) and also U^ (a)  U (1, b|a) can be shown via standard arguments (for instance, see section 3.2.1 and Proposition 2.2 in Krishna, 2002). Hence, we can conclude that U^ (a)  U (1, e|a) = U (0, e|a). Case 1-2: b  (c, 1]. We first show U^ (a)  U (1, b|a).
+
+U^ (a)
+
+
+
+U (1,
+
+c|a)
+
+=
+
+v1
+
+-
+
+D(c) a
+
+
+
+v1
+
+-
+
+D(b) a
+
+( D(c)  D(b)).
+
+= U (1, b|a).
+
+Next, we show U^ (a)  U (0, b|a).
+
+U^ (a)
+
+
+
+U ((c),
+
+c|a)
+
+=
+
+P
+
+[2,
+
+c|,
+
+ D ]v2
+
+-
+
+D(c) a
+
+=
+
+P
+
+[2,
+
+D(c)|,
+
+ D ]v2
+
+-
+
+D(c) c
+
+D(c) D(c)
+
+D(c) D(c)
+
++ - = U (0, c|c) + -
+
+ca
+
+ca
+
+
+
+U (0, b|c)
+
++
+
+D(c) c
+
+-
+
+D(c) a
+
+=
+
+P [2, b|, D]v2
+
+-
+
+D(b) c
+
++
+
+D(c) c
+
+-
+
+D(c) a
+
+=
+
+P [2, b|, D] - D(b)
+
+D(b) D(b) D(c) D(c) +-+-
+
+a acca
+
+= U (0, b|a) + D(b) - D(c) 1 - 1 ac
+
+ U (0, b|a) ( D(b)  D(c), a < c).
+
+Case 1-3: b > 1 (or e > D(1)).
+
+50
+
+Moreover,
+
+U^ (a)
+
+
+
+U ((c),
+
+c|a)
+
+=
+
+v1
+
+-
+
+D(c) a
+
+>
+
+v1
+
+-
+
+e a
+
+( D(c)  D(1) < e)
+
+= U (1, b|a).
+
+U^ (a)  U (0, 1|a) (by Case 1-2)
+
+=
+
+v2
+
+-
+
+D(1) a
+
+e > v2 - a
+
+( e > D(1))
+
+= U (0, b|a).
+
+Case 2: Type a  [c, 1]
+Case 2-1: b  [0, c]. We first show U^ (a)  U (1, b|a).
+
+U^ (a)
+
+
+
+U (0,
+
+c|a)
+
+=
+
+v2P [2,
+
+c|,
+
+D]
+
+-
+
+D(c) a
+
+= U ((c), c|c) + D(c) - D(c) ca
+
+ U ((b), b|c) + D(c) - D(c) ca
+
+D(b) D(b) D(c) D(c) = U ((b), b|a) + - + -
+acca
+
+= U (1, b|a) + (D(c) - D(b)) 1 - 1 ca
+
+( U ((b), b|a) = U (1, b|a))
+
+ U (1, b|a) ( D(c) - D(b)  0, c < a).
+
+To obtain U^ (a)  U (0, b|a), note that in the above inequalities, if we use U ((b), b|a) = U (0, b|a) in the fourth line, we obtained the desired inequality. Case 2-2: b  (c, 1]. First, by our derivation, U^ (a)  U (0, e|, D, a) can be shown via standard arguments (for instance, see section 3.2.1 and Proposition 2.2 in Krishna, 2002). Next, we show
+
+51
+
+U^ (a)  U (1, b|a).
+
+U^ (a)
+
+
+
+U (0,
+
+c|a)
+
+=
+
+v2P [2,
+
+c|,
+
+D]
+
+-
+
+D(c) a
+
+D(c) = v1 - a
+
+( v2P [2, c|, D] = v1)
+
+
+
+v1
+
+-
+
+D(b) a
+
+=
+
+U (1, b|a)
+
+( D(c)  D(b)).
+
+Case 2-3: b > 1 (or e > D(1))
+
+U^ (a)
+
+
+
+U ((c),
+
+c|a)
+
+=
+
+U (1,
+
+c|a)
+
+=
+
+v1
+
+-
+
+D(c) a
+
+
+
+v1
+
+-
+
+e a
+
+( e > D(1) > D(c))
+
+ U (1, b|a).
+
+and
+
+U^ (a)
+
+
+
+D(1) U (0, 1|a) = v2 - a
+
+
+
+v2
+
+-
+
+e a
+
+( e > D(1))
+
+= U (0, b|a).
+
+52
+
+C Additional tables and figures (for online publication)
+Figure 6: Individu5a3l efforts by ability
+
+Figure 7: Distribution of observed switching points
+
+Table 7: Number of switching points in the 50,000 bootstrapped samples, by markets
+
+Unique switching point in the predicted direction Two switching points Three or more switching points No switching points Unique switching point in the opposite direction
+
+Market 23 77.5% 80.1% 17.3% 4.5% 0.8% 4.6% 4.2% 6.9% 0.2% 3.9%
+
+54
+
+Table 8: Observed effort choices and equilibrium predictions
+
+Equilibrium effort
+Dummy for CCA
+Equilibrium effort in CCA
+Ability
+Constant
+Observations No. of individuals Overall-R2 R2 F-test
+
+(1) Efforts .739*** (.047) -48.099 (30.206) .0162 (.084)
+195.187*** (17.909) 2160
+.307 140.829
+
+(2) Efforts .326*** (.083) -61.923* (28.710) .0790 (.085) 5.210*** (.627) 29.430 (20.487) 2160
+.379 186.695
+
+Notes: OLS estimation of effort levels based on clustered robust standard errors at the level of matching groups. Equilibrium effort in CCA is an interaction of the CCA dummy and equilibrium effort. *** denotes statistical significance at the 1%-level, ** at the 5%-level, and * at the 10%-level. Standard errors in parentheses.
+
+Table 9: Choice of the good college 2 in DCA
+
+(1) (2)
+
+Equilibrium probability of choosing the good college 1.684*** 1.464***
+
+(.106) (.118)
+
+Ability
+
+.009***
+
+(.002)
+
+Female dummy
+
+Constant
+Observations log(likelihood)
+
+-.793*** (.079) 1080
+-615.461
+
+-1.144*** (.110) 1080
+-596.561
+
+(3) 1.465***
+(.113) .009*** (.002)
+-.016 (.114) -1.139*** (.115) 1080 -596.543
+
+Notes: Probit estimation of dummy for the choice of the good college based on clustered robust standard errors at the subject level. *** denotes statistical significance at the 1%-level, ** at the 5%-level, and * at the 10%-level. Standard errors in parentheses
+
+55
+
+Table 10: Average overbidding in money terms, given the choice of the college in DCA.
+
+Market 1 Market 2 Market 3 Market 4 Market 5
+
+N Overbidding N Overbidding N Overbidding N Overbidding N Overbidding
+
+Ability below cutoff
+
+CCA DCA DCA
+
+Bad Good
+
+college college
+
+(1) (2)
+
+(3)
+
+106 70
+
+36
+
+3.2 3.4
+
+7.7
+
+177 86
+
+91
+
+3.2 2.5
+
+4.9
+
+179 130 49
+
+2.5 3.5
+
+5.8
+
+190 157 33
+
+3.1 4.0
+
+5.8
+
+44 16
+
+28
+
+2.3 -0.5 5.4
+
+P-value Good= Bad (4)
+0.02
+0.10
+0.24
+0.06
+0.02
+
+Ability above cutoff
+
+CCA DCA DCA
+
+Bad Good
+
+college college
+
+(5) (6)
+
+(7)
+
+110 16
+
+92
+
+0.4 -0.9 1.8
+
+39 3
+
+36
+
+-4.1 -8.6 -0.8
+
+37 12
+
+25
+
+0.7 -1.3 0.3
+
+26 15
+
+11
+
+2.2 1.4
+
+6.8
+
+172 15
+
+157
+
+1.6 0.4
+
+1.8
+
+P-value Good= Bad (8)
+0.10
+0.02
+0.26
+0.10
+0.35
+
+Notes: Columns (4) and (8) show the p-values for the significance of the dummy variable for applying to the good college when regressing overbidding in money terms on the dummy and a constant for abilities below and above the theoretical cutoff in DCA, respectively, with standard errors clustered at the level of matching groups.
+
+Figure 8: Equilibrium, average random and average observed efforts in market 2 56
+
+D Equilibrium derivation for colleges (for online publication)
+We show how to derive cutoffs, mixed strategies, and cost functions provided there exists an equilibrium as specified in section 6.1. The basic procedure follows the one in Theorem 1.
+We first show how to obtain the equilibrium cutoffs c1, . . . , c -1 and the mixed strategy function 1, . . . ,  -1. Let k  {1, . . . , - 1}. A necessary condition for this to be an equilibrium is that each type a  [ck-1, ck] has to be indifferent between applying to college 1 and college 2. Thus, for all a  [ck-1, ck],
+
+qk -1
+
+n-1
+
+vk
+
+pm,n-m-1(k(ck)) +
+
+pm,n-m-1(k(ck))Hmk -qk+1,m(a)
+
+m=0
+
+m=qk
+
+qk+1 -1
+
+n-1
+
+= vk+1
+
+pm,n-m-1(k+1(ck+1)) +
+
+pm,n-m-1(k+1(ck+1))Hmk+-1qk+1+1,m(a) . (16)
+
+m=0
+
+m=qk+1
+
+Step 1: Find 1(c1), . . . , l(c ). Equation (16) can be written as
+
+q1-1
+
+q2-1
+
+v1 pm,n-m-1(1(c1)) = v2 pm,n-m-1(2(c2)),
+
+m=0
+
+m=0
+
+qk -1
+vk-2 = vk pm,n-m-1(k(ck)) for k  {3, ..., },
+
+m=0
+
+(17)
+
+where the first equation is Equation (16) at a = 0 under k = 1, which says that a type a = 0
+
+is indifferent between college 1 and 2; the second equation follows from Equation (16) at a = ck under k - 1 and k, which says that a type a = ck-2 is indifferent between colleges k - 2 and k. Therefore, 1(c1), . . . ,  (c ) can be obtained by solving Equation (17).
+
+Step 2: Given 1(c1), . . . ,  (c ), find cutoffs c1, . . . , c -1. We first show the following claim that
+
+shows how to obtain k(ck-1) from 1(c1), . . . ,  (c ).
+
+Proof. For k = 2:
+
+Note
+
+that
+
+1(c1)
+
+=
+
+´ c1
+0
+
+1(x)dF (x).
+
+Thus
+
+2(c1)
+
+:=
+
+´ c1
+0
+
+(1
+
+-
+
+1(x))dF (x)
+
+=
+
+Fk(-c11()c-k-2)1(+c1´)c.ckk--S21upkp-o1(sxe)tdhFa(txt)h. eTchluasim´ccikks--21truke-1u(px)tdoF
+
+k-1 (x) =
+
+where k  3. Then k-1(ck-1) k-1(ck-1) - k-1(ck-2). Hence,
+
+:= by
+
+57
+
+the induction hypothesis, we have
+
+^ ck-1
+
+k(ck-1) : =
+
+(1 - k-1(x))dF (x)
+
+ck-2
+
+^ ck-1
+
+= F (ck-1) - F (ck-2) -
+
+k-1(x)dF (x)
+
+ck-2
+
+= F (ck-1) - F (ck-2) - k-1(ck-1) + k-1(ck-2)
+
+k-2
+= F (ck-1) - F (ck-2) - k-1(ck-1) + (F (ck-2) - j(cj))
+
+j=1
+
+k-1
+= F (ck-1) - j(cj).
+
+j=1
+
+Now Equation (16) at a = ck can be rewritten as, for each k  {1, . . . , - 1},
+
+qk+1 -1
+
+vk = vk+1
+
+pm,n-m-1(k+1(ck+1))
+
+m=0
+
+n-1
+
+m
+
++vk+1
+
+pm,n-m-1(k+1(ck+1))
+
+pj,m-j
+
+m=qk+1
+
+j=m-qk+1+1
+
+F (ck) - (1(c1) + . . . + k(ck)) k+1(ck+1)
+
+,(18)
+
+where we use induction claim and
+
+m
+
+H k+1 m-qk+1
+
++1,m
+
+(ck
+
+)
+
+=
+
+pj,m-j
+
+j=m-qk+1+1
+
+ k+1 (ck ) k+1(ck+1)
+
+.
+
+Hence, given 1(c1), . . . ,  (c ), we can find ck by solving Equation (18). Step 3: Given 1(c1), . . . ,  (c ) and c1, . . . , c -1, for each k  {1, . . . , -1} and each a  [ck-1, ck], there is a unique k(a) that satisfies Equation (19). Moreover, we can get the mixed strategy function k(a) by differentiating Equation (19).
+Equation (16) at a  [ck-1, ck] can be rewritten as, for each k  {1, . . . , - 1},
+
+qk -1
+
+n-1
+
+m
+
+vk pm,n-m-1(k(ck)) + vk
+
+pm,n-m-1 ( k (ck ))
+
+pj,m-j
+
+m=0
+
+m=qk
+
+j =m-qk +1
+
+k(a)  k (ck )
+
+qk+1 -1
+
+= vk+1
+
+pm,n-m-1(k+1(ck+1))
+
+m=0
+
+n-1
+
+m
+
++vk+1
+
+pm,n-m-1(k+1(ck+1))
+
+pj,m-j
+
+m=qk+1
+
+j=m-qk+1+1
+
+F
+
+(a)
+
+-
+
+F
+
+(ck-1) - k(a) k+1(ck+1)
+
++
+
+k
+
+(ck-1)(19,)
+
+where we used the following equation: for each a  [ck-1, ck], since k(a) := k(ck-1)+´cak-1 k(x)dF (x),
+
+58
+
+^a
+
+k+1(a) :=
+
+(1 - k(x))dF (x)
+
+ck-1
+
+= F (a) - F (ck-1) - k(a) + k(ck-1).
+
+Differentiate Equation (19) with respect to a by using Lemma 1:
+
+vk
+
+n-1 m=qk
+
+pm,n-m-1 ( k (ck ))
+
+k(a)f (a) k(ck)
+
+mpm-qk ,qk -1
+
+k(a) k(ck)
+
+=
+
+vk+1
+
+n-1 m=qk+1
+
+pm,n-m-1
+
+(
+
+k+1
+
+(ck+1
+
+))
+
+f
+
+(a) - k(a)f k+1(ck+1)
+
+(a)
+
+mpm-qk+1,qk+1-1
+
+k+1(a) k+1(ck+1)
+
+.
+
+(20)
+
+Let us define the following functions:
+
+Ak(a)
+
+=
+
+n-1
+vk pm,n-m-1(k(ck))mpm-qk,qk-1
+m=qk
+
+k(a) k(ck)
+
+>0
+
+Bk(a)
+
+=
+
+n-1
+
+vk+1
+
+pm,n-m-1(k+1(ck+1))mpm-qk+1,qk+1-1
+
+m=qk+1
+
+k+1(a) k+1(ck+1)
+
+> 0.
+
+Then we can write (20) as
+
+k(a)f (a) k(ck)
+
+Ak
+
+(a)
+
+=
+
+f
+
+(a)(1 - k(a)) k+1(ck+1)
+
+Bk
+
+(a).
+
+Solving for k(a) in (21), we obtain
+
+(21)
+
+k(a)
+
+=
+
+k(ck)Bk(a) k+1(ck+1)Ak(a) + k(ck
+
+)Bk
+
+(a)
+
+.
+
+Step 4: We find the effort function D. Consider a student with type a  [ck-1, ck]. A necessary
+
+condition is that she does not want to mimic any other type a in [ck-1, ck]. Her utility maximization
+
+problem is
+
+max vk
+a [ck-1,ck]
+
+qk-1
+
+n-1
+
+pm,n-m-1(k(ck)) +
+
+pm,n-m-1(k(ck))Hmk -qk+1,m(a )
+
+m=0
+
+m=qk
+
+-
+
+D(a
+
+) .
+
+a
+
+The first-order necessary condition requires the derivative of the objective function to be 0 at a = a. Hence
+
+59
+
+vk
+
+n-1
+
+pm,n-m-1(k(ck))hm-qk+1,m(a) -
+
+(D(a)) a
+
+= 0.
+
+m=qk
+
+Solving the differential equation with the boundary condition at D(ck-1), we obtain
+
+^ a n-1
+
+D(a) = D(ck-1) + vk
+
+x pm,n-m-1(k(ck))hkm-qk+1,m(x)dx
+
+ck-1 m=qk
+
+for all a  [ck-1, ck].
+
+E Instructions of the experiment (for online publication)
+Welcome! This is an experiment about decision making. You and the other participants in the experiment will participate in a situation where you have to make a number of choices. In this situation, you can earn money that will be paid out to you in cash at the end of the experiment. How much you will earn depends on the decisions that you and the other participants in the experiment make.
+During the experiment you are not allowed to use any electronic devices or to communicate with other participants. Please use exclusively the programs and functions that are intended to be used in the experiment.
+These instructions describe the situation in which you have to make a decision. The instructions are identical for all participants in the experiment. It is important that you read the instructions carefully so that you understand the decision-making problem well. If something is unclear to you while reading, or if you have other questions, please let us know by raising your hand. We will then answer your questions individually.
+Please do not, under any circumstances, ask your question(s) aloud. You are not permitted to give information of any kind to the other participants. You are also not permitted to speak to other participants at any time throughout the experiment. Whenever you have a question, please raise your hand and we will come to you and answer it. If you break these rules, we may have to terminate the experiment.
+Once everyone has read the instructions and there are no further questions, we will conduct a short quiz where each of you will complete some tasks on your own. We will walk around, look over your answers, and solve any remaining comprehension problems. The only purpose of the quiz is to ensure that you thoroughly understand the crucial details of the decision-making problem.
+Your anonymity and the anonymity of the other participants will be guaranteed throughout the entire experiment. You will neither learn about the identity of the other participants, nor will they learn about your identity.
+
+60
+
+General description
+This experiment is about students who try to enter the university. The 24 participants in the room are grouped into two groups of 12 persons each. These 12 participants represent students competing for university seats. The experiment consists of 15 independent decisions (15 rounds), which represent different student admission processes. At the end of each round every student will receive at most one seat in one of the universities or will remain unassigned.
+There are two universities that differ in quality. We refer to the best university as University 1. Admission to the best university (University 1) yields a payoff of 2,000 points for the students. Admission to University 2 yields a smaller payoff for the students, which can vary across the rounds. Each university has a certain number of seats to be filled, a factor which can also be different for each of the rounds.
+Instructions for CCA
+The allocation procedure is implemented in the following way: At the beginning of the each round, every student learns her ability. The ability of each student
+is drawn uniformly from the interval from 0 to 100. Thus every student has an equal chance of being assigned every level of ability from the interval. You will learn your own ability but not the ability of the other 11 students competing with you for the seats. The ability is drawn independently for all participants in every round.
+Admission to universities is centralized and is based on the amount of effort that each student puts into a final exam. In the experiment you can choose a level of effort. This effort is costly. The price of effort depends on your ability. The higher the ability the easier (cheaper) the effort. The higher the ability the easier (cheaper) the effort. The price of one unit of effort is determined as: 100 divided by the ability, 100/ability. On your screen you will see your ability for the round and the corresponding price of one unit of effort. You will have to decide on the amount of the effort that you choose.
+In each of the rounds you can use the calculator which will be on your screen. You can use it to find out what possible payoffs a particular effort in points can yield. To gain a better understanding of the experiment you can insert different values. This will help you with your decision.
+In the beginning of each round, every participant receives 2,200 points that can either be used to exert effort or kept.
+After each student has decided how much effort to buy, these effort levels are sent to the centralized clearing house which then determines the assignments to universities. The students who have chosen the highest effort levels are assigned to University 1 up to the capacity of this university. They receive 2,000 points. The students with the next higher levels of effort are assigned to University 2 up to its capacity and receive the corresponding amount of points. All other students who have applied remain unassigned and will receive no points. Participants that
+61
+
+have chosen the same amount of effort will be ranked according to a random draw. Each participant receives a payoff that is determined as the sum of the non-invested endowment
+and the payoff f rom university admission. Thus: Payoff = Endowment - price of effortunits of effort + payoff from assignment Note that your ability, the ability of the other participants, and the number of seats at Uni-
+versity 1 and University 2 vary in every round. Every point corresponds to 0.5 cents. Only one of the rounds will be relevant for you actual
+payoff. This round will be selected randomly by the computer at the end of the experiment.
+Example
+Let us consider an example with three hypothetical persons: Julia, Peter, and Simon. Imagine the following round: University 1 has four seats, and University 2 has five seats. The
+admission to University 1 yields 2,000 points and the admission to University 2 yields 1,000 points. Julia has an ability of 25. Thus the cost of one unit of effort is 100/25 = 4 points for her. Her
+endowment is 2,200 points, which means that she can buy a maximum of 2,200/4 = 550 units of effort. Let us imagine that Julia decided to buy 400 units of effort. Thus she has to pay 400*4 = 1,600 points and keeps 600 points of her endowment.
+Peter has an ability of 50. Thus the cost of effort for him is 100/50 = 2 points for one unit of effort. His endowment is 2,200 points. Thus he can buy a maximum of 2,200/2 = 1100 units of effort. Let us assume that Peter chose 600 units of effort. Thus he has to pay 600*2 = 1,200 points.
+Simon has an ability of 80. Thus the cost of one unit of effort is 100/80 = 1.25 points for one unit of effort. His endowment is 2,200 points. Thus he can buy a maximum of 2,200/1.25 = 1760 units of effort. Let us imagine that Simon decides to buy 500 units of effort. Thus he has to pay 500*1.25 = 625 points.
+Imagine that the following effort levels were chosen by the other 9 participants: 10, 70, 200, 250, 420, 450, 550, 700, 1,200.
+Thus, the four students with the highest effort levels are assigned to University 1 and receive a payoff of 2,000 points. These are the students with effort levels 1,200, 700, 600 (Peter), and 550. Of the remaining eight students, five students with the highest levels of efforts are assigned to University 2 and receive a payoff of 1,000 points. These are the students with the efforts levels 500 (Simon), 450, 420, 400 (Julia) and 250.
+The students with effort levels 10, 70, and 200 remain unassigned. Thus, the payoff for Julia is 2, 200 - 1, 600 + 1, 000 = 1, 600, for Peter 2, 200 - 1, 200 + 2, 000 = 3, 000 and for Simon 2, 200 - 625 + 1, 000 = 2, 575.
+62
+
+Instructions for DCA
+The allocation procedure is implemented as follows: At the beginning of the each round, every student learns her ability. The ability of each student
+is drawn uniformly from the interval from 0 to 100. Thus every student has an equal chance of being assigned every level of ability from the interval. You will learn your own ability but not the ability of the other 11 students competing with you for the seats. The ability is drawn independently for all participants in every round.
+The admission to universities is decentralized. Students first decide which university they want to apply to. Thus, you have to choose one university you want to apply to. After the decision is made, you will compete only with students who have decided to apply to the same university. The assignment of seats at each university is based on the amount of the effort that each student puts into a final test. In the experiment you can choose a level of effort. This effort is costly. The price of effort depends on your ability. The higher the ability the easier (cheaper) is the effort. The price of one unit of effort is determined as: 100 divided by the ability, 100/ability. On your screen you will see your ability for the round and the corresponding price of one unit of effort. You will have to decide on the amount of the effort that you choose.
+In each of the rounds you can use the calculator which will be on your screen. You can use it to find out what possible payoffs a particular effort in points can yield. To gain a better understanding for the experiment you can insert different values. This will help you with your decision.
+In the beginning of each round, every participant receives 2,200 points that can be used to exert effort or kept.
+After each student decides how much effort to buy, these efforts are used to determine the assignments to universities. Among the students who apply to University 1, the students with the highest effort levels are assigned to this university up to its capacity and receive 2,000 points. All other students who applied to University 1 remain unassigned. Among those students who apply to University 2, the students with the highest effort levels are assigned a seat up to the capacity of University 2. They receive the corresponding amount of points. All other students who have applied to University 2 remain unassigned. Participants that have chosen the same amount of effort will be ranked according to a random draw.
+Each participant receives a payoff that is determined as the sum of the non-invested endowment and the payoff from university admission. Thus:
+Payoff = Endowment - price of effortunits of effort + payoff from assignment Note that your ability, the ability of the other participants, and the number of seats at University 1 and University 2 vary in every round. Every point corresponds to 0.5 cents. Only one of the rounds will be relevant for you actual payoff. This round will be selected randomly by the computer at the end of the experiment.
+63
+
+Example Let us consider an example with three hypothetical persons: Julia, Peter, and Simon.
+Imagine the following round: University 1 has four seats, and University 2 has five seats. Julia has an ability of 25 and decides to apply to University 2. Thus the cost of one unit of effort is 100/25 = 4 points for her. Her endowment is 2,200 points, which means that she can buy a maximum of 2,200/4 = 550 units of effort. Let us imagine that Julia decided to buy 400 units of effort. Thus she has to pay 400*4 = 1,600 points and keeps 600 points of her endowment. Peter has an ability of 50. He applies to University 1. Thus the cost of effort for him is 100/50 = 2 points for one unit of effort. His endowment is 2,200 points. Thus he can buy a maximum of 2,200/2 = 1100 units of effort. Let us assume that Peter chose 600 units of effort. Thus he has to pay 600*2 = 1,200 points. Simon has an ability of 80. He applies to University 2. Thus the cost of one unit of effort is 100/80 = 1.25 points for one unit of effort. His endowment is 2,200 points. Thus he can buy a maximum of 2, 200/1.25 = 1, 760 units of effort. Let us imagine that Simon decides to buy 500 units of effort. Thus he has to pay 500  1.25 = 625 points. Imagine that there are an additional four students who decide to apply to University 2 (competing with Julia and Simon), and five students who decide to apply to University 1 (competing with Peter). The following efforts were bought by the four participants who apply to University 2, together with Julia: 10, 70, 450, 550. Thus, there are 6 contenders for 5 seats. All students, but one with the effort of 10, receive a seat at University 2 and thus a payoff of 1,000 points. The following efforts were bought by the five other participants who apply to University 1, together with Peter: 200, 250, 420, 700, 1,200. Thus, there are 6 contenders for 4 seats. The four students with the highest efforts are assigned to University 1, including Peter, and all receive 2,000 points. The students with effort levels 200 and 250 remain unassigned. Thus, the payoff for Julia is , 2200-1, 600+1, 000 = 1, 600, for Simon 2, 200-625+1, 000 = 2575 and for Peter 2, 200 - 1, 200 + 2, 000 = 3000.
+64
+
+SFB 649 Discussion Paper Series 2016
+For a complete list of Discussion Papers published by the SFB 649, please visit http://sfb649.wiwi.hu-berlin.de.
+001 "Downside risk and stock returns: An empirical analysis of the long-run and short-run dynamics from the G-7 Countries" by Cathy Yi-Hsuan Chen, Thomas C. Chiang and Wolfgang Karl Härdle, January 2016.
+002 "Uncertainty and Employment Dynamics in the Euro Area and the US" by Aleksei Netsunajev and Katharina Glass, January 2016.
+003 "College Admissions with Entrance Exams: Centralized versus Decentralized" by Isa E. Hafalir, Rustamdjan Hakimov, Dorothea Kübler and Morimitsu Kurino, January 2016.
+SFSBF6B4694, 9S,pSapnadnaduaeureSrtrSatßraeß1e, 1D,-D10-1107187B8eBrleinrlin htthpt:t/p/:/s/fbs6fb4694.w9.iwwiiw.hiu.h-bue-brleinrl.idne.de
+ThTishrisesreasrecahrcwhaws assupsuppoprtoerdtebdybtyhethDeeDuetsucthseche ForFsocrhsuchnugnsgesgmeeminesicnhsachftatfht rtohuroguhgthhethSeFSBF6B4694"9Ec"oEnconmoimc RicisRki"s.k".
+
+

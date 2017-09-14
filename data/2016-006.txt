@@ -1,0 +1,2757 @@
+BERLIN
+
+SFB 6 4 9 E C O N O M I C R I S K
+
+SFB 649 Discussion Paper 2016-006
+What Derives the Bond Portfolio Value-at-Risk:
+Information Roles of Macroeconomic and Financial Stress Factors
+Anthony H. Tu* Cathy Yi-Hsuan Chen*²
+* Minjiang University, People's Republic of China *² Humboldt-Universität zu Berlin, Germany
+This research was supported by the Deutsche Forschungsgemeinschaft through the SFB 649 "Economic Risk".
+http://sfb649.wiwi.hu-berlin.de ISSN 1860-5664
+SFB 649, Humboldt-Universität zu Berlin Spandauer Straße 1, D-10178 Berlin
+
+What Derives the Bond Portfolio Value-at-Risk: Information Roles of Macroeconomic and Financial Stress Factors
+Anthony H. Tu* () Newhuadu Business School ()
+Minjiang University 1 Wenxiao Road, university town, Fuzhou city, Fujian, China
+Email: atu1106@yahoo.com.tw and
+Cathy Yi-Hsuan Chen Department of Finance, Chung Hua University, cathy1107@gmail.com 707, Sec. 2, WuFu Rd., Hsinchu, Taiwan, 300, R.O.C., Tel: 886 3 5186057 Ladislaus von Bortkiewicz Chair of Statistics, C.A.S.E. - Center for Applied Statistics and Economics, Humboldt-Universität zu Berlin, Unter den Linden 6, 10099 Berlin, Germany
+Abstract This paper first develops a new approach, which is based on the Nelson-Siegel term structure factoraugmented model, to compute the VaR of bond portfolios. We then applied the model to examine whether information contained on macroeconomic variables and financial shocks can help to explain the variations of VaR. A principal component analysis is used to incorporate the information contained in different variables. The empirical result shows that, including macroeconomic variables and financial shocks in the Nelson-Siegel term structure factor model, we can observe an obvious tendency towards better VaR forecasting performance. Moreover, the impact of incorporating financial shocks seems to be stronger than that of incorporating macroeconomic variables.
+JEL classification: G11, G16 Keywords: Nelson-Siegel factor model; Value-at-risk; Encompassing test; Backtesting; Conditional
+predictive ability Dec., 2015
+* Corresponding author () Acknowledgement: This research was supported by the Deutsche Forschungsgemeinschaft through the SFB 649 "Economic Risk" and IRTG 1792.
+1
+
+Introduction
+What are the main deriving factors of bond portfolio value-at-risks (VaRs)? Do investors care about such factors when pricing the bond returns? These questions are of paramount importance for both economists and regulators in the current situation which market-wide stress and liquidity restrictions have significantly raised in bonds markets.
+The contribution of this study is two-fold. On the first distribution, we develop a new factorbased approach, which is based on the Nelson-Siegel term structure factor-augmented model, to compute the VaR of bond portfolio. Although VaR has attracted a considerable amount of theoretical and applied research, the vast majority of the existing studies on VaR modeling are based on three basic methodologies: the variance-covariance approach, Monte Carlo simulation, and the historical simulation approach.1 Applying the above techniques to a bond portfolio with large number of assets, however, suffers serious restriction. For instance, it is well known that the implementation of multivariate GARCH models in more than a few dimension is extremely difficult, because the model has many parameters, the likelihood function becomes very flat, and consequently the optimization of the likelihood becomes practicably impossible. In other words, there is no way that full multivariate GARCH models can be used to estimate directly the large covariance matrices that are required to net all the risks in a large portfolio.
+Over the last few decades, factor models have become more popular and are widely applied to solve the above problem. Golub and Tilman (1997) and Singh (1997)) first computed VaR by using the principal component analysis to extract the yield curve risk factors from a series of bond returns. Alexander (2002) employs the principal component GARCH model for generating large GARCH covariance matrices and finds that it has many practical advantages on the estimation of VaR models. Fiori and Iannotti (2007) also develop a principal component (PC) VaR methodology to assess Italian bank's interest rate risk exposure. By using five years of daily data, the risk is evaluated through a VaR measure based on a PC Monte Carlo simulation of interest rate changes. They model
+1 Jorion (2000) and McNeil et al. (2005) provide excellent introductions of these estimation techniques. 2
+
+interest rate changes as a function of three underlying risk factors: shift, tilt and twist, as derived
+from the principal component decomposition of the EU yield curve. Semenov (2009) use the Fama-
+French three-factor as systematic common factors of asset returns in a portfolio and propose a
+factor-based approach to estimate the portfolio VaR. The backtesting results for six Fama-French
+benchmark portfolios and the S&P 500 index show that the approach yields reasonable accurate
+estimates of portfolio VaR. Recently, Aramonte et al. (2013) attempt to bring the dynamic factor
+model into the VaR estimation. They propose a computationally efficient VaR methodology that
+brings together the historical simulation (HS) framework and the recent development on dynamic
+factor models. The results, based on three equity portfolios with different time-series characteristics,
+show that the joint framework often performs better that HS and Filtered HS in terms of back-
+testing breaches and average breach-size, and always offers very significant gains in terms of
+computational efficiency.
+Our factor approach significantly differ from the existing ones as it is built on a well-established
+term structure factor model. We utilize the dynamic version of the Nelson-Siegel (hereafter NS)
+three-factor (level, slope and curvature) model proposed by Diebold and Lee (2006) and Diebold
+et al. (2006). The model has successfully explained the main variations of government bond yields
+(Diebold and Rudebusch (2011), de Rezende and Ferreira (2013)), investment-grade and speculative-grade corporate bond yields (Yu and Salyards (2009), Yu and Zivot (2011))2.
+In addition, we take a step further with respect to the existing evidence and expand the NS three-
+factor model to include macroeconomic and financial stress factors. Some recent findings motivate
+us to include the additional factors. Yu and Zivot (YZ) (2011) find that introducing macroeconomic
+2 For the bond portfolios, the NS factor-based approach we proposed, as mentioned in earlier papers, offers several advantages. First, by choosing a particular term structure model (i.e. selecting the number of the factors and the complexity of their dynamics), one can easily impose reasonable restriction on the bond price dynamics. Second, term structure models consider that moments of bond returns are time varying and thus capture the effects of a decreasing time to maturity. As a consequence, they are particularly suited for portfolio considerations. Third, since the term structure models we used are based on factor specifications, our approach is parsimonious and suitable for highdimensional applications in which a large number of fixed income securities are involved. Finally, the proposed approach is very flexible as it can accommodate a wide range of additional factors to model the yield curve and also alternative specifications to model the conditional heteroskedasticity in bond returns.
+3
+
+variables into the yield level in NS three-facor model improves the monthly forecasts of US yields curves (Treasury, investment-grade and speculative-grade bonds). Dewachter and Iania (DI) (2011) extends the benchmark macro-finance model (Dewachter and Lyrio (2006)) by introducing, next to the standard macroeconomic factors, additional financial shocks, such as liquidity-related (or money market spread) and return-forecasting (or risk-premium) factors. They find that the augmented-factor model significantly outperforms most macro-finance yield curve model in terms of the cross-sectional fit to the yield curve. Both financial shocks (liquidity-related and returnforecasting) have statistically and economically significant impacts on the yield curve, and accounts for a substantial part of the variation in the yield curve.3 Recently, Fricke and Menkhoff (2015) also found that the expected part of bond excess returns is driven by macro factors, whereas the innovation part seems to be mainly influenced by financial stress conditions. With respect to the above findings, we, in this paper, expand the NS three-factor model to include three macroeconomic variables: the annual inflation rate, S&P 500 index and the federal funds rate (following Diebold et al. (2006) and Yu and Zivot (2011)), and four financial shocks: LIBOR spread, T-bill spread, the default probability and the VIX (following Dewachter and Iania (2011), Liu et al. (2006) and Feldhütter and Lando (2006)).
+Afterwards, we also use the bond portfolio VaR to illustrate the extra advantages of using the factor-based VaR method. One advantage of using the factor-augmented model is that it allows us to obtain closed-form expressions for the conditional expected yields, as well as for their conditional covariance matrix (and will later be used as an input to compute the VaR), in which the conditional information is revealed from three types of factors (NS, macro, and financial). To understand the information role of various types of factors, we first employ nested and nonnested encompassing tests to examine
+3 A large literature investigates the determinants of corporate yield spreads and links them to credit risk, liquidity (see for example, Elton et al. (2001); Collin-Dufresne et al. (2001); Ericsson and Renault (2006); Friewald et al. (2012); Huang and Huang (2012); Helwege et al. (2014)) and macroeconomic risk (see for example, Jarrow and Turnbull (2000); Duffi et al. (2007); Yu and Zivot (2011)).
+4
+
+(1) whether the macroeconomic factors and financial shocks provide incremental information in explaining the variations of bond portfolio yields? (2) which type of factors (NS, macroeconomic, and financial) alone offer the greatest explanatory power for the variations of bond portfolio?
+Secondly, we use the dynamic versions of the factor-augmented NS models to derive the closedform formula for the vector of conditional expected bond returns and factor-DCC-GARCH specification to model the conditional covariance of bond returns. As a consequence, the one-dayahead VaR estimates obtained from the first two conditional moments are based on the information revealed from three types of factors (NS, macro and financial).
+On the second contribution, we apply the techniques of VaR decomposition and VaR performance ranking to examine the impacts of various factor components on the bond portfolio VaRs. We first use the backtesting tests based on coverage/independence criteria proposed by Kupiec (1995) and Christoffersen (1998) to test the accuracy of VaR estimates. Then, we compare and rank the VaR predictive performance among factor and factor-combined models by applying the conditional predictive ability (CPA) test proposed by Ciacomini and White (2006) to examine (3) whether the additional macroeconomic variables or financial shocks can improve the forecasting performance of VaR estimates?
+To the best of the authors' knowledge, this is the first study that seeks to identify which factors drive the bond portfolio VaRs. This study provides empirical evidence of the applicability of the proposed approach by considering three bond indices: Citi US Treasury 10Y-20Y Index, Citi US Broad Investment-Grade Bond Index and Citi US High-Yield Market Index. They are, respectively, composed of Treasury securities, investment-grade and speculative-grade (high-yield) bonds. Although the NS three factors are enough to provide reasonable accurate VaR estimates, the empirical results show that macroeconomic variables and financial shocks are also important driving factors. Including macroeconomic variables and financial shocks in the NS term structure model, the VaR forecasting performances are significantly enhanced. The result also suggest that
+5
+
+the impact of financial shocks are greater than that of macroeconomic variables. This article is organized as follows: Section 2 introduces the NS factor-augmented models used
+for modeling the joint framework of term structure, macroeconomic variables and financial shocks. In section 3, we describe the procedure of computing the VaRs, the econometric specification for constructing and estimating the factor-augmented models, and provides closed-form expression for the first two conditional moments of bond portfolio yields. Section 4 presents the results of VaR estimates and information advantages of various factor combinations. In section 5, we perform the evaluation tests of VaR estimates. Finally, section 6 brings concluding remarks.
+
+1. Factor Models
+
+1.1. Dynamic Nelson-Siegel (NS) three-factor model
+
+Nelson and Siegel (1987) introduced a parsimonious and influential three-factor model for zero
+
+coupon bond yields, which is given by
+
+() =  +  1--  +  1--  - -+() where ~NID0, 
+
+(1)
+
+where () = [(1), (2)  ()] denotes the N×1 vector of yields at time , and  is the maturity of bond ranging from 1 to  , such as from 3 months to 30 years. () is the
+
+N×1 vector of residuals and  is an N×N conditional covariance matrix of the residuals. The
+
+Nelson-Siegel specification in Eq. (1) can generate several shapes of yield curve including upward
+
+sloping, downward sloping, and (inverse) hump shaped. The parameter  determines the rate of
+
+exponential decay. The three factors are , , and . The factor loading on  is 1, and loads equally at all maturities. A change in  changes all yields uniformly. Therefore, it is called the level factor. As  becomes larger,  plays a more important role in formulating yields compared to the smaller factor loadings on , and . In the limit, () = , so  is also called the long-term factor. The factor loading on  is (1 - -)/, which is a function decaying quickly and monotonically to zero as  increases. It loads short rates more heavily than long rates;
+
+6
+
+consequently, it changes the slope of the yield curve. Thus,  is a short-term factor, which is also called the slope factor. The factor loading on  is (1 - -)/( - -), which is a function starting at zero (not short term) and decaying to zero (not long term) with a humped shape in the middle. It loads medium rates more heavily. Accordingly,  is the medium-term factor, and also called the curvature factor because an increase in  will increase the yield curve curvature. 2.2. The Nelson-Siegel factor-augmented model
+Despite its importance, the Nelson-Siegel factor model has gone through several modifications and extensions to include additional variables or factors. In this paper, the improvement was mainly done by incorporating additional macroeconomic variables and financial shocks. 2.2.1 Macroeconomic variables
+In the earlier papers, it is well known that macroeconomic variables are related to the dynamics of yields curves, and their inclusion in yields-only models should improve the VaR forecasts. Ang and Piazzesi (2003) find that the 1-month-ahead out-of-sample vector autoregressive forecast performance of Treasury yields is improved when macroeconomic variables are incorporated. Dewachter et al. (2006) present a methodology to estimate the term structure model of interest rates that incorporates both observable and unobservable factors, which have macroeconomic interpretations. As such, the model is well suited to tackle questions related to the interactions between financial markets and the macroeconomy and is able to better describe the joint dynamics for the macroeconomy and the yield curve. Ludvigson and Ng (2009) find that real and inflation macroeconomic variables have predictive power of future government bond yields. 4 With corporate credit spreads, macroeconomic variables also tend to explain a large portion of their variations over time. The past studies also found that macroeconomic variables tend to explain a significant portion of their variations. Jarrow and Turnbull (2000) suggest that incorporating
+4 Other studies, examining the joint dynamics between the macroeconomy and the Treasury yield curve, include Diebold et al. (2006), Piazzesi (2005), Rudebusch and Wu (2007, 2008), Wu (2006), Wu and Zhang (2008), among others.
+7
+
+macroeconomic variables may improve a reduced-form model of credit spreads. Duffie et al. (2007) use macroeconomic variables to help better predict corporate defaults.5 Recently, Yu and Zivot (2011) examine comprehensive short- and long-term forecasting evaluation of the two-step and one-step approaches of Diebold and Li (2006) and Diebold et al. (2006) using Treasury yields and nine different ratings of corporate bonds. They find that forecasts from the NS factor model can be improved by incorporating macroeconomic variables. Following Diebold et al. (2006) and Yu and Zivot (2011), we consider three macroeconomic variables: the annual inflation rate (INFL), S&P500 index return (SP), and the federal funds rate (FFR).
+2.2.2. Financial shocks Dewachter and Iania (2011) extend the macro-finance yield-curve model by introducing, next
+to the standard macroeconomic variables, additional liquidity-related and return-forecasting (risk premium) shocks. Using the US data, they find that the extended model significantly outperforms macro-finance yield curve models in terms of the cross-sectional fit of the yield curve. In other words, financial shocks have a statistically and economically significant impact on the yield curve. In their study, liquidity-related shocks are obtained from a decomposition of the money market TED spread, while the return-forecasting (risk premium) shock is extracted by imposing a single-factor structure on the one-period expected excess holding return.
+The TED spread, which is defined as the difference between the 3-month T-bill and the relevant unsecured money market rate (i.e. LIBOR), is often considered as a key indicator of financial strain (market liquidity and credit risks) in money markets. Its increase is associated with increased counterparty and/or funding liquidity risk. Following Dewachter and Iania (2011) and other studies (Liu et al. (2006), Feldhütter and Lando (2008)), we decompose this money market spread into two distinct spread shocks (LIBOR spread and T-bill spread) as follows:
+5 Other related papers include Davies (2008), Castagnetti and Rossi (2013), among others. 8
+
+   -  =  -  +  - 
+LIBOR spread T-bill spread
+where  ,  and  denote, respectively, the 3-month LIBOR rate, 3-month T-bill rate and the general collateral secured repo rate. Since the LIBOR spread (LIBORS) compares unsecured money market rates to their secured counterpart, it thus provides an indicator of counterparty or more general credit risks in the money market. A widening of the LIBOR spread typically indicates increased credit risk exposure in money markets.
+The T-bill spread (TbillS) measures the convenience yield of holding government bonds and is generally considered as a proxy for flight-to-quality (or flight-to-liquidity). 6 Typically, a widening of this spread is often associated with the frequent flight-to-quality.
+A large amount of past studies have provided comprehensive empirical analysis on the effects of liquidity and credit risk on corporate yield spreads (see, for example, Elton et al. (2001), CollinDufresne et al. (2001), Ericsson and Renault (2006), Friewald et al. (2012), Dick-Nielsen et al. (2012), Huang and Huang (2012), Helwege et al. (2014), among others). They all suggest that liquidity and credit risk are two most important determinant of expected corporate bond returns. In particular, Gefang et al. (2011), Dick-Nielson et al. (2012) and Friewald et al. (2012) suggest that liquidity effects are more pronounced in periods of subprime crisis, especially for bonds with high credit risk (or worse credit ratings). In other words, the spread contribution from illiquidity increases dramatically with the onset of the subprime crisis.
+6 In fixed-income securities markets, we often observe that investors rebalance their portfolios toward less risky and more liquid securities during the period of economic distress. This phenomenon is commonly referred to as a flight-toquality and flight-to-liquidity, respectively. Although the economic motives of these two phenomena are clearly different from each other, empirically disentangling a flight-to-quality from a flight-to-liquidity is difficult. In the context of the corporate bond market in the United States, these two attributes of a fixed-income security (credit quality and liquidity) are usually positively correlated (Ericsson and Renault (2006)). Using data on the Euro-area government bond markets, Beber et al. (2008) find that credit quality matters for bond valuation but that, in times of market stress, investors chase liquidity, not credit quality.
+9
+
+Besides the two money-market-spread shocks, we further consider two additional financial variables: the default probability (DP), and the VIX. Elton et al. (2001) found that expected default accounts for a surprising small fraction of the spread between rates on corporate and government bonds. Dionne et al. (2010) revisit the estimation of default risk proportions in corporate yield spreads. They found that the estimated proportions of default in credit spread is sensitive to changes in recovery rates, the data filtration approach used, and the sample period. To obtain an effective measure of the default probability variable of speculative-grade corporate bonds, we take the difference between the Moody's BBB bond yield and the Moody's AAA bond yield as the measure of "default probability" variable. The following empirical results also show that the default probability variable we employed indeed has more significant explanatory ability than the spread in rates between corporate and government bonds.
+The VIX, which is a ticker symbol for the Chicago Board Options Exchange Volatility Index, measures the implied volatility of S&P500 index options over the next 30-day period. It has also been nicknamed "the fear gauge" (Whaley (2000) and Low (2004)) or "the sentiment index" by the Wall Street Journal. The VIX index is widely accepted as a measure of uncertainty and instability in financial market (Hakkio and Keeton, 2009) and is regarded as a financial stress indicator. Fricke and Menkhoff (2015) decompose bond excess return into expected excess returns (risk premium) and the innovative part. They find that expected part of bond excess return is driven by macroeconomic factors, whereas innovations seem to be mainly influenced by financial stress conditions.
+The above four financial shocks we employed are all highly related to market stress condition or sentiment and, thus, can also be regarded as stress or sentiment factors. Because investor sentiment is usually negatively correlated with the market-wide risk aversion and uncertainty about future economic condition, the specification is consistent with the notion that credit spreads depend on investors' risk attitude and uncertainty about future economic prospects. Tang and Yan (2010) have identified aggregate investor sentiment as the most important corporate credit spread
+10
+
+determinants among the market-level factors.
+
+2. Model estimation
+
+In this section we consider the use of dynamic NS factor model for the yield curve, the
+
+macroeconomic variables and financial shocks, as discussed previously, to obtain closed form
+
+expressions for the expected bond yields, as well as for their conditional covariance matrix. From
+
+these two moments, we are able to derive the distribution of bond prices and returns, and then use
+
+it to compute the VaR of a bond portfolio. We follow the following five steps to achieve our target.
+
+2.1. Step one: estimate the Nelson-Siegel state-space model
+
+We follow the dynamic framework of Diebold et al. (2006) by specifying first-order vector
+
+autoregressive processes for the factors. They propose a linear Gaussian state-space approach which
+
+uses a one-step Kalman filter, a recursive procedure for computing the optimal estimator of the state
+
+vector at time t given the information available at time t, to simultaneously do parameter estimation
+
+and signal extraction in the dynamic Nelson-Siegel factor model.7
+
+The measurement (observation) equation of the state-space form for the dynamic NS three-
+
+factor model is
+
+ (1 )
+
+
+
+
+
+(2) 
+
+
+
+ ( )
+
+=
+
+1  1 
+1
+
+1--1 1
+1--2 2
+
+1-- 
+
+1--1 1
+1--2 2
+1-- 
+
+-
+-  -
+
+ 
+
+
+-1 -2
+-
+
+   
+
+ 
+
+
+
+
++
+
+ (1 )
+
+
+
+
+
+(2) 
+
+
+
+ ( )
+
+(1.)
+
+which relates the observed yields to the latent NS three factors (state variables) and measurement
+
+errors. The transition equation describes the evolution of the state variables as a first-order Markov
+
+process and is given by8
+
+7 Diebold and Li (2006) also proposed a two-step procedure to estimate the Nelson-Siegel factor yield curve. Diebold et al. (2006) argue that the two-step procedure used by Diebold and Li (2006) suffers from the fact that the parameter estimation and signal extraction uncertainty associated with the first step are not considered in the second step. Thus, that the one-step approach is better than the two-step approach because the simultaneous estimation of all parameters produces correct inference via standard theory. 8 To identify the model and simplify the computations, we, following Yu and Zivot (2011), assume that the coefficients matrix in (4) to be diagonal for two reasons: First, Diebold et al. (2006) report that most off-diagonal elements of this
+11
+
+ - 1
+
+11
+
+ - 2 =  0
+
+ - 3
+
+0
+
+0 22 0
+
+0 0 33
+
+
+
+-1 -1
+-1
+
+- - -
+
+1 2 3
+
++
+
+1 2
+3
+
+
+
+where the decay parameter, , here is 0.0609 (Diebold et al., 2006).
+
+(2.)
+
+We assume that the measurement and transition disturbances are Gaussian white noise,
+
+diagonal and orthogonal to each other, as is the standard treatment of the state space model (see
+
+Durbin and Koopman (2001)):
+
+ ~  00 , 0
+
+0 
+
+
+
+(3.)
+
+where  is (3×3), the covariance matrix of innovations of the transition system and is assumed
+
+to unrestricted, while the covariance matrix  of the innovations to the measurement system of
+
+(N×N) dimension is assumed to be diagonal. The latter assumption means that the deviations of the
+
+observed yields from those implied by the fitted yield curve are uncorrelated across maturities and
+
+time. Given the large number of observed yields used, the diagonality assumption of the covariance
+
+matrix of the measurement errors is necessary for computational tractability. Moreover, it is also a
+
+quite standard assumption, as for example, i.i.d. errors are typically added to observed yields in estimating no-arbitrage term structure models. The assumption of an unrestricted  matrix, which is potentially non-diagonal, allows the shocks to the three term structure factors to be
+
+correlated.
+
+As the macroeconomic and financial factors are taken into consideration, the transition
+
+equation is thus9
+
+ - 1
+
+11 0 0 14 15 -1 - 1
+
+1
+
+
+
+- - -
+
+234
+
+=
+
+ 
+
+0 0 0
+
+  - 5   0
+
+22 0
+0
+0
+
+0 33 0
+0
+
+24 34 44 0
+
+423555 55
+
+---111  -1
+
+- - - -
+
+234 5 
+
++
+
+243 5
+
+(4.)
+
+matrix are statistically insignificant and have small magnitudes. Second, the main objective of this approach is to estimate yield curve factors rather than to find the best fitting model. Therefore, this restriction simplifies the estimation of the model without affecting our results. 9 The factor-augmented model has been widely applied in term structure literature (see, Diebold et al. (2006), Ullah et al. (2013), Exterkate et al. (2013), Yu and Zivot (2011), among others).
+12
+
+where Mt denotes the common macroeconomic factor, which is the first principal component of
+
+three macroeconomic variables (FFR, INFL, SP), which explains 80% of the total sample variance.
+
+Similarly, Ft denotes the common financial stress factor, which is the first principal component of four financial shock variables (LIBORS, Tbills, DP, VIX). It dramatically explain 93% of the total sample variance.10 The dynamic factors system including the DNS factors (, , ) , macro and financial stress factor in measurement equation (Eq.(5)) can represented by the following stochastic
+
+process
+
+ = -1 + 
+
+where ~NID0, 
+
+(6.)
+
+where  = ( - 1,  - 2,  - 3,  - 4,  - 5) and  is 5 × 5 transition matrix.
+
+2.2. Step two: construct the NS factor-augmented regression model by including macroeconomic
+
+and financial stress factors
+
+A straight forward extension of the yields-only factor models, adding the additional
+
+macroeconomic and financial stress factors, lead to the following general specification of linear
+
+dynamic factor model with transition process in Eq. (6) :
+
+ = 0 +  + 
+
+where ~(0, ,)
+
+(7)
+
+where  = (, , , , ) are factor loadings or called factor sensitivities which correspond
+
+to the identified latent factors, and , is the yield of bond portfolio, 0 = () denotes
+
+expected yield of bond portfolio. , denotes error term with a zero mean that represents the
+
+portion of the yields not explained by the factor model (e.g. firm-level characteristics).
+
+2.3. Step three: calculating the expected bond portfolio yield and their corresponding conditional
+
+covariance matrices
+
+Under a multivariate setting in which a portfolio of bonds is concerned, the computation of VaR
+
+requires two main ingredients, namely, the vector expected returns and their covariance matrix.
+
+10 The primary purposes of applying the technique of principal component are (1) to reduce the number of risk factors to a manageable dimension and (2) to solve the multicollinearity problem when all risk factors are used as explanatory variables in a linear regression model. The result of principal component analysis is not reported here to save the space. It can be provided upon request.
+13
+
+Although the factor models for the term structure of interest rate discussed above are designed to
+
+model only bond yields, it is possible to obtain the expressions for the expected bond portfolio
+
+returns and their corresponding conditional covariance matrices based on the distribution of the
+
+expected yields.
+
+Following Caldeira et al. (2013), we take the expectation of the yield-only (or NS) factor model
+
+in (1) to obtain
+
+(,|-1) = |-1
+
+(8)
+
+where (,|-1) denotes the expected bond portfolio yield at time t conditional on the available information set at time t-1, and  = ( - 1,  - 2,  - 3) . One of our contributions is to incorporate the macroeconomic and financial stress factors, so that we have  = ( - 1,  - 2,  - 3,  - 4,  - 5). In this case,  = (, , , , ) and the significance of , 
+
+indicates that the macroeconomic and financial stress factors are relevant and carrying incremental
+
+information into the determinants of bond portfolio yield. The corresponding conditional
+
+covariance matrices is therefore given by
+
+(,|-1) = ,|-1 + ,|-1 + ,|-1
+
+(9)
+
+where ,|-1 , ,|-1 and ,|-1 are one-step-ahead forecasts of conditional covariance matrix of , innovation term in Eq. (6) and Eq. (7), respectively.
+In Eqs. (8) to (9), the available information set -1 on day t-1 can be divided into three parts: -1, - 1, and - 1, which, respectively, represents the information subsets of NS three factors, macroeconomic factors and financial shocks. Thus, the determination of yields and the computation
+of VaR can be based on seven alternatives with different information (or conditional volatility measures) combinations: {-1} , {- 1} , and {- 1} , {-1, - 1} , {-1, - 1} , {- 1, - 1}, and {-1, - 1, - 1}. In this regards, the elements in  rely much on various possible combination of information set. In the preceding section 4.2.2., we employ encompassing
+14
+
+tests, based on nested and nonnested models, to investigate two interesting concerns: (1) whether the macroeconomic and financial stress factors provide incremental and valuable information to explain the variations of bond portfolio (nested model)? (2) Which type of factors (NS,
+
+macroeconomic or financial) play the most crucial role in explaining the variations of bond portfolio (nonnested model)?
+
+3.4. Step four: calculating the bond portfolio returns
+
+In this subsection, we first derive the distribution of expected fixed-maturity bond prices. Let's
+
+consider the price of a bond at time t, Pt(), is the present value at time t of $1 receivable  periods
+
+ahead, then the vector of expected bond price Pt|t-1 for all maturities can be obtained by
+
+P|-1 = exp-|-1
+
+(10)
+
+where ,|-1 denote the one-step ahead forecast of its continuously compounded zero-coupon nominal yield to maturity,  is the Hadamard multiplication and  is the vector of maturities.
+
+Thus, the log-return of bond portfolio can be expressed by
+
+, = log(P/P-1) = logP - logP-1 = -(, - ,-1)
+
+(11)
+
+Through Eq. (9), we may have an analytical expression for the vector of expected log-return
+
+of bond portfolio as well as for its corresponding conditional covariance matrix. Following the
+
+derivation of Caldeira et al. (2013), the vector of expected log-return of bond portfolio is11
+
+,|-1 = -(,|-1) + ,-1
+
+(12)
+
+Note that (,|-1) and ,-1 can be referred to Eqs. (8) and (7), respectively. Obviously, |-1 may either only contains , ,  or incorporates additional M and F, which relates to our design for combinations of information set. Likewise, by applying Eq. (9) into Eq. (11), the
+
+conditional covariance matrices of the return of bond portfolio is ,|-1 = ,|-1 + ,|-1 + ,|-1
+
+(13)
+
+11 The derivations of (11) and (12) are similar to the proposition 2 in Caldeira et al. (2013). The conditional covariance matrix has been proved to be positive definite.
+15
+
+As such, Eq. (13) is analogous to Eq. (9) with an additional duration term, . Moreover, both Eq.
+
+(9) and (13) produce singular as results, leading to a tractable computation on VaR estimates. The
+
+above result shows that it is possible to obtain analytical expressions for the expected return of bond
+
+portfolio and its corresponding covariance matrix based on the models by Nelson and Siegel (1987)
+
+and their extensions.
+
+To model the factors conditional covariance matrix ,|-1 , we consider the dynamic
+
+conditional correlation (DCC-GARCH) model proposed by Engle (2002), which is given by12
+
+,|-1 = 
+
+(14)
+
+where  is a (k×k) diagonal matrix with diagonal elements given by , (the conditional
+
+variance of the k-th factor), and  is a symmetric correlation matrix with elements ,, where
+
+i,j = 1,....k. In the DCC model, the conditional correlation , is given by  = ,
+, ,,
+
+(15)
+
+where ,, i,j = 1,....k, are the elements of the (k×k) matrix , which follows a GARCH-type
+
+dynamics
+
+ = (1 -  - ) + -1-1 + -1
+
+(16)
+
+where  is the (k ×1) standardized vectors of returns of the factors, whose elements are  =
+
+/,  is the unconditional covariance matrix of  ,  and  are non-negative scalar
+
+parameters satisfying  +  < 1.
+
+The estimation of the DCC model can be conveniently divided into two univariate parts:
+
+conditional volatility and correlation. The univariate conditional volatilities of factors can be
+
+modeled by using a GARCH-type specification and their parameters are estimated by quasi-
+
+maximum-likelihood (QML) assuming Gaussian innovations. To estimate the parameters of the
+
+correlation part of ((20) and (21)), we employ the composite likelihood (CL) method proposed by
+
+12 Caldeira et al. (2013) find that the VaR estimates obtained from the NS yield curve models with conditional covariance matrix giving by a dynamic conditional correlation (DCC-GARCH) model to be the most accurate among all GARCH-type specifications they considered.
+16
+
+Engle et al. (2008).13
+
+3.5 Step five: Cornish-Fisher expansion
+The empirical distribution of stock returns is characterized by two feathers, left-skewed and excess kurtosis, implying that extremes come more often than the likelihood embedded in conventional normal distribution. As discussed by Favre and Galeano (2002), in the case of nonnormality VaR based only on volatility underestimates downside risk. A modification of VaR via the Cornish-Fisher (CF, 1937) expansion improves its precision by adjusting estimated quantiles for non-normality. The CF expansion approximates the quantile of an arbitrary random variable by incorporating higher moments, and offers an explicit polynomial expansions for standardized percentiles of distribution. The fourth-order CF approximation provides the following expression of standardized return variables at %-quantile :
+
+,
+
+=
+
+
+
++
+
+(2
+
+-
+
+1)
+
+ 6
+
++
+
+(3
+
+-
+
+3
+
+)
+
+ 24
+
+-
+
+(23
+
+-
+
+5
+
+)
+
+2 36
+
+(17)
+
+where  is -quantile value from standard normal distribution,  and  are skewness and excess kurtosis at t, respectively. Clearly, this expansion indicates that , is a monotone
+increasing function of excess kurtosis and negative skewness at  = 1% quantile level.
+
+3.6 Step six: compute the value-at-risk The one-day ahead Value-at-Risk forecast of bond portfolio return at 1 -  confidence level at
+
+time t-1 is defined as -1(1 - ) = ,-1,|-1 where ,-1 is the quantile value
+
+from Eq. (17),  is initial portfolio value and ,|-1 is conditional covariance matrices of the return of bond portfolio in Eq. (13).14
+
+We then compare one-day-ahead -1(1 - ) forecast based on information set at t-1 with the actual bond portfolio return on day t, , . If , < -1(1 - ) , indicating an
+
+exception (or violation). For backtesting purpose, we define the violation indicator variable as
+
+ = 01
+
+ 
+
+, ,
+
+< 
+
+-1(1 -1(1
+
+- -
+
+) ).
+
+(18)
+
+3. Data and empirical results
+
+13 In comparison to the two-step procedure proposed by Engle and Sheppard (2001) and Sheppard (2003), the CL
+estimator, as indicated by Engle et al. (2008), provide more accurate parameter estimates, particularly in large-
+dimensional problems. 14 As mentioned before, ,|-1 is a singular so that it can be taken a square root.
+17
+
+4.1 Data The data we use are US spot rates for Treasury zero-coupon and coupon-bearing AA-rated and
+BBB-rated corporate bonds from Jan. 2011 to Dec. 2014 with 924 daily observations, which are obtained from Bloomberg. Table 1 provide summary statistics for the yield data across maturities for Treasury zero-coupon (zero), AA-rated and BBB-rated bonds. For each maturity, we report mean, standard deviation, minimum, maximum, skewness, kurtosis, and autocorrelation coefficients at various displacements for Treasury zero, AA-rated, and BBB-rated yield data. Figure 1 also plots cross-section of three types of yields over time. The summary statistics and figures reveal that the average yield curves for three types of yields are all upward sloping. It also seems that the skewness has a downward trend with maturity and kurtosis of the short rates higher than those of the long rates.
+We also select three bond indices: Citi US Treasury 10Y-20Y Index, Citi US Broad Investment-Grade Bond Index and Citi US High-Yield Market Index. They are, respectively, composed of Treasury, investment-grade and high-yield bonds. The main characteristics of the three selected bond indices are given in Table 2.
+Concerning the three macroeconomic variables and four financial shocks, we use daily data for the same sample period used in above yield analysis for inflation rates, S&P 500 index returns and the federal funds rates, as well as LIBOR spreads, T-bill spreads, the default probabilities and the VIXs. For the three macroeconomic variables: Federal funds rates, inflation rates, and S&P 500 returns are, respectively, obtained from http://research.stlouisfed.org/fred2/series/DFF, Federal Reserve Bank of St. Louis, and Datastream.15 For the financial variables, LIBOR, repo rates and T-bill rates are collected from the Datastream. The Moody's AAA and BBB bond yields can be found in Federal Reserve Website: http://www.federalreserve.gov/releases/h15/data.htm. The VIX
+15 The daily inflation rates we used is the five-year breakeven inflation rates from the Federal Reserve Bank of St. Louis. The breakeven inflation rate represents a measure of expected inflation derived from 5-year Treasury Constant Maturity Securities. It implies what market participants expected inflation to be in the next 5-years on average.
+18
+
+index comes from the CBOE website. The descriptive statistics of the macroeconomic and financial
+
+variables are depicted in Table 3.
+
+4.2. Empirical results
+
+4.2.1. The basic characteristics of factors
+
+In step one, we use the observed yields data of Treasury zero-coupon, AA-rated and BBB-
+
+rated coupon bonds and apply the one-step Kalman filter to the state-space representation (equation (6)) to estimate the NS three factors (,  and ) for Treasury zero, AA-reted, and BBB-rated yield curves. We summarize their statistics (mean, standard deviation, maximum, minimum,
+
+skewness, kurtosis, and autocorrelation coefficients) in Table 3. The result of augmented Dickey-
+
+Fuller (ADF) unit root test indicates that three estimated NS factors (level, slope and curvature) and
+
+two additional factors (macro and financial) all exhibit stationary time series. Further, the time
+
+series of estimated NS three factors as well as two additional macro and financial stress factors are
+
+also plotted in Figure 2.
+
+4.2.2. The explanatory power of factor-augmented models
+
+In Table 4, we present the regression results of various factor and factor-combined models on
+
+variations of yields (equation (8)) on three selected bond indices. In panel A, we run the yield
+
+variations of three bond indices on the nested models of NS three factors (based on Treasury zeroes,
+
+AA-rated and BBB-rated yield curves), NS+Mt, NS+Ft and NS+Mt+Ft. Our concern is to understand
+
+how much yield variations the NS three factors can explain and whether the macro and financial
+
+stress factors can add additional explanatory power.
+
+The results show that the NS three factors based on Treasury zero, AA-rated and BBB-rated
+
+can, respectively, provide quite high explanatory abilities on the yield variations of Treasury 10Y-
+
+20Y index, Broad Investment Grade Bond Index and High Yield Market Index. The adjusted R-
+
+squares are, respectively, 0.906, 0.486, and 0.382. The inclusion of macro or/and financial factors
+
+all improve the explanatory power of regression models, resulting in the increases of adjusted R-
+
+squares.
+
+19
+
+In panel B, we re-run the yield variations of three bond indices on three types of factors alone (nonnested model). The results show that the NS three factors and financial stress factors (but not macro factor) alone all exhibit significant explanatory powers.
+4.2.3. Encompassing tests for out-of-sample forecasting ability When a forecast carries no additional information compared to a competing one, it is said that
+the forecast to be "encompassed" by the competing one. In this subsection, we use the forecast encompassing approach to first investigate whether the inclusion of additional factors (macroeconomic and financial) contains incremental information to improve the performance of out-of-sample forecasts in equation (8)? The result of encompassing test is shown in Table 5. For the nested model, we use the F test to test the null hypothesis 0:  = 0 (0:  = 0). If the null hypothesis is rejected, we may conclude that the inclusion of macroeconomic factor (financial stress factor) provide incremental information on the variations of bond index yields. The result in panel A of Table 5 seems to indicate that the information contained in macroeconomic factor is useful only for Treasury 10Y-20Y index. On the contrary, the financial stress factor can provides the incremental information for all three indices.
+Secondly, we compare competing forecast encompassing abilities among three factors (NS, Macroeconomic and Financial) alone. The NS factors are redefined as the combination of NS three factors as follows:
+NS   +  +  For the nonnested model, we employ the multiple forecast encompassing method proposed by Harvey and Newbold (2000), whose detail is described in the appendix. This method generalizes the forecast encompassing approach (such as Harvey et al. (1998)) to situations that a forecast can be compared with more than one competitor. At 5% significance level, the result of multiple forecast encompassing test are presented in panel B of Table 5. The "NS", "Mt" and "Ft" columns, respectively, show the test statistics of the null hypothesis that "NS encompasses Macro and
+20
+
+Financial", "Macro encompasses NS and Financial" and "Financial encompasses NS and Macro". For three indices, the test results all indicate that both NS and financial stress factors encompass other competitors. 4.3. VaR estimation
+Table 6 summarizes the statistics of the estimated VaRs across various factor models during the sample period. They include the mean, standard deviation, 25% and 75% quantiles, and the expected shortfall. We focus on the estimation of the 99% coverage rate and one-day-ahead VaR, which is the relevant risk level for financial institutions which must report this level to measure their market risk exposure in accordance with the Basel Accords.
+As described in section 4.1, there are 924 daily observations available on our sample period. To estimate the one-day-ahead VaRs for three bond indices, we consider a rolling-estimation strategy in which VaR parameters are re-estimated using a rolling horizons of 500 daily observations. Starting from the first 500 observations, we estimate the VaR parameters and obtain a one-step-ahead forecast. We repeat this process by discarding the oldest observation and including a new observation until the end of the sample is reached. In this end, we have a series of 424 oneday-ahead VaR forecasts.
+4. VaR evaluation tests This section proposes two methods to evaluate the accuracy of VaR estimates: the backtesting
+by the unconditional and conditional coverage tests and the ranking comparison by the conditional loss function. 5.1 Unconditional and conditional coverage tests
+Assuming that a set of VaR estimates and their underlying model are accurate, violations can be modeled as independent draws from a binomial distribution with a probability of occurrence equal to %. Accurate VaR estimates should exhibit the property that their unconditional coverage  = / equals , where  is the number of violations and  the number of observations.
+21
+
+Kupiec (1995) shows that the likelihood ratio statistic for testing the hypothesis of  =  is
+
+ = 2[log((1 - )-) - log((1 - )-)], which has an asymptotic 2(1) distribution.
+
+(19)
+
+The  test is an unconditional test of the coverage of VaR estimates, since it simply counts
+
+violations over the entire period without reference to the information available at each point in time.
+
+However, if the underlying portfolio returns exhibit time-dependent heteroskedasticity, the
+
+conditional accuracy of VaR estimates is probably a more important issue. In such cases, VaR
+
+models that ignore such variance dynamics will generate VaR estimates that may have correct
+
+unconditional coverage, but at any given time, will have incorrect conditional coverage.
+
+To address this issue, Christoffersen (1998) proposed conditional tests of VaR estimates based on interval forecasts. The  test used here is a test of correct conditional coverage. Since accurate VaR estimates have correct conditional coverage, the violation indicator variable It+1 must exhibit both correct unconditional coverage and serial independence. The  test is a joint test of these properties, and the relevant test statistic is  =  + , which is asymptotically distributed 2(2). The  statistic is the likelihood ratio statistic for the null hypothesis of serial independence against the alternative of first-order Markov dependence.16
+
+5.2 Conditional loss function
+
+The independence, unconditional and conditional coverage tests, though appropriate to
+
+evaluate the accuracy of a single model, may not appropriate for ranking alternative estimates of
+
+the VaR and can provide an ambiguous decision about which candidate model is better. Thus, it is
+
+important to enhance the backtesting analysis by using statistical tests designed to evaluate the
+
+comparative performance among candidate models. Following Santos et al. (2013), we employ the
+
+equal conditional predictive ability (CPA) test of Giacomini and White (2006).17
+
+16 For the purpose of this paper, only first-order Markov dependence is used. The likelihood ratio statistics for LRcc and LRind are standard, which are same as those in Christoffersen (1998). 17 The test of Giacomini and White (2006) mainly improves Diebold and Mariano (1995) and Sarma et al. (2003) that have been in widespread use in predictive evaluation by several aspects. First, their test can exist in an environment where the sample is finite. Second, more importantly, their model accommodates conditional predictive evaluation, in
+22
+
+Specifically, for a given asymmetric loss function at (1-q)% quantile defined as
+
+++,  = ( -   - + < 0)( - +)
+
+(20)
+
+The null hypothesis of equal conditional predictive ability of forecast function f and g for the target
+
+date  +  can be written as follows:
+
+0: ++,  - ++, |  [+|] = 0
+
+(21)
+
+where + is the actual bond portfolio returns on day  + .  and  can be anyone of VaR
+
+estimates. For a given chosen test function  = (1, +1) that is q×1 vector, a Wald-type test
+
+statistic corresponding to the null hypothesis is:
+
+ = (-1 =-11 +1)-1(-1 =-11 +1) = -1
+
+(22)
+
+where  = -1 =-11 +1, +1 = +1, and  = -1 =-11 +1 × +1 is q×q matrix that
+
+consistently estimates the variance of +1.  is the number of out-of-sample forecasts. A level
+
+of  test can be conducted by rejecting the null hypothesis of equal conditional predictive ability whenever  > 2,1-, where 2,1- is the 1 -  quantile of a 2 distribution.
+
+5.3. The evaluation results
+
+5.3.1. Unconditional and conditional coverage tests
+
+Table 7 presents the result of unconditional, independence and conditional coverage test,
+
+violation ratios and average size of violations for three bond indices. Violation ratio is defined as
+
+"the violation number divided by the number of VaR estimates". We compare the VaR performance
+
+of various factor models along two dimensions: the number of VaR backtesting violations and the
+
+average size of the violations. The number of backtesting violations is the primary indicators of
+
+VaR performance. If the VaR model works well, we would expect the VaR estimates pass the
+
+conditional coverage tests. The result in Table 7 shows that NS three factors (but not macro or
+
+financial stress factors) based VaR estimates all pass the conditional coverage tests except the Broad
+
+the way that we can predict which forecast was more accurate at a specific future day. In other words, it nests the unconditional predictive evaluation that only predicts which forecast was more accurate on average. Third, it captures the effect of estimation uncertainty on relative forecast performance.
+23
+
+Investment Grade Bond Index. In terms of the second indicator of VaR performance, the VaR models including the additional macroeconomic and financial stress factors all exhibit lower average size of violations. This implies that the macro and financial factors provide valuable information and improve the VaR performance of NS three-factor model.
+In order to further illustrate the results presented in Table 6 and Table 7, we pot in Figure 3 the daily returns on Treasury 10Y-20Y Bond Index, Broad Investment Grade Bond Index and High Yield Bond Index, respectively, over sample period and the VaR estimates delivered by the NS, M, F, NS+M, NS+F, NS+M+F models. In the figures, a violation occurs if the negative return (loss) drops below the solid line.
+5.3.2. Conditional predictive ability (CPA) test Table 8 reports the Wald-type test statistics for pairwise comparisons among factor models,
+using the CPA test proposed by Giacomini and White (2006), for each of the three bond indices considered. The null hypothesis is that the models in the "line" have the equal conditional predictive ability as the models in the "column". If the value of the Wald-type test statistic is greater then 2,1-, which is the 1- quantile of a Chi-square distribution with q degree of freedom, then the null hypothesis of equal conditional predictive ability is rejected. Since the =95% significance level of a 2,1- distribution with q=2 degree of freedom is 5.99, the result show that all models in the "line" outperform the models in the "column". We observed that the results in Table 8 corroborate the backtesting results discussed in Table 7. For the both sample periods, the NS+Mt+Ft specification outperform, at 5% significance level, all other specifications in all three bond indices. The result emphasizes the important role of macro and financial stress factors on the improvements of VaR performance. In addition, we also found that Ft (NS+Ft) model performs better than Mt (NS+Mt) one in all cases, implying that financial stress factor has stronger impact than that of the macroeconomic one.
+24
+
+5. Conclusion
+
+This study is motivated by the recent finding that the variations of bond returns can be, besides
+
+spot-rate term structure model, explained by macroeconomic variables and financial stress
+
+conditions. We go beyond earlier studies by first developing a new factor-based approach, which is
+
+based on the Nelson-Siegel term structure factor-augmented model, to compute the VaR of bond
+
+portfolios. We then use the model to investigate whether the information contained on
+
+macroeconomic variables and financial shocks can help to explain the variations of VaR.
+
+Regarding the extension of variables which affect the yield variations, we consider several
+
+traditional macroeconomic variables (Federal fund rates, inflation and S&P returns) and financial
+
+shocks (TED spread, default probability and VIX). Our finding shows that VaR forecasting
+
+performance are significantly improved as the macroeconomic variables and financial shocks are
+
+added on the NS factor model. Thus, the empirical evidence suggests that, besides the NS term
+
+structure factors, macroeconomic variables and financial shocks could be acting as driving factors
+
+on VaRs of bond portfolios. Further, the impact of incorporating financial shocks is found to be
+
+greater than that of incorporating macroeconomic variables. These results might have important
+
+implications for risk management and policy decision oriented toward a framework of financial
+
+stability.
+
+Appendix: nonnested encompassing tests for out-of-sample forecasting ability
+
+Harvey and Newbold (2000) developed a multiple forecast encompassing method to
+
+generalize the forecast encompassing approach to situations when comparisons of a forecast with
+
+more than one competitor are required. The model assumes one-step-ahead prediction so that
+
+forecasts are based on information available at time t-1. It further assumes that the individual
+
+forecast errors have zero mean and are not autocorrelated. Consider testing the null hypothesis that
+
+one forecast, NS, encompasses its competitors Macro and Fin. The joint testing procedure begins
+
+with a composite predictor
+(1 - 1 - 2) + 1 + 2
+25
+
+0    1
+
+(A1)
+
+Which can alternatively be rewritten as
+
+e1=1(e1 - e2)+1(e1 - e3)+ 0    1
+
+(A2)
+
+where e1 =  -  , e2 =  -  , e3 =  -  and  is the error of the
+
+combined forecast. The null hypothesis that "NS encompasses Macro and Fin" is
+
+0: 1 = 1 = 0
+
+(A3)
+
+When the null hypothesis is true, Granger and Newbold (1986) also defined "NS to be conditionally
+
+efficient with respect to Macro and Fin". The hypotheses that Macro or Fin encompasses its
+
+competitors are defined similarly.
+
+The regression (A2) can be expressed in general form as
+
+ =  +  where  = 1,  = [ 1, 2] and  = [(1 - 2), (1 - 3)].
+
+(A4)
+
+Harvey and Newbold (2000) suggested a modified Diebold-Mariano-type test to the null
+
+hypothesis (A3), in terms of the regression (A4), is 0:  = 0 or 0: [()]-1() = 0
+
+(A5)
+
+Clearly, equation (A5) is true if and only if
+
+0: () = 0; = [12],  = 1(1 - +1) i=1,2
+
+(A6)
+
+The problem is now reduced to testing for the zero-mean of a vector of random variables, so the
+
+multivariate analogue of the Diebold-Marino statistic takes the form of Hotelling's (1931)
+
+generalized T2-statistic
+
+MS
+
+=
+
+1 2
+
+(
+
+-
+
+1)-1(
+
+-
+
+2)-1
+
+(A7)
+
+where  = 1 2,  = -1   ,  is sample size, and  is the sample covariance matrix,
+
+which has (i,j)th element
+
+ = -1[ + 1 - 2 + -1( - 1)]-1 × = 1 -  -  + -=11 = +1 - - -  + -=11 = +1- -  - 
+
+(A8)
+
+26
+
+In the limit, Hotelling's T2-statistic has, as a result of the multivariate central limit theorem, a
+
+1 2
+
+2-1
+
+distribution. Although the finite sample distributional result is not exact, we maintain the
+
+use of 2,-2 as critical values for statistic (A7) in our application.
+
+27
+
+References
+Alexander, C., 2002. Principal component models for generating large GARCH covariance matrices. Economic Notes 31(2), 337-359.
+Ang, A. Piazzesi, M., 2003. A no-arbitrage vector autoregression of term structure dynamics with macroeconomic and latent variables. Journal of Monetary Economics 50, 745-787.
+Aramonte, S., Rodriguez, M. D., and Wu, J., 2013. Dynamic factor value-at-risk for large heteroskedastic portfolios. Journal of Banking and Finance 37, 4299-4309.
+Beber, A., Brandt, M., Kavajecz, K., 2009, Flight-to-quality or flight-to-liquidity? Evidence from the Euro-area bond market. Review of Financial Studies 22, 925-957.
+Caldeira, J. F., Moura, G. V., and Santos, A. A. P., 2013. Measuring risk in fixed income portfolios using yield curve models. Computational Economics 46(1), 65-82.
+Castagnetti, C., Rossi, E., 2013. Euro corporate bond risk factors. Journal of Applied Econometrics 28, 372-391.
+Christensen, J. H. E., Diebold, F. X., Rudebusch, G. D., 2009. An arbitragefree generalized NelsonSiegel term structure model. Econometrics Journal 12, C33-C64.
+Christensen, J. H. E., Diebold, F. X., Rudebusch, G. D., 2011. The affine arbitrage-free class of Nelson­Siegel term structure models. Journal of Econometrics 164(1), 4-20.
+Christoffersen, P. F., 1998. Evaluating interval forecasts. International Economic Review 39, 841862.
+Collin-Dufresne, P., Goldstein, R. S., Martin, J. S., 2001. The determinants of credit spread changes. Journal of Finance 56, 2177-2207. Cornish, E.A., Fisher, R.A., 1937. Moments and cumulants in the specification of distribution. Review of the International Statistical Institute 5, 307-320.
+Davies, A., 2008. Credit spread determinants: an 85 year perspective. Journal of Financial Markets 11, 180-197.
+De Rezende, R. B., Ferreira, M. S., 2013. Modeling and forecasting the yield curve by an extended Nelson-Siegel class of models: a quantile autoregression approach. Journal of Forecasting 32, 111123.
+Dewachter, H., Iania, L., 2012. An extended macro-finance model with financial factors. Journal of Financial and Quantitative Analysis 46, 1893-1916.
+Dewachter, H., Lyrio, M., 2006. Macro factors and the term structure of interest rates. Journal of
+28
+
+Money, Credit and Banking 38, 119-140.
+Dewachter, H., Lyrio, M. and Maes, K., 2006. A joint model for the term structure of interest rates and the macroeconomy. Journal of Applied Econometrics 21(4), 439-462.
+Dick-Nielsen, J., Feldhütter, P., Lando, D., 2012. Corporate bond liquidity before and after the onset of the subprime crisis. Journal of Financial Economics 103, 471-492.
+Diebold, F. X., Mariano, R. S., 1995. Comparing predictive accuracy. Journal of Business and Economic Statistics 13, 253-263.
+Diebold, F.X., Li, C., 2006. Forecasting the term structure of government bond yields. Journal of Econometrics 130, 337-364.
+Diebold, F.X., Rudebusch, G. D., Aruoba, S. B., 2006. The macroeconomy and the yield curve: A dynamic latent factor approach. Journal of Econometrics, 131, 309-338.
+Dionne, G., Gauthier, G., Hammami, K., Maurice, M., Simonato, J-G., 2010. Default risk in corporate yield spreads. Financial Management 39, 707-731.
+Duffie, D., Saita, L., Wang, K., 2007. Multi-period corporate default prediction with stochastic covariates. Journal of Financial Economics 83, 635-665.
+Durbin, J., Koopman, S. J., 2001, Time series analysis by state space methods, Oxford University Press, Oxford.
+Elton, E. J., Gruber, M. J., Mann, A. C., 2001. Explaining the rate spread on corporate bonds. Journal of Finance 56, 247-277.
+Engle, R, 2002. Dynamic conditional correlation: A simple class of multivariate generalized autoregressive conditional heteroskedasticity models. Journal of Business and Economic Statistics 20(3), 339-350.
+Engle, R. F., Sheppard, K., 2001. Theoretical and empirical properties of dynamic conditional correlation multivariate GARCH. NBER Working Paper W8554.
+Engle, R. F., Shephard, N., Sheppard, K., 2008. Fitting vast dimensional time-varying covariance models. Discussion Paper Series n.403, Department of Economics, University of Oxford.
+Ericsson, J., Renault, O., 2006. Liquidity and Credit risk. Journal of Finance 61(5), 2219-2250.
+Exterkate, P., Van Dijk, D., Heij, C., Groenen, P. J. F., 2013, Forecasting the yield curve in a data rich environment using the factoraugmented Nelson-Siegel model, Journal of Forecasting 32, 193214. Favre, L., Galeano, J.A., 2002. Mean-modified Value-at-Risk optimization with hedge funds. The
+29
+
+Journal of Alternative Investments 5, 21-25.
+Feldhtter, P., Lando, D., 2008. Decomposing swap spreads. Journal of Financial Economics 88, 375-405.
+Fiori, R., and Iannotti, S., 2007. Scenario-based principal component value-at-risk when the underlying risk factors are skewed and heavy-tailed: an application to Italian banks' interest rate risk exposure. Journal of Risk 9, 63-99.
+Fricke, C., Menkhoff, L., 2015. Financial conditions, macroeconomic factors and disaggregated bond excess returns. Journal of Banking and Finance 58, 80-94.
+Friewald, N., Jankowitsch, R., Subrahmanyam, M. G., 2012. Illiquidity or credit deterioration: A study of liquidity in the US corporate bond market during financial crises. Journal of Financial Economics, 105(1), 18-36.
+Gefang, D., Koop, G., Potter, S. M., 2011. Understanding liquidity and credit risks in the financial crisis. Journal of Empirical Finance 18, 903-914.
+Giacomini, R., White, H., 2006. Tests of conditional predictive ability. Econometrica 74(6), 15451578.
+Golub, B. W., Tilman, L. M., 1997. Measuring yield curve risk using principal components analysis, value at risk, and key rate durations. The Journal of Portfolio Management 23(4), 72-84.
+Granger, C. W. J., Newbold, P., 1986. Forecasting Economic Time Series, 2nd ed. Academic Press: Orlando, FL.
+Hakkio, C. S., Keeton, W., 2009. Financial stress: What is it, how can it be measured, and why does it matter? Federal Reserve Bank of Kansas City Economic Review 94, 5-50.
+Harvey, D. I., Leybourne, S. J., Newbold, P., 1998. Tests for forecast encompassing. Journal of Business and Economic Statistics 16, 254-259.
+Harvey, D.I., Newbold P., 2000. Tests for multiple forecast encompassing. Journal of Applied Econometrics 15, 471-482.
+Helwege, J., Huang, J-Z., Wang, Y., 2014. Liquidity effects in corporate bond spreads. Journal of Banking and Finance 45, 105-116.
+Hotelling, H., 1931. The generalization of Student's ratio. Annals of Mathematical Statistics 2, 360378.
+Huang, J. Z., Huang, M., 2012. How much of the corporate-treasury yield spread is due to credit
+30
+
+risk? Review of Asset Pricing Studies 2, 154-202.
+Jarrow, R. A., Turnbull, S. M., 2000. The intersection of market and credit risk. Journal of Banking and Finance 24, 271-299.
+Jorion P., 2000. Value at Risk: The new benchmark for managing financial risk. McGraw-Hill: New York.
+Kupiec, P., 1995, Techniques for verifying the accuracy of risk measurement models. Journal of Derivatives 2, 73-84.
+Liu, J., Longstaff, F. A., Mandell, R. E., 2006. The market price of credit risk: An empirical analysis of interest rate swap spreads. Journal of Business 79(5), 2337-2359.
+Low, C., 2004. The Fear and Exuberance from Implied Volatility of S&P 100 Index Options. Journal of Business 77, 527-546.
+Ludvigson, S., Ng, S., 2009. Macro factors in bond risk premia. The Review of Financial Studies 22, 5027-5067.
+McNeil, A. J., Frey R., Embrechts P., 2005. Quantitative Risk Management: Concepts, Techniques and Tools. Princeton University Press: Princeton, NJ.
+Nelson, C. R., Siegel, A., 1987. Parsimonious modeling of yield curves. Journal of Business 60(4), 473-489.
+Piazzesi, M., 2005. Bond yields and the Federal Reserve. Journal of Political Economy 113, 311344.
+Rudebusch, G. D., Wu, T., 2007. Accounting for a shift in term structure behavior with noarbitrage and macrofinance models. Journal of Money, Credit and Banking 39(23), 395-422.
+Rudebusch, G. D., Wu, T., 2008. A macro-finance model of the term structure, monetary policy and the economy. The Economic Journal 118, 906-926.
+Santos, A. A. P., Nogales, F. J., Ruiz, E., 2013. Comparing univariate and multivariate models to forecast portfolio value-at-risk. Journal of Financial Econometrics 11, 400-441.
+Sarma , V. V. S. S., Swathi, P. S., Kumar, M. D., Prasannakumar, S., Bhattathiri, P. M. A., Madhupratap, M., Ramaswamy, V., Sarin, M. M., Gauns, M., Ramaiah, N., Sardessai, S. de Sousa, S. N., 2003. Carbon budget in the eastern and central Arabian Sea: An Indian JGOFS synthesis. Global Biogeochemical Cycles 17.4.
+Semenov, A., 2009. Risk factor beta conditional valueatrisk. Journal of Forecasting, 28, 549-558.
+Singh, M. K., 1997. Value at risk using principal components analysis. Journal of Portfolio
+31
+
+Management 24(1), 101-112. Sheppard, K., 2003. Multi-step estimation of multivariate GARCH models. In Proceedings of the International ICSC. Symposium: Advanced Computing in Financial Markets. Tang, D. Y., Yan, H., 2010. Market conditions, default risk and credit spreads. Journal of Banking and Finance 34, 743-753. Ullah, W., Tsukuda, Y., Matsuda, Y., 2013, Term structure forecasting of government bond yields with latent and macroeconomic factors: Do macroeconomic factors imply better outofsample forecasts? Journal of Forecasting 32, 702-723. Whaley, R. E., 2000. The investor fear gauge. Journal of Portfolio Management 26, 12-17. Wu, T., 2006. Macro factors and the affine term structure of interest rates. Journal of Money, Credit and Banking 38, 1847-1876. Wu, L., Zhang, F. X., 2008. A no-arbitrage analysis of economic determinants of the credit spread term structure. Management Science 54, 1160-1175. Yu, W. C., Salyards, D. M., 2009. Parsimonious modeling and forecasting of corporate yield curve. Journal of Forecasting 28, 73-88. Yu, W-C., Zivot, E., 2011. Forecasting the term structures of Treasury and corporate yields using dynamic Nelson-Siegel models. International Journal of Forecasting 27, 579-591.
+32
+
+Yield(Percentage) Yield(Percentage) Yield(Percentage)
+
+Zero yield curve
+
+8
+
+6
+
+4
+
+2
+
+0 302y01y51y0y9y8y7y6y5y4y3y2y1Y6m3m
+Maturity
+
+2011
+
+2012
+
+2013
+
+Time
+
+2014
+
+AA-rating yield curve
+
+8
+
+6
+
+4
+
+2
+
+0 302y01y51y0y9y8y7y6y5y4y3y2y1Y Maturity
+
+2011
+
+2012
+
+2013
+
+Time
+
+2014
+
+BBB-rating yield curve
+
+8
+
+6
+
+4
+
+2
+
+0 302y01y51y0y9y8y7y6y5y4y3y2y1Y Maturity
+
+2011
+
+2012
+
+2013
+
+Time
+
+2014
+
+Fig. 1. Time series plot of Treasury zero, AA- and BBB-rated yield curves
+The sample consists of daily Treasury zero, AA- and BBB-rated yield data across various maturities from Jan. 2011 to Dec. 2014.
+
+33
+
+Figure 2. Time series plot of estimated NS three factors, macro and financial factors
+
+10 5 0 -5
+-10 -15
+2011.01
+
+2011.07
+
+Treasury zero yield curve
+
+2012.01
+
+2012.07
+
+2013.01
+
+LSC
+
+2013.07 MF
+
+2014.01
+
+2014.07
+
+10 5 0 -5
+-10 -15
+2011.01
+
+2011.07
+
+AA-rated yield curve
+
+2012.01
+
+2012.07
+
+2013.01
+
+LSC
+
+2013.07
+
+2014.01
+
+MF
+
+2014.07
+
+10
+BB-rated yield curve
+5
+
+0
+
+-5 -10
+
+-15 2011.01
+
+2011.07
+
+2012.01
+
+2012.07 L
+
+2013.01
+
+2013.07
+
+SCM
+
+2014.01 F
+
+2014.07
+
+This figure depicts the time variation of estimated NS three factors (, , ) together with macro factor (M) and financial factor (F) derived from Treasury zero, AA- and BBB-rated yield curve, respectively.
+Note that the estimation of NS three factors are driven by M and F as designed in a factor-augmented
+model (equation (6) and (7)).
+
+34
+
+Figure 3. Skewness, Kurtosis and Cornish-Fisher quantile values
+
+Treasury 10Y-20Y Index
+3
+2
+1
+0
+-1 2013.04 2013.06 2013.08 2013.10 2013.12 2014.02 2014.04 2014.06 2014.08 2014.10 2014.12
+Skew Kurtosis Q5% Q1%
+
+4 Broad Investment Grade Bond Index
+3
+2
+1
+0 2013.04 2013.06 2013.08 2013.10 2013.12 2014.02 2014.04 2014.06 2014.08 2014.10 2014.12
+Skew Kurtosis Q5% Q1%
+
+High Yield Market Index
+6 20
+
+5 4
+
+3 10
+
+2
+
+1
+
+0
+2013.04
+
+2013.06
+
+2013.08
+
+2013.10 2013.12 2014.02
+
+Skew
+
+Q5%
+
+2014.04
+Q1%
+
+2014.06 2014.08
+Kurtosis
+
+2014.10
+
+0
+2014.12
+
+By using a rolling horizons of 500 daily observations, one can depict the time variation of skewness,
+
+excess kurtosis, and 1st and 5th percent of quantile value derived from a fourth-order Cornish-Fisher approximation in Eq. (17). The excess kurtosis of the high yield bond portfolio entails a domain with
+
+relatively extreme values, so that we scale it on the right-hand side.
+
+35
+
+Figure 4. Time series plot of 95%VaR estimates
+
+40 20
+0 -20 -40 -60 -80
+2013.04
+
+2013.06 2013.08 Citi_Gov_P/L
+
+Treasury 10Y-20Y Bond Index
+2013.10 2013.12 2014.02 2014.04 2014.06 DNS F DNS+M DNS+F
+
+2014.08 2014.10 2014.12
+
+NS+M+F
+
+M
+
+30 10 -10 -30 -50 2013.04
+
+Broad Investment Grade Bond index
+20C1it3i_.0IG6_P/L2013.08 DN2S013.10 F 2013.1D2NS+2M014.02 D2N0S1+4F.04 20D1N4S.0+6M+F2014.08M
+
+High Yield Market Index
+10
+
+0
+
+-10
+
+-20 2013.04 2013.06 2013.08 2013.10 Citi_HY_P/L DNS F
+
+2013.12 2014.02 2014.04 2014.06 2014.08
+
+DNS+M
+
+DNS+F
+
+DNS+M+F
+
+M
+
+By using a rolling horizons of 500 daily observations, we depict the daily returns and the time variation of 95% VaR estimates of Treasury 10Y-20Y Bond Index, Broad Investment Grade Bond Index and High Yield Market Index over the sample period, delivered by the Dynamic NS three-factor (NS), Macro factor (M), Financial stress factor (F), NS with Macro factor (NS+M), NS with Financial stress factor (NS+F), NS with Macro and Financial stress factors (NS+M+F). As shown in the figure, a violation occurs if the negative return (loss) drops below the solid line.
+
+36
+
+Figure 5. Time series plot of 99%VaR estimates
+
+40 20
+0 -20 -40 -60 -80
+2013.04
+
+2013.06 2013.08 Citi_Gov_P/L
+
+Treasury 10Y-20Y Bond Index
+2013.10 2013.12 2014.02 2014.04 2014.06 DNS F DNS+M DNS+F
+
+2014.08 2014.10 2014.12
+
+DNS+M+F
+
+M
+
+30
+10
+-10
+-30
+-50 2013.04
+
+Broad Investment Grade Bond index
+2013.06 2013.08 2013.10 2013.12 2014.02 2014.04 2014.06 2014.08 Citi_IG_P/L DNS F DNS+M DNS+F DNS+M+F M
+
+10 High Yield Market Index
+
+0
+
+-10
+
+-20 2013.04 2013.06 2013.08 2013.10 Citi_HY_P/L DNS F
+
+2013.12 2014.02 2014.04 2014.06 2014.08
+
+DNS+M
+
+DNS+F
+
+DNS+M+F
+
+M
+
+By using a rolling horizons of 500 daily observations, we depict the daily returns and the time variation
+
+of 99% VaR estimates of Treasury 10Y-20Y Bond Index, Broad Investment Grade Bond Index and High
+
+Yield Market Index over the sample period, delivered by the Dynamic NS three-factor (NS), Macro factor
+
+(M), Financial stress factor (F), NS with Macro factor (NS+M), NS with Financial stress factor (NS+F),
+
+NS with Macro and Financial stress factors (NS+M+F). As shown in the figure, a violation occurs if the
+
+negative return (loss) drops below the solid line.
+
+37
+
+Table 1 Descriptive statistics of yield data across maturities (months)
+
+Maturity Mean SD
+
+Treasury zero yield data
+Max Min Skewness Kurtosis (1) (6) (12)
+
+3
+
+1.168 1.799 5.676 0.020 1.446
+
+3.491 0.997 0.986 0.973
+
+6
+
+1.241 1.802 5.646 0.028 1.432
+
+3.461 0.998 0.987 0.973
+
+12 1.327 1.690 5.483 0.125 1.383 3.383 0.998 0.986 0.972
+
+24 1.596 1.543 5.428 0.271 1.209 3.083 0.997 0.985 0.971
+
+36 1.932 1.482 5.544 0.410 0.968 2.653 0.997 0.986 0.972
+
+48 2.276 1.403 5.577 0.605 0.756 2.379 0.997 0.985 0.972
+
+60 2.598 1.317 5.633 0.838 0.551 2.190 0.997 0.985 0.970
+
+72 2.884 1.252 5.671 1.102 0.389 2.049 0.997 0.984 0.970
+
+84 3.178 1.194 5.711 1.348 0.204 1.919 0.997 0.983 0.968
+
+96 3.403 1.127 5.748 1.614 0.149 1.861 0.997 0.981 0.965
+
+108 3.598 1.043 5.782 1.855 0.094
+
+1.890 0.996 0.979 0.960
+
+240 3.790 0.959 5.810 2.146 0.062
+
+1.946 0.996 0.976 0.954
+
+360 4.482 0.790 5.936 2.863 -0.323 1.934 0.994 0.968 0.942
+
+Maturity Mean SD
+
+AA-rated yield data
+Max Min Skewness Kurtosis (1) (6) (12)
+
+12 2.074 2.163 6.452 0.047 0.904 2.151 0.998 0.990 0.979
+
+24 2.257 2.044 6.337 0.111 0.789 1.948 0.998 0.991 0.981
+
+36 2.558 2.083 6.543 0.242 0.734 1.844 0.999 0.992 0.982
+
+48 2.970 1.988 6.881 0.495 0.578 1.703 0.999 0.992 0.984
+
+60 3.329 1.994 7.597 0.735 0.520 1.726 0.999 0.992 0.984
+
+72 3.748 1.900 7.985 1.053 0.387 1.745 0.998 0.992 0.984
+
+84 4.173 1.829 8.454 1.375 0.262 1.783 0.998 0.991 0.983
+
+96 4.451 1.776 8.654 1.699 0.223 1.820 0.998 0.992 0.983
+
+108 4.719 1.698 8.727 2.013 0.178
+
+1.808 0.998 0.991 0.983
+
+120 5.059 1.845 9.472 2.287 0.319
+
+1.790 0.999 0.992 0.983
+
+180 5.367 1.700 9.862 2.787 0.375
+
+1.969 0.998 0.991 0.981
+
+240 5.472 1.529 9.568 3.088 0.372
+
+2.057 0.998 0.990 0.978
+
+360 5.998 1.390 9.349 3.579 0.154
+
+1.926 0.998 0.989 0.977
+
+BBB-rated yield data
+
+Maturity Mean SD
+
+Max Min Skewness Kurtosis (1) (6) (12)
+
+12 3.113 2.094 6.889 0.682 0.569 1.577 0.999 0.991 0.982
+
+24 3.253 1.976 6.989 0.986 0.555 1.540 0.999 0.992 0.984
+
+36 3.620 1.960 7.548 1.230 0.536 1.568 0.999 0.993 0.985
+
+48 4.048 1.916 8.412 1.570 0.461 1.617 0.999 0.994 0.987
+
+60 4.445 1.918 9.042 1.871 0.402 1.648 0.999 0.994 0.987
+
+72 4.848 1.851 9.241 2.176 0.333 1.731 0.999 0.994 0.987
+
+84 5.250 1.799 9.385 2.501 0.300 1.830 0.999 0.993 0.986
+
+96 5.537 1.769 9.971 2.825 0.324 1.935 0.999 0.993 0.986
+
+108 5.797 1.748 10.231 3.086 0.323
+
+2.012 0.999 0.993 0.986
+
+120 6.145 1.862 10.719 3.366 0.329
+
+1.804 0.999 0.993 0.986
+
+180 6.486 1.752 11.270 3.907 0.399
+
+1.963 0.999 0.992 0.984
+
+240 6.504 1.633 10.660 4.016 0.340
+
+1.945 0.998 0.991 0.982
+
+360 7.009 1.509 10.706 4.557 0.395
+
+2.213 0.998 0.991 0.982
+
+This table presents the basic statistics of yield data on Treasury zero and bonds with AA- and BBB-rated
+
+across different maturities (months). The sample period ranges from Jan. 2011 to Dec. 2014 with 924 daily observations. () denotes the sample autocorrelation at lag 1, 6, and 12 days.
+
+38
+
+Table 2: Characteristics of three bond indices used in the sample
+
+Name of the bond index
+
+Citi US Treasury 10Y20Y Bond Index
+
+Citi US Broad Investment Citi US High Yield
+
+Grade Bond Index
+
+Market Index
+
+Basic description
+
+The US Broad InvestmentGrade Bond Index (USBIG) tracks the performance of US Dollardenominated bonds issued in the US investmentgrade bond market.
+
+The US High-Yield Market Index is a US Dollar-denominated index which measures the performance of high­ yield debt issued by corporations domiciled in the US or Canada.
+
+Coupon
+
+fixed-rate
+
+fixed-rate
+
+fixed rate
+
+Currency
+
+USD
+
+USD
+
+USD
+
+Minimum maturity
+
+between 10 and 20 years at least one year
+
+at least one year
+
+Credit quality
+
+Minimum quality: BBBby S&P or Baa3 by Moody's
+
+Maximum Quality: BB+ by S&P and Ba1 by Moody's; Minimum Quality: C by S&P and Ca by Moody's (excludes defaulted bonds)
+
+Composition
+
+US Treasuries (excluding Federal Reserve purchases, inflationindexed securities and STRIPS); US agencies (excluding callable zeros and bonds callable less than one year from issue date); supranationals; mortgage pass-throughs; asset-backed; credit (excluding bonds callable less than one year from issue date); Yankees, globals, and corporate securities issued under Rule 144A with registration rights
+
+Cash-pay, Zero-to-Full (ZTF), Pay-in-Kind (PIK), step-coupon bonds, and Rule 144A bonds issued by corporations domiciled in the United States or Canada only
+
+Weighting
+
+Market capitalization
+
+Market capitalization
+
+39
+
+Table 3 Descriptive statistics of NS three factors, macroeconomic and financial
+
+variables
+
+Treasury zero yield curve
+
+Mean SD
+
+Max
+
+Min
+
+Skewn Kurtos ess is
+
+(1)
+
+ADF (6) (12) p-
+values
+
+
+
+2.493 -2.183 -6.262
+
+0.673 0.651 1.419
+
+4.822 -0.719 -1.550
+
+0.485 -4.329 -9.545
+
+-0.083 -0.417 1.087
+
+3.093 2.866 3.712
+
+0.486 0.518 0.890
+
+0.432 0.481 0.838
+
+0.456 0.499 0.792
+
+0.000 0.000 0.090
+
+ -0.040 0.403 1.339 -1.109 0.554 3.877 -0.052 -0.036 0.020 0.000
+
+ 1.913 0.324 2.621 0.552 0.065 2.625 0.839 0.796 0.740 0.095
+
+AA-rated yield curve
+
+Mean SD
+
+Max
+
+Min
+
+Skewn Kurtos ess is
+
+(1)
+
+ADF (6) (12) p-
+values
+
+
+
+3.222 -1.346 -7.540
+
+0.746 0.886 2.173
+
+4.919 0.373 -1.788
+
+0.524 -3.732 -11.265
+
+-0.189 -0.105 0.368
+
+2.787 1.862 2.030
+
+0.459 0.672 0.936
+
+0.396 0.648 0.887
+
+0.439 0.659 0.844
+
+0.000 0.000 0.090
+
+ -0.044 0.455 1.474 -1.293 0.557 4.183 -0.051 -0.053 0.036 0.000
+
+ 2.091 0.329 2.746 0.590 -0.529 2.688 0.803 0.763 0.709 0.095
+
+BBB-rated yield curve
+
+Mean SD
+
+Max
+
+Min
+
+Skewn Kurtos ess is
+
+(1)
+
+ADF (6) (12) p-
+values
+
+
+
+3.839 -1.723 -5.715
+
+0.860 1.217 2.696
+
+6.022 0.825 1.032
+
+0.585 -4.928 -10.749
+
+-0.157 -0.242 0.370
+
+3.047 2.100 1.974
+
+0.429 0.760 0.940
+
+0.363 0.734 0.912
+
+0.411 0.750 0.885
+
+0.000 0.000 0.090
+
+ -0.053 0.536 1.753 -1.649 0.542 4.095 -0.050 -0.058 0.038 0.000
+
+ 2.491 0.361 3.193 0.661 -0.583 3.353 0.779 0.738 0.681 0.091
+
+Macroeconomic variables
+
+Mean SD
+
+Max
+
+Min
+
+Skewn Kurtos ess is
+
+(1)
+
+ADF (6) (12) p-
+values
+
+FFR 1.084 1.762 5.410 0.040 1.588 3.863 0.997 0.985 0.972 0.008
+
+INFL
+
+1.769 0.644 2.720 -2.240 -2.459 11.329 0.994 0.954 0.918 0.294
+
+SP 0.002 0.635 4.450 -4.113 -0.437 9.940 -0.122 0.076 0.020 0.000
+
+Financial variables
+
+Mean SD
+
+Max
+
+Min
+
+Skewn Kurtos ess is
+
+(1)
+
+ADF (6) (12) p-
+values
+
+LIBORS
+
+0.337 0.439 3.400 -0.018 2.828 14.331 0.990 0.934 0.857 0.027
+
+TbillS
+
+-0.045 0.291 0.630 -2.017 -2.691 11.516 0.943 0.846 0.798 0.000
+
+DP 1.280 0.586 3.500 0.720 2.185 7.226 0.999 0.987 0.965 0.506
+
+VIX 0.230 0.106 0.809 0.099 2.064 8.349 0.978 0.921 0.867 0.080
+
+This ( )
+
+table presents the basic statistics of estimated NS three factors (level and two additional factors (macro (M) and financial (F)). The sample
+
+(), slope () and period ranges from
+
+curvature Jan. 2011
+
+to Dec. 2014 with 924 daily observations. () denotes the sample autocorrelation at lag 1, 6, and 12
+
+days. The last column reports the p-value of augmented Dickey-Fuller (ADF) unit root test. The VIX
+
+index of CBOE has been multiplied by 0.01. Federal fund rate (FFR), annual inflation rate (INFL), S&P
+
+500 return (SP), LIBOR spread (LIBORS), T-bill spread (TbillS), default probability (DP) are all
+
+presented as percentage.
+
+40
+
+Table 4: The explanatory power of the NS three factors, macro factor and financial stress factor regressed on three selected bond indices
+
+Panel A: nested model
+
+Treasury zero-coupon yield curve
+
+AA-rated yield curve
+
+BBB-rated yield curve
+
+Intercept
+    
+R-square
+
+Treasury 10Y-20Y Index
+
+Broad Investment Grade Bond Index
+
+0.009 0.129* -1.032* -0.728* 1.951* 1.988* 2.610* 2.854* (0.24) (4.22) (-22.67) (19.06) (29.25) (29.62) (25.10) (26.41)
+
+0.471* 0.307* 0.541* 0.407* 0.203* 0.152* 0.159* 0.052*
+
+(57.21) (33.55) (84.91) (53.50) (14.58) (7.73) (10.94) (2.41)
+
+-0.641* -0.809* -0.619* -0.746* -0.249* -0.301* -0.263* -0.364* (-73.06) (-84.33) (-97.91) (-101.2) (-16.78) (-14.41) (-18.18) (-17.47)
+
+0.008* 0.005* 0.061* 0.048* 0.000 0.001 -0.034* -0.044* (1.99) (1.78) (17.84) (17.51) (-0.06) (-0.17) (-4.34) (-5.67)
+
+0.442* (24.70)
+
+0.322* (23.34)
+
+0.137* (3.52)
+
+0.259* (6.62)
+
+0668* 0.529* (29.15) (27.82)
+
+-0.423* -0.534* (-8.07) (-9.92)
+
+0.906 0.944 0.952 0.970 0.358 0.367 0.402 0.430
+
+High Yield Market Index
+
+6.896* (37.34) -0.078* (-2.03) 0.230* (5.59) -0.138* (-7.24)
+0.077
+
+6.935* (37.09) -0.130* (-2.34) 0.176* (3.02) -0.139* (-7.28) 0.142 (1.30)
+0.079
+
+9.639* (35.12) -0.262*
+
+10.204* (35.58) -0.511*
+
+(6.84) (-8.93)
+
+0.174* (4.57) -0.278* (-13.42)
+-1.759* (-12.73)
+
+-0.061 (-1.10) -0.302* (-14.54) 0.599* (5.77) -2.017* (-14.11)
+
+0.218 0.247
+
+Broad Investment Grade Bond Index
+
+0.991* 0.987* 1.601* 1.655* (12.31) (12.23) (14.09) (13.98)
+
+0.332* 0.341* 0.303* 0.284*
+
+(24.95) (20.20) (22.37) (15.77)
+
+-0.230* -0.022* -0.244* -0.263* (-20.85) (-14.03) (-22.42) (-16.17)
+
+-0.096* -0.094* -0.125* -0.131* (-18.44) (-16.95) (-19.49) (-18.03)
+
+-0.030 (-0.83)
+
+0.056 (1.55)
+
+-0.417* -0.446* (-7.41) (-7.52)
+
+0.486 0.486 0.516 0.517
+
+High Yield Market Index
+
+6.781* (33.26) 0.092*
+
+6.623* (35.86) 0.335*
+
+11.442* (47.75) -0.110*
+
+10.783* (43.87) 0.035
+
+(2.95) (10.12) (-4.38) (1.15)
+
+0.299* (12.36) -0.071* (-5.61)
+
+0.563* (19.61) -0.006 (-0.51) -1.077* (-14.19)
+
+0.184* (9.71) -0.218* (-19.44)
+-2.704* (-25.53)
+
+0.329* (12.76) -0.168* (-13.37) -0.534* (-7.99) -2.367* (-21.39)
+
+0.382 0.495 0.642 0.666
+
+Panel B: nonnested model
+
+Treasury 10Y-20Y Index
+
+Broad Investment Grade Bond Index
+
+High Yield Market Index
+
+Intercept 0.009 2.743* 2.278* 0.991* 3.097* 3.641* 6.781* 7.032* 8.072*
+
+(0.24) (152) (15.87) (12.31) (266) (39.76) (33.26) (262) (37.94)
+
+ 0.471*
+
+0.332*
+
+0.092*
+
+(57.21)
+
+(24.95)
+
+(2.95)
+
+ -0.641*
+
+-0.230*
+
+0.299*
+
+(-73.06)
+
+(-20.85)
+
+(12.36)
+
+ 0.008*
+
+-0.096*
+
+-0.071*
+
+(1.99)
+
+(-18.44)
+
+(-5.61)
+
+ 0.000
+
+0.005
+
+0.053
+
+(0.00)
+
+(0.21)
+
+(0.85)
+
+
+
+0.255*
+
+-0.299*
+
+-0.573*
+
+(3.26)
+
+(-5.98)
+
+(-4.94)
+
+R-square 0.906 0.008 0.011 0.486 0.011 0.038 0.382 0.010 0.026
+This table reports the nested and nonnested regression results of NS three factors (, , ), macro factor (M), and financial stress factor (F) on yields of three selected bond indices used
+
+in the study. The numbers in parentheses are t statistics. * indicates that the coefficient is significantly different from zero at the 5% level.
+
+41
+
+Table 5: Encompassing tests of out-of-sample forecasts Panel A: nested model
+
+Restricted Model
+Non-restricted Model
+Treasury 10Y-20Y Index
+Broad Investment Grade Bond Index
+High Yield Market Index
+
+NS
+NS+Mt
+57.962* (0.00) 1.708 (0.19) 2.414 (0.12)
+
+NS
+NS+ Ft
+80.728* (0.00) 65.255* (0.00) 162.095* (0.00)
+
+NS+Mt
+NS+Mt+Ft
+72.745* (0.00) 98.478* (0.00) 199.274* (0.00)
+
+Panel B: nonnested model
+
+Treasury 10Y-20Y Index
+Broad Investment Grade Bond Index
+High Yield Market Index
+
+NS 10.173* (0.000) 10.693* (0.001) 10.670* (0.001)
+
+Mt 2.035 (0.153) 2.455 (0.117) 2.616 (0.105)
+
+Ft 12.834* (0.000) 7.736* (0.005) 3.890* (0.048)
+
+This table presents the results of encompassing test of out-of-sample forecasts among factor models. For
+the nested model, panel A reports the F statistics and the corresponding p-values in parentheses for the joint significance by comparing restricted model with non-restricted model. The null hypotheses are 0:  = 0 and 0:  = 0 in equation (8). For the nonnested model, we use a multiple forecast encompassing method developed by Harvey and Newbold (2000). In panel B, we report the test statistics (corrected for
+forecast error bias) and the associated p-values in parentheses. * indicates the significance at the 10% level.
+
+42
+
+Table 6 A. The 95%VaR estimates based on the NS factor-augmented model
+
+Mean
+
+Standard Deviation
+
+75% quantile 25% quantile
+
+Treasury 10Y-20Y Index
+
+NS
+
+26.705
+
+14.610
+
+38.281
+
+10.867
+
+(1.19%)
+
+(0.65%)
+
+(1.71%)
+
+(0.48%)
+
+M
+
+24.689 (1.10%)
+
+3.144 (0.14%)
+
+26.935 (1.20%)
+
+22.248 (0.99%)
+
+F NS + 
+NS + 
+
+25.342 (1.13%) 26.432 (1.18%) 26.367
+
+4.857 (0.22%) 13.247 (0.59%) 12.602
+
+27.668 (1.23%) 36.806 (1.65%) 36.603
+
+22.359 (1.00%) 11.777 (0.53%) 13.991
+
+NS +  + 
+
+(1.18%) 26.161
+
+(0.56%) 11.904
+
+(1.64%) 35.323
+
+(0.63%) 14.570
+
+(1.17%)
+
+(0.53%)
+
+(1.58%)
+
+(0.65%)
+
+Broad Investment Grade Bond Index
+
+NS (Treasury zero)
+
+12.776
+
+4.994
+
+16.677
+
+7.471
+
+(0.69%)
+
+(0.27%)
+
+(0.90%)
+
+(0.41%)
+
+NS (AA-rated)
+
+12.366
+
+4.312
+
+15.451
+
+9.130
+
+(0.67%)
+
+(0.23%)
+
+(0.84%)
+
+(0.49%)
+
+M
+
+14.763 (0.80%)
+
+2.903 (0.16%)
+
+18.023 (0.98%)
+
+11.928 (0.65%)
+
+F NS + 
+NS + 
+
+14.082 (0.76%) 15.241 (0.83%) 11.784
+
+3.605 (0.19%)
+5.906 (0.32%)
+6.895
+
+16.735 (0.91%) 19.607 (1.06%) 15.433
+
+10.914 (0.59%) 9.289 (0.50%) 5.676
+
+NS +  + 
+
+(0.64%) 12.269
+
+(0.37%) 7.190
+
+(0.84%) 16.618
+
+(0.31%) 5.950
+
+(0.67%)
+
+(0.39%)
+
+(0.91%)
+
+(0.32%)
+
+High Yield Market Index
+
+NS (Treasury zero) NS (BBB-rated)
+M F NS +  NS +  NS +  + 
+
+5.482 (0.70%)
+4.836 (0.62%)
+3.949 (0.51%)
+3.638 (0.47%)
+5.201 (0.67%)
+4.367 (0.56%)
+4.410 (0.57%)
+
+1.413 (0.18%)
+0.739 (0.09%)
+1.044 (0.13%)
+0.749 (0.09%)
+0.862 (0.11%) 1.131 (0.14%) 1.050 (0.13%)
+
+6.833 (0.88%) 5.420 (0.69%) 5.029 (0.64%) 4.234 (0.54%) 5.995 (0.77%) 5.041 (0.65%) 5.182 (0.67%)
+
+4.242 (0.54%) 4.154 (0.53%) 3.390 (0.43%) 3.390 (0.43%) 4.497 (0.58%) 3.617 (0.46%) 3.652 (0.46%)
+
+Expected Shortfall
+6.793 (0.30%) 7.157 (0.32%) 8.424 (0.37%) 6.859 (0.31%) 6.345 (0.28%) 5.425 (0.24%)
+2.636 (0.14%) 2.573 (0.14%) 1.959 (0.10%) 1.935 (0.10%) 2.069 (0.11%) 1.770 (0.09%) 1.566 (0.08%)
+1.564 (0.08%) 1.368 (0.15%) 1.926 (0.23%) 2.056 (0.30%) 2.039 (0.17%) 1.978 (0.17%) 1.408 (0.10%)
+
+This table summarizes the mean, standard deviation, 25% and 75% quantiles and expected shortfall of the VaR estimates across sample period. The value in parenthesis is the ratio of VaR estimate to the initial value of bond portfolio. The initial values of Treasury 10Y-20Y Index, Broad Investment Grade Bond Index and High Yield Market Index are 2232, 1845 and 778, respectively. Using data between t-500 and t-1, the 95% VaR at time t is estimated. In total, we produce 424 VaR estimates from Apr. 2013 to Dec. 2014.
+
+43
+
+Table 6 B. The 99%VaR estimates based on the NS factor-augmented model
+
+Mean
+
+Standard Deviation
+
+75% quantile 25% quantile
+
+Treasury 10Y-20Y Index
+
+NS
+
+30.812
+
+16.650
+
+44.221
+
+12.753
+
+(1.38%)
+
+(0.74%)
+
+(1.98%)
+
+(0.57%)
+
+M
+
+28.644 (1.28%)
+
+3.718 (0.17%)
+
+32.018 (1.43%)
+
+26.135 (1.17%)
+
+F NS + 
+NS + 
+
+29.411 (1.32%) 30.573 (1.37%) 30.512
+
+5.762 (0.26%) 15.050 (0.67%) 14.295
+
+31.827 (1.43%) 42.208 (1.89%) 42.621
+
+25.700 (1.15%) 13.833 (0.62%) 16.512
+
+NS +  + 
+
+(1.37%) 30.294
+
+(0.64%) 13.512
+
+(1.91%) 41.425
+
+(0.74%) 17.272
+
+(1.36%)
+
+(0.61%)
+
+(1.86%)
+
+(0.77%)
+
+Broad Investment Grade Bond Index
+
+NS (Treasury zero)
+
+16.123
+
+5.856
+
+20.338
+
+11.626
+
+(0.87%)
+
+(0.31%)
+
+(1.10%)
+
+(0.63%)
+
+NS (AA-rated)
+
+16.669
+
+6.765
+
+21.758
+
+9.454
+
+(0.90%)
+
+(0.36%)
+
+(1.17%)
+
+(0.51%)
+
+M
+
+19.210 (1.04%)
+
+4.182 (0.22%)
+
+23.897 (1.29%)
+
+15.165 (0.82%)
+
+F NS + 
+NS + 
+
+18.273 (0.99%) 19.885 (1.08%) 15.399
+
+4.734 (0.25%)
+8.006 (0.43%)
+9.283
+
+21.944 (1.19%) 25.414 (1.37%) 20.320
+
+14.081 (0.76%) 11.780 (0.64%) 7.300
+
+NS +  + 
+
+(0.83%) 16.031
+
+(0.50%) 9.684
+
+(1.10%) 21.915
+
+(0.39%) 7.579
+
+(0.87%)
+
+(0.52%)
+
+(1.18%)
+
+(0.41%)
+
+High Yield Market Index
+
+NS (Treasury zero) NS (BBB-rated)
+M F NS +  NS +  NS +  + 
+
+10.597 (1.36%)
+9.364 (1.20%)
+7.639 (0.98%)
+7.067 (0.91%) 10.089 (1.29%)
+8.486 (1.09%)
+8.589 (1.10%)
+
+2.457 (0.31%)
+1.213 (0.15%)
+1.844 (0.23%)
+1.424 (0.18%)
+1.529 (0.20%)
+2.147 (0.27%)
+2.110 (0.27%)
+
+12.684 (1.63%) 10.275 (1.32%) 9.289 (1.19%) 8.189 (1.05%) 11.231 (1.44%) 9.780 (1.25%) 10.217 (1.31%)
+
+8.066 (1.03%) 8.486 (1.09%) 6.685 (0.86%) 6.555 (0.84%) 8.852 (1.14%) 6.895 (0.88%) 6.953 (0.89%)
+
+Expected Shortfall
+6.151 (0.28%) 8.291 (0.37%) 5.465 (0.25%) 6.252 (0.28%) 8.702 (0.39%) 8.419 (0.38%)
+2.248 (0.12%) 1.733 (0.09%) 2.086 (0.11%) 0.562 (0.03%) 1.496 (0.08%) 2.436 (0.13%) 2.907 (0.16%)
+0.657 (0.08%) 1.198 (0.15%) 1.788 (0.23%) 2.338 (0.30%) 1.344 (0.17%) 1.368 (0.17%) 0.758 (0.10%)
+
+This table summarizes the mean, standard deviation, 25% and 75% quantiles and expected shortfall of the VaR estimates across sample period. The value in parenthesis is the ratio of VaR estimate to the initial value of bond portfolio. The initial values of Treasury 10Y-20Y Index, Broad Investment Grade Bond Index and High Yield Market Index are 2232, 1845 and 778, respectively. Using data between t-500 and t-1, the 99% VaR at time t is estimated. In total, we produce 424 VaR estimates from Apr. 2013 to Dec. 2014.
+
+44
+
+Table 7 A. Backtest results for 95%VaR
+
+Unconditional Coverage (LRuc)
+
+Independence (LRind)
+
+Panel A: Treasury 10Y-20Y Index
+
+NS
+
+0.204
+
+4.792*
+
+(0.65)
+
+(0.03)
+
+M
+
+9.714* (0.00)
+
+0.000 (1.00)
+
+F NS + 
+
+11.742* (0.00) 0.218
+
+0.000 (1.00) 3.089
+
+NS + 
+
+(0.64) 0.498
+
+(0.08) 3.364
+
+NS +  + 
+
+(0.48) 0.053 (0.81)
+
+(0.07) 2.838 (0.09)
+
+Panel B: Broad Investment Grade Bond Index
+
+NS (Treasury zero)
+
+3.907*
+
+3.262
+
+(0.05)
+
+(0.07)
+
+NS (AA-rated)
+
+1.435
+
+2.501
+
+(0.23)
+
+(0.11)
+
+M
+
+23.367* (0.00)
+
+0.000 (1.00)
+
+F NS + 
+NS + 
+
+23.367* (0.00) 14.062* (0.00) 0.794
+
+0.000 (1.00) 0.000 (1.00) 3.563
+
+NS +  + 
+
+(0.37) 0.453
+
+(0.06) 1.246
+
+(0.50)
+
+(0.26)
+
+Panel C: High Yield Market Index
+
+NS (Treasury zero)
+
+6.398*
+
+5.495*
+
+(0.01)
+
+(0.02)
+
+NS (BBB-rated)
+
+2.928
+
+9.432*
+
+(0.08)
+
+(0.00)
+
+M
+
+0.000 (1.00)
+
+17.791* (0.00)
+
+F NS + 
+
+0.052 (0.82) 7.942*
+
+17.258* (0.00) 5.927*
+
+NS + 
+
+(0.01) 6.398*
+
+(0.02) 1.393
+
+NS +  + 
+
+(0.01) 2.107 (0.87)
+
+(0.23) 0.877 (0.35)
+
+Conditional Coverage
+(LRcc)
+4.996 (0.08) 9.714* (0.00) 11.742* (0.00) 3.307 (0.19) 3.862 (0.14) 2.891 (0.23)
+7.170* (0.03) 3.936 (0.14) 23.367* (0.00) 23.367* (0.00) 14.062* (0.00) 4.356 (0.11) 1.699 (0.43)
+11.893* (0.00) 12.360* (0.00) 17.791* (0.00) 17.310* (0.00) 13.870* (0.00) 7.790* (0.02) 2.984 (0.22)
+
+Violation Ratio
+0.055 0.020 0.017 0.050 0.042 0.047
+0.030 0.037 0.008 0.008 0.015 0.059 0.057
+0.025 0.032 0.050 0.052 0.022 0.025 0.040
+
+Average size of violation 6.793 7.157 8.424 6.859 6.345 5.425
+2.436 1.925 1.763 2.439 1.979 1.837 1.715
+1.564 1.368 1.926 2.056 2.039 1.978 1.408
+
+This table presents the results of the 95%VaR evaluation using the unconditional, independence and
+
+conditional coverage tests, violation ratio and average sizes of violation. Violation ratio is defined as "the
+
+violation number divided by the number of VaR estimates". The conditional coverage test (LRcc) is a joint
+
+test of which
+
+itsheasuynmcpotnodtiitciaolndailsctroibvuerteadgeas(LR2u(c)2a)n.dTsheerinaulminbdeerpseinndpeanrceent(hLeRseinsda),rethpa-vt ailsueLsR. *cc=indLicRautces+thLaRt tinhde,
+
+coefficient is significantly different from zero at the 5% level.
+
+45
+
+Table 7 B. Backtest results for 99%VaR
+
+Unconditional Coverage (LRuc)
+
+Independence (LRind)
+
+Panel A: Treasury 10Y-20Y Index
+
+NS
+
+23.627*
+
+4.670*
+
+(0.00)
+
+(0.03)
+
+M
+
+0.276 (0.60)
+
+0.000 (1.00)
+
+F NS + 
+
+0.234 (0.63) 10.529*
+
+0.000 (1.00) 0.403
+
+NS + 
+
+(0.00) 3.131
+
+(0.52) 0.924
+
+NS +  + 
+
+(0.08) 3.131 (0.08)
+
+(0.33) 0.000 (1.00)
+
+Panel B: Broad Investment Grade Bond Index
+
+NS (Treasury zero)
+
+0.234
+
+0.000
+
+(0.63)
+
+(1.00)
+
+NS (AA-rated)
+
+0.000
+
+0.000
+
+(1.00)
+
+(1.00)
+
+M
+
+3.250 (0.07)
+
+0.000 (1.00)
+
+F NS + 
+NS + 
+
+3.250 (0.07) 1.237 (0.27) 1.857
+
+0.000 (1.00) 0.000 (1.00) 0.000
+
+NS +  + 
+
+(0.17) 0.234
+
+(1.00) 0.000
+
+(0.63)
+
+(1.00)
+
+Panel C: High Yield Market Index
+
+NS (Treasury zero)
+
+3.250
+
+0.000
+
+(0.07)
+
+(1.00)
+
+NS (BBB-rated)
+
+0.276
+
+0.000
+
+(0.60)
+
+(1.00)
+
+M
+
+3.131 (0.08)
+
+0.000 (1.00)
+
+F NS + 
+
+1.857 (0.17) 1.237
+
+0.000 (1.00) 0.000
+
+NS + 
+
+(0.26) 0.234
+
+(1.00) 0.000
+
+NS +  + 
+
+(0.63) 0.234 (0.63)
+
+(1.00) 0.000 (1.00)
+
+Conditional Coverage
+(LRcc)
+28.297* (0.00) 0.276 (0.87) 0.234 (0.89) 10.933* (0.00) 4.055 (0.13) 3.131 (0.21)
+0.234 (0.89) 0.000 (1.00) 3.250 (0.20) 3.250 (0.20) 1.237 (0.54) 1.857 (0.40) 0.234 (0.89)
+3.250 (0.19) 0.276 (0.87) 3.131 (0.21) 1.857 (0.40) 1.237 (0.54) 0.234 (0.89) 0.234 (0.89)
+
+Violation Ratio
+0.042 0.007 0.013 0.029 0.020 0.020
+0.012 0.010 0.003 0.003 0.005 0.017 0.012
+0.003 0.008 0.020 0.017 0.005 0.012 0.012
+
+Average size of violation 6.151 8.291 5.465 6.252 8.702 8.419
+2.248 1.733 2.087 0.562 1.496 2.436 2.907
+0.657 1.198 1.788 2.338 1.344 1.368 0.758
+
+This table presents the results of the 99%VaR evaluation using the unconditional, independence and
+
+conditional coverage tests, violation ratio and average sizes of violation. Violation ratio is defined as "the
+
+violation number divided by the number of VaR estimates". The conditional coverage test (LRcc) is a joint
+
+test of which
+
+itsheasuynmcpotnodtiitciaolndailsctroibvuerteadgeas(LR2u(c)2a)n.dTsheerinaulminbdeerpseinndpeanrceent(hLeRseinsda),rethpa-vt ailsueLsR. *cc=indLicRautces+thLaRt tinhde,
+
+coefficient is significantly different from zero at the 5% level.
+
+46
+
+Table 8. Conditional predictive ability test
+
+95%VaR NS
+
+NS
+M F NS+M NS+F NS+M +F
+
+0
+
+M
+246.21 (0.00)
+0
+
+F
+230.46 (0.00) 99.44 (0.00)
+0
+
+NS +M
+159.92 (0.00) 226.35 (0.00) 221.46 (0.00)
+0
+
+NS +F
+116.85 (0.00) 205.86 (0.00) 206.82 (0.00) 116.25 (0.00)
+0
+
+NS +M +F
+165.72 (0.00) 202.41 (0.00) 204.31 (0.00) 124.75 (0.00) 107.48 (0.00)
+0
+
+NS 0
+
+M
+196.40 (0.00)
+0
+
+F
+190.49 (0.00) 183.90 (0.00)
+0
+
+NS +M
+95.29 (0.00) 223.24 (0.00) 218.74 (0.00)
+0
+
+NS +F
+175.46 (0.00) 147.16 (0.00) 173.50 (0.00) 206.86 (0.00)
+0
+
+NS +M +F
+153.30 (0.00) 142.33 (0.00) 211.06 (0.00) 184.50 (0.00) 141.25 (0.00)
+0
+
+NS 0
+
+M
+330.21 (0.00)
+0
+
+F
+111.73 (0.00) 362.54 (0.00)
+0
+
+NS +M
+165.09 (0.00) 355.99 (0.00) 102.44 (0.00)
+0
+
+NS +F
+300.24 (0.00) 71.51 (0.00) 361.53 (0.00) 355.01 (0.00)
+0
+
+NS +M +F
+131.96 (0.00) 124.08 (0.00) 275.91 (0.00) 307.18 (0.00) 107.85 (0.00)
+0
+
+99%VaR NS
+
+NS
+M F NS+M NS+F NS+M +F
+
+0
+
+M
+258.40 (0.00)
+0
+
+F
+236.94 (0.00) 101.69 (0.00)
+0
+
+NS +M
+166.61 (0.00) 238.21 (0.00) 229.86 (0.00)
+0
+
+NS +F
+118.02 (0.00) 216.38 (0.00) 213.23 (0.00) 120.74 (0.00)
+0
+
+NS +M +F
+164.91 (0.00) 212.58 (0.00) 210.53 (0.00) 128.40 (0.00) 115.03 (0.00)
+0
+
+NS 0
+
+M
+206.74 (0.00)
+0
+
+F
+124.34 (0.00) 224.05 (0.00)
+0
+
+NS +M
+366.45 (0.00) 176.98 (0.00) 208.95 (0.00)
+0
+
+NS +F
+179.18 (0.00) 220.27 (0.00) 186.41 (0.00) 147.98 (0.00)
+0
+
+NS +M +F
+187.09 (0.00) 215.49 (0.00) 185.49 (0.00) 157.02 (0.00) 127.83 (0.00)
+0
+
+NS 0
+
+M
+274.30 (0.00)
+0
+
+F
+310.38 (0.00) 105.92 (0.00)
+0
+
+NS +M
+249.12 (0.00) 382.63 (0.00) 381.25 (0.00)
+0
+
+NS +F
+184.07 (0.00) 139.78 (0.00) 138.50 (0.00) 201.64 (0.00)
+0
+
+NS +M +F
+233.27 (0.00) 194.70 (0.00) 170.65 (0.00) 188.40 (0.00) 110.34 (0.00)
+0
+
+This table reports the Wald-type test statistics for pairwise comparisons among factor models, using the conditional predictive ability (CPA) test of Giacomini and White (2006). The null
+
+hypothesis is that the models in the "line" have the equal conditional predictive ability as the models in the "column". If the value of the Wald-type test statistic is greater than 2,1-, which
+
+is the 1 -  quantile of a Chi-square distribution with q degree of freedom, then the null hypothesis is rejected. The test function level of a 2,1- distribution with  = 2 degree of freedom is 5.99 and the numbers in parentheses are p values.
+
+
+
+is chosen as
+
+ = (1,
+
+ ). The 5% significance
+
+47
+
+SFB 649 Discussion Paper Series 2016
+For a complete list of Discussion Papers published by the SFB 649, please visit http://sfb649.wiwi.hu-berlin.de.
+001 "Downside risk and stock returns: An empirical analysis of the long-run and short-run dynamics from the G-7 Countries" by Cathy Yi-Hsuan Chen, Thomas C. Chiang and Wolfgang Karl Härdle, January 2016.
+002 "Uncertainty and Employment Dynamics in the Euro Area and the US" by Aleksei Netsunajev and Katharina Glass, January 2016.
+003 "College Admissions with Entrance Exams: Centralized versus Decentralized" by Isa E. Hafalir, Rustamdjan Hakimov, Dorothea Kübler and Morimitsu Kurino, January 2016.
+004 "Leveraged ETF options implied volatility paradox: a statistical study" by Wolfgang Karl Härdle, Sergey Nasekin and Zhiwu Hong, February 2016.
+005 "The German Labor Market Miracle, 2003 -2015: An Assessment" by Michael C. Burda, February 2016.
+006 "What Derives the Bond Portfolio Value-at-Risk: Information Roles of Macroeconomic and Financial Stress Factors" by Anthony H. Tu and Cathy Yi-Hsuan Chen, February 2016.
+SFSBF6B4694, 9S,pSapnadnaduaeureSrtrSatßraeß1e, 1D,-D10-1107187B8eBrleinrlin htthpt:t/p/:/s/fbs6fb4694.w9.iwwiiw.hiu.h-bue-brleinrl.idne.de
+ThTishrisesreasercahrcwhawsassupsuppoprtoerdtebdybtyhethDeeDuetsucthseche ForFsocrhsuchnugnsgesgmeeminesicnhsachftatfht rtohuroguhgthhethSeFSBF6B4694"9Ec"oEnconmoimc RicisRki"s.k".
+
+

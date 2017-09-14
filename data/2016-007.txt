@@ -1,0 +1,2404 @@
+BERLIN
+
+SFB 6 4 9 E C O N O M I C R I S K
+
+SFB 649 Discussion Paper 2016-007
+Budget-neutral fiscal rules targeting
+inflation differentials
+Maren Brede*
+* Humboldt-Universit‰t zu Berlin, Germany This research was supported by the Deutsche Forschungsgemeinschaft through the SFB 649 "Economic Risk".
+http://sfb649.wiwi.hu-berlin.de ISSN 1860-5664
+SFB 649, Humboldt-Universit‰t zu Berlin Spandauer Straﬂe 1, D-10178 Berlin
+
+Budget-neutral fiscal rules targeting inflation differentials
+by Maren Brede October 17, 2016
+Abstract In light of persistent inflation dispersion and high debt levels in the EMU, this paper investigates the desirability of budget-neutral fiscal policy rules that respond to the domestic inflation differential. The paper employs a two-country DSGE model of a monetary union with traded and non-traded goods. When consumption or labour income taxes respond to the domestic inflation differential while lump-sum taxes balance the budget, a national fiscal authority is able to reduce welfare costs of business cycle fluctuations by 1-4%. When lump-sum taxes are absent, hybrid rules using only distortionary taxes can reduce welfare costs by 6-10% under demand and supply disturbances. Gains in welfare stem from higher mean consumption due to lower price dispersion when the fiscal authority actively compresses the domestic inflation differential and thus domestic inflation. Keywords: Inflation differentials, monetary union, fiscal rule, budget-neutral policy JEL classification: E62, E63, F41, F45
+*Faculty of Business and Economics, Humboldt-Universita®t zu Berlin, Spandauer Straﬂe 1, 10178 Berlin, Germany, email: maren.brede@bdpems.de. I would like to thank Michael C. Burda, Simon Voigts and the participants of the Brown Bag Seminar at HumboldtUniversit®at zu Berlin, the Fiscal Week at Banco de Espan~a (Madrid), the CRC 649 Conference (Motzen), the annual conference of the German Economic Association (Augsburg) and the 12th Dynare conference (Rome) for valuable comments and suggestions. The financial support of the German Research Foundation (DFG) through the Research Training Group 1659 and the SFB 649 is gratefully acknowledged.
+1
+
+1 Introduction
+During the 2000s, European countries' inflation rates have been characterised by a high degree of heterogeneity. Prior to the introduction of the Euro, countries with traditionally higher inflation rates managed to lower them in order to comply with the Maastricht criteria. In the early years of the Euro, nominal convergence seemed to be attained.1 However as documented by Rabanal (2009), the years that followed showed a trend reversal. Specifically, inflation rates in the southern European periphery consistently exceeded the average Euro area inflation rate leading to significant real appreciations and the oftenmentioned loss of competitiveness. Deviations of the domestic inflation rate from the union-wide average, or in other words inflation differentials, are not necessarily an undesirable phenomenon in a monetary union. Since the nominal exchange rate is fixed, inflation differentials are the naturtal by-product of asymmetric shocks and part of the adjustment mechanism. They do pose a problem however for the conduct of monetary policy. Consider a country whose inflation rate is above the union-wide inflation rate. The nominal interest rate set by the centralised monetary authority does not increase as much as the Taylor principle would usually prescribe. The country's inflation rate enters the aggregate union-wide inflation rate with a certain weight so that the Central Bank only partially responds to the increase in inflation in that country, a fact commonly known as one size does not fit all. Moreover, inflation differentials are particularly problematic if they are highly persistent as observed in the Euro area after the introduction of the Euro. The persistent deviations from the union-wide inflation rate lead to a large divergence in competitiveness and are followed by a harmful re-adjustment period for the countries whose real exchange rate strongly appreciated.2 Since the centralised monetary policy cannot address the heterogeneity across member countries' inflation rates, various articles ask what role could be assigned to national fiscal policies in mitigating differences in inflation rates and in how far such a policy would be desirable. This paper seeks to add to the existing discussion on fiscal feedback to national differences by analysing the effectiveness of fiscal tax rules that strategically react to the domestic inflation differential as a stabilising policy.3 Kirsanova et al. (2007) find that fiscal feedback to differences in inflation rates are welfare-improving compared to fiscal rules responding to domestic output or the terms of trade only. In their New Keynesian model of a monetary union with two countries, feedback comes through government spending which is financed by government debt and constant taxes on labour income. Similarly, Beetsma and Jensen (2005) work with government purchases as the fiscal instrument financed by either lump-sum taxes or government debt. Moreover, Vogel et al. (2013) study various tax instruments in their fiscal rules also allowing for government debt. Both works find gains from responding to deviations in the terms of trade. Positive analyses of Duarte and Wolman (2002, 2008) add to the discussion by including a non-tradeable
+1 See Rogers (2007) who argues that nominal convergence across the Euro area has been achieved already in the 90's.
+2 A large amount of research has been dedicated to identify the drivers of the inflation differentials across EMU countries. Prominent hypotheses were a catching-up process as described in Balassa (1964) and Samuelson (1964), differences in institutions/rigidities or demand-driven effects. A non-exhaustive overview of research in that field contains Lo¥pez-Salido et al. (2005), Canzoneri et al. (2006), Angeloni and Ehrmann (2007), Andr¥es et al. (2008), Rabanal (2009), Altissimo et al. (2011) and Morsy and Jaumotte (2012).
+3 Considering the inflation differential, i.e. the difference of a country's domestic inflation to that of the union, as the fiscal target has the straightforward advantage that it is easy to measure in a monetary union with several member states. Indicators such as terms of trade or differences in inflation rates are more difficult to apply in a framework of more than two countries such as the EMU.
+2
+
+goods producing sector in the model of the monetary union. Including non-traded varieties extends the scope for large and persistent price and thus inflation differentials. They show that a fiscal authority can successfully compress inflation differentials via a fiscal rule for 'pro-cyclical' labour income taxes. A labour income tax that is lowered in response to a positive domestic inflation differential, i.e. when the domestic inflation rate is above the union-wide average, compresses inflation differentials, yet volatility of domestic inflation might increase. The existing studies focus on non-distortionary instruments and allow the issuance of public debt to finance the fiscal intervention. In the European context however, it is particularly interesting to inspect bugdet-neutral fiscal rules that abstract from the issuance of new public debt. The Southern periphery of the Euro area experienced a rise in the levels of public debt rendering debt-financed policies that target inflation differentials possibly not attainable. In that respect, this paper adds to the existing literature by explicitly considering budget-neutral policies and works along the lines of a large body of research studying the optimal conduct of fiscal policy via simple rules in a monetary union.4 Additionally, this paper is related to the literature concerned with fiscal devaluations as it considers budget-neutral policies which became explicitly relevant in the context of the European debt crisis. Prominent works in this field by von Thadden and Lipinska (2013), Farhi et al. (2014) and Engler et al. (2014) investigate the effectiveness of a unilateral tax shift to boost competitiveness of a member country of a monetary union. The distinguishing aspect between the literature on fiscal devaluations and the analysis performed in this paper is the focus on temporary tax shifts in response to contemporaneous discrepancies in the domestic and the union-wide inflation rate instead of permanent tax shifts. Specifically, this paper analyses the effectiveness of four fiscal rules in reducing welfare costs arising from business cycle fluctuations. As tax instruments the analysis considers consumption, labour income and lump-sum taxes that potentially balance the fiscal budget. Consumption taxes in the form of value-added taxes have been one of the prominent fiscal instruments being adjusted during the Financial as well as the European crisis in several European countries and thus represent a natural candidate for a fiscal tax rule to examine. Labour income taxes are considered to determine the benefits from using this instrument which have been suggested but not quantified by Duarte and Wolman (2008). The welfare analysis suggests that consumption (labour income) taxes should be raised (lowered) when domestic inflation exceeds the union-wide average. Second, the fiscal rules for which lump-sum taxes balance the budget are able to reduce welfare costs of business cycle fluctuations by 1-4%. They do so, by reducing the volatility of the inflation differential and domestic inflation which lowers mean price dispersion and raises mean consumption. Interestingly, hybrid rules where also the fiscal budget is financed by a distortionary tax are able to outperform the former and reduce welfare costs by 6-10% under the full stochastic setup. This is because they can combine the benefits of the rules relying on lump-sum financing when the two tax instruments move in opposite directions to compress inflationary responses most effectively. The paper proceeds as follows: Section 2 presents the set-up of the model and the channels through which inflation differentials arise. After declaring the baseline calibration in section 3, section 4 performs a welfare analysis for the four fiscal rules which are investigated. This section also presents the welfare gains or losses from the fiscal rules conditional on the shock specification and discusses impulse-response functions to compare the dynamics
+4 Additional to the works mentioned above one has to name Lombardo and Sutherland (2004), Beetsma and Jensen (2004, 2005), Pappa and Vassilatos (2007), Gali and Monacelli (2008), Ferrero (2009) and Kirsanova and Wren-Lewis (2012) as notable advances in that research area.
+3
+
+of the model under the different fiscal rules to the baseline in which distortionary taxes are constant. Section 5 concludes.
+
+2 The Model
+The model is similar to that of Duarte and Wolman (2008) and consists of two countries of equal size, Home (H) and Foreign (F ), which constitute a monetary union. Each country is populated by a measure one of households which have access to an internationally traded asset. In each country there is a sector producing tradeable goods which are traded within the monetary union. There is also a sector producing non-tradeable goods which can only be consumed by domestic households and the domestic government. Both countries are subject to nominal rigidities in the goods market in both sectors. The model abstracts from migration, i.e. labour is immobile across countries. Within a country though, labour is assumed to be perfectly mobile across sectors. The following paragraphs describe the set-up of the Home economy. The structure of the Foreign economy is analogous if not explicitly stated otherwise. Foreign variables are denoted by an asterisk.
+
+2.1 Households
+
+Households maximise their expected lifetime utility
+
+
+Et k [U (Ct+k) - V (Lt+k)]
+k=0
+
+where E denotes the expectations operator and   (0, 1) the discount factor. Households derive utility from consumption Ct and disutility from supplying labour Lt. The aggregate consumption index Ct is composed of consumption of tradeable, CT , and non-tradeable, CN , goods as in
+
+
+
+Ct =
+
+(1
+
+-
+
+1 -1
+
+)
+
+
+
+CT
+
+
+,t
+
++
+
+1 -1
+  CN,t
+
+-1
+.
+
+The elasticity of substitution between traded and non-traded goods is expressed by  and  denotes the steady state share of non-tradeable goods in the aggregate consumption index. The price of the final consumption good is given by
+
+1
+Pt = (1 - )PT1,-t  + PN1-,t 1-
+
+where PT and PN denote the prices of traded and non-traded goods. Households choose the optimal allocation of consumption expenditures across different types of goods. The optimisation yields the following demand functions
+
+CT ,t
+
+=
+
+(1 - )
+
+PT ,t Pt
+
+-
+Ct
+
+CN,t
+
+=
+
+
+
+PN,t Pt
+
+-
+Ct.
+
+Households have access to a riskless internationally traded bond Bt which pays out the gross nominal interest rate Rt in t + 1. In line with von Thadden and Lipinska (2013),
+
+4
+
+households pay a consumption tax tC on their consumption, a labour income tax tL on their labour income and lump-sum taxes denoted by tlump. The intertemporal budget constraint expressed in real terms is given by
+
+(1 + tC )Ct
+
++
+
+Bt Pt
+
+=
+
+Rt-1
+
+Bt-1 Pt
+
++
+
+t
+
++ (1 - tL)wtLt
+
+- tlump
+
+where wt stands for the real wage in the economy and t for profit transfers from the ownership of domestic firms. The wage is identical across sectors within the economy due to the assumption of perfect labour mobility across sectors and the absence of wage rigidities. The optimal paths of Ct and Lt are described by the set of optimality conditions derived from the utility maximisation problem of the households. The labour supply decision and the intertemporal Euler equation are given by
+
+(1 - tL)Wt (1 + tC )Pt
+
+=
+
+V (Lt) U (Ct)
+
+U (Ct)
+
+=
+
+Et
+
+U
+
+(Ct+1)
+
+Rt t+1
+
+1 + tC 1 + tC+1
+
+where
+
+t+1
+
+=
+
+Pt+1 Pt
+
+denotes
+
+gross
+
+consumer
+
+price
+
+inflation
+
+net
+
+of
+
+taxes.
+
+2.2 Firms
+In both sectors, intermediate goods are produced by monopolistically competitive firms. Retailers use intermediate varieties as input for the production of final goods.
+
+2.2.1 Retailers
+
+Retailers in both sectors are perfectly competitive and combine intermediate goods to
+
+produce the final good. In the non-traded sector, the final good YN is produced with
+
+technology YN,t =
+
+1 0
+
+YN,t(i)
+
+-1
+di
+
+-1 where
+
+is the elasticity of substitution across
+
+different varieties YN (i) of the non-tradeable good. Given the technology, retailers in the
+
+non-traded sector maximise their profit
+
+1
+max PN,tYN,t - PN,t(i)YN,t(i)di
+0
+
+which yields the demand function
+
+YN,t(i) =
+
+PN,t(i) PN,t
+
+-
+YN,t
+
+1
+
+where PN,t(i) is the price for variety i of the non-traded good and PN,t =
+
+1 0
+
+PN,t(i)1-
+
+di
+
+1- .
+
+In the traded sector, retailers combine intermediate home and foreign produced traded
+
+goods, YH,t(i) and YF,t(i), to produce the final traded good YT consumed by domestic
+
+households. They choose their inputs to maximise
+
+11
+max PT,tYT,t - PH,t(i)YH,t(i)di - PF,t(i)YF,t(i)di
+00
+
+5
+
+subject to technologies YT,t =
+
+
+
+(1
+
+-
+
+)
+
+1 
+
+-1
+YH,t
+
++
+
+
+
+1 
+
+-1
+YF,t
+
+-1
+,
+
+YH,t = YF,t =
+
+1 -1
+YH,t(i) di
+0
+1 -1
+YF,t(i) di
+0
+
+-1 -1
+
+and
+
+where  is the elasticity of substitution between final home and foreign traded goods in the production of YT and  stands for the steady state share of imported goods in the final traded good. Home bias for home produced traded goods is present when  < 0.5. The profit maximisation yields the demand functions
+
+YHd,t(i)
+
+=
+
+(1 - )
+
+PH,t(i) PH,t
+
+-
+
+PH,t PT ,t
+
+-
+YT ,t
+
+YFd,t(i)
+
+=
+
+
+
+PF,t(i) - PF,t
+
+PF,t PT ,t
+
+-
+YT ,t
+
+where PH,t(i) and PF,t(i) are the prices of the home and foreign traded variety i and where
+
+11
+
+the price indices are defined as PH,t =
+
+1 0
+
+PH,t(i)1-
+
+1- , PF,t =
+
+1 0
+
+PF,t
+
+(i)1-
+
+1- and
+
+1
+PT,t = (1 - )PH1-,t + PF1,-t  .1-
+
+2.2.2 Intermediate goods producing firms
+
+In each sector there is a continuum of monopolistically competitive firms indexed by i, i  [0, 1], which set their prices in a Calvo fashion. The firms produce intermediate goods varieties using a linear production technology and sector- and country-specific technology ZS, S  [T, N ]. In the non-tradeable goods sector an intermediate goods producing firm i produces with
+
+YN,t(i) = exp(ZN,t)LN,t(i)
+
+and seeks to maximise its expected profit given that with probability  the firm is not able
+
+to adjust its price PN,t(i) in a given period. Formally, it sets its price to solve the problem
+
+
+max Et kQt,t+k YN,t+k|t(i)PN,t(i) - Wt+kLN,t+k(i)
+k=0
+
+where
+
+Qt,t+k
+
+=
+
+k
+
+U (Ct+k) U (Ct)
+
+Pt Pt+k
+
+1+tC 1+tC+k
+
+is
+
+the
+
+stochastic discount
+
+factor,
+
+YN,t+k|t(i) output
+
+of firm i in t + k given the price set in t and Wt the nominal wage.
+
+The set-up and maximisation problem of an intermediate goods producing firm in the
+
+traded sector is analogous. Intermediate goods in the traded sector in the home economy
+
+are produced by some firm i via the production function
+
+YH,t(i) = exp(ZT,t)LT,t(i).
+Firm i in the tradeable sector sets its price PH,t(i) to maximise
+
+max Et kQt,t+k YH,t+k|t(i)PH,t(i) - Wt+kLT,t+k(i) .
+k=0
+given that with probability  the firm cannot readjust its price.
+
+6
+
+2.2.3 Terms of trade
+
+Due to the presence of the non-traded goods sector, the model includes external and internal terms of trade. The external terms of trade Tt are defined as the price of foreign produced traded goods relative to home produced traded goods, i.e.
+
+Tt
+
+=
+
+PF,t . PH,t
+
+A rise in the terms of trade ameliorates the trade position of the home economy as the foreign produced traded goods become relatively more expensive. The internal terms of trade TN,t are defined as
+
+TN,t = TN ,t =
+
+PN,t
+PT ,t PN ,t PT,t
+
+and
+
+and measure the internal competitiveness across sectors within a country. They capture
+
+the price of the non-traded good relative to the final traded good within a member country
+
+of the union.
+
+2.3 Policy makers
+
+2.3.1 Central monetary authority
+
+Monetary policy is conducted at the union-level. Following von Thadden and Lipinska
+(2013), the central bank sets the union-wide gross nominal interest Rt in response to union-wide average consumer price inflation net of taxes tU = 0.5t + 0.5t. The Taylortype interest rate rule reads
+
+1 Rt = 
+
+tU 
+
+where  captures the rigorousness of the central bank.
+
+2.3.2 Fiscal authority
+In both countries the government consumes non-tradeable varieties and the stream of public consumption relative to total GDP within a country follows an exogenous process of the form
+(Gt/Yt) = (GØ/YØ ) + g(Gt-1/Yt-1) + G,t
+where |G| < 1 and G,t  N (0, G2 ). The government uses its available tax income to finance its expenditures. The budget constraint of the fiscal authority reads
+tlump + tC Ct + tLwtLt = Gt.
+The analysis is concerned with quantifying the gains in welfare when the home economy strategically reacts to variations in its domestic inflation differential with one of its available tax instruments. In order to identify the effects of a specific fiscal rule of the home economy, it is assumed that the foreign economy keeps its distortionary taxes constant. That is, the budget of the foreign fiscal authority is balanced by lump-sum taxes so that the budget constraint of the foreign government reads
+tlump + ØC Ct + ØLwtLt = Gt
+where bar-variables denote deterministic steady state values.
+
+7
+
+2.4 Market clearing and equilibrium
+The market clearing conditions for traded and non-traded goods, the labour market and the international bond market are given by
+
+YT,t = CT,t,
+
+YN,t = CN,t + Gt,
+
+1
+
+Lt =
+
+LT,t(i) + LN,t(i)di,
+
+0
+
+Bt = -Bt.
+
+To close the model, a debt-elastic interest rate as proposed by Schmitt-Groh¥e and Uribe (2003) is incorporated to induce stationarity on private debt. For the impulse response functions the model is approximated linearly around a zero-inflation steady state.
+
+2.5 Sources of inflation differentials
+
+From the definition of the price of consumption in H, Pt, and its analogue for country F , Pt, one can decompose the different sources of consumer price differentials which translate to differences in inflation rates. To begin with, the ratio of aggregate consumer prices of
+both countries is given by
+
+Pt Pt
+
+=
+
+PT ,t PT,t
+
+1 -  + TN1-,t 1 -  + TN1,t-
+
+1 1-
+.
+
+Neglecting the ratio of traded goods prices for a moment, it is easily seen that the presence
+of non-traded goods ( = 0) is an essential source for price (inflation) differentials. Non-
+traded goods prices are not in direct competition across countries. Hence, different prices
+for non-tradeable goods translate into differing internal terms of trade across countries.
+These lead to price differentials even if the price indices for the final traded good would be identical across countries, i.e. PT,t = PT,t. Going one step further one can analyse in how far inflation differentials might arise from
+the traded goods sector. One can express the ratio of traded goods prices as
+
+PT ,t PT,t
+
+=
+
+(1 - )PH1-,t + PF1,-t  (1 - )PF1,-t  + PH1-,t
+
+1 1-
+
+which shows in how far the presence of home or foreign bias is essential in creating price differentials. Under  = 0.5, when home bias is absent, traded goods price indices would be identical across countries. With a bias when  = 0.5, price (and inflation) differentials work through the external terms of trade, i.e. the relative price of foreign to home produced traded goods. Note that neither of the two channels described above rely on the inclusion of rigid prices.
+
+3 Calibration
+This section presents the benchmark parameter values of the model. The calibration is symmetric across countries and one model period corresponds to one quarter.
+
+8
+
+3.1 Private sector
+
+The household's utility is governed by
+
+U (Ct)
+
+=
+
+Ct1- - 1 1-
+
+and
+
+V (Lt)
+
+=
+
+Lt1+ 1+
+
+where  denotes the coefficient of relative risk aversion and  the inverse of the Frisch elasticity of labour supply. The discount factor  takes a standard value of 0.99 while the coefficient of relative risk aversion  as well as the inverse of the Frisch elasticity of labour supply  is set equal to one (log-utility in consumption). As in Duarte and Wolman (2008), the share of non-tradeable goods in the consumption basket  takes a value of 0.4 and the elasticities of substitution ,  and are set to 0.74, 1.5 and 10 respectively. In contrast to these authors, the calibration allows for home bias in the production of the final traded good and sets  = 0.4. The Calvo parameter  is assumed to be identical across sectors and countries. The expected price lifetime is 3 quarters such that  = 2/3 which is close to estimates by Druant et al. (2012) who find for a sample of 17 European countries that on average prices remain unchanged for around 10 months.
+
+3.2 Public sector
+Monetary policy is characterised by a standard Taylor coefficient of  = 1.5. For the fiscal side this work follows von Thadden and Lipinska (2013) and Duarte and Wolman (2008) by assuming a steady state consumption tax rate ØC of 15% and a steady state labour income tax rate ØL of 18%. In order to comply with the budget constraint of the government, the steady state share of public consumption relative to domestic GDP is set to 27.13%.
+
+3.3 Shock processes
+
+The analysis uses the estimated shock processes and variance-covariances matrices of
+Duarte and Wolman (2008) for the technology and government spending processes. Tech-
+nology shocks follow an AR(1) process Zt = AZt-1 + Z,t with covariance matrix , where Zt = [ZT,t, ZN,t, ZT,t, ZN ,t],
+
+ 0.708
+
+A
+
+=
+
+ 
+
+
+
+-0.023 0.006
+
+-0.061
+
+0.169 0.707 -0.435 -0.038
+
+0.006 -0.061 0.708 -0.023
+
+-0.435 
+
+-0.038 
+
+0.169
+
+ 
+
+0.707
+
+and
+
+ 0.16 0.05 0.03 0 
+
+
+
+=
+
+ 
+
+
+
+0.05 0.03
+
+0.06 0
+
+0 0.16
+
+0 0.05
+
+ 
+
+◊
+
+10-3
+
+.
+
+
+
+0 0 0.05 0.06
+
+Shocks to the share of government consumption of output follow independent AR(1) processes with persistence g of 0.42 and variance G2 = 0.000214.
+
+9
+
+4 Welfare analysis
+In order to understand whether a fiscal tax rule that responds to the domestic inflation differential can be welfare-improving, this section determines and compares the welfare costs of business cycle fluctuations under different tax regimes for a given union-wide monetary policy. The welfare analysis follows the framework of Lucas (1987, 2003) and computes a consumption compensation v that a household would be willing to pay to avoid moving from being in the deterministic steady state to being in the stochastic environment. Formally, the consumption compensation v solves
+
+E t[U (Ct) - V (Lt)] = t[U ((1 + v)CØ) - V (LØ)]
+t=0 t=0
+where bar-variables denote the deterministic steady state of the model's variables. The unconditional expectation of the household's lifetime utility in the ergodic distribution of the model must be equal to the lifetime utility of the household in the deterministic steady state paying the consumption compensation v. Using a second-order Taylor approximation on both sides one can express v as a function of first and second order moments of the ergodic distribution of consumption and hours. v can be decomposed into four components
+v = vmeanC + vmeanL + vvolatilityC + vvolatilityL
+which allows to inspect the contributions of mean effects being the difference between the mean in the ergodic distribution of the model and the deterministic steady state ( vmeanC and vmeanL) and volatility effects (vvolatilityC and vvolatilityL).5 In order to accurately calculate the moments of the ergodic distribution the model is written recursively and solved in Dynare using a second-order accurate perturbation. This paper employs the method developed by Lan and Meyer-Gohde (2013) to find accurate first- and secondorder moments analytically. The paper considers four tax regimes of fiscal feedback to the domestic inflation differential: a responsive consumption or labour income tax where the fiscal budget is balanced by lump-sum taxes, (1) and (2), or when the fiscal budget has to be balanced by the remaining distortionary tax, (3) and (4). The regimes take the following forms
+(1) tL = ØL and tC = ØC +  ln t - ln tU
+(2) tC = ØC and tL = ØL +  ln t - ln tU
+(3) tlump = 0 and tC = ØC +  ln t - ln tU
+(4) tlump = 0 and tL = ØL +  ln t - ln tU
+where  denotes the elasticity of the tax rate with respect to the inflation differential ln t - ln tU , i.e. when domestic inflation is one percentage point above the union-wide aggregate the tax rate increases by  percentage points. Those four scenarios are compared to a baseline economy with  = 0, i.e. with constant distortionary taxes, and where the fiscal budget is balanced by lump-sum taxes to evaluate the desirability of the fiscal rules. The analysis varies the policy parameter  over a grid and searches for the  at which welfare losses are minimised relative to the benchmark. Figure 1 displays the welfare costs of business cycle fluctuations for different  relative to
+5 An explicit derivation of the welfare measure for the given utility function can be found in the appendix.
+10
+
+(1)
+150
+
+(2)
+150
+
+(3)
+150
+
+(4)
+150
+
+140 140 140 140
+
+130 130 130 130
+
+120 120 120 120
+
+110 110 110 110
+
+100 100 100 100
+
+90 90 90 90
+
+80 -15-10-5 0 5 10 15
+
+
+80 -15-10-5 0 5 10 15
+
+
+80 -15-10-5 0 5 10 15
+
+
+80 -15-10-5 0 5 10 15
+
+
+Figure 1: Welfare costs of business cycle fluctuations for different values of  relative to constant distortionary taxes when the budget is financed exclusively by lump-sum taxes (=100) for the four fiscal rules. Note: Rule (3) and (4) do not cross the benchmark intersection at  = 0 because they abstract from lump-sum taxes. For instance, for rule (3) when consumption taxes are constant at  = 0 labour income taxes have to balance the fiscal budget and vice versa. The fluctuations of the distortionary labour income tax cause different welfare costs than if lump-sum taxes would balance the budget. As a consequence, at  = 0 welfare costs of rule (3) and (4) are different from 100.
+
+the baseline scenario. For each scenario there exists a point at which welfare losses are minimised relative to constant distortionary taxes. Rule (1) and (3) display a minimum at positive values for , i.e. at the optimum of these rules the consumption taxes should be raised in response to a domestic inflation rate that is above the union average. The optima of rule (2) and (4) on the other hand are attained at a negative value for  which is in line with the analysis of Duarte and Wolman (2008) who discussed a pro-cyclical labour income tax. Ideally, labour income taxes should be lowered in response to a positive domestic inflation differential. Table 1 displays the relative gains of the fiscal rules to the baseline at their respective optimum, , for the four different scenarios.6 In all cases the majority of the welfare costs arise in the mean component of consumption, vmeanC, due to differences of mean consumption in the ergodic distribution of the model to the level of consumption in the
+6 Note that the optimal tax elasticities seem unrealistically high, especially for rule (3). This can be largely explained by the model setup considering two countries of equal size. In order to create an inflation differential of 1% the model needs strong variations in the domestic inflation rate as the unionwide aggregate partly comoves with domestic inflation, ceteris paribus. The large disturbances necessary to create such sizable inflation differentials justify the size of the optimal tax elasticities.
+
+11
+
+(1) ( = 6)
+
+Welfare loss of fluctuations Decomposition:
+vmeanC : vmeanL : vvolatilityC : vvolatilityL : Moments: mean consumption mean hours mean price disp. (T) mean price disp. (N) std. dev. consumption std. dev. hours std. dev. CPI inflation std. dev. inflation diff. std. dev. cons. tax std. dev. labour tax std. dev. lump-sum tax
+
+baseline -1.0378
+-0.7694 -0.0825 -0.0422 -0.1437
+0.6833 0.9385 1.0009 1.0005 0.0063 0.0169 0.0035 0.0015
+0.0155
+
+responsive -0.9945
+-0.6787 -0.1375 -0.0696 -0.1087
+0.6834 0.9386 1.0007 1.0004 0.0081 0.0147 0.0033 0.0014 0.0085
+0.0149
+
+% 4.17
+8.74 -5.30 -2.63 3.36
+0.01 0.01 -0.01 -0.01 28.58 -13.00 -6.09 -5.52
+-3.87
+
+(2) ( = -5)
+
+responsive -1.0188
+
+% 1.83
+
+-0.6845 -0.1344 -0.0446 -0.1552
+
+8.17 -5.00 -0.23 -1.11
+
+0.6834 0.9386 1.0007 1.0004 0.0064 0.0176 0.0033 0.0013
+0.0066 0.0185
+
+0.01 0.01 -0.02 -0.01 2.82 3.95 -7.12 -12.20
+19.35
+
+(3) ( = 11)
+
+responsive % -0.9276 10.62
+
+-0.7435 0.0047 -0.1515 -0.0373
+
+2.50 8.40 -10.52 10.25
+
+0.6833 0.9384 1.0008 1.0006 0.0119 0.0086 0.0040 0.0014 0.0153 0.0141
+-
+
+0.00 -0.01 -0.01 0.01 89.86 -49.03 13.53 -7.87
+-
+
+(4) ( = -3)
+
+responsive -0.9652
+
+% 6.99
+
+-0.6451 -0.0100 -0.2930 -0.0172
+
+11.98 6.99
+-24.16 12.18
+
+0.6834 0.9384 1.0005 1.0002 0.0165 0.0059 0.0028 0.0013 0.0272 0.0038
+-
+
+0.01 -0.01 -0.03 -0.03 164.22 -65.39 -21.66 -16.77
+-
+
+Table 1: Welfare costs ◊10-3, theoretical moments and percentage gains and differences under the welfare-maximising tax rule (responsive) relative to constant taxes (baseline).
+deterministic steady state.7 Considering rules (1) and (2), the responsive consumption tax performs better at the optimum than the labour income tax. In both cases the bulk of the welfare gain originates in the mean component of consumption, i.e. by actively compressing inflation and inflation differentials, the fiscal authority compresses the level of price dispersion and thus increases mean consumption in the ergodic distribution of the model. Both hybrid rules that abstract from lump-sum taxes outperform rules (1) and (2). Welfare costs are minimised to the largest extent under rule (3) where labour income taxes balance the budget. Under both hybrid rules only the volatility component of consumption suffers while the remaining components of the welfare costs gain. The picture drawn by table 1 suggests that the hybrid rules can outperform the rules where the budget is balanced by lump-sum taxes. This result might however hinge on the type of shock causing the inflation differential. The following paragraphs repeat the previous analysis for the complete shock structure specified in the calibration as well as for technology or government spending shocks only for each rule to assess the robustness of the previous findings. The mechanism for each rule is discussed using impulse response functions after shocks to domestic government spending and productivity in the non-traded sector so that the inflation differential of the home economy is 0.1 percentage points on impact. Spill-overs to other sector's technology have been shut off for the impulse response functions. Since the rules work similar under both types of technology shocks only the
+7 The welfare costs in the mean component of consumption, i.e. the difference between the unconditional expectation of consumption in the ergodic distribution and its deterministic steady state, arise as follows. Following an exogenous disturbance only a fraction of firms can adjust their prices due to the Calvopricing mechanism. This partial adjustment of the price level leads to price dispersion across different varieties of goods produced by the continuum of intermediate goods producing firms. The larger the response of inflation the wider is the underlying dispersion across prices. Price dispersion causes an inefficient allocation of resources as retailers use different quantities of the available varieties to produce the final good. The inefficiency in the production process of the final good ultimately results in a lower mean of consumption in the ergodic distribution of the model.
+12
+
+Complete shock structure
+
+Welfare loss of fluctuations Decomposition:
+vmeanC : vmeanL : vvolatilityC : vvolatilityL : Moments: mean consumption mean hours mean price disp. (T) mean price disp. (N) std. dev. consumption std. dev. hours std. dev. CPI inflation std. dev. inflation diff. std. dev. cons. tax std. dev. labour tax std. dev. lump-sum tax
+
+baseline -1.0378
+-0.7694 -0.0825 -0.0422 -0.1437
+0.6833 0.9385 1.0009 1.0005 0.0063 0.0169 0.0035 0.0015
+0.0155
+
+responsive -0.9945
+-0.6787 -0.1375 -0.0696 -0.1087
+0.6834 0.9386 1.0007 1.0004 0.0081 0.0147 0.0033 0.0014 0.0085
+0.0149
+
+% 4.17
+8.74 -5.30 -2.63 3.36
+0.01 0.01 -0.01 -0.01 28.58 -13.00 -6.09 -5.52
+-3.87
+
+Technology shocks only
+
+baseline responsive
+
+-0.5555
+
+-0.5353
+
+% 3.63
+
+-0.4834 -0.0293 -0.0326 -0.0101
+
+-0.4290 -0.0549 -0.0473 -0.0042
+
+9.80 -4.60 -2.63 1.06
+
+0.6835 0.9385 1.0006 1.0003 0.0055 0.0045 0.0026 0.0011
+0.0027
+
+0.6835 0.9385 1.0005 1.0002 0.0066 0.0029 0.0024 0.0011 0.0064
+0.0055
+
+0.01 0.00 -0.01 -0.01 20.42 -35.39 -6.72 -5.47
+103.07
+
+Government spending shocks only
+
+baseline responsive
+
+-0.4820
+
+-0.4588
+
+% 4.79
+
+-0.2860 -0.0532 -0.0094 -0.1334
+
+-0.2497 -0.0826 -0.0221 -0.1044
+
+7.53 -6.11 -2.64 6.01
+
+0.6836 0.9385 1.0003 1.0003 0.0030 0.0163 0.0024 0.0010
+0.0152
+
+0.6837 0.9385 1.0002 1.0002 0.0045 0.0145 0.0023 0.0009 0.0056
+0.0139
+
+0.01 0.00 -0.00 -0.01 53.47 -11.53 -5.37 -5.57
+-8.55
+
+Table 2: Welfare costs ◊10-3, theoretical moments and percentage gains and differences under rule (1) at  = 6 (responsive) relative to constant distortionary taxes (baseline) by shock specification.
+
+impulse response function to non-traded technology will be discussed.
+4.1 Rule (1) by shock specification
+Table 2 displays the decomposition of the gains in welfare from the consumption tax rule when lump-sum taxes balance the budget conditional on the shock specification, i.e. under the complete shock structure as well as under technology or government spending shocks only. Rule (1) performs along similar lines under demand as well as supply disturbances as in both cases, the highest gain stems from the mean component of consumption while mean hours and consumption volatility effects lower the benefits from the consumption tax rule. The benefits of raising the consumption tax in response to a positive domestic inflation differential can be explained using impulse response functions displayed in the appendix. Figure 2 displays the impulse response functions of key variables of the model to a shock to technology in the non-traded sector for the baseline as well as under the responsive consumption tax rule ( = 6). The increase in productivity triggers a fall in marginal costs of the firms producing non-traded varieties so that these firms seek to lower prices. Non-traded goods become relatively cheaper than traded goods so the internal terms of trade fall. Firms in the non-traded sector lower their demand for labour causing a fall in the domestic nominal wage and the marginal costs of also the intermediate firms in the traded sector. They can lower their prices as well which improves the external terms of trade. Consumer price inflation falls below the union-average and the home economy faces a negative inflation differential.
+
+[Figure 2 here]
+
+13
+
+Under rule (1) the consumption tax is lowered in response to the negative inflation differential so that consumption increases by more due to lower prices and taxes on consumption goods. The increase in domestic demand is met by a stronger increase in production which drives up marginal costs of all firms causing them to lower prices by less. As a consequence, the response of CPI inflation and the inflation differential is slightly dampened. The impulse response functions confirm the observations from table 2 that rule (1) is able to dampen the responses of hours, CPI inflation and the domestic inflation differential while raising the volatility of consumption. The compression of inflation lowers mean price dispersion explaining the large gain from the mean component of consumption. A government spending shock increases the demand for non-traded goods such that firms in this sector increase their production as displayed in figure 3. Marginal costs rise and firms in the non-traded sector seek to increase their prices. The internal terms of trade increase. Higher non-traded output increases the demand for labour and thus the economy-wide wage driving up marginal costs of firms and thus also prices in the traded sector. Relative to foreign produced traded goods, home produced traded goods become more expensive displayed by the deterioration of the external terms of trade. Overall, inflation increases relative to the union and the economy faces a positive inflation differential.
+[Figure 3 here]
+Under rule (1), consumption taxes increase leading to a more pronounced fall in domestic consumption due to higher prices as well as consumption taxes. As a result, firms in the non-traded sector raise their production by less after the government spending shock. Marginal costs, the demand for labour and the nominal wage increase by less. The policy dampens the response of CPI inflation and thus the inflation differential. Again, the impulse response functions confirm the picture drawn by table 2. Under the government spending shock, the responsive consumption tax slightly compresses inflation responses as well as the response of hours but raises the volatility of consumption. The compression of inflation gives smaller room for price dispersion, explaining the gain arising in the mean consumption component.
+4.2 Rule (2) by shock specification
+In contrast to rule (1), rule (2) does not perform equally well under supply and demand disturbances. Table 3 shows that the responsive labour income tax rule raises welfare costs for the given sensitivity when only government spending shocks are present in the model. Under technology shocks, the benefits from rule (2) arise both from mean effects in consumption and hours while volatility effects slightly hamper the benefits. Under government spending shocks, a gain still arises in the mean component of consumption but is outweighed by a large loss in the mean component of hours. Figure 4 illustrates the mechanism of the fiscal rule for labour income taxes when responding to an inflation differential caused by a shock to non-traded sector technology relative to the baseline discussed earlier.
+[Figure 4 here]
+In response to the negative inflation differential the labour income tax is raised. The nominal wage increases to satisfy the labour supply decision of the household raising marginal costs in both sectors and so that firms lower their prices by less. The smaller fall in prices dampens the increase in domestic demand so that firms' output increases by
+14
+
+Complete shock structure
+
+Welfare loss of fluctuations Decomposition:
+vmeanC : vmeanL : vvolatilityC : vvolatilityL : Moments: mean consumption mean hours mean price disp. (T) mean price disp. (N) std. dev. consumption std. dev. hours std. dev. CPI inflation std. dev. inflation diff. std. dev. cons. tax std. dev. labour tax std. dev. lump-sum tax
+
+baseline -1.0378
+-0.7694 -0.0825 -0.0422 -0.1437
+0.6833 0.9385 1.0009 1.0005 0.0063 0.0169 0.0035 0.0015
+0.0155
+
+responsive -1.0188
+-0.6845 -0.1344 -0.0446 -0.1552
+0.6834 0.9386 1.0007 1.0004 0.0064 0.0176 0.0033 0.0013
+0.0066 0.0185
+
+% 1.83
+8.17 -5.00 -0.23 -1.11
+0.01 0.01 -0.02 -0.01 2.82 3.95 -7.12 -12.20
+19.35
+
+Technology shocks only
+
+baseline responsive
+
+-0.5555
+
+-0.5115
+
+% 7.93
+
+-0.4834 -0.0293 -0.0326 -0.0101
+
+-0.4259 -0.0348 -0.0346 -0.0162
+
+10.36 -0.99 -0.35 -1.09
+
+0.6835 0.9385 1.0006 1.0003 0.0055 0.0045 0.0026 0.0011
+0.0027
+
+0.6835 0.9385 1.0005 1.0002 0.0057 0.0057 0.0024 0.0010
+0.0050 0.0043
+
+0.01 0.00 -0.01 -0.01 3.00 26.39 -7.68 -12.22
+59.26
+
+Government spending shocks only
+
+baseline responsive %
+
+-0.4820
+
+-0.5070 -5.20
+
+-0.2860 -0.0532 -0.0094 -0.1334
+
+-0.2587 -0.0996 -0.0098 -0.1389
+
+5.66 -9.63 -0.09 -1.15
+
+0.6836 0.9385 1.0003 1.0003 0.0030 0.0163 0.0024 0.0010
+0.0152
+
+0.6837 0.9385 1.0002 1.0002 0.0030 0.0167 0.0022 0.0009
+0.0044 0.0180
+
+0.00 0.01 -0.01 -0.01 2.22 2.05 -6.45 -12.17
+18.42
+
+Table 3: Welfare costs ◊10-3, theoretical moments and percentage gains and differences under rule (2) at  = -5 (responsive) relative to constant distortionary taxes (baseline) by shock speci-
+fication.
+
+less under the responsive fiscal rule. As reported in table 3, the volatility of CPI inflation and the inflation differential is lowered leading to lower price dispersion in expectations. Figure 5 repeats the analysis for a government spending shock and shows that firms in the non-traded sector still increase their production but lower labour income taxes lead to a smaller increase in the nominal wage.
+[Figure 5 here]
+As a consequence, marginal costs in both sectors increase by less causing a smaller response of inflation under the responsive fiscal rule displayed as well by the lower volatility of the inflation variables in table 3.
+4.3 Rule (3) by shock specification
+The previous paragraphs established the benefits from raising (lowering) consumption (labour income) taxes in response to a positive domestic inflation differential and their dependence on the shock structure. It remains to clarify in how far the hybrid rules are able to outperform the previously discussed rules that rely on lump-sum financing of the fiscal budget. Under rule (3) the fiscal authority raises the consumption tax while labour income taxes balance the budget when domestic inflation exceeds the union-wide aggregate. Table 4 shows that rule (3) is beneficial under either shock structure at the given sensitivity. Under technology shocks only, the gain in welfare stems largely from the mean component of consumption from a lower degree of price dispersion while the volatility of consumption increases. Despite a reduction of the welfare loss under government spending shocks though, rule (3) destabilises inflation and the inflation differential and raises price dispersion.
+
+15
+
+Complete shock structure
+
+Welfare loss of fluctuations Decomposition:
+vmeanC : vmeanL : vvolatilityC : vvolatilityL : Moments: mean consumption mean hours mean price disp. (T) mean price disp. (N) std. dev. consumption std. dev. hours std. dev. CPI inflation std. dev. inflation diff. std. dev. cons. tax std. dev. labour tax std. dev. lump-sum tax
+
+baseline -1.0378
+-0.7694 -0.0825 -0.0422 -0.1437
+0.6833 0.9385 1.0009 1.0005 0.0063 0.0169 0.0035 0.0015
+0.0155
+
+responsive -0.9276
+-0.7435 0.0047 -0.1515 -0.0373
+0.6833 0.9384 1.0008 1.0006 0.0119 0.0086 0.0040 0.0014 0.0153 0.0141
+-
+
+% 10.62
+2.50 8.40 -10.52 10.25
+0.00 -0.01 -0.01 0.01 89.86 -49.03 13.53 -7.87
+-
+
+Technology shocks only
+
+baseline responsive %
+
+-0.5555
+
+-0.4656 16.18
+
+-0.4834 -0.0293 -0.0326 -0.0101
+
+-0.4104 -0.0043 -0.0440 -0.0069
+
+13.14 4.51 -2.05 0.59
+
+0.6835 0.9385 1.0006 1.0003 0.0055 0.0045 0.0026 0.0011
+0.0027
+
+0.6836 0.9384 1.0003 1.0002 0.0064 0.0037 0.0024 0.0008 0.0087 0.0074
+-
+
+0.01 -0.00 -0.03 -0.01 16.24 -17.63 -6.60 -29.95
+-
+
+Government spending shocks only
+
+baseline responsive
+
+-0.4820
+
+-0.4615
+
+% 4.24
+
+-0.2860 -0.0532 -0.0094 -0.1334
+
+-0.3330 0.0090 -0.1071 -0.0303
+
+-9.77 12.89 -20.27 21.39
+
+0.6836 0.9385 1.0003 1.0003 0.0030 0.0163 0.0024 0.0010
+0.0152
+
+0.6836 0.9384 1.0004 1.0004 0.0100 0.0078 0.0032 0.0011 0.0125 0.0119
+-
+
+0.00 -0.01 0.02 0.02 237.75 -52.34 32.82 14.74
+-
+
+Table 4: Welfare costs ◊10-3, theoretical moments and percentage gains and differences under rule (3) at  = 11 (responsive) relative to constant distortionary taxes (baseline) by shock specification.
+
+In order to understand these findings, figure 6 displays the mechanism of rule (3) following a technology shock in the non-traded sector.
+[Figure 6 here]
+As under rule (1) lowering of the consumption tax increases domestic demand, raising production and marginal costs in both sectors so that domestic firms lower their prices by less. At the same time, the labour income tax increases to finance the proportional increase in government spending, letting the nominal wage increase which drives up marginal costs even further. The response of domestic inflation is dampened to a large extent in response to the domestic technology shock because the hybrid rule (3) combines the benefits of rule (1) and (2). Consumption taxes fall while labour income taxes increase in response to the domestic inflation differential making the hybrid rule so effective in light of technology shocks. Rule (3) works differently though for government spending shocks as displayed in figure 7. It prescribes an increase in consumption taxes but also labour income taxes increase to finance public spending.
+[Figure 7 here]
+Private demand is drastically lowered and the nominal wage increases to make up for the tax hikes raising marginal costs despite lower production. At the given sensitivity, CPI inflation as well as the inflation differential react by more to the domestic government spending shock explaining the higher volatility of these two variables in table 4. In contrast to technology shocks, the compression of inflation under government spending shocks fails due to the comovement of the two tax instruments.
+
+16
+
+4.4 Rule (4) by shock specification
+After establishing that the hybrid rule (3) can outperfom the rules relying on lump-sum taxes when the tax instruments move in opposite direction it is to ask in how far rule (4) compares to rule (3). Table 5 shows that similar to rule (3), rule (4) lowers welfare costs of business cycle fluctuations under both demand and supply disturbances for the given sensitivity. In contrast to rule (3) though, rule (4) successfully compresses inflation and raises mean consumption under either shock structure. Figure 8 illustrates the working
+
+Complete shock structure
+
+Technology shocks only
+
+Government spending shocks only
+
+Welfare loss of fluctuations Decomposition:
+vmeanC : vmeanL : vvolatilityC : vvolatilityL : Moments: mean consumption mean hours mean price disp. (T) mean price disp. (N) std. dev. consumption std. dev. hours std. dev. CPI inflation std. dev. inflation diff. std. dev. cons. tax std. dev. labour tax std. dev. lump-sum tax
+
+baseline -1.0378
+-0.7694 -0.0825 -0.0422 -0.1437
+0.6833 0.9385 1.0009 1.0005 0.0063 0.0169 0.0035 0.0015
+0.0155
+
+responsive -0.9652
+-0.6451 -0.0100 -0.2930 -0.0172
+0.6834 0.9384 1.0005 1.0002 0.0165 0.0059 0.0028 0.0013 0.0272 0.0038
+-
+
+% 6.99
+11.98 6.99
+-24.16 12.18
+0.01 -0.01 -0.03 -0.03 164.22 -65.39 -21.66 -16.77
+-
+
+baseline responsive %
+
+-0.5555
+
+-0.5312 4.37
+
+-0.4834 -0.0293 -0.0326 -0.0101
+
+-0.4790 -0.0141 -0.0280 -0.0101
+
+0.80 2.74 0.84 0.00
+
+0.6835 0.9385 1.0006 1.0003 0.0055 0.0045 0.0026 0.0011
+0.0027
+
+0.6835 0.9385 1.0005 1.0002 0.0051 0.0045 0.0024 0.0010 0.0046 0.0031
+-
+
+0.00 -0.00 -0.01 -0.01 -7.41 -0.07 -4.96 -9.35
+-
+
+baseline responsive
+
+-0.4820
+
+-0.4338
+
+% 9.99
+
+-0.2860 -0.0532 -0.0094 -0.1334
+
+-0.1661 0.0042 -0.2649 -0.0071
+
+24.87 11.90 -53.00 26.21
+
+0.6836 0.9385 1.0003 1.0003 0.0030 0.0163 0.0024 0.0010
+0.0152
+
+0.6837 0.9384 1.0000 1.0000 0.0157 0.0038 0.0013 0.0007 0.0268 0.0022
+-
+
+0.01 -0.01 -0.02 -0.02 431.17 -76.99 -46.71 -27.56
+-
+
+Table 5: Welfare costs ◊10-3, theoretical moments and percentage gains and differences under rule (4) at  = -3 (responsive) relative to constant distortionary taxes (baseline) by shock specification.
+of rule (4) for a shock to technology in the non-traded sector. As under rule (2), labour income taxes increase, letting the nominal wage and marginal costs for domestic firms increase which lower their prices by less.
+[Figure 8 here]
+Public spending increases proportionally at lower prices and higher labour tax income so that consumption taxes decrease to balance the budget. As for rule (3), the large gains arise because the two tax instruments move in opposite directions and thus combine the benefits of rule (1) and (2) in compressing inflation. Table 5 suggests that, in contrast to rule (3), rule (4) also compresses inflation under government spending shocks only. Figure 9 shows that labour income taxes fall in response to lower prices allowing for lower nominal wages and marginal costs so that firms raise their prices by less.
+[Figure 9 here]
+At the same time, the increase in public spending is financed by higher consumption taxes which lowers private demand giving further support for lower marginal costs due to less
+17
+
+production. The result is a largely muted response of domestic inflation and and a dampened inflation differential as suggested in table 5. Overall, the large reduction of welfare costs of business cycle fluctuations under rule (4) under government spending shocks can, as under technology shocks, be explained by the opposed movement of the two tax instruments. Comparing the hybrid rules, (3) and (4), with each other one can summarise the following observations: despite a larger reduction of welfare costs under the complete shock structure as well as under technology shocks only under rule (3), rule (4) is able to compress inflation differentials and raise mean consumption under either shock specification. Rule (3) works along different lines under government spending shocks and actually raises inflation volatility and price dispersion. Under rule (4) all welfare costs components see a gain except for the volatility of consumption while the mechanism of rule (3) is dependent on the shock specification. To that end, rule (4) delivers a more robust stabilisation mechanism.
+5 Conclusion
+This paper investigates in how far a national fiscal authority should strategically react to the domestic inflation differential with an available tax instrument. In a two-country DSGE model with traded and non-traded goods, the analysis considers four fiscal rules, responsive consumption and labour income taxes when the governmental budget is balanced by lump-sum taxes or the remaining distortionary tax. It finds a large scope for fiscal intervention. The welfare analysis shows that under demand as well as supply disturbances all four rules reduce welfare costs of business cycle fluctuations relative to the benchmark in which distortionary taxes are held constant. Under the full stochastic setup, both hybrid rules for which lump-sum taxes are absent outperform the rules relying on lump-sum financing of government spending. A robustness analysis discusses the dependence of the findings on the specified shock structure. It finds that, except for the labour income tax rule under government spending shocks only, all rules are beneficial under either type of disturbance, demand or supply shocks. Comparing the performance of the two hybrid rules shows that letting labour income taxes respond to the domestic inflation differential while consumption taxes balance the budget delivers the most robust stabilisation mechanism. This is because under rule (4) under both technology as well as government spending shocks the two tax instruments move in opposite direction. This combines the benefits of the rules relying on lump-sum financing so that inflation and inflation differentials are largely compressed and mean consumption in the ergodic distribution is raised.
+18
+
+Appendix
+
+Derivation of the welfare measure
+
+Use the utility function and rewrite to
+
+
+E t
+t=0
+1 1-E
+E
+
+Ct1- - Lt1+ 1- 1+
+
+Ct1- 1-
+
+-
+
+Lt1+ 1+
+
+Ct1- - L1t + 1- 1+
+
+=
+
+
+t
+
+((1 + v)CØ)1- LØ1+
+
+-
+
+1-
+
+1+
+
+t=0
+
+=
+
+1 1-
+
+((1 + v)CØ)1- 1-
+
+-
+
+LØ 1+ 1+
+
+((1 + v)CØ)1- LØ1+
+
+= -.
+
+1-
+
+1+
+
+Approximate around the deterministic steady state up to second order
+
+CØ 1- 1-
+
+-
+
+LØ 1+ 1+
+
++
+
+CØ - E[Ct
+
+-
+
+CØ]
+
+-
+
+ 2
+
+CØ--1E[Ct
+
+-
+
+CØ]2
+
+-
+
+LØE[Lt
+
+-
+
+LØ]
+
+-
+
+ 2
+
+LØ -1 E[Lt
+
+-
+
+LØ]2
+
+= ((1 + vØ)CØ)1- - LØ1+ + (1 + vØ)-CØ1-[v - vØ]
+
+1-
+
+1+
+
+Note that in the deterministic steady state the consumption compensation should be zero, i.e. vØ = 0. Also, since the consumption compensation is constant there is no second moment so the second order approximation bit has been left out. Rearrange to obtain
+
+v
+
+=
+
+CØ-1E[Ct
+
+-
+
+CØ]
+
+-CØ-1LØE[Lt
+
+-
+
+LØ]
+
+-
+
+ 2
+
+CØ-2E[Ct
+
+-
+
+CØ]2
+
+-
+
+ 2
+
+CØ -1 LØ -1 E[Lt
+
+-
+
+LØ]2
+
+.
+
+vmeanC
+
+vmeanL
+
+vvolatilityC
+
+vvolatilityL
+
+19
+
+% deviation
+
+% deviation
+
+level
+
+5.1 Impulse response functions
+
+Output Home
+0.8
+
+0.8
+
+% deviation
+
+0.6 0.6
+0.4 0.4
+0.2
+0.2 0
+
+0 -0.2
+
+0 5 10 15 20
+
+0
+
+Inter nal ToT
+0
+
+0.2
+
+% deviation
+
+-0.2
+
+0.15
+
+-0.4
+
+0.1
+
+-0.6
+
+0.05
+
+-0.8 0
+
+5 10 15 20
+
+0 0
+
+Public spending per GDP
+29 0.6
+
+level
+
+0.4 28
+0.2
+27 0
+
+26 -0.2
+
+0 5 10 15 20
+
+0
+
+Consumption
+5 10 15 20
+Exter nal ToT
+5 10 15 20
+Lump-sum tax
+5 10 15 20
+
+level
+
+level
+
+% deviation
+
+Hours
+0.2
+
+Real wage
+0.2
+
+% deviation
+
+0 0.1
+
+-0.2 0
+
+-0.4 -0.1
+
+-0.6 0
+
+-0.2
+
+5 10 15 20
+
+0
+
+5 10 15 20
+
+CPI rate
+0.1
+
+Inflation differential
+0.1
+
+0 0.05
+
+level
+
+-0.1 0
+
+-0.2 -0.05
+
+-0.3 0
+
+5 10 15 20
+
+Consumption tax
+15.4
+
+15.2
+
+15
+
+14.8
+
+14.6
+
+14.4 0
+
+5 10 15 20
+
+level
+
+-0.1 0
+19
+18.5
+18
+17.5
+17 0
+
+5 10 15 20
+Labour tax
+5 10 15 20
+
+Figure 2: Impulse response functions after a shock to ZN of one standard deviation. baseline = solid line, responsive rule (1) = orange dotted line.
+
+Output Home
+3
+
+0.5
+
+% deviation
+
+2 0
+1
+-0.5 0
+
+-1 0 5 10 15 20
+Inter nal ToT
+0.2
+
+-1 0
+0
+
+% deviation
+
+0.15 -0.1
+
+0.1 -0.2
+
+0.05 -0.3
+
+0 -0.4
+
+0 5 10 15 20
+
+0
+
+Public spending per GDP
+
+29.5 3
+
+level
+
+29 2
+28.5 1
+28
+0 27.5
+
+27 -1
+
+0 5 10 15 20
+
+0
+
+Consumption
+5 10 15 20
+Exter nal ToT
+5 10 15 20
+Lump-sum tax
+5 10 15 20
+
+level
+
+level
+
+% deviation
+
+Hours
+3
+
+2
+
+1
+
+0
+
+-1 0 5 10 15 20
+CPI rate
+0.4
+
+0.3
+
+0.2
+
+0.1
+
+0
+
+-0.1 0
+
+5 10 15 20
+
+Consumption tax
+
+15.8
+
+15.6
+
+15.4
+
+15.2
+
+15
+
+14.8 0
+
+5 10 15 20
+
+level
+
+level
+
+% deviation
+
+Real wage
+2
+
+1.5
+
+1
+
+0.5
+
+0
+
+-0.5 0
+
+5 10 15 20
+
+Inflation differential
+0.15
+
+0.1
+
+0.05
+
+0
+
+-0.05 0
+19
+
+5 10 15 20
+Labour tax
+
+18.5
+
+18
+
+17.5
+
+17 0 5 10 15 20
+
+Figure 3: Impulse response functions after a shock to G/Y of one standard deviation. baseline = solid line, responsive rule (1) = orange dotted line.
+
+% deviation
+
+% deviation
+
+level
+
+20
+
+% deviation
+
+% deviation
+
+Output Home
+0.4
+
+Consumption
+0.4
+
+0.2
+
+% deviation
+
+% deviation
+
+0.3 0.3
+
+0
+
+0.2 0.2 -0.2
+0.1
+
+0.1 -0.4 0
+
+0 -0.1 -0.6
+
+0 5 10 15 20
+
+0 5 10 15 20
+
+0
+
+Inter nal ToT
+0
+
+Exter nal ToT
+0.2
+
+0.1
+
+Hours
+5 10 15
+CPI rate
+
+Real wage
+0.3
+
+% deviation
+
+0.2
+
+0.1
+
+0
+
+-0.1
+
+-0.2 20 0
+
+5 10 15 20
+
+Inflation differential
+0.1
+
+level
+
+level
+
+% deviation
+
+-0.2
+
+0.15
+
+0 0.05
+
+-0.4
+
+0.1 -0.1
+
+0
+
+-0.6 0.05 -0.2 -0.05
+
+-0.8 0
+
+5 10 15 20
+
+0 0
+
+Public spending per GDP
+29 0.2
+
+0.1
+28 0
+
+level
+
+-0.1 27
+-0.2
+
+26 -0.3
+
+0 5 10 15 20
+
+0
+
+5 10 15 20
+Lump-sum tax
+5 10 15 20
+
+level
+
+-0.3 0
+
+5 10 15 20
+
+Consumption tax
+16
+
+15.5
+
+15
+
+14.5
+
+14 0 5 10 15 20
+
+level
+
+-0.1 0
+18.8 18.6 18.4 18.2
+18 17.8
+0
+
+5 10 15 20
+Labour tax
+5 10 15 20
+
+Figure 4: Impulse response functions after a shock to ZN of one standard deviation. baseline = solid line, responsive rule (2) = orange dotted line.
+
+level
+
+% deviation
+
+% deviation
+
+Output Home
+3
+
+0.2
+
+% deviation
+
+20
+
+1 -0.2
+
+0 -0.4
+
+-1 -0.6
+
+0 5 10 15 20
+
+0
+
+Inter nal ToT
+0.2
+
+0
+
+% deviation
+
+0.15 -0.1
+
+0.1 -0.2
+
+0.05 -0.3
+
+0 -0.4
+
+0 5 10 15 20
+
+0
+
+Public spending per GDP
+29.5 3
+
+level
+
+29 2
+28.5 1
+28
+0 27.5
+
+27 -1
+
+0 5 10 15 20
+
+0
+
+Consumption
+5 10 15 20
+Exter nal ToT
+5 10 15 20
+Lump-sum tax
+5 10 15 20
+
+level
+
+level
+
+% deviation
+
+Hours
+3
+
+Real wage
+2
+
+% deviation
+
+1.5 2
+1 1
+0.5
+0 0
+
+-1 -0.5
+
+0 5 10 15 20
+
+0 5 10 15 20
+
+CPI rate
+0.4
+
+Inflation differential
+0.15
+
+level
+
+0.3 0.1
+0.2 0.05
+0.1
+0 0
+
+-0.1 0
+
+5 10 15 20
+
+Consumption tax
+16
+
+-0.05 0
+18.4
+
+5 10 15 20
+Labour tax
+
+level
+
+18.2 15.5
+18 15
+17.8
+14.5 17.6
+
+14 17.4
+
+0 5 10 15 20
+
+0 5 10 15 20
+
+Figure 5: Impulse response functions after a shock to G/Y of one standard deviation. baseline = solid line, responsive rule (2) = orange dotted line.
+
+21
+
+level
+
+% deviation
+
+% deviation
+
+Output Home
+0.8
+
+0.8
+
+% deviation
+
+0.6 0.6
+0.4 0.4
+0.2
+0.2 0
+
+0 -0.2
+
+0 5 10 15 20
+
+0
+
+Inter nal ToT
+0
+
+0.2
+
+% deviation
+
+-0.2 -0.4 -0.6
+
+0.15 0.1
+0.05 0
+
+-0.8 0
+
+-0.05
+
+5 10 15 20
+
+0
+
+Public spending per GDP
+28.5 0.2
+
+28 0.15
+
+level
+
+27.5 0.1
+
+27 0.05
+
+26.5 0
+
+26 -0.05
+
+0 5 10 15 20
+
+0
+
+Consumption
+5 10 15 20
+Exter nal ToT
+5 10 15 20
+Lump-sum tax
+5 10 15 20
+
+level
+
+level
+
+% deviation
+
+Hours
+0.2
+
+Real wage
+0.6
+
+% deviation
+
+0 0.4
+
+-0.2 0.2
+
+-0.4 0
+
+-0.6 0
+
+-0.2
+
+5 10 15 20
+
+0
+
+5 10 15 20
+
+CPI rate
+0.1
+
+Inflation differential
+0.1
+
+0 0.05
+
+level
+
+-0.1 0
+
+-0.2 -0.05
+
+-0.3 0
+
+5 10 15 20
+
+Consumption tax
+15.2
+
+15
+
+14.8
+
+14.6
+
+14.4
+
+14.2 0
+
+5 10 15 20
+
+level
+
+-0.1 0
+18.8 18.6 18.4 18.2
+18 17.8
+0
+
+5 10 15
+Labour tax
+
+20
+
+5 10 15 20
+
+Figure 6: Impulse response functions after a shock to ZN of one standard deviation. baseline = solid line, responsive rule (3) = orange dotted line.
+
+level
+
+% deviation
+
+% deviation
+
+Output Home
+
+Consumption
+
+Hours
+
+313
+
+Real wage
+3
+
+% deviation
+
+% deviation
+
+% deviation
+
+2022
+
+1 -1 1 1
+
+0 -2 0 0
+
+-1 0 5 10 15 20
+Inter nal ToT
+0.4
+
+-3 0
+0
+
+% deviation
+
+0.3 -0.2
+
+0.2 -0.4
+
+0.1 -0.6
+
+0 -0.8
+
+0 5 10 15 20
+
+0
+
+Public spending per GDP
+29.5 3
+
+level
+
+29 2
+28.5 1
+28
+0 27.5
+
+27 -1
+
+0 5 10 15 20
+
+0
+
+5 10 15 20
+Exter nal ToT
+5 10 15 20
+Lump-sum tax
+5 10 15 20
+
+level
+
+level
+
+-1 -1
+
+0 5 10 15 20
+
+0 5 10 15 20
+
+CPI rate
+0.4
+
+Inflation differential
+0.15
+
+level
+
+0.3 0.1
+0.2 0.05
+0.1
+0 0
+
+-0.1 0
+
+5 10 15 20
+
+Consumption tax
+17
+
+-0.05 0
+19.5
+
+5 10 15
+Labour tax
+
+20
+
+16.5 19
+
+level
+
+16 18.5
+
+15.5 18
+
+15 17.5
+
+14.5 0
+
+17
+
+5 10 15 20
+
+0
+
+5 10 15 20
+
+Figure 7: Impulse response functions after a shock to G/Y of one standard deviation. baseline = solid line, responsive rule (3) = orange dotted line.
+
+22
+
+level
+
+% deviation
+
+% deviation
+
+Output Home
+0.5
+
+0.6
+
+% deviation
+
+0.4 0.4
+0.3 0.2
+0.2
+0 0.1
+
+0 -0.2
+
+0 5 10 15 20
+
+0
+
+Inter nal ToT
+0
+
+0.2
+
+% deviation
+
+-0.2
+
+0.15
+
+-0.4
+
+0.1
+
+-0.6
+
+0.05
+
+-0.8 0
+
+5 10 15 20
+
+0 0
+
+Public spending per GDP
+28.5 0.2
+
+28 0.15
+
+level
+
+27.5 0.1
+
+27 0.05
+
+26.5 0
+
+26 -0.05
+
+0 5 10 15 20
+
+0
+
+Consumption
+5 10 15 20
+Exter nal ToT
+5 10 15 20
+Lump-sum tax
+5 10 15 20
+
+level
+
+level
+
+% deviation
+
+Hours
+0.2
+
+Real wage
+0.2
+
+% deviation
+
+0 0.1
+
+-0.2 0
+
+-0.4 -0.1
+
+-0.6 0
+
+-0.2
+
+5 10 15 20
+
+0
+
+5 10 15 20
+
+CPI rate
+0.1
+
+0
+
+-0.1
+
+-0.2
+
+-0.3 0
+
+5 10 15 20
+
+Consumption tax
+15.2
+
+level
+
+Inflation differential
+0.02
+
+0
+
+-0.02
+
+-0.04
+
+-0.06
+
+-0.08
+
+-0.1 0
+
+5 10 15 20
+
+Labour tax
+18.3
+
+15.1 18.2
+
+level
+
+15 18.1
+
+14.9 18
+
+14.8 0
+
+17.9
+
+5 10 15 20
+
+0
+
+5 10 15 20
+
+Figure 8: Impulse response functions after a shock to ZN of one standard deviation. baseline = solid line, responsive rule (4) = orange dotted line.
+
+level
+
+% deviation
+
+% deviation
+
+2.5 2
+1.5 1
+0.5 0
+-0.5 0
+
+Output Home
+5 10 15 20
+
+Inter nal ToT
+0.2
+
+% deviation
+
+1 0 -1 -2 -3 -4
+0
+0
+
+% deviation
+
+0.15 -0.1
+
+0.1 -0.2
+
+0.05 -0.3
+
+0 -0.4
+
+0 5 10 15 20
+
+0
+
+Public spending per GDP
+29.5 2.5
+
+level
+
+29 2
+1.5 28.5
+1 28
+0.5
+27.5 0
+
+27 -0.5
+
+0 5 10 15 20
+
+0
+
+Consumption
+5 10 15 20
+Exter nal ToT
+5 10 15 20
+Lump-sum tax
+5 10 15 20
+
+level
+
+% deviation
+
+level
+
+2.5 2
+1.5 1
+0.5 0
+-0.5 0
+
+Hours
+5 10 15
+
+% deviation
+
+2 1.5
+1 0.5
+0 -0.5 20 0
+
+Real wage
+5 10 15 20
+
+CPI rate
+0.4
+
+Inflation differential
+0.15
+
+level
+
+0.3 0.1
+0.2 0.05
+0.1
+0 0
+
+-0.1 0
+
+5 10 15 20
+
+Consumption tax
+19
+
+-0.05 0
+18.05
+
+5 10 15
+Labour tax
+
+20
+
+18 18
+
+level
+
+17 17.95
+
+16 17.9
+
+15 17.85
+
+14 17.8
+
+0 5 10 15 20
+
+0 5 10 15 20
+
+Figure 9: Impulse response functions after a shock to G/Y of one standard deviation. baseline = solid line, responsive rule (4) = orange dotted line.
+
+level
+
+23
+
+Bibliography
+Altissimo, F., P. Benigno, and D. Palenzuela (2011): "Inflation Differentials in a Currency Area: Facts, Explanations and Policy," Open Economies Review, 22, 189≠233.
+Andre¥s, J., E. Ortega, and J. Valle¥s (2008): "Competition and inflation differentials in EMU," Journal of Economic Dynamics and Control, 32, 848≠874.
+Angeloni, I. and M. Ehrmann (2007): "Euro area inflation differentials," The BE Journal of Macroeconomics, 7.
+Balassa, B. (1964): "The purchasing-power parity doctrine: a reappraisal," The Journal of Political Economy, 584≠596.
+Beetsma, R. M. and H. Jensen (2004): "Mark-up fluctuations and fiscal policy stabilization in a monetary union," Journal of Macroeconomics, 26, 357≠376.
+------ (2005): "Monetary and fiscal policy interactions in a Micro-Founded Model of a Monetary Union," Journal of international Economics, 67, 320≠352.
+Canzoneri, M., R. Cumby, B. Diba, and O. Mykhaylova (2006): "New Keynesian Explanations of Cyclical Movements in Aggregate Inflation and Regional Inflation Differentials," Open Economies Review, 17, 27≠55.
+Druant, M., S. Fabiani, G. Kezdi, A. Lamo, F. Martins, and R. Sabbatini (2012): "Firms' price and wage adjustment in Europe: Survey evidence on nominal stickiness," Labour Economics, 19, 772≠782.
+Duarte, M. and A. Wolman (2002): "Regional inflation in a currency union: fiscal policy vs. fundamentals," Tech. rep., European Central Bank.
+Duarte, M. and A. L. Wolman (2008): "Fiscal policy and regional inflation in a currency union," Journal of International Economics, 74, 384≠401.
+Engler, P., J. Tervala, G. Ganelli, and S. Voigts (2014): "Fiscal Devaluation in a Monetary Union," Tech. rep., Verein fu®r Socialpolitik/German Economic Association.
+Fabiani, S., M. Druant, I. Hernando, C. Kwapil, B. Landau, C. Loupias, F. Martins, T. Matha®, R. Sabbatini, H. Stahl, and A. Stokman (2006): "What Firms' Surveys Tell Us about Price-Setting Behavior in the Euro Area," International Journal of Central Banking, 2.
+Farhi, E., G. Gopinath, and O. Itskhoki (2014): "Fiscal devaluations," The review of economic studies, 81, 725≠760.
+Ferrero, A. (2009): "Fiscal and monetary rules for a currency union," Journal of International Economics, 77, 1≠10.
+Gali, J. and T. Monacelli (2008): "Optimal monetary and fiscal policy in a currency union," Journal of International Economics, 76, 116≠132.
+Kirsanova, T., M. Satchi, D. Vines, and S. Wren-Lewis (2007): "Optimal Fiscal Policy Rules in a Monetary Union," Journal of Money, Credit and Banking, 39, 1759≠ 1784.
+24
+
+Kirsanova, T. and S. Wren-Lewis (2012): "Optimal Fiscal Feedback on Debt in an Economy with Nominal Rigidities*," The Economic Journal, 122, 238≠264.
+Lan, H. and A. Meyer-Gohde (2013): "Solving DSGE models with a nonlinear moving average," Journal of Economic Dynamics and Control, 37, 2643≠2667.
+Lombardo, G. and A. Sutherland (2004): "Monetary and fiscal interactions in open economies," Journal of Macroeconomics, 26, 319≠347.
+Lo¥pez-Salido, D., F. Restoy, and J. Valle¥s (2005): "Inflation differentials in EMU: the Spanish case," Banco de Espan~a Working Papers 0514, Banco de Espan~a.
+Lucas, R. E. (1987): Models of business cycles, vol. 26, Basil Blackwell Oxford. ------ (2003): "Macroeconomic priorities," American Economic Review, 93, 1≠14. Morsy, H. and F. Jaumotte (2012): "Determinants of Inflation in the Euro Area:
+The Role of Labor and Product Market Institutions," IMF Working Papers 12/37, International Monetary Fund. Pappa, E. and V. Vassilatos (2007): "The unbearable tightness of being in a monetary union: Fiscal restrictions and regional stability," European Economic Review, 51, 1492≠ 1513. Rabanal, P. (2009): "Inflation Differentials between Spain and the EMU: A DSGE Perspective," Journal of Money, Credit and Banking, 41, 1141≠1166. Rogers, J. H. (2007): "Monetary union, price level convergence, and inflation: How close is Europe to the USA?" Journal of Monetary Economics, 54, 785≠796. Samuelson, P. A. (1964): "Theoretical notes on trade problems," The Review of Economics and Statistics, 145≠154. Schmitt-Grohe¥, S. and M. Uribe (2003): "Closing small open economy models," Journal of international Economics, 61, 163≠185. Vogel, L., W. Roeger, and B. Herz (2013): "The performance of simple fiscal policy rules in monetary union," Open Economies Review, 24, 165≠196. von Thadden, L. and A. Lipinska (2013): "On the (In) effectiveness of Fiscal Devaluations in a Monetary Union," Tech. rep., Verein fu®r Socialpolitik/German Economic Association.
+25
+
+SFB 649 Discussion Paper Series 2016
+For a complete list of Discussion Papers published by the SFB 649, please visit http://sfb649.wiwi.hu-berlin.de.
+001 "Downside risk and stock returns: An empirical analysis of the long-run and short-run dynamics from the G-7 Countries" by Cathy Yi-Hsuan Chen, Thomas C. Chiang and Wolfgang Karl H‰rdle, January 2016.
+002 "Uncertainty and Employment Dynamics in the Euro Area and the US" by Aleksei Netsunajev and Katharina Glass, January 2016.
+003 "College Admissions with Entrance Exams: Centralized versus Decentralized" by Isa E. Hafalir, Rustamdjan Hakimov, Dorothea K¸bler and Morimitsu Kurino, January 2016.
+004 "Leveraged ETF options implied volatility paradox: a statistical study" by Wolfgang Karl H‰rdle, Sergey Nasekin and Zhiwu Hong, February 2016.
+005 "The German Labor Market Miracle, 2003 -2015: An Assessment" by Michael C. Burda, February 2016.
+006 "What Derives the Bond Portfolio Value-at-Risk: Information Roles of Macroeconomic and Financial Stress Factors" by Anthony H. Tu and Cathy Yi-Hsuan Chen, February 2016.
+007 "Budget-neutral fiscal rules targeting inflation differentials" by Maren Brede, February 2016.
+SFSBF6B4694, 9S,pSapnadnaduaeureSrtrSatﬂraeﬂ1e, 1D,-D10-1107187B8eBrleinrlin htthpt:t/p/:/s/fbs6fb4694.w9.iwwiiw.hiu.h-bue-brleinrl.idne.de
+ThTishrisesreasercahrcwhawsassupsuppoprtoerdtebdybtyhethDeeDuetsucthseche ForFsocrhsuchnugnsgesgmeeminesicnhsachftatfht rtohuroguhgthhethSeFSBF6B4694"9Ec"oEnconmoimc RicisRki"s.k".
+
+

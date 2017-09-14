@@ -1,0 +1,2166 @@
+BERLIN
+
+SFB 6 4 9 E C O N O M I C R I S K
+
+SFB 649 Discussion Paper 2016-001
+Downside risk and stock returns: An empirical analysis of the long-run and short-run dynamics from the G-7
+Countries
+Cathy Yi-Hsuan Chen* Thomas C. Chiang*² Wolfgang Karl Härdle*
+*Humboldt-Universität zu Berlin, Germany *² Drexel University, United States of America
+This research was supported by the Deutsche Forschungsgemeinschaft through the SFB 649 "Economic Risk".
+http://sfb649.wiwi.hu-berlin.de ISSN 1860-5664
+SFB 649, Humboldt-Universität zu Berlin Spandauer Straße 1, D-10178 Berlin
+
+Downside risk and stock returns: An empirical analysis of the long-run and short-run dynamics from the G-7 Countries
+Cathy Yi-Hsuan Chen* Ladislaus von Bortkiewicz Chair of Statistics, C.A.S.E. - Center for Applied Statistics and Economics,
+Humboldt-Universität zu Berlin, Unter den Linden 6, 10099 Berlin, Germany Department of Finance, Chung Hua University, 707, Sec. 2, WuFu Rd., Hsinchu, Taiwan, 300
+Email: chencath@hu-berlin.de; Tel: 49 30 2093-5625
+Thomas C. Chiang LeBow College of Business, Drexel University, Gerri LeBow Hall, 3220 Market Street, Philadelphia, PA 19104 USA, Email: chiangtc@drexel.edu; Tel: 1 215 895 1745
+Wolfgang Karl Härdle Ladislaus von Bortkiewicz Chair of Statistics, C.A.S.E. - Center for Applied Statistics and Economics,
+Humboldt-Universität zu Berlin, Unter den Linden 6, 10099 Berlin, Germany Email: haerdle@hu-berlin.de; Tel: 49 30 2093-5631
+Abstract This paper presents a fractionally cointegrated vector autoregression (FCVAR) model to examine various relations between stock returns and downside risk. Evidence from major advanced markets supports the notion that downside risk measured by value-at-risk (VaR) has significant information content that reflects lagged long-run variance and higher moments of risk for predicting stock returns. The evidence supports the positive tradeoff hypothesis and the leverage effect in the long run and for some markets in the short run. We find that US downside risk accounts for 54.36% of price discovery, whereas the own effect from the country itself contributes only 27.06%.
+JEL classification: G11, G12, G15, C24, F30 Keywords: Downside risk; Value-at-Risk; long memory; fractional integration; Risk-return
+___________________________________ The authors gratefully acknowledge financial support from the Deutsche Forschungsgemeinschaft through SFB 649 "Economic Risk" and IRTG 1792 "High Dimensional Non Stationary Time Series". * Corresponding author.
+1
+
+Downside risk and stock returns: An empirical analysis of the long-run and short-run dynamics from the G-7 Countries
+1. Introduction
+A review of recent studies of stock return series indicates that several issues have arisen concerning the empirical specifications of stock return behavior. The first issue is the extension of the traditional meanvariance approach (Markowitz, 1952) by recognizing that asset returns often exhibit heavier tails than is implied by the normal distribution and that they occasionally display asymmetric patterns (see Peiro,1999; Harvey and Siddique, 1999). The thrust of this approach has been searching for valid rationales for including the higher moments of asset returns and judging whether the higher moment risk should be compensated. The outbreak of the 2008 worldwide financial crisis further motivates researchers to move toward using value-at-risk (VaR) as a proxy for risk and to raise the questions: What is the information content of VaR? Does VaR contain negative skewness and, if so, how does it affect stock returns?
+The second issue stems from the popularity of documenting the evidence that stock returns and volatility/VaR series feature a long memory; a long memory implies a series that displays high degrees of persistence. The concern with this issue is whether the existence of a long memory could produce a bias in the empirical analysis. Can this phenomenon affect traditional empirical estimations such as the validity of the risk-return relation? Moreover, if volatility and VaR are cointegrated, will this statistical property provide an additional mechanism for predicting future stock returns?
+The third issue involves the cross-market setting of investigating the risk-return relation. In the conventional study of the risk-return relation, it is customary to focus on the domestic market's relation, since the research has mainly looked at the US market. The experience from the world financial crisis suggests that global market risk could produce a more profoundly damaging effect on domestic stock returns than home country risk. This raises the question of which source of risk is more significant. A
+2
+
+misleading empirical evidence could be produced for lack of careful examination of the issues outlined above. We shall detail the discussions as follows. 1.1. Value-at-risk as a general "representative risk measure"
+The 2007-2008 financial market crisis highlights a special feature of stock return distribution: frequent occurrences of left-skewed and excess kurtosis, suggesting that extremes in return variations show up more often than the likelihood suggested by the conventional Gaussian distribution. Typically, investors in a stress environment are averse to negative skewness and excess kurtosis (Scott and Horvath, 1980). This behavior is way beyond the standard risk measure provided by variance or conditional variance (Markowitz 1952; French, et al. 1987). As a result, the investor expects to be compensated for exposure to extreme losses due to downside risk (tail risk). To address this issue, recent research (Alexander and Baptista, 2002; Bassett et al, 2004; Härdle et al., 2015) has paid special attention to modeling asset behavior by incorporating higher-moment risk measures in forming asset allocation strategies. As noted by Harvey and Siddique (2000), Smith (2007), the inclusion of higher moments in the test equation of asset returns would provide richer information content in describing the risk behavior at different states of market conditions and, in turn, would lead to a better model specification in testing the risk-return relation. Thus, the validity of a model with higher-moment risk measures supports the assertion that investors demand higher expected returns not only for the variance risk they are bearing but also for the potential tail risk they are taking on.
+Tail risk, usually shown on the "left tail," is indeed a downside risk, which typically can be measured by VaR, an -quantile value of the return distribution. As noted by Favre and Galeano (2002), using a nonnormality VaR based merely on volatility is likely to underestimate the downside risk. However, researchers demonstrate that modifying VaR by applying the Cornish-Fisher expansion (CFE; Cornish and Fisher 1937) would achieve precision by adjusting the estimated quantiles for non-normality. The CFE approximates the quantile of an arbitrary random variable by incorporating higher moments and offers explicit polynomial
+3
+
+expansions for standardized percentiles of the distribution. The fourth-order CFE approximation is given in the following expression of standardized return variables at -quantile :
+
+
+
+=
+
+
+
++
+
+(2
+
+-
+
+1) 
+6
+
++
+
+(3
+
+-
+
+3
+
+)
+
+ 24
+
+-
+
+(23
+
+-
+
+5
+
+)
+
+2 36
+
+(1)
+
+where  is the -quantile value from the standard normal distribution, and S and K are skewness and
+
+excess kurtosis, respectively. Clearly, this expansion indicates that  is a monotone increasing function of excess kurtosis and negative skewness at  = 1% level. Multiplying by  (standard deviation)
+
+throughout equation (1), the VaR at the level (1 - ), 1-, is expressed as:
+
+1-
+
+=
+
+-
+
+=
+
+-
+
+(
+
++
+
+(2
+
+-
+
+1)
+
+ 6
+
++
+
+(3
+
+-
+
+3)
+
+ 24
+
+-
+
+(23
+
+-
+
+5 )
+
+2)
+36
+
+(2)
+
+Note that  should be negative at the 1% level and it has been multiplied by -1 to simplify the
+
+interpretation for the degree of downside risk at this extreme quantile. That is, a higher value of 1-
+
+indicates increased downside risk. Equation (2) derived from the CFE is a non-Gaussian distribution with
+
+a formulation that allows for skewness and excess kurtosis. This model specification is consistent with the notion of maximizing investors' expected utility of wealth by including the third and fourth moments
+
+derived from an approximation of the fourth-order Taylor polynomials in the expected utility function (Dittmar, 2002, Guidolin and Timmermann, 2008; Bali et al., 2009). The theory postulates that investors'
+
+preference behavior is averse to the second and fourth moments (variance and kurtosis), but receptive to
+
+the positive skewness (negative preference toward negative skewness). Appealingly, the VaR using the CFE
+
+derived from the empirical distribution essentially captures higher moments of the return distribution, which
+
+turns out to be a more general expression of the risk measure than using variance risk alone and is better
+
+for estimating more complex risk in reality. From this perspective, the quadratic preferences of investor behavior do not seem to well describe the phenomenon under extreme market stress.1 To validate an
+
+1 Investors with quadratic preferences only care about the mean and variance of returns. In other words, they do not consider extreme losses.
+4
+
+enhanced ICAPM specification, it is plausible to extend the model with variance risk as an argument to a set of higher-moment risk measures, generally summarized by the value of VaR. The follow-up questions become: Which higher-moment risk measures contribute more to VaR or better predict VaR? And how well do these higher-order moments predict expected return, subsequently, and which one has better predictability? The answers to these questions will be contained in our empirical estimations. 1.2. Long memory and persistence in return and higher-order moments
+Analyzing the time series properties of stock return series suggests that returns and their higher moments are persistent. Empirically, Ding, Granger and Engle (1993) discovered a long-memory property in stock market return series. Using a similar approach, Jondeau and Rockinger (2003), Bandi and Perron (2006), and Bollerslev et al. (2013) find evidence that the second moment return series displays a persistent phenomenon. Moreover, Caporin (2008) and Kinateder and Wagner (2014) also document that the downside risk series exhibits a long memory. Consequently, it is logical to infer that the VaR based on the CFE inherently contains this property and reveals a long-memory process.
+In the empirical estimations, a series featuring a long dependency has been effectively described by a fractionally integrated process (Ding et al., 1993; Baillie, 1996; Bollerslev and Mikkelsen, 1996). The finance theory of the risk-return relation, along with the existing empirical regularities, suggests that both the stock return and the downside risk series are likely to form a fractionally cointegrated process. Thus, in empirical estimations, it will be more efficient to explore this time series property in modeling their longrun and short-run relations. For this reason, the fractionally cointegrated vector autoregressive (FCVAR) model, along the lines of Johansen (2008a, 2008b, 2009) and Johansen and Nielsen (2012), will be used in our estimations of risk-return relations. 1.3. Empirical model in a global market setting
+A substantial amount of empirical work has been devoted to examining the risk-return relation, and the majority of empirical studies mainly focus on the US market. Very few studies attempt to investigate
+5
+
+this issue in markets outside the US.2 Given the size of the US market and its global connections in financial news, a shock in the US market is soon expected to spread to global markets. This relative strength in financial markets implies that estimating the risk-return relation for global markets (non-US countries) without taking into account a shock from the US market is bound to be subject to specification error. Note that the shocks referred to here are not necessarily tied to events such as the dot-com bubble collapse in 2000 or the global financial crisis in 2008, both of which originated in the US market. Rather, these shocks can be related to the day-to-day stochastic downside risk from the US market. Likewise, a reverse feedback from the global markets to the US can also occur. The impact may be less significant due to different sizes and financial connections. It would be a richer model specification if we could establish a linkage by incorporating a multi-market setting into the testing of the risk relation.
+In light of the above thought processes and the established empirical regularities, we present a fractionally cointegrated vector autoregression (FCVAR) model. This model, which builds on a multivariate time series process, allows us to examine various dynamic relations between aggregate stock market returns and downside risk. Since both the stock return and the downside risk series present a long-memory process, the estimated cointegrating vectors for downside risk help to examine the long-run risk-return hypothesis. The short-run tradeoff hypothesis is also contained in the dynamic VAR process. Since the model features a multivariate process, cross-market feedback between downside risk and returns can be detected.
+This study contributes to the current literature in the following ways. First, the long-memory process is present in both the return and the downside risk series, suggesting that treating the downside risk series as a short-memory process (Bali et al., 2009) tends to neglect the important information linking it to a longrun relation. Second, long-run positive relations between downside risk and returns are confirmed in the most advanced markets, supporting the long-run tradeoff hypothesis; this holds true regardless of whether
+2 Atilgan and Demirtas (2013) and Feunou et al. (2013) are among the exceptions. 6
+
+the downside risk arises from the domestic market or the US market, suggesting that investors demand a risk premium not only from their own market but also from the cross (US) market. The evidence shows that US downside risk accounts for 54.36% of price discovery, whereas the downside risk stemming from the country itself contributes only 27.06%, supporting the notion of a "cross-market downside effect." The leverage effect is more appealing in the long run, but less promising in the short run.
+Risk measure through a cointegrating relation of VaR and volatility or skewness tends to have information content to predict the future VaR in the long run. The evidence confirms a cointegrating relation between VaR and volatility; its adjustment helps to achieve a long-run prediction over future stock returns. The same holds true for the skewness, which contributes to the long-run prediction of returns in some countries.
+The remainder of the paper is organized as follows. Section 2 describes the data, estimates the VaR as the measures of downside risk, and tests the existence of a long memory. Section 3 presents a fractionally cointegrated dynamic system pertinent to analyzing dynamic risk-return relations, the leverage effect, the risk feedback effect, and cross-market risk effects. Section 4 presents the empirical evidence and contains robustness checks; Section 5 specifies the relation between downside risk and higher-moment risk in an ICAPM apparatus, and Section 6 compares the price discovery ability between US downside risk and nonUS downside risk and presents the impulse responses. Section 7 contains concluding remarks.
+2. Downside risk estimation and long-memory property
+Following the bulk of the empirical research on the risk-return relation, which uses volatility or a conditional second moment as a proxy for market risk (French et al., 1987; Baillie and DeGennaro, 1990; Ghysels et al., 2005), the literature recognizes the significance of the asymmetric impact on risk imposed by a negative return. Downside risk is then introduced into the model to see whether it can better describe the risk-return relations, especially in the volatile regime. Along these lines, Bali et al., (2009), Ang et al. (2006), and Feunou et al. (2013) all employ downside risk to model the risk-return relation. Their studies
+7
+
+document a statistically significant positive relation between downside risk and return, supporting the riskreturn tradeoff hypothesis. In the following sections, we describe the data and estimation of downside risk in detail by using different types of kernel density techniques.
+2.1. Data description and estimating downside risk
+To conduct empirical estimations of the risk-return relation, this paper uses the first trading day to the last trading day of the month to construct "monthly" observations. Following the conventional approach, we employ a dividend-adjusted stock index in Datastream labeled as TOTMK, which is value-weighted by market capitalization. In addition, we choose the price index being measured by local currencies to avoid the contamination of currency variations. The data cover seven major advanced markets: Canada (CA), France (FR), Germany (GM), the United Kingdom (UK), the United States (US), Italy (IT) and Japan (JP) for the sample period September 1990 through July 2013. The data consist of stock market indices of the markets mentioned above. we choose the local three-month Treasury bill rate as the risk-free rate for the US, the UK and Canada; for the Eurozone countries we use the three-month interbank rate; and for Japan, the three-month 'Gensaki' repo rate.3 The excess stock return is constructed by subtracting the risk-free rate at time t from the stock index return from time t to t+1; and stock return is measured by taking the natural log difference of the stock price index times 100. All of the data above are taken from Thomson Reuters' Datastream.
+There are good reasons for choosing downside risk in examining the risk-return relation. First, there is a long literature on safety-first investors, who minimize the probability of big losses. Highly risk-averse behavior under extreme market conditions is more revealing in downside risk. Second, banks and financial institutions need a good measure to quantify, reveal, and monitor the amount of risk for their portfolios should losses occur. VaR provides a useful tool for measuring downside risk, since it measures the
+3 Please refer to the web page of Thomson Reuters Datastream http://extranet.datastream.com/data/Exchange%20&%20Interest%20Rates/RiskFreeInterestRates.htm
+8
+
+maximum potential loss on a firm's trading portfolio if the lowest 1% (or 5%) quantile return occurs. Capital adequacy thus can be judged on the basis of the amount of this expected loss over a specific time frame. Third, since VaR emphasizes negative and big breaks in stock returns, it provides insights into the interpretation of the economic sources of model instability (Pettenuzzo and Timmermann, 2011). Fourth, the CFE implies that using VaR as the downside risk measure captures higher moments of the return distribution (Harvey and Siddique, 1999); So VaR appears to be a more general risk measure than variance risk and is better for estimating more complex risk. Fifth, a substantial amount of research has been devoted to studying the mean-variance approach in the US market; however, less research has been done along the lines of the mean-VaR approach among different markets in a global setting.
+In the empirical literature, both parametric and nonparametric methods have been proposed to estimate VaR.4 The parametric method, however, may not be a good choice because the monthly VaR in this study is derived based on a non-overlapping period of one month in length (usually 22 trading days). Model-free nonparametric estimation of VaR has been proposed by Dowd (2001) based on the sample quantile, which is commonly called the historical VaR. The sample VaR estimator can simply be derived from the empirical distribution function of the return series {,}=1 . By using the indicator function,  , the empirical distribution at time t is F() = -1 =1 (,  ). The historical VaR estimator is just the ( + 1)th order statistic. However, the 99% VaR is an extreme quantile ( = 1%) situated in the tail region of the empirical distribution. In our case, each month t we derive the VaR estimator from n daily returns (here n on average is 22), and, therefore, the quantile at the  = 1% level cannot be calculated precisely. Accordingly, we pursue an approach that is based on non-parametric density estimation by kernel
+4 The parametric method is based on econometric models that have been widely discussed in academic research and applied to industry. However, it has been argued that parametric methods often entail unavoidable misspecification risk and estimation risk (Kerkhof et al., 2010). The model risk stems from the inconsistency between the assumptions underlying the probability model of asset returns and the realized asset returns (Tsay, 2010), while estimation risk comes from the uncertainty of parameter estimation (Talay and Zheng, 2002). Brooks and Persand (2002) show that the parametric method tends to produce less accurate VaR estimates than the simple non-parametric approach.
+9
+
+smoothing the empirical distribution F, leading to a VaR estimator that is a weighted average of the order statistics around the ( + 1)th order statistic, rather than relying on a single-order statistic (Chen and Tang, 2005). For each month t, we estimate an integrated kernel density estimator (KDE) F, with corresponding bandwidth , then do bootstrap calculations from F,. The desired quantile/VaR estimator can be inferred for each month.
+The proposed procedure is presented in detail as follows. Given the daily returns {,}=1 in month t, one defines the KDE-based smoothed distribution function as
+
+F,() = -1 =1 - ( - ,)
+
+(3)
+
+where () = -1(/) is the rescaled kernel with bandwidth . The bandwidth needs to be chosen
+
+so that it balances the squared bias and the variance. The tradeoff exists because increasing  will lower
+
+variance, but raise bias at the same time. The bandwidth , therefore, should be optimized to reach this
+
+tradeoff. In addition to the choice of bandwidth, the kernel function also governs the degree of smoothness. Clearly,  , the smoother, is used to replace the indicator function in the formulation of F(). Once we choose the Gaussian kernel  = (-2/2)/2 as the kernel for estimating VaR, Silverman's (1984) rule of thumb can be applied to obtain an optimal bandwidth, ,, expressed as:
+
+,
+
+=
+
+1.06
+
+
+
+{,
+
+ } -15
+1.34
+
+(4)
+
+where  is the sample standard deviation estimated from {,}=1 and  = ,[0.75] - ,[0.25]. Eq. (4)
+
+indeed takes into account the sensitivity of outliers, since a single outlier may cause a too large estimate of
+
+ and hence may create a too large bandwidth. The interquartile range  is invoked here to compensate
+
+for this effect. The constants 1.34 and 1.06 are scaling factors that are related to the choice of kernel (see
+
+Härdle, et al., 2004).
+
+How to bootstrap from the KDE, F,()? It turns out that one doesn't have to simulate via an
+inversion or rejection technique from Eq. (3), since the smoothed distribution function can be interpreted
+10
+
+as a convolution of the empirical distribution function with the kernel . Since the convolution operator is the one used to calculate the convolution of a sum of two random variables, one may just view Eq. (3) as the integrated probability density function of the sum of , and a random variable  having probability density function . To be more explicit, given month t, we bootstrap 1000 times from {,}=1. For each bootstrapped sample from {,}=1, one just adds the product of , in Eq. (4) and 1000 generated random variables  from i.i.d N(0,1). This idea can be expressed as
+
+, = , + ,
+
+(5)
+
+The 9,9 % estimate of country i at month t can be obtained now by calculating the 1%-quantile, 1%, of
+
+the simulated distribution ,, that is
+
+9,9 % = -1%(,)
+
+(6)
+
+The corresponding expected shortfall, the mean loss exceeding the VaR value, shall be given by
+
+9,9 % = [,|,  1%(,)]
+
+(7)
+
+The kernel density technique here achieves our goal of a 1% quantile value from limited observations,
+
+which builds on Bali et al. (2009), who regard the minimum daily return within the given month as the VaR.
+
+Actually, this minimum daily return is around a 4% to 5% quantile value over 22 daily returns, and it seems
+
+to not be extreme enough. In fact, it is rather unrealistic to produce a 99% expected shortfall estimator under
+
+this condition.
+
+It appears that different chosen kernel densities will create different tail behaviors of the KDE and, therefore, result in (slightly) different VaR estimates. Accordingly, the rule of thumb of Eq. (4) has to be changed. To incorporate a more realistic fat tail, we consider a double exponential (Laplace) kernel. A modification of bandwidth can be achieved by using the canonical kernel transformation, resulting in an
+
+11
+
+adjusted bandwidth, by multiplying with an adjustment factor.5 Later, in our empirical results for VaR
+estimates, we will show that the choice of the kernel function is not so relevant for the efficiency of the
+estimates, which is consistent with the discussion in Härdle, et al. (2004, page 57).
+The above procedure enables us to obtain 275 monthly and non-overlapping estimates of 9,9 %, which avoids the statistical problem due to overlapping data. Such a treatment not only alleviates the
+correlation problem with overlapping data (Lettau and Ludvigson, 2010, p. 638), but also helps to avoid
+the criticism that the overlapping design creates a long memory in downside risk. Note that the long-
+memory property of downside risk should be an intrinsic part of the VaR, rather than a way to manipulate the data.6
+Table 1 reports summary statistics of stock returns and downside risk for the G7 countries. The
+monthly excess returns are in the range of -0.24% (Japan) to 0.60% (US), and VaRs from the Gaussian
+kernel lie between 3.91% (Japan) to 2.81% (US). Likewise, the VaR from a double exponential kernel and
+expected shortfall show their variations across the G7 countries. The data suggest that the VaRs, regardless
+of the types of kernels for all of the markets, present an AR(1) process; Germany has the highest standard
+deviations on both stock returns and VaRs. The results of an augmented Dickey-Fuller (ADF) test indicate
+that the null hypothesis of a unit root is rejected uniformly and is significant at the 1% level for all markets.
+Rejecting the null indicates that the returns and VaRs do not have a unit root. As shown in Figure 1, the
+time series of the VaRs across the G7 countries share a very similar pattern. It appears that downside risks
+in the G7 countries comove tightly, implying that they have a potential long-run relation and share a
+5 0.582 exactly is an adjustment factor between the bandwidth of a Gaussian kernel and a double exponential kernel. 6 Bali et al. (2009), Boudoukh et al. (2008) and Lettau and Ludvigson (2010) found that long-horizon returns become more predictable as the horizon is extended. They pointed out that, even under the null of no return predictability, long-horizon R2 statistics and coefficients from direct long-horizon regressions will rise monotonically with the horizon, as long as the predictor variable has some degree of persistence. These findings imply that long-horizon returns could, in principle, lead to more predictability than short-horizon returns even if they have no significant predictive power. Boudoukh et al. (2008) argue that this phenomenon is not attributable to small sample bias; rather it results from the use of overlapping return data interacting with the persistence of regressors. They contend that the problem with overlapping return data can be avoided by using a VAR method to impute long-horizon statistics, instead of using data on overlapping returns directly.
+12
+
+common stochastic trend. In this regard, although the downside risks themselves may be characterized as I(1) or I(d), the linear combination between the two risk series can be fractionally integrated of a lower order. The FCVAR model permits the potential presence of fractional cointegration in the long-run relation between the downside risk series.
+<Table 1>
+<Figure 1>
+2.2. Long-memory estimation for VaR
+As stated earlier, current studies of the downside risk-return relation have not paid sufficient attention to the impact of the long memory inherent in downside risk. The rationale for why we model downside risk as a long-memory process stems from the tight connection between downside risk and volatility, yet capturing the feature of skewness. In recognizing the significance of long memory for downside risk predictions and risk management, it is important to detect the impact of long memory on parameter estimation, since ignorance of the long-lasting effects of downside shocks on required excess returns can lead to biased parametric estimators of the risk-return relation.
+To quantify the degree of long memory, we estimate the fractional integration parameter d using both the log-periodogram estimator developed by Geweke and Porter-Hudak (1983, hereafter GPH) and the local Whittle likelihood procedure of Künsch (1986). Table 2 reports the semi-parametric point estimates of the fractional integration parameter d in both methods. The long-memory parameters from both methods are comparable, and their estimated values from GPH across the G7 countries range widely from 0.259 (FR) to 0.508 (UK). Except for the UK, the long-memory estimates are inside the stationary region, indicating that downside risks in advanced countries entail a stationary long-memory property.7 In the case of the US,
+7 A suitable value of d usually lies in |d| < 0.5. A fractional (non-integer) number with values less than 0 would indicate a weak or memory-less process; if d lies in the interval of (0, 0.5), the series is characterized by a stationary process with long memory; if d lies in (0.5, ), the series is a long-memory non-stationary process.
+13
+
+the value of d estimated from the GPH is 0.441, which is close to the corresponding long-memory value estimated from the volatility series. The long memory of the US volatility series has a d value of 0.4 (see Bollerslev et al., 2013; Andersen et al., 2003). Again, we confirm that a long-memory property of downside risk is associated with that of volatility.8
+< Table 2 >
+3. Fractionally integrated dynamic system
+3.1. Model setting
+Given the established data characteristics in Table 2, it is natural to ask whether the risk-return tradeoff hypothesis is applicable to the short-run or the long-run horizon. That is, will higher downside risk be compensated by expected returns in the short run or in the long-run? From investors' perspective, the evidence emerging from this study will provide some insights into forming their investment strategies with different time horizons. In examining the risk-return hypothesis, global market integration suggests that it is impossible to be independent of the cross-market influence. More precisely, if downside risk occurs in the global market, would investors expect to be compensated by a cross-market risk premium? Thus, given the interdependency in the global markets, incorporating cross-market forces into the analysis appears to be necessary.
+In a related issue, the literature finds evidence of leverage effects -- bad news about stock prices will create greater market volatility than good news -- and the resulting volatility could further give rise to downside risk and subsequently a feedback effect on stock returns (Bekaert and Wu, 2000). To incorporate
+8 Long memory may be an artifact of the aggregation of a short-memory process, structural breaks, a level shift or a regime switch (Franke, Härdle and Hafner, 2015). Several recent studies, including Diebold and Inoue (2001), Granger and Hyung (2004), and Perron and Qu (2010), show that a regime switch or structural break can generate spurious long-memory behavior. A short-memory process is sometimes contaminated by occasional level shifts, and, therefore, its auto-covariance function exhibits a slow rate of decay, akin to a long-memory process. Appendix 1 provides details.
+14
+
+the multi-dimensional market behavior of stock returns and downside risk in the short-run and long-run relations with a multiple market system into a unified framework, we employ the FCVAR model along the lines suggested by Johansen (2008ab, 2009), Johansen and Nielsen (2012), and Bollerslev et al. (2013) .
+
+To be specific, let   (,, ,, ,, ,) denote a 4 × 1 vector process comprising two downside risk variables, , and ,, and two stock return variables, , and ,. If i is an index for any non-US markets and j is a notation for the US market, this setting allows us to study multiple relations in terms of the long-run and short-run horizons. First, the model is capable of addressing the fractional cointegrating relation between , and ,, where both belong to a fractional process. Typically, it is expected that these two series will follow a common stochastic trend and a linear combination of the two is a stationary approximate I(0) process. Second, the intertemporal relation between risk and returns in the domestic market can be established in both the short-run dynamics and the long-run equilibrium simultaneously. Third, the effect of cross-market downside risk from the US on the expected returns of non-US markets can be estimated. Thus, we are able to detect and estimate whether investment in the domestic market requires compensation for downside risk from the cross market, say, the US. Likewise, we can test whether higher expected stock returns in the US result from higher cross-market downside risk outside the US market. In short, the FCVAR provides us with an analytical structure that can tackle behavioral complexity, yet also provide a rich empirical setting in which to test the cointegrating time series between downside risks and stock returns.
+
+Given the long memory in the elements of vector  and the possible cointegrating relation, the fractionally cointegrated VAR model for , denoted by FCVARb,d(p), takes the form:
+
+  =-  + =1    +   = 1, ... , T
+
+(8)
+
+where  is n-dimensional i.i.d. (0, ),     0. The observed process  is a time series with integration of order d, and b is the strength of the cointegrating relations in the sense that higher b implies
+
+15
+
+less persistence in the cointegrating relations.  = (1 -) is the fractional lag operator, and  is the fractional difference operator, which is used to remove the long-memory component and, thus, transforms the , the left-hand side of Eq. (8), from an I(d) series to an I(0) process. Eq. (8) implies that  is a fractional process of order d; therefore,   and  are stationary with fractional integration of order zero. This dynamic FCVAR representation directly parallels the classical error-correction-type representation with cointegrated I(1) variables. The coefficient matrix  =  is an n×  matrix, and  < . The columns of  are the m cointegrating (cofractional) vectors that are the long-run equilibrium relations, and the coefficients in  are the adjustment parameters that determine the speed of adjustment to the equilibrium for each variable.
+
+The second term on the right-hand side of Eq. (8) specifying the fractional distributed lag matrix  and powers of  applied to   directly mirrors the distributed lag matrix in standard error-correction models. The parameters in  govern the short-run dynamics of the variables. Note that for  = 1, the FCVAR model reduces to the VECM model, which is nested in the FCVAR as a special case.
+
+Imposing a restriction of  =  allows us to include a constant term, namely, FCVARd(p), given by Eq. (9)
+
+  = ( + ) + =1    +   = 1, ... , T
+
+(9)
+
+where  is interpreted as the mean level of the long-run equilibrium. To keep parsimony, we apply Eq. (9)
+
+in the empirical estimations throughout this study.9
+
+3.2. The economic interpretation of the model and estimating approach
+The empirical evidence in Table 2 suggests that each downside risk series entails a long-memory property; however, any combination from two arbitrary series may fractionally cointegrate to an I(0)
+
+9 The model represented by Eq. (9) is comparable to models in the literature such as Bollerslev et al. (2013) and Dolatabadi et al. (2015).
+16
+
+process if they are cointegrated. Specifically, the return process, , is stationary; hence the column rank of  equals three (=3) with natural normalization. In Eq. (9), the matrix  of adjustment coefficients is:
+
+11 12 13
+
+ = (3211
+
+22 32
+
+3233) and, correspondingly,
+
+41 42 43
+
+(10)
+
+ 1 0 0  = (0 0 1 0).
+0001
+
+(11)
+
+As the model stands,  governs the long-run cointegrating relation between , and , , so that it
+
+establishes the downside risk error-correction term as a linear combination of , and , such that , + , =  results in a stationary error vector,   I(0). Normally, the estimated  is negative,
+
+which means that the difference between two downside risk series is stationary. Using Eqs. (10) and (11)
+
+and assuming the lag length, p=1, in the fractional distributed lag matrix , we expand Eq. (9) as:
+
+ ,
+
+11 11 12 13 ,
+
+1,11 1,12 1,13 1,14
+
+  ,
+
+1,
+
+ ,  ,
+
+=  +
+
+21 31
+
+(  j, )
+
+(41
+
+21 31 41
+
+22 32 42
+
+23 33
+
+ ,  ,
+
++
+
+1,21 1,31
+
+43) (, ) (1,41
+
+1,22 1,32 1,42
+
+1,23 1,33 1,43
+
+1,24 1,34 1,44)
+
+  ( 
+
+  
+
+, , j,
+
+)
+
++
+
+(23,,) 4,
+
+(12)
+
+The long-run relations become apparent by inspecting the elements of () in Eq. (9); the short-run relations are contained in the elements of 1.
+
+3.2.1. Long-run tradeoff hypothesis
+
+The long-run tradeoff is denoted by the parameters of 31 and 41. The 31 links the downside risk error-correction term and the returns, or the long-run dynamic volatility feedback effect implied by the model (Bekaert and Wu, 2000). It's worthwhile to know how the previous disequilibrium between two downside risks feeds into today's fractional change in stock returns. Particularly, 31 captures the cross-
+
+17
+
+market long-run dynamic tradeoff relation between the fractional lag , ( ,) and the fractional difference of , (  ,) ; the long-run dynamic tradeoff relation between the fractional lag , (,) and the fractional difference of , ( ,) can be implicitly inferred through the cointegrating vector  given the estimated 31.
+Likewise, 41 captures the long-run dynamic tradeoff relation between the fractional lag , (,) and the fractional difference of , ( ,), while the cross-market long-run dynamic tradeoff relation between , and  , can be implicitly derived through the cointegrating vector  given 41.
+
+3.2.2. Short-run dynamics
+
+The short-run parametric relations are determined by the ,31, ,32, ,41 and ,42 in the fractional distributed lag matrix . Setting s=1 leads to:
+
+1,11
+
+1 =
+
+1,21 1,31
+
+(1,41
+
+1,12 1,22 1,32 1,42
+
+1,13 1,23 1,33 1,43
+
+1,14 1,24 1,34 11,44)
+
+(13)
+
+The short-run tradeoff is captured by certain elements in the 1 matrix. Specifically, 1,31 represents the short-run tradeoff between   , and  , , and 1,32 captures the short-run tradeoff between   , and  ,. Similarly, 1,41 represents the short-run tradeoff between   , and  ,, and 1,42 captures the short-run tradeoff between   , and  , . From the above parametric
+
+relations, it is obvious that the model can help us to distinguish the long-run tradeoff from the short-run
+
+tradeoff, and to separate the domestic market tradeoff from the cross-market tradeoff.
+
+3.2.3. The leverage effects
+
+18
+
+The leverage effect posits that the observed market volatility is inversely correlated with the shocks of stock returns.10 This effect is contained in the FCVAR model through the parameters 12, 23, 22 and 13 for the downside effects in the long-run equilibrium, while the parameters 1,13, 1,23, 1,14, 1,24 are the leverage effects in the short-run dynamics. Specifically, the 12 captures the leverage effect from , to  ,, while 13 represents the cross-leverage effect from , to  ,. The 22 captures the cross-leverage effect from , to  , , while 23 represents the leverage effect from , to  ,. Correspondingly, the short-run leverage effect from   , to  , can be captured by 1,13, while the short-run cross-leverage effect from   , to  , can be captured by 1,14. Likewise, 1,23 captures the short-run cross-leverage effect from   , to  , , while 1,24 represents the short-run effect from   , to  ,.
+
+3.3. Estimations and inferences from the fractionally cointegrated VAR model
+
+Since the existence of a cointegrating relation is a necessary condition to implement the FCVAR model, a legitimate procedure is to examine the number of cointegration ranks. To address this issue, we conduct likelihood ratio tests. The cointegration rank test developed by Johansen and Nielsen (2012) involves two hypotheses, 0: rank =  against 0: rank =  , and maximizes the likelihood function under both hypotheses. The likelihood ratio (LR) test statistic is then
+
+LR( - ) = 2log ((, )/(, ))
+
+(14)
+
+where (, ) represents the profile likelihood function given rank n and other parameters have been
+
+concentrated out (see Johansen and Nielsen (2012), p. 2698). The asymptotic distribution of test statistics
+
+in Eq. (14) is highly dependent on the parameter of . In the case with 0 <  < 0.5, it has a standard
+
+10 Black (1976) argues that when a stock price declines, a firm becomes more leveraged, since the relative value of its debt rises relative to that of its equity. As a result, the stock is expected to become riskier and, hence, more volatile. Asymmetric effects have also been documented by an asymmetric phenomenon that a decline in the stock market is accompanied by a greater increase in volatility than the decline in volatility that accompanies a rise in stock markets (Nelson, 1991, Bekaert and Wu, 2000).
+19
+
+asymptotic distribution to 2 with degree of freedom( - )2. For   0.5, asymptotic theory is nonstandard and involves fractional Brownian motion of type II.
+The estimation of the FCVAR model can be conducted by the maximum likelihood (MLE) method conditional on initial values. An asymptotic analysis shows that the maximum likelihood estimators are asymptotically normal conditional on the initial values. The log-likelihood function corresponding to Eq. (9) is derived as
+
+log
+
+T()
+
+=
+
+-
+
+T 2
+
+log
+
+det(T-1
+
+=1
+
+()())
+
+where () =  - ( + ) - =1   ,
+
+ = (, , , , )
+
+(15)
+
+under i.i.d errors with suitable moment conditions, the conditional maximum likelihood estimates are asymptotically Gaussian for , , and  and locally mixed normal for , .
+
+The selection of lag length, p, in the fractional distributed lag matrix  is a critical issue for model selection. When the lag length is misspecified, the estimates in  will sometimes be far from what would be expected. To properly select the lag length, we take into account the information from the BayesianSchwarz information criterion (BIC), the univariate Ljung-Box Q test for each residual series, and the likelihood ratio test for the significance of the .
+
+4. Empirical evidence
+The cointegration rank test in Table 3 indicates that there are three ranks. In this four-variable system, we observe three linearly independent cointegrating vectors and one cointegrating vector. The existence of one cointegrating vector for the countries being investigated shows that the downside risk for each non-US market is cointegrated with that of the US market. Owing to this cointegrating relation, we set the rank as three and estimate the parameters that are summarized in Table 4. The downside risk measured by VaR is
+
+20
+
+derived from a Gaussian kernel. 11 To investigate the parametric relations between stock returns and downside risks in the framework of the FCVAR model, we investigate the pairwise dynamic relations between the US market (j) and each of the other G7 countries (i), that is, an investigation of the "crossmarket downside effect" from the US downside risk on the expected returns of non-US markets. As mentioned in Section 3.3, the selection of the lag length will determine the success of the FCVAR model. Following the suggestion by Dolatabadi et al. (2015), for each country paired with the US, we first use the BIC as a starting point for the lag length, and then find the nearest lag length that satisfies the following criteria: (i) the univariate Ljung-Box Q test for each residual series without showing serial correlation, and (ii) the likelihood ratio test for the significance of the . Two testing results lead to the choice of lag two in the fractional distributed lag matrices 1 and 2, which govern the short-run dynamics.
+<Table 3> As shown in Table 4, the estimated long-memory parameter  for the FCVAR dynamic system ranges from 0.201 (CA) to 0.499 (UK). The estimated  values relative to respective standard errors (in parentheses) are relatively high, suggesting that neither the simple VAR models nor the VECM is adequate to describe the dynamic system between the downside risk series and the return series. To elucidate, let us look into the case of the UK, where we find that  is a fractional process of order d=0.499; therefore,   and  are fractionally integrated of order zero by using 0499 . Similarly, fractional integration of order zero can be achieved by applying 0.497 , 0.483 , ... ,0.471  for Germany, France,..., and Japan.
+<Table 4> Consistent with our anticipation, the estimates of  present a negative sign. The estimated  can be used to infer the long-run equilibrium between the downside risk of each non-US market, say, the UK,
+11 At a later point, we will present VaR estimates specified by different kernels for robustness checks. 21
+
+and the downside risk of the US markets. That is, , - 0.883, =  for the UK, , - 1.266, =  for Germany, and so on, where  is white noise. In estimating the FCVAR model, we find some interesting results from the (4×3), =1(4×4) and =2(4×4) matrices, which describe the long-run and short-run relations, respectively. In the following subsections, we will discuss the economic findings and interpretations that stem from Table 4.
+4.1. The long-run tradeoff
+The long-run tradeoff of risk-return (, and  ,) is captured by the parameter 31. As shown in Table 4, the estimated coefficients, 3.033 (UK), 1.117 (GM), 0.559 (FR), and 0.414 (IT), are all positive and statistically significant, indicating a long-run risk-return tradeoff between US downside risk (,) and excess returns ( ,) of the non-US countries under investigation. The long-run dynamic tradeoff relation between downside risk (,) and its own excess return (,) for each market can be inferred through the cointegrating relation measured by . As we mentioned above, in the case of the UK, given that the cointegrating vector of downside risk being expressed as , - 0.883, =  and given 31= 3.033, where j denotes the US and i represents the UK, we can infer the coefficient between , and  , by plugging these estimated values into the parameters. Obviously, the effect of , on  , can run through the , term due to the existence of the cointegrated relationship between ,and , in the long run. Comparable evidence can be inferred from other non-US markets, except Canada and Japan, where the estimated 31 is insignificant. It is apparent that the data confirm the long-run risk-return relations, supporting the tradeoff hypothesis, regardless of whether the downside risk arises in the domestic market or in the US market. These findings suggest that investors require a risk premium not only in their own market but also from the cross (US) market, that is, the "cross-market downside effect."
+Note that the long-run risk-return tradeoff relation in the US market can be examined by 41 to address the causal relation between , and  ,. The estimated coefficients of 41 are positive and
+22
+
+significant at the 5% level in the markets of the UK, Germany, and Italy, which aligns with previous research and supports the long-run risk-return tradeoff relation in the US market. It's also interesting to examine whether US investors require a risk premium for downside risk coming from outside the US. The coefficient, 41, provides an additional clue to the above question. Investors do require a risk premium when downside risks spill over from the UK, Germany and Italy, in terms of the significance of 41 and the cointegrating relation between the US and these countries. The joint significance of 31 and 41 implies that the US relative to three European markets, the UK (3.033 and 2.535), Germany (1.117 and 1.288) and Italy (0.414 and 0.405), presents two different links between downside risk and return in the long run. The effects come from either the direct impact or the cointegrating relationship between ,and , in the long run.
+4.2. The short-run tradeoff
+The short-run tradeoff hypothesis between downside risk and return for each market can be examined by checking the estimated coefficient of 1,31 and 2,31. The evidence shows that the estimated values of 1,31 for the UK (3.812), Germany (1.061), and France (1.436) are positive and significant and support the short-run tradeoff hypothesis, and the coefficient of the UK in 2,31 (3.549) is also positive, which shows a persistent tradeoff effect up to lag 2.
+The downside dynamic risk from a non-US country to the US returns in the short run is contained in the estimated coefficients of 1,41 or 2,41 in Table 4. The evidence shows this effect to be prominent for the downside risks originating from the UK, Germany and Canada. The Japanese market appears to be a special case for which we are unable to find significant evidence to support the tradeoff hypothesis, either in the long run or in the short run. This should not be surprising, since Japan's stock market has been in a depressed state since 1994; therefore, the incentive to take risk in order to gain a higher return could have been suppressed by pessimism.12 The stock markets in the other industrial countries have substantially
+12 Hoshi and Kashyap (2004) note that in addition to collapsed growth and price pressures, the inefficiency of the banking system and government regulations are responsible for Japan's long-run financial problems and economic stagnation. Japanese banks
+23
+
+advanced, stimulated by the high-tech boom, productivity gains, and effective monetary policy over the
+same period of time.
+It is of interest to note that the estimated results for 1,32 and 2,32 reflect the short-run effect of US
+downside risk on non-US market returns. Negative coefficients are found in most of the countries; however,
+only the UK and France are statistically significant. Similarly, the short-run downside risk from the US on
+its own market, measured by 1,42 and 2,42, also shows a negative sign and is significant for all of the
+markets except Japan, indicating that as downside risk occurs, it produces a widespread negative effect on
+the world markets. This suggests that risk-averse investors with a fear of uncertainty tend to sell off their
+stocks, causing a decline in stock returns. This market phenomenon has been captured by the negative sign
+of 1,32, 2,32, 1,42 and 2,42. It appears that the short-run pessimistic behavior caused by high downside
+risk from the US produces a negative short-run effect. This is the very reason we fail to see a tradeoff in the
+short run. However, the evidence suggests that stock returns will bounce back and present a long-run
+tradeoff between US downside risk and excess returns as evidenced by the fact that the coefficient of 31
+displays a positive sign, except for Canada and Japan. Viewed from this perspective, the tradeoff hypothesis
+is more likely to be established in the long run. This finding is consistent with the result reported by
+Lundblad (2007) for the US case. It is evident that the FCVAR system provides a complex, yet rich model
+specification in helping us gain more insight into the multi-dimensional cointegrating relations between
+downside risk and return. In sum, the tradeoff hypothesis is supported by evidence from four major
+European markets in the long run;13 however, in the short run, the tradeoff hypothesis is valid for both the
+have long been suffering from low profitability and poor lending operations owing to a banking industry that is too large. It has been argued that the poor health of the banking system is impeding economic recovery and the depressed state of the economy is hurting the banking system. It is these two-way links that brought about a long-run depression in the Japanese market. The Japanese Nikkei index (weekly data) hit a bottom of 7173 points on March 6, 2009, and did not consistently rebound until November 9, 2012. 13Atilgan and Demirtas (2013) provide a good study on the issue of downside risk and return using worldwide data based on panel data approach. They show that there is a significant tradeoff effect for the data derived from emerging markets. However, the relationship between expected returns and downside risk is weaker for developed markets. Obviously, the difference in findings for the advanced markets between the current study and that of Atilgan and Demirtas (2013) is due to the fact that the cointegration relation on the VaRs between an individual market and the US market is not included in their model and hence no distinction is made between the long-run and short-run tradeoff.
+24
+
+UK and German markets. In addition, US downside risk plays a significant role in world stock returns in the long run through its cointegrating relation of downside risk with that of the other countries.
+4.3. The leverage effects
+Table 4 shows the long-run and short-run leverage effects through the estimated parameters of 12, 13, 22, 23 in the long run and the parameters of s,13, s,14, s,23, s,24 in the short run. Inspecting the estimated statistics of 13, we find that the estimated values (-0.222 for France, -0.657 for Canada, and -0.469 for Japan) are all negative and statistically significant, suggesting that negative stock return news from the US market will have a profound impact on each downside of the non-US markets, causing a significant long-run asymmetric effect. Similarly, for the estimated coefficient of 12, the leverage effect from their own markets, France (-0.439), Italy (-0.049) and Japan (-1.167) exhibit a significantly negative value, showing that the long-run leverage effect for France and Japan comes from both their own markets and the US market. While checking the coefficient of 23, we find no evidence that this coefficient is statistically significant. Thus, it is appropriate to conclude that for Canada, France, and Japan, the US plays a dominant role in the long-run leverage effect; there is no reverse causation running from other countries to the US.
+The corresponding short-run leverage effect from   , to  , is captured by 1,13 and 2,13, while the cross-leverage effect from   , to  , is measured by 1,14 and 2,14. In the case of Italy and Canada, we observe a short-run leverage effect in the US itself through the significant 1,14 and 2,14. Only Canada presents a domestic leverage effect in the short run. We cannot find a short-run leverage effect from US markets on the non-US market captured by 1,14 and vice versa. The leverage effect does not demonstrate very impressive significance in the short run as it does in the long run.
+4.4. Robustness checks
+4.4.1. Evidence from an alternative kernel density estimator
+25
+
+As we discussed in Section 2, the tail behavior of the KDE is closely tied to the choice of kernel densities, which, in turn, generate (slightly) different estimates of the VaR. The question we are concerned with is whether the risk-return relation presented in the previous section is invariant to different types of kernel densities used to obtain the VaR estimates. In particular, to capture the fat tail in the stock return distribution, we first consider a double exponential (Laplace) kernel. Table 1 summarizes the descriptive statistics of the VaR estimates from a double exponential kernel. The statistics for four moments and an AR(1) term do not differ significantly from those obtained when we use the Gaussian kernel. The risk-return relation specified by an FCVAR system has been examined again by using the double exponential kernel to generate the VaR estimate, and the estimated results are reported in Panel A of Table 5. By comparing the case of the UK with the one in Table 4,14 one can observe that the estimated long-memory parameters are comparable (e.g. 31 = 2.906) and the cointegrating vector  (-0.888) is also similar. The evidence supports the hypothesis that there is a tradeoff between downside risk and returns in the long-run. For the short run, we find that the UK's own effect as measured by the 1,31 (3.617) is positive and statistically significant, supporting the tradeoff hypothesis. However, we cannot find the same level of support from US downside risk, where the measured coefficient goes in the opposite direction between the sources of downside risk. The data show that the estimated coefficient for 1,32 is negative (-2.893) and statistically significant. Putting these findings together leads us to conclude that there is a short-run tradeoff within UK's own market; however, it is not true for the cross market. That is, the impact from the US market tends to produce a negative effect and will not be compensated in the short run. However, since the evidence shows a positive relationship in the long run as shown in 31(2.906), the losses caused by the US market downside risk in the short run will be compensated in the long run. In sum, we conclude that the empirical results are totally consistent with the result derived from Table 4 regardless of the selection of kernel densities. Our results conform with the argument in Härdle et al. (2004) that the choice of the kernel function is not so
+14 To save space, we report only the case of the UK. The statistics for other countries are available upon request. 26
+
+crucial for the efficiency of the estimates, and as a consequence, it has no significant impact on the final estimated results.
+<Table 5>
+4.4.2 Expected shortfall and expected VaR
+As noted by Artzner et al. (1999), the VaR measure may not be coherent, that is, it fails to satisfy the so-called sub-additivity property and violates the principle that "a merger does not create extra risk." It is possible for a portfolio's VaR to exceed the weighted average VaR of the assets that it comprises. Another shortcoming of VaR is that it provides no information on the extent of the losses that might be suffered beyond the threshold amount indicated by this measure. In this regard, expected shortfall (ES), the mean losses larger than VaR, can ideally substitute for VaR and this is measure can be used to examine the degree of robustness.
+The statistics reported in Panel B of Table 5 show that using the expected shortfall as the downside risk measure does not bring any incremental findings beyond what we found earlier. Risk measures constructed either by quantile or by averaging those below the quantile show their predictability for future returns, and this predictability is also robust in the long run and the short run.
+The rationale for using the lagged realized VaR as a proxy for the expected VaR in testing the riskreturn relation is that VaR behaves quite persistently. As shown in Table 2, like volatility, VaR is characterized as a long-memory process (Caporin, 2008). Owing to this predictability, we follow Bali et al. (2009) and consider an AR(p) specification as a proxy for expected VaR. Using the BIC, one can select the optimal lag and then use the current and lagged VaR to project the expected future VaR. As expected, the findings in Panel C of Table 5 show that the lagged realized VaR appears to be a good proxy for the expected VaR, and the corresponding estimates do not differ significantly from those we derived earlier.
+4.4.3. Control variables incorporated
+27
+
+Control variables may affect the estimation of the stock return equation and, therefore, blur the riskreturn relation. For this reason, we include control variables such as dividend yield, term spread (the difference between the one-year Treasury rate and the one-month Treasury rate), the detrended riskless rate(the three-month Treasury rate minus its one-year backward-moving average), and the default spread (the yield difference between US BAA- and AAA-rated corporate bonds. All of the data above are taken from Thomson Reuters' Datastream. These control variables are quite standard in estimating the stock return equation (see Bali et al., 2009). Firstly, we regress the raw return series on these control variables to estimate the residuals. The residuals, after controlling for the critical economic and financial variables, are then incorporated into an FCVAR system to ideally replace the raw return series of the G7 countries. Estimates from Panel D suggest that the tradeoff effect still holds in the long run, but there is a lack of support for the short-run results. Most important, the long-run feedback effect from residual returns to future downside risk turns out to be significant after incorporating the control variables.
+In sum, the robustness checks encompass the VaR estimates derived by the alternative kernel density estimators, the expected shortfall, the expected VaR in addition to realized VaR, and specification of the control variables. Additionally, a small sample bias may appear once one tests the coefficients in a dynamic system with highly persistent regressors, such as downside risk values. In Appendix 2, we illustrate the small sample bias issue via a simulation, and then demonstrate that the fractional differentiation framework employed here is robust relative to this bias issue.
+5. Downside risk, high-moment risk and ICAPM theory
+5.1. The model Given the information content of VaR, it is worth extending the current research to ask the following
+questions: (1) Which higher-moment risk measures may contribute more to VaR or better predict VaR? (2) How well do these higher-order-moment risks predict expected return and subsequently how do they
+28
+
+produce better predictability? (3) Does VaR better represent higher-moment risk measures, leading to the conclusion that the ICAPM theory can be more parsimonious when using this aggregative and informative risk measure? To address the predictability of higher moments by using VaR, one can perceive that the VaR series with the persistent property that is inherent in the higher moments of the stock return distribution may behave like an AR(1) process, 1-, =  + 1-,-1 + . By plugging the right-hand side of Eq. (2) into the lagged VaR, the lagged higher moments introduced in the CFE potentially predict future VaR. Jointly considering this issue with the second question of predicting expected returns with respect to these risk measures, we need a dynamic system to incorporate the variables of interest and to specify their dynamics as well as interactions over time. More concisely, our dynamic system constitutes a vector of elements with higher-moment risks, VaR, and stock returns, and the system is structured into an FCVAR model by taking advantage of its capacity for long memory and its cointegrating features. The resulting system thus enables us to examine the source of VaR's predictive power (VaR is a function of higher moments) and its predictability for stock returns (by using VaR and higher moments) simultaneously. An FCVAR specification can be expressed as
+
+ ,  ,
+
+11 21
+
+ , =  + 31
+
+ i, (  i, )
+
+41 (51
+
+12 22 32 42 52
+
+13 23 33 43 53
+
+14 24 34 44 54)
+
+ (0
+0 0
+
+1 0 0 0
+
+0 1 0 0
+
+0 0 1 0
+
+ ,
+
+1,11
+
+0 ,
+
+1,21
+
+0) 0 1
+
+ ,  i, ( i, )
+
++
+
+1,31 1,41 (1,51
+
+1,12 1,22 1,32 1,42 1,52
+
+1,13 1,23 1,33 1,43 1,53
+
+1,14 1,24 1,34 1,44 1,54
+
+1,15 1,25
+
+  ,   ,
+
+1,35   , +
+
+1,45
+
+  i,
+
+1,55) (   i, )
+
+1, 2, 3, 4, (5, )
+
+(16)
+
+The likelihood ratio tests for cointegrating rank indicate that the system contains four cointegrating
+
+ranks, implying one cointegrating relation between , and ,, which is captured by . The column rank of  equals four (=4) with natural normalization. This cointegrated relation points out that a
+
+long-run relationship exists between VaR and volatility; furthermore, this long-run equilibrium provides a
+
+mechanism for conducting VaR prediction in the future. Most interestingly, the VaR can serve as an
+
+29
+
+information variable for volatility given the cointegrating relation. The first row of the matrix  of the adjustment coefficients indicates a long-run (more permanent) predictability of higher-moment risk measures for future VaR, while the first row of the fractional distributed lag matrix 1 shows a short-run (more transitory) predictability. The aforementioned coefficients address the first research question; the second research question is addressed in the last row of  for a long-run prediction of future returns, and the last row of 1 for a short-run prediction. According to the criterion (mentioned in the last paragraph of Section 3) of selecting the lag in the fractional distributed lag matrix , we find that a lag of 1 is appropriate.
+5.2. The estimated results
+As shown in Table 6, the estimated long-memory parameter  for the FCVAR dynamic system ranges from 0.137(JP) to 0.418 (US). The estimated  values relative to the respective standard errors (in parentheses) are significant to support the validation of this model. The estimated  is in the range of 0.187 (GM) to -1.047 (JP). These numbers are comparable to the literature (Bollerslev, et al., 2003). In our context, it is sufficient to focus on two variables:  , and  i, in terms of equation (16). The former concerns the information content of VaR; the latter involves the predictability of stock returns based on the second- and higher- moment risks. The validity of the former can be attested to by examining the restrictions of 11 = 0 ( and ,), 12 = 0 (), and 13 = 0 (), while the latter can be attested to by testing 51 = 0 (VaR and , ), 52 = 0 (), and 53 = 0 () using a standard t-statistic on each individual coefficient.
+The evidence in Table 6 indicates that he estimated 11 is significant, and this holds true for all of the countries under investigation. This testing result suggests that both lagged VaR and lagged volatility have information content to predict  ,. Since the 11 is positive, the long-run effect of the lagged VaR on predicting  , is direct and positive for all of the markets, except the UK. The data reveal that the long-run effect for the UK, however, is running through an error-correcting process owing to the adjustment made on the disequilibrium state between the lagged VaR and lagged volatility, which is
+30
+
+embedded in the negative term of 11 . The estimated values of 12 are negative and statistically significant for the UK, Germany, Japan, and the US, confirming that the skewness in these markets also contributes a long-run factor to predicting VaR. Note that the estimated coefficient exhibits a negative sign. One can infer that the further left-skewed the series is, the higher the VaR expected to be present in the future. With respect to the predictability of kurtosis, however, we find no concrete evidence to conclude that the estimated 13 is significant, suggesting that the kurtosis carries no incremental information in predicting VaR.
+<Table 6>
+To provide evidence to answer the second question -- how well do these higher-order moments predict expected returns? -- we examine the restrictions: 51 = 0, 52 = 0, and 53 = 0. The statistics in Table 6 show that the estimated values of 51 and 51 are significant for all of the countries (except Canada and Japan), which suggests that the individual lagged VaR and lagged variance possess certain information content in predicting future changes in stock returns. This is evidenced by the positive sign on the product term of 51.
+The estimated coefficient of 52 shows a negative sign and is statistically significant for three major countries the UK, Germany, and the US. This finding is consistent with the theoretical a priori that skewness could contribute to a long-run prediction of stock returns. The findings for these three markets agree with the results by Harvey and Siddique (1999) in their studies of the US market. With regard to the estimated value of 53, the statistics confirm that the sign is positive and the coefficient is significant for the UK, France, and the US, supporting the positive contribution of kurtosis to predicting stock returns.
+Turning to the short-run predictability of second- and higher-moment risks, the statistics do not lend much support because the short-run data appear to be more erratic in terms of variability and vulnerability. By focusing on the first row of the 1 matrix, which tests the information content of VaR in relation to various risk factors, we find that only the UK market shows that the coefficients of 1,11 ,1,12 , and
+31
+
+1,14 are statistically significant, supporting the notion that the lagged values of the  ,,  , and  i, can be used to predict future movements of  ,. No comparable evidence is present in the other markets under investigation. Likewise, as we test the performance of stock returns explained by the lagged values of the second and higher moments associated with the elements in the last row of the 1 matrix, we find that the following restrictions 1,51 = 0, 1,52 = 0, and 1,53 = 0 are rejected only for the UK data; leading to conclude that there are no significant coefficients for the other markets. Obviously, the UK market performs well when we use the short-run component data, but the other markets in this study do not.
+6. Dynamic effects of permanent and transitory shocks
+6.1. Decomposition of shocks Time series variables moving together at low frequencies form a key feature of a cointegrated system.
+The impulse response analysis arising from the shocks created in a cointegrated system goes beyond that in the conventional VAR system. Given that variables comove in the long run, the impulse response analysis in a VAR system is essentially limited.15 Identification of the shocks is suggested to derive the long-run responses of the variables to relevant shocks. Accordingly, the shocks are distinguished by their degree of persistence, rather than their origin. The conventional approach suggests that the invisible shocks can be decomposed into "permanent" and "transitory" components. By definition, the effect of a permanent shock decays hyperbolically and lasts for a relatively longer time, while the effect of a transitory shock decays at a fast exponential rate.
+Given the findings that both US downside risk and the downside risk stemming from the country itself lead to higher expected returns in the future, it is of interest to analyze the price discovery of downside risks
+15 In conventional VAR analysis, the identified shocks are usually viewed as innovations to the variables in a dynamic system. 32
+
+between the US and non-US countries, that is, which source is more informative for predicting expected returns. To carry out this analysis on basis of the FCVAR model, we conduct the permanent-transitory (PT) decomposition proposed by Gonzalo and Granger (1995) and Gonzalo and Ng (2001). The innovations from a cointegrated dynamic system are decomposed in order to extract the unobservable structural shocks. Notice that the innovations used to extract the unobservable shocks in Gonzalo and Granger (1995) and Gonzalo and Ng (2001) are essentially based on a VECM model. Our approach, instead, employs the innovations from an FCVAR (d) model derived in the previous section and expressed as equations (8) and (9).16
+The cointegrated system shown in Eq. (8) has an ideal form for transforming to a multivariate movingaverage (MA) representation (see Beveridge and Nelson (1981)). The MA representation permits an analysis of the dynamic response of the system to shocks and details the transmission mechanism under empirical investigation. In doing so, in the first step, Gonzalo and Ng (2001) apply the transformation using the G matrix proposed by Gonzalo and Granger (1995) and construct the "unorthogonalized" permanent and transitory shocks. The G matrix that transforms the innovations in Eq. (8), , to unobservable structural shocks is composed of a cointegrating vector, , and orthonormal adjustment coefficients,  , and stated as G = [ ] . The transitory shock,  =  is an  × 1 vector, while the permanent shock,  =  , is an ( - ) × 1 vector.  is a rank of  and n is the number of vectors in . The shocks  = [, ]' are defined by their degree of persistence, but they are not orthogonal, and therefore, any causal statement is somewhat weak. In the second step, to obtain the orthogonalized shocks, we apply Choleski decomposition to the variance-covariance matrix  = () and derive a set of permanent and transitory shocks that are mutually orthogonal. Using the vector MA representation, we implement the impulse response analysis based on orthogonalized shocks.
+
+16 The VECM is obviously nested in the FCVAR (d).
+
+33
+
+The transitory shock is related to the cointegrating relation, while the permanent one is linked to the single common stochastic trend shared by any two downside risk series. On the basis of the estimates of the cointegrating vector, , and the adjustment coefficient matrix, , in Table 4, we find one permanent shock (n-m=1 where n= 4 and m=3) and three transitory shocks (m=3, the rank of the cointegrating vector). The common permanent component is determined by the orthonormal adjustment coefficients,  ,17 while its counterparty, the adjustment coefficient matrix, , measures how the previous period's disequilibrium error feeds into today's fractional changes in . The orthonormal adjustment coefficients,  , a direct measure of the permanent component, govern the long-run cointegrating risk relation and the long-run riskreturn relation. In this study we apply the orthonormal adjustment coefficients to analyze the long-run "downside risk discovery."
+6.2. Price discovery and impulse responses
+Table 7 reports the estimates of  across the non-US G7 countries paired with the US. The estimated orthonormal adjustment coefficients are normalized such that their sum is equal to one. These coefficients can be interpreted as proportions contributing to the risk and price discovery process. The second element,, in normalized  , on average, accounts for 54.36% of price discovery, indicating that US downside risk is a leading factor in the dynamic process of . The downside risk stemming from the country itself, however, contributes only 27.06% to price discovery. The evidence shows that downside risk in the US market is more informative about the long-run dynamic process that constitutes a main driving force for the G7 risk-return dynamic relation.
+<Table 7>
+The long-run responses of downside risk to a permanent shock are depicted in Figure 2, where the first column collects four impulse responses from a first permanent shock to each element in . In the case of
+
+17   = = 0
+
+34
+
+the UK, a permanent shock is effectively a shock to downside risks (V, V) and lasts for up to 12 months.18 This permanent shock has initial effects on V and V, while it exhibits a negative impact on both , and . This reverse reaction between downside risk and return to a permanent shock confirms a negative contemporaneous correlation between risk and return in the long run. As shown in the responses of the two return series, the initial responses are negative but turn positive the next month, indicating a positive intertemporal risk-return relation or so-called volatility feedback effect.
+<Figure 2>
+The first transitory shock creates a very profoundly negative impact in the beginning, but reverts to zero at a fast exponential rate. However, the second transitory shock has a positive impact and the effect decays over an 8-month horizon. Interestingly, it creates a reverse impact on downside risk and on expected return, which can be seen by the fact that the slope between the first and second month is positive for downside risk, whereas it is negative for the return series. At the beginning of a shock, the impulse response analysis indicates a negative contemporaneous association between the impulse responses of downside risk and those of returns in both the US and the UK. After two months, the response curves between downside risk and returns both present a positive slope, supporting a positive intertemporal risk-return relation in the transitory aspect. The third shock, however, seems to have a very limited impact owing to the values of the impulse responses.
+For downside risks, the transitory shocks are relatively less influential and less substantial owing to the values of the impulse responses, suggesting that the permanent shock drives the comovement of downside risk in the long run. The first transitory shock potentially reflects a shock to returns, since it creates a persistently negative impact on downside risks akin to a multi-period dynamic leverage effect (Bollerslev, Litvinova, and Tauchen, 2006). In general, the permanent shock affects downside risk longer
+18 The other developed markets exhibit impulse responses similar to those in Figure 2. Because of space concerns, they are available upon request.
+35
+
+and causes a cointegrating relation between downside risks. Downside risks entail a long-run equilibrium relation owing to this permanent shock, so that they behave parallel in the long run. The transitory shocks state a negative contemporaneous correlation between risk and return. Later, these shocks result in a rise in future returns akin to a volatility feedback effect. The dynamic analysis is consistent with the finding in section 5 that the VaR movement is essentially driven by the long-run component of second- and thirdmoment risks, while stock return variations are mainly attributed to the long-run components of the VaR, skewness, and kurtosis, rather than the short-run effects from these risk factors.
+7. Conclusions
+This study presents a multivariate time series model to examine various dynamic relations between aggregate stock market returns and downside risk. Recognizing that downside risk can be described by a long-memory process, we estimate G7 market data using a fractionally cointegrated vector autoregression (FCVAR) model. This model provides an apparatus to examine the risk-return tradeoff hypothesis and the leverage effect in both the long run and the short run. In addition, the model, which features a multivariate setting, allows for cross-market influences on the risk-return relation. This paper derives several important pieces of empirical evidence.
+First, in addition to the fractionally cointegrated feature, the downside risks for global markets and the US market form a cointegrated vector. Particularly, long-run positive relations between downside risk and return are confirmed by the data, except for Japan, supporting the tradeoff hypothesis, regardless of whether downside risk comes from the domestic market or from the US market. These results suggest that investors in the UK, Germany, France, Italy and Canada require a risk premium not only from their own markets but also from the US market. A long-run risk-return relation is also present in US stocks; however, a positive and significant cross-market risk effect for the US is found only in a few European markets (the UK, France and Italy). Again, the impact is mainly due to the establishment of the long-run risk cointegration.
+36
+
+Second, this study finds supportive evidence for the short-run tradeoff hypothesis for the non-US markets, including the UK, Germany, Italy and Canada. Testing for the short-run effect of US downside risk on non-US market returns, we find support for the short-run tradeoff hypothesis in the US market. Testing for a reverse relation -- downside risk running from the non-US markets to excess returns in the US -- we find that only two European markets, the UK and Germany, show a significant effect, suggesting that these two markets present a bilateral influence with respect to the US, while the other markets are dominated by the US market.
+Third, this study demonstrates that the impact of negative stock return news on downside risk can arise either from its own market or from the US market. We find strong evidence of long-run leverage effects and moderate short-run effects (four out of six markets) that spill over from the US market to other global markets. This means that a decline in US stock returns will cause a big increase in downside risk in nonUS markets. However, we cannot find a comparable effect from other markets to the US market.
+Fourth, based on the FCVAR model, we conduct a permanent-transitory (PT) decomposition to analyze the price discovery of downside risks between the US and non-US countries to future expected returns. Downside risk in the US market is more informative about the long-run dynamic process, which constitutes a main driving force for the G7 dynamic risk-return relation. A permanent shock confirms a cointegrating relation in downside risks and a positive tradeoff relation in the long run, while transitory shocks support a positive intertemporal risk-return relation in the short run.
+Fifth, for all of the markets (except Canada and Japan), the evidence confirms that the long-run effects are significant at the lagged levels of VaR and variance, and that the information in these variables is useful in predicting future changes in stock returns. For the skewness, this study finds that the long-run effect is present in the markets of the UK, Germany, and the US, implying that the skewness possesses significant information content in predicting future stock returns for these markets. However, for the kurtosis, we find that the UK, French, and US markets show supportive evidence. Thus, the long-run effect of the second-
+37
+
+and higher-moment risks in predicting stock returns is mainly tied to the four major markets, the UK, Germany, France, and the US. Turning to the short-run components, only the UK market shows significant effects from the lagged VaR, lag variance, and skewness for predicting future stock returns, but no comparable evidence is found in other markets.
+Sixth, given the fact that the higher-moment risk variables can be used to predict stock returns, we further investigate whether downside risk, such as VaR, can contain some information about higher-moment risks. Our evidence shows that in addition to the second moment, such as the lagged VaR and lagged variance, VaR constitutes the long-run components of skewness for the UK, German, Japanese, and US markets, suggesting that VaR appears to be a good variable to syndicate the information from the lagged second moment and skewness. However, there is no concrete evidence to support the notion that VaR carries information about kurtosis.
+In sum, this study finds that the downside risk series for various markets are fractionally cointegrated and move in the same direction in the long run. The evidence for this risk covariance relation provides links that establish risk-return relations that are applicable not only in the context of a long-run time frame but also in cross-market situations. In addition, the volatility feedback effect is also present in the markets under investigation. Focusing only on a single market to test for the risk-return relation, that is, simply focusing on a particular time dimension without considering cross-market spillovers and risk feedback, is likely to produce a misleading estimator. One of the significant conclusions derived from this study is the discovery of the influential role of US market risk. Through the cointegrating relations, global market risk is essentially driven by the US market, both in the short run and in the long run. All in all, in this study, we present a fractionally cointegrated VAR model for analyzing risk and return dynamics that is capable of accommodating multi-dimensional market interactions within a coherent joint modeling framework.
+38
+
+References
+Alexander, G., Baptista, A., 2002. Economic implications of using a mean-VaR model for portfolio selection: A comparison with mean-variance analysis. Journal of Economic Dynamics and Control 26, 1159­1193.
+Atilgan,Y., Demirtas, O. 2013. Downside risk in emerging markets. Emerging Markets Finance and Trade 49, 64-83
+Andersen, T.G., Bollerslev, T., Diebold, F.X., Labys, P., 2003. Modeling and forecasting realized volatility. Econometrica 71, 579-625.
+Ang, A., Chen, J., Xing, Y., 2006. Downside risk. Review of Financial Studies 19, 1191­1239.
+Artzner P., Delbaen, F., Eber, J.M., Heath, D., 1999. Coherent measures of risk. Mathematical Finance 9, 203-228.
+Baillie, R.T., DeGennaro, R. P., 1990. Stock returns and volatility. Journal of Financial and Quantitative Analysis, 25, 203-214.
+Baillie, R.T., 1996. Long memory processes and fractional integration in econometrics. Journal of Econometrics, 73, 5-59.
+Bali, T.G., Demirtas, K.O., Levy, H., 2009. Is there an intertemporal relation between downside risk and expected returns? Journal of Financial and Quantitative Analysis 44, 883-909.
+Bandi, F.M., Perron, B., 2006. Long memory and the relation between implied and realized volatility. Journal of Financial Econometrics 4, 636-670.
+Bassett, G. W., Koenker, R., Kordas, G., 2004. Pessimistic portfolio allocation and Choquet expected utility. Journal of Financial Econometrics, 2, 477-492.
+Bekaert, G., Wu, G., 2000. Asymmetric volatility and risk in equity markets. Review of Financial Studies 13, 1­42.
+Beveridge, S., Nelson, C., 1981. A new approach to decomposition of economic time series into permanent and transitory components with particular attention to measurement of the business cycle. Journal of Monetary Economics 7, 151-174.
+Black, F., 1976. Studies of stock price volatility changes. In: Proceedings of the 1976 Meetings of the American Statistical Association. pp. 171­181.
+Bollerslev, T., Mikkelsen, H. O., 1996. Modeling and pricing long memory in stock market volatility. Journal of Econometrics 73, 353-384.
+Bollerslev, T., Litvinova, J., Tauchen, G., 2006. Leverage and volatility feedback effects in high-frequency data. Journal of Financial Econometrics 4, 353-384.
+Bollerslev, T., Osterrieder, D., Sizova, N., Tauchen, G., 2013. Risk and return: Long-run relations, fractional cointegration and return predictability. Journal of Financial Economics 108, 409-424.
+Boudoukh, J., Richardson, M., Whitelaw, R., 2008. The myth of long-horizon predictability. Review of Financial Studies 214, 1577­1605.
+Brooks, C., Persand, G., 2002. Model choice and value-at-risk performance. Financial Analysts Journal 58, 87-97.
+Caporin, M., 2008, Evaluating value-at-risk measures in presence of long memory conditional volatility. Journal of Risk, 10-3, 79-110.
+Chen, S.X., Tang, C.Y., 2005. Nonparametric inference of value-at-risk for dependent financial returns. Journal of Financial Econometrics 3, 227-255.
+Cornish, E.A., Fisher, R.A., 1937. Moments and cumulants in the specification of distribution. Review of the International Statistical Institute 5, 307-320.
+39
+
+De Santis, G., Gerard, B., 1997. International asset pricing and portfolio diversification with time-varying risk. Journal of Finance 52, 1881-1912.
+
+Diebold, F.X., Inoue, A., 2001. Long memory and regime switching. Journal of Econometrics 105, 131159.
+
+Ding, Z., Granger, C.W.J., Engle, R.F., 1993. A long memory property of stock market returns a new model. Journal of Empirical Finance 1, 83­106.
+
+and
+
+Dittmar, R. F., 2002. Nonlinear Pricing Kernels, Kurtosis Preference, and Evidence from the Cross Section of Equity Returns, Journal of Finance, 57, 369-403.
+Dolatabadi, S., Nielson, M. ., Xu, K., 2015. A fractionally cointegrated VAR analysis of price discovery in commodity futures markets. Journal of Futures Markets, 35 339-356.
+
+Dowd, K., 2001. Estimating VaR with order statistics. Journal of Derivatives 8, 23-30.
+
+Favre, L., Galeano, J.A., 2002. Mean-modified value-at-risk optimization with hedge funds. Journal of Alternative Investments 5, 21-25.
+
+Feunou, B., Jahan-Parvar, M.R., Tédongap, R., 2013. Modeling market downside volatility. Review of Finance 17, 1-39.
+Franke, J., Härdle, W.K., Hafner, C.M., 2015. Statistics of Financial Markets, 4th ed Berlin: Springer.
+
+French, K., Schwert, W., Stambaugh, R., 1987. Expected stock returns and volatility. Journal of Financial Economics 19, 3­29.
+
+Geweke, J., Porter-Hudak, S., 1983. The estimation and application of long memory time series models. Journal of Time Series Analysis 4, 221-238.
+
+Ghysels, E., Santa-Clara, R., Valkanov, R., 2005. There is a risk-return tradeoff after all. Journal of Financial Economics 76, 509­548.
+
+Gonzalo, J., Granger, C., 1995. Estimation of common long-memory components in cointegrated systems. Journal of Business & Economic Statistics 13, 27-35.
+
+Gonzalo, J., Ng, S., 2001. A systematic framework for analyzing the dynamic effects of permanent and transitory shocks. Journal of Economic Dynamics and Control 25, 1527-1546.
+
+Granger, C.W.J., Hyung, N., 2004. Occasional structural breaks and long memory with an application to the S&P 500 absolute stock returns. Journal of Empirical Finance 11, 399-421.
+
+Guidolin, M., Timmermann, A., 2008. International Asset Allocation under Regime Switching, Skew and Kurtosis preferences. Review of Financial Studies, 889-935.
+
+Harvey, C. R., Siddique, A., 1999. Autoregressive conditional skewness. Journal of Financial and Quantitative Analysis 34, 465­487.
+
+Härdle, K.W., Müller, M., Sperlich, S., Werwatz, A., 2004. Nonparametric and Semiparametric Models. Springer Series in Statistics.
+
+Härdle, K.W., Nasekin, S., Chuen, L.K., Fai, P.K., 2015. TEDAS-tail event driven asset allocation. Journal of Empirical Finance revise and resubmit.
+
+Harvey, C. R., Siddique, A., 2000. Conditional skewness in asset pricing models tests. Journal of Finance 65, 1263-1295.
+Hoshi, T., Kashyap, A. 2004, Japan's financial crisis and economic stagnation. Journal of Economic Perspectives 18, 3-26.
+
+Johansen, S., 2008a. A representation theory for a class of vector autoregressive models for fractional processes. Econometric Theory 24, 651-676.
+
+Johansen, S., 2008b. Representation of cointegrated autoregressive processes with application to fractional processes. Econometric Reviews 28, 121­145.
+
+Johansen, S., 2009. Representation of cointegrated autoregressive processes. Econometric Reviews 28,
+
+40
+
+121-145. Johansen, S., Nielsen, M.O., 2012. Likelihood inference for a fractionally cointegrated vector
+autoregressive model. Econometrica 80, 2667-2732. Jondeau, E., Rockinger, M., 2003. Conditional volatility, skewness, and kurtosis: Existence, persistence,
+and comovements. Journal of Economic Dynamic & Control 27, 1699-1737. Kerkhof, J., Melenberg, B., Schumacher, H., 2010. Model risk and capital reserves. Journal of Banking
+and Finance 34 267-279. Kinateder, H., Wagner, N., 2014. Multiple-period market risk prediction under long memory: When VaR is
+higher than expected. Journal of Risk Finance 15, 4-32. Künsch, H.R., 1986. Discrimination between monotonic trends and long range dependence. Journal of
+Applied Probability 23, 1025-1030. Lettau, M., Ludvigson, S.C., 2010. Measuring and modeling variation in the risk-return trade-off. In: Aït-
+Sahalia, Y., Hansen, L., Scheinkman, J.A. (Eds.), Handbook of Financial Econometrics, North Holland, Amsterdam. Lundblad, C., 2007. The risk return tradeoff in the long run. Journal of Financial Economics 85, 123-150. Markowitz, H., (1952), Portfolio selection. Journal of Finance, 7, 77­91. Nelson, D., 1991. Conditional heteroskedasticity in asset returns: A new approach. Econometrica, 59, 347­ 370. Peiro, A., 1999. Skewness in financial returns. Journal of Banking and Finance 23, 847­862. Perron, P., Qu, Z., 2010. Long-memory and level shifts in the volatility of stock market return indices. Journal of Business and Economic Statistics 28, 275-290. Pettenuzzo, D., Timmermann, A., 2011. Predictability of stock returns and asset allocation under structural breaks. Journal of Econometrics 164, 60-78. Qu, Z., 2011. A test against spurious long memory. Journal of Business and Economic Statistics 29, 423438. Scott, R.C., Horvath, P.A., 1980. On the direction of preference for moments of higher order than the variance. Journal of Finance 35, 915-919. Silverman, B.W., 1984. Spline smoothing: The equivalent variable kernel method. Annals of Statistics 12, 898-916. Smith, D.R., 2007. Conditional coskewness and asset pricing. Journal of Empirical Finance 14, 91-119. Stambaugh, R.F., 1999. Predictive regressions. Journal of Financial Economics 54, 375-421. Talay, D., Zheng, Z., 2002. Worst case model risk management. Finance and Stochastics 6, 517-537. Tsay, R. S., 2010. Analysis of Financial Time Series. John Wiley, Hoboken. NJ.
+41
+
+Appendix 1. Tests for spurious long memory
+
+By admitting the joint occurrence of long memory and structural breaks, this appendix applies the local Whittle test developed by Qu (2011) to test for true versus spurious long memory for the estimates of downside risk. The null hypothesis in Qu's (2011) testing method is stationary or true long memory, while the alternative hypothesis is that spurious long memory means that the time series process has a short memory, but it is contaminated by level shifts or a smooth trend.
+As one of the semiparametric methods, Qu's (2011) testing method is based on the information from the periodogram. The periodogram of data series,  ( = 1, ... , ), evaluated at frequency  = 2/, where  = 1,2, ... , [/2], is given by () = (2)-1|=1  × exp()|2. The uniform behavior of () is the very property that enables the detection of spurious long memory. The spectral density frequency and the local Whittle likelihood function is therefore:
+
+(,
+
+)
+
+=
+
+1 
+
+=1
+
+{log- 2
+
++
+
+}()
+- 2
+
+(A.1.1)
+
+ is estimated by maximizing the above likelihood function. The test statistic is then defined as
+
+ = sup(=1 2 )-1/2 |=1  ((()-)2 - 1)|
+
+(A.1.2)
+
+where =log - -1 =1 log, and ()=-1 =1 2 () . As suggested by Qu (2011), we set
+
+the bandwidth to  = 0.7 and set the trimming proportion to 0.02 and 0.05, respectively. The third and
+
+fourth columns of Table 2 summarize the spurious long-memory test results based on Eq. (A.1.2). The local Whittle estimates for the long-memory parameter  range from 0.300 (US) to 0.510 (Canada). The test
+
+statistics all fail to reject the null, suggesting that a stationary long memory is inherent in the downside risk
+
+of the G7 countries.
+
+42
+
+Appendix 2. Examining small sample bias
+
+A small sample bias may be tangent to the conclusions that one draws from testing coefficients in a dynamic system. This issue needs to be analyzed carefully, especially with highly persistent regressors for a time series of downside risk values. In this appendix, we illustrate first the small sample bias issue via a simulation, and then demonstrate that the fractional differentiation framework is robust relative to this bias issue. As pointed out by Stambaugh (1999), the bias in the system is proportional to the bias in the degree of persistence of the regressor, which can be expressed approximately as
+
+E( - ) =  E( - )
+
+
+(A.2.1)
+
+where  and  are the set of parameters and residuals, respectively, in the FCVARd(p) system shown in
+
+Eq. (4).  is the autoregressive coefficient of regressor, and  is the corresponding error term in the
+
+autoregressive process with the covariance matrix  .  is the covariance of  and . Obviously, both  and the ratio of  to  determine the size of the bias.
+
+First, we assume that the regressor, , follows an AR(1) process.  =  + -1 + . Suppose that  is very highly persistent with a higher value of , say, larger than 0.8. Then we simply take the first difference and create a new time series  =  + -1 +  where  =  - -1. By plugging  into , we obtain an autoregressive coefficient for  ,  = (1-2). Note that  is smaller than  for any   [0 1] and has a maximal value of 1/8 in the center of the parabola. This simple case demonstrates that differentiating even an extremely persistent (long memory) time series mitigates the persistence of the regressors. In our application, the fractional difference replaces the first difference. The differencing step will effectively lower the bias as shown in a corollary in Stambaugh (1999)
+
+E( - ) = -  (1+3) + (1/T2)
+ T
+
+(A.2.2)
+
+Eq. (A.2.2) is an approximation for the bias in (A.2.1) under a normality framework showing that a lower
+
+ creates a smaller bias.
+
+43
+
+Second, we perform a simulation of the aforementioned situation. We presume that  = 0.8, =0.9, and  is i.i.d. N(0,1). In order to create a realistic scenario for the small sample bias, we let d = 0.5 and n = 40. Having been fractionally differentiated, the degree of persistence has shrunk dramatically from the left-hand-side plot to the right-hand-side plot (Fig. A). In addition, the ratio of  has been reduced from
+
+0.1108 (without de-fractional) to -0.0026. In sum, the bias shrinks from -0.0045 to 0.0002. The simulation shows that  is downward biased by 0.2062 with a persistent regressor, whereas it reverts to 0.8515 (indeed closer to 0.9) after fractionally differentiating. We may therefore conclude that the bias does not play a significant role in the current study.
+
+To sharpen this argument, we use the analytical approximation in (A.2) and report the case of the UK:
+
+0.934 × 10-5
+E( - ) = [-20.1.60279××1100--55
+-0.226 × 10-5
+
+2.830 × 10-5 5.585 × 10-5 -0.601 × 10-5 0.542 × 10-5
+
+9.221 × 10-5 8.826 × 10-5 1.649 × 10-5 0.631 × 10-5
+
+10.162 × 10-5
+
+8.704 0.642
+
+× ×
+
+10-5 10-5
+
+]
+
+-0.454 × 10-5
+
+Obviously, the bias is too small to alter the results.
+
+44
+
+Table 1
+
+Descriptive statistics of downside risk and stock returns
+
+Country Series
+
+Mean
+
+Return
+
+0.60%
+
+US
+
+VaR(GaussianKDE) VaR(exponentialKDE)
+
+2.81% 2.60%
+
+ES(GaussianKDE)
+
+3.15%
+
+Return
+
+0.40%
+
+UK
+
+VaR(GaussianKDE) VaR(exponentialKDE)
+
+2.83% 2.62%
+
+ES(GaussianKDE)
+
+3.18%
+
+Return
+
+0.60%
+
+GM
+
+VaR(GaussianKDE) VaR(exponentialKDE)
+
+3.65% 3.38%
+
+ES(GaussianKDE)
+
+4.09%
+
+Return
+
+0.32%
+
+FR
+
+VaR(GaussianKDE) VaR(exponentialKDE)
+
+3.62% 3.36%
+
+ES(GaussianKDE)
+
+4.05%
+
+Return
+
+0.12%
+
+IT
+
+VaR(GaussianKDE) VaR(exponentialKDE)
+
+3.51% 3.25%
+
+ES(GaussianKDE)
+
+3.93%
+
+Return
+
+0.58%
+
+CA
+
+VaR(GaussianKDE) VaR(exponentialKDE)
+
+3.42% 3.17%
+
+ES(GaussianKDE)
+
+3.83%
+
+Return
+
+-0.24%
+
+JP
+
+VaR(GaussianKDE) VaR(exponentialKDE)
+
+3.91% 3.62%
+
+ES(GaussianKDE)
+
+4.38%
+
+Std Skewness Kurtosis
+
+4.29% 1.84% 1.70% 2.03% 4.17% 1.62% 1.51% 1.81% 6.35% 2.10% 1.95% 2.33% 5.60% 1.82% 1.71% 2.03% 6.32% 1.84% 1.70% 2.05% 5.89% 1.99% 1.88% 2.22% 6.34% 2.01% 1.87% 2.22%
+
+-0.82 2.63 2.56 2.58 -0.62 2.35 2.29 2.42 -0.94 1.74 1.72 1.75 -0.49 2.11 2.09 2.15 0.15 1.72 1.66 1.74 -0.60 3.06 3.08 3.03 -0.44 2.95 2.78 2.95
+
+4.72 13.48 12.73 13.08
+3.59 12.47 11.83 13.18
+5.70 6.75 6.68 6.79 3.26 10.92 10.68 11.10 3.47 8.05 7.71 8.15 4.28 17.79 17.77 17.45 4.01 20.82 18.40 20.92
+
+AR(1)
+0.07 0.71 0.69 0.72 0.04 0.65 0.66 0.66 0.03 0.60 0.59 0.61 0.07 0.61 0.60 0.61 0.02 0.53 0.52 0.54 0.12 0.66 0.65 0.67 0.01 0.46 0.46 0.47
+
+ADF test
+-11.36* -5.53* -5.60* -5.41* -12.02* -6.28* -6.24* -6.31* -11.22* -6.42* -6.46* -6.37* -11.65* -6.99* -6.99* -6.99* -11.25* -7.29* -7.24* -7.27* -10.06* -6.10* -6.10* -6.03* -10.98* -8.07* -8.09* -8.07*
+
+The data cover seven major advanced markets: the United States (US), the United Kingdom (UK), Germany (GM), France (FR), Italy (IT), Canada (CA), and Japan (JP) for the sample period Sep. 1990 through Jul. 2013. Both excess return and the VaR in Eq. (6) are calculated on a monthly basis, and each has 275 monthly estimates. Two kernel densities, a Gaussian and a double exponential kernel, are applied to generate the VaR estimates. ADF is the augmented Dickey-Fuller test. * indicates that the coefficient is significant at the 1% level.
+
+45
+
+Table 2
+
+Semiparametric analysis for risk measures and spurious check
+
+GPH estimate Local Whittle Test statistic Test statistic
+
+of d estimate of d (trim=0.02) (trim=0.05)
+
+US 0.441
+
+0.300
+
+0.600
+
+0.601
+
+UK 0.508
+
+0.432
+
+0.774
+
+0.774
+
+GM 0.403
+
+0.443
+
+0.320
+
+0.320
+
+FR 0.259
+
+0.413
+
+0.458
+
+0.381
+
+IT 0.317
+
+0.469
+
+0.916
+
+0.916
+
+CA 0.387
+
+0.510
+
+0.617
+
+0.618
+
+JP 0.309
+
+0.318
+
+0.505
+
+0.312
+
+The GPH estimate is the log-periodogram estimator by Geweke and Porter-Hudak (1983), and the local Whittle likelihood
+procedure is from Künsch (1986). A suitable value of d usually lies in |d| < 0.5. A fractional (non-integer) number with values less than 0 would indicate a weak or memory-less process; if d is in the interval of(0, 0.5), the series is characterized by a stationary process with a long memory; if d lies in (0.5, ), the series features a long memory with a non-stationary process.
+
+Table 3 Cointegration rank tests
+
+Rank
+
+UK
+
+GM
+
+FR
+
+IT
+
+CA
+
+JP
+
+0
+
+62.495*
+
+36.114*
+
+49.219*
+
+30.010*
+
+40.492*
+
+62.615*
+
+1
+
+25.489*
+
+17.778*
+
+15.392*
+
+7.580*
+
+16.783*
+
+25.908*
+
+2
+
+7.234*
+
+8.908*
+
+8.850*
+
+2.335*
+
+3.541*
+
+9.935*
+
+3
+
+0.541*
+
+2.967*
+
+2.540*
+
+0.369*
+
+0.924*
+
+2.219*
+
+This table shows the results of the likelihood ratio test statistics shown in Eq. (14). * denotes the significance at the 5% level.
+
+46
+
+Table 4 The estimated results from the fractionally cointegrated VAR model using a Gaussian kernel
+
+d 0.499 (0.06)
+
+ -0.883
+
+3×1 -3.364 (-3.636)
+0.223
+
+0.467 (0.29) -0.209
+
+(4×3) 0.180 (0.22) -0.331
+
+-0.080 (0.21) -0.022
+
+-0.070 (0.31) -0.059
+
+=1,(4×4) 0.359 -0.024 (0.27) (0.20) 0.198 0.037
+
+0.048 (0.16) -0.213
+
+-0.006 (0.42) 0.098
+
+=2,(4×4) -0.129 -0.111 (0.39) (0.20) 0.172 0.005
+
+0.128 (0.18) -0.102
+
+BIC 4516
+
+UK
+
+(0.32) (0.26) (0.23) (0.33) (0.34) (0.21) (0.17) (0.43) (0.44) (0.21) (0.18) 3.033 2.339 -2.799 3.812 -2.982 1.616 -1.452 3.549 -2.961 0.999 -1.129
+
+(1.19) (0.94) (0.87) (1.29) (1.10) (0.82) (0.60) (1.46) (1.53) (0.73) (0.62)
+
+2.535 2.069 -0.619 2.728 -3.073 0.640 -0.948 4.640 -3.338 0.689 -1.113
+
+0.497 (0.06)
+
+-1.266
+
+-4.295 (-2.808)
+0.078
+
+(1.19) 0.376 (0.13) -0.164
+
+(0.93) 0.146 (0.12) -0.040
+
+(0.85) -0.036 (0.13) -0.040
+
+(1.25) -0.177 (0.21) 0.157
+
+(1.13) 0.422 (0.24) 0.000
+
+(0.80) -0.084 (0.14) -0.040
+
+(0.61) 0.072 (0.20) -0.105
+
+(1.67) 0.182 (0.35) 0.167
+
+(1.60) -0.098 (0.42) 0.104
+
+(0.78) -0.058 (0.14) 0.040
+
+(0.67) 0.072 (0.20) -0.105
+
+5041
+
+GM
+
+(0.10) (0.09) (0.11) (0.15) (0.34) (0.11) (0.16) (0.25) (0.34) (0.11) (0.16) 1.117 0.425 -1.439 1.061 -0.893 0.307 -0.746 0.722 -1.832 0.086 -0.746
+
+(0.53) (0.46) (0.55) (0.53) (0.90) (0.54) (0.79) (1.22) (1.63) (0.56) (0.79)
+
+1.288 0.431 -0.311 1.117 -1.894 0.356 -1.007 2.326 -2.100 0.046 -1.007
+
+0.483 (0.06)
+
+-0.786
+
+-2.821 (-2.619)
+0.144
+
+(0.56) 0.814 (0.19) -0.393
+
+(0.31) -0.439 (0.13) 0.173
+
+(0.36) -0.222 (0.11) -0.035
+
+(0.53) 0.171 (0.22) 0.475
+
+(0.63) 0.176 (0.19) -0.410
+
+(0.36) 0.089 (0.10) 0.038
+
+(0.53) -0.055 (0.14) -0.157
+
+(0.87) 0.235 (0.27) 0.486
+
+(1.10) -0.455 (0.29) -0.307
+
+(0.38) 0.086 (0.10) 0.124
+
+(0.53) -0.093 (0.13) -0.182
+
+4858
+
+FR
+
+(0.18) (0.12) (0.10) (0.19) (0.18) (0.10) (0.14) (0.24) (0.24) (0.10) (0.13) 0.559 0.919 -1.216 1.436 -1.315 0.129 -0.770 1.407 -1.989 -0.397 -1.193
+
+(0.24) (0.51) (0.45) (0.80) (0.67) (0.43) (0.58) (0.99) (1.07) (0.42) (0.54)
+
+0.138 0.201 -0.323 0.626 -1.253 0.387 -0.794 1.421 1.386 0.086 -0.685
+
+(0.59) (0.41) (0.37) (0.64) (0.64) (0.35) (0.48) (0.82) (0.84) (0.32) (0.45)
+
+d 0.439
+
+ -0.659
+
+3×1 -3.800
+
+(4×3) 0.279 -0.049 -0.005 -0.209
+
+=1,(4×4) 0.409 0.055
+
+0.040
+
+-0.097
+
+=2,(4×4) -0.181 0.081
+
+0.004 5110
+
+(0.05)
+
+(-5.467) (0.08) (0.02) (0.06) (0.15) (0.16) (0.06) (0.09) (0.21) (0.23) (0.06) (0.09)
+
+IT
+
+0.097
+
+0.241 0.007 -0.061 0.226 -0.233 0.076 -0.178 0.248 -0.104 0.106 -0.157 (0.07) (0.02) (0.05) (0.12) (0.13) (0.05) (0.08) (0.18) (0.19) (0.09) (0.08)
+
+0.414 0.049 -0.928 0.383 -0.586 -0.190 -0.383 0.748 -0.491 -0.196 -0.297
+
+(0.17) (0.11) (0.27) (0.62) (0.64) (0.26) (0.41) (0.90) (0.95) (0.25) (0.38)
+
+47
+
+0.405 -0.230 -0.044 0.324 -0.842 0.158 -0.413 1.130 1.172 0.060 -0.495
+
+0.201 (0.03)
+
+-1.006
+
+-2.833 (-2.371)
+-1.558
+
+(0.20) 0.475 (0.63) 0.000
+
+(0.07) -0.573 (0.58) -0.594
+
+(0.18) -0.657 (0.36) 0.186
+
+(0.41) 0.756 (0.86) -0.242
+
+(0.44) 2.256 (0.90) 2.247
+
+(0.17) -0.647 (0.33) -0.168
+
+(0.28) -0.002 (0.31) -0.599
+
+(0.56) 0.182 (0.35) 0.136
+
+(0.64) -0.118 (0.42) 0.104
+
+(0.17) -0.058 (0.14) 0.040
+
+(0.27) 0.024 (0.20) -0.105
+
+4852
+
+CA
+
+(0.55) (0.54) (0.23) (0.75) (0.93) (0.25) (0.25) (0.25) (0.34) (0.11) (0.16) 1.050 1.837 -0.330 2.659 -3.319 -0.900 2.243 0.572 1.832 0.086 -0.746
+
+(2.53) (2.28) (0.82) (3.42) (3.48) (0.92) (1.21) (1.22) (1.63) (0.56) (0.79)
+
+2.912 3.031 -0.951 3.940 -4.897 0.856 -0.721 2.326 1.108 0.182 -1.022
+
+0.471
+
+-1.455
+
+-3.391 ( -2.694 )
+-0.226
+
+(1.94) 2.144 (0.42) 0.748
+
+(1.76) -1.167 (0.26) -0.481
+
+(0.63) -0.469 (0.27) -0.329
+
+(1.59) 1.493 (0.41) 0.600
+
+(2.67) -0.024 (0.34) -0.390
+
+(0.70) 0.417 (0.27) 0.303
+
+(0.85) -0.169 (0.25) -0.393
+
+(0.87) 1.438 (0.45) 0.370
+
+(1.10) -1.049 (0.54) -0.159
+
+(0.34) 0.388 (0.27) 0.289
+
+(0.53) -0.156 (0.27) -0.290
+
+5458
+
+JP
+
+(0.32) (0.20) (0.20) (0.30) (0.25) (0.20) (0.19) (0.34) (0.39) (0.20) (0.21) 1.172 -1.450 -2.764 -1.074 0.240 1.640 0.856 -1.721 1.363 1.721 0.560
+
+(1.58) (0.97) (1.22) (1.51) (1.25) (1.20) (0.92) (1.71) (1.98) (1.19) (1.02)
+
+0.428 0.390 -0.189 0.926 -0.775 0.280 0.142 0.802 -0.158 0.272 -0.225
+
+(1.09) (0.70) (0.72) (1.04) (0.87) (0.70) (0.68) (1.17) (1.38) (0.69) (0.73)
+
+The estimated equation is   = ( + ) + =1    +   = 1, ... , T Eq. (12)  = 2 is chosen under the satisfied criteria (i) the univariate Ljung-Box Q test for each residual series without showing serial correlation, and (ii) the likelihood ratio test for the
+significance of . The numbers in parentheses are standard errors.
+
+48
+
+Table 5
+
+Robustness check using different risk measures
+
+Panel A. Risk measure is represented by the VaR estimated from a double exponential kernel
+
+d 0.486
+
+ -0.888
+
+3×1 -3.407
+
+(4×3) 0.451 0.173 -0.078 -0.076
+
+=1,(4×4) 0.322 0.003
+
+(0.06) UK
+
+(-3.390) 0.210
+
+(0.27)
+-0.133 (0.30)
+2.906
+
+(0.20)
+-0.266 (0.23)
+2.242
+
+(0.18)
+-0.039 (0.20)
+-2.610
+
+(0.29)
+0.034 (0.31)
+3.617
+
+(0.25)
+0.054 (0.31)
+-2.893
+
+(0.17)
+0.059 (0.18)
+1.424
+
+(1.13) (0.88) (0.78) (1.23) (1.06) (0.73)
+
+2.469 2.007 -0.505 2.475 -2.970 0.502
+
+(1.14) (0.88) (0.76) (1.20) (1.09) (0.72)
+
+Panel B. Risk measure is represented by the expected shortfall estimated from a Gaussian kernel
+
+0.474 -0.895 -4.093 0.432 0.150 0.150 -0.143 0.433
+
+(0.06) UK
+
+(-4.050) 0.226
+
+(0.27)
+-0.152 (0.30)
+2.626
+
+(0.21)
+-0.280 (0.23)
+2.033
+
+(0.21)
+-0.025 (0.24)
+-2.684
+
+(0.30)
+0.048 (0.31)
+3.458
+
+(0.26)
+0.188 (0.32)
+-2.712
+
+(0.99) (0.78) (0.83) (1.10) (0.95)
+
+2.210 1.806 -0.546 2.567 -2.844
+
+(0.99) (0.77) (0.81) (1.07) (0.98)
+
+-0.003 (0.22)
+0.042 (0.22)
+1.507 (0.78)
+0.573 (0.77)
+
+Panel C. Risk measure is represented by the expected VaR
+
+0.463 (0.05)
+
+-0.851
+
+-3.089 0.980 (-3.096) (0.50)
+
+0.364 (0.40)
+
+0.148 0.066 -0.290
+
+UK (0.06) (0.48) 5.389 4.819
+
+(2.81) (2.27)
+
+-0.097 (0.25)
+-0.116 (0.29)
+-2.958 (1.32)
+
+0.230 (0.50)
+0.160 (0.59)
+6.663 (2.88)
+
+0.347 (0.44)
+0.335 (0.55)
+-6.054 (2.45)
+
+-0.035 (0.24)
+0.170 (0.28)
+1.479 (1.26)
+
+5.146 4.872 -1.041 6.651 -6.979 1.038 (2.67) (2.60) (1.44) (3.28) (2.85) (1.39)
+
+Panel D. Using residuals of return to take into account control variables
+
+0.418 -0.847 -3.380 1.146 -0.915 -0.316
+
+(0.04)
+
+( -3.319 ) (0.34) (0.30) (0.18)
+
+-0.157 0.143 0.031 -0.278
+
+UK (0.35) (0.33) (0.20) 3.097 3.079 -1.861
+
+(1.50) (1.36) (0.82)
+
+1.961 (1.67)
+0.054 (2.26)
+3.555 (5.18)
+
+1.547 (1.49)
+2.418 (2.08)
+2.810 (4.64)
+
+-0.781 (0.52)
+0.978 (0.76)
+-1.678 (1.63)
+
+2.676 2.790 -0.935 7.259 6.573 -0.020 (1.37) (1.35) (0.85) (5.49) (4.92) (1.69)
+
+0.030 (0.14) -0.199 (0.15) -1.336 (0.55) -0.853 (0.56)
+0.027 (0.18) -0.228 (0.18) -1.356 (0.58) -0.858 (0.59)
+0.032 (0.19)
+-0.251 (0.22)
+-1.520 (0.96)
+-1.331 (1.05)
+0.607 (0.66)
+-1.368 (0.99)
+1.639 (2.05)
+1.546 (2.13)
+
+-0.097 (0.38) 0.149 (0.40) 3.755 (1.44) 4.930 (1.66)
+-0.105 (0.40) 0.093 (0.40) 3.397 (1.26) 4.248 (1.43)
+0.665 (0.60)
+0.694 (0.70)
+4.962 (3.06)
+8.621 (3.71)
+0.235 (0.27)
+0.486 (0.24)
+1.407 (0.99)
+1.421 (0.82)
+
+=2,(4×4)
+-0.129 -0.093 (0.39) (0.17)
+0.172 0.026 (0.44) (0.18)
+-2.986 0.869 (1.49) (0.65)
+-3.438 0.577 (1.56) (0.69)
+
+-0.041 (0.39)
+0.164 (0.44)
+-2.865 (1.33)
+-3.137 (1.38)
+
+-0.113 (0.22)
+0.018 (0.22)
+0.949 (0.70)
+0.650 (0.75)
+
+-0.187 (0.59)
+-0.051 (0.69)
+-4.877 (3.15)
+-7.545 (3.77)
+
+-0.195 (0.25)
+0.071 (0.28)
+1.316 (1.22)
+1.414 (1.38)
+
+-1.049 (0.54)
+-0.159 (0.39)
+1.363 (1.98)
+-0.158 (1.38)
+
+0.388 (0.27)
+0.289 (0.20)
+1.721 (1.19)
+0.272 (0.69)
+
+0.099 (0.15)
+-0.122 (0.16)
+-1.024 (0.56)
+-0.996 (0.60)
+
+BIC 4442
+
+0.136 (0.19)
+-0.092 (0.19)
+-1.065 (0.60)
+-1.042 (0.64)
+
+4626
+
+0.234 (0.22)
+-0.067 (0.24)
+-1.840 (1.05)
+-2.050 (1.18)
+
+2983
+
+0.024 (0.20)
+-0.105 (0.16)
+-0.746 (0.79)
+-1.022 (0.53)
+
+2995
+
+This table reports the estimates of equation (12). The numbers in parentheses are standard errors. 49
+
+Table 6 Downside risk, higher-moment risk and ICAPM theory
+
+d  4×1
+
+(5×4)
+
+0.183 -0.744 -1.443 14.222 -42.178 3.417
+
+(0.03) UK
+
+(-00..040918) -3.153
+
+(7.49)
+5.258 (2.53)
+0.778 (3.00)
+
+(21.71)
+-15.654 (7.37)
+-2.491 (8.52)
+
+(3.46)
+1.531 (1.12)
+-0.339 (1.71)
+
+-0.331 (0.33)
+-0.131 (0.16)
+0.268 (0.16)
+
+-16.401 (7.86)
+-5.596 (2.65)
+-0.810 (3.12)
+
+=1,(5×5)
+52.129 -3.197 (23.25) (3.65)
+17.967 -1.505 (7.89) (1.17)
+2.629 -1.082 (8.87) (1.82)
+
+-1.974 3.858 3.919 -2.290 1.671 -2.031 -3.619 (5.51) (15.64) (3.21) (0.36) (5.72) (16.32) (3.37)
+
+-6.492 -17.918
+
+(2.47) (6.94)
+
+0.264 (0.02)
+
+-0.187
+
+-1.616 ( --00..052953)
+
+-5.728 (2.79)
+-1.215
+
+-14.990 (7.77)
+3.036
+
+GM
+
+-3.178
+
+(0.80) (2.60)
+0.477 -1.189 (1.14) (3.21)
+
+2.848 (1.35) -2.733 (2.07)
+-0.800 (0.60) -0.891 (0.74)
+
+-1.433 (1.16) -1.295 (0.42)
+-0.358 (0.12) 0.153 (0.16)
+
+5.548 (2.45) 1.743 (3.43)
+0.124 (0.97) -0.559 (1.24)
+
+15.161 (6.97) -1.174 (2.40)
+1.391 (2.71) 2.025 (3.51)
+
+2.265 (1.36) 1.903 (2.53)
+0.539 (0.74) -0.317 (0.89)
+
+-1.884 3.737 0.863 -2.370 -0.535 0.140 -1.318 (2.71) (7.68) (1.96) (0.35) (2.38) (8.26) (2.09)
+
+-10.222 -29.522 -1.726 0.793 -9.889 38.488 -0.531
+
+(5.50) (15.45) (7.78) (1.68) (11.20) (39.19) (0.97)
+
+FR
+
+0.165 (0.02)
+
+-0.215
+
+-2.195 ( --00..076846)
+-2.491
+
+-4.821 (2.04)
+-0.897 (1.88)
+3.494 (2.57)
+
+10.121 (16.17)
+1.370 (5.17)
+-9.918 (7.12)
+
+1.216 (3.37)
+0.290 (1.07)
+-1.535 (1.39)
+
+-1.296 (0.84)
+-0.324 (0.27)
+0.419 (0.32)
+
+1.054 (6.84)
+0.171 (2.16)
+-3.202 (2.68)
+
+4.564 (9.40)
+2.214 (6.04)
+9.126 (7.50)
+
+-0.946 (3.66)
+-0.132 (1.15)
+0.083 (1.43)
+
+-18.561 51.157 -8.514 -4.208 17.314 -48.065 8.720 (7.03) (19.25) (3.62) (0.69) (7.19) (19.86) (3.72)
+
+-5.772 -15.595 2.960 -0.045 5.057 -13.370 2.108 (2.84) (7.84) (1.50) (0.33) (2.93) (8.15) (1.52)
+
+IT
+
+0.417 (0.07)
+
+-0.230
+
+-0.701 (-00..201563)
+-0.099
+
+-1.823 (0.77)
+-0.400 (0.43)
+-0.584 (0.53)
+
+5.950 (5.17)
+1.291 (1.42)
+1.941 (1.74)
+
+0.311 (1.19)
+0.048 (0.33)
+-1.020 (0.38)
+
+0.113 (0.09)
+0.040 (0.02)
+-0.034 (0.03)
+
+0.813 (1.69)
+0.244 (0.46)
+0.202 (0.56)
+
+-2.263 (5.60)
+-0.584 (1.54)
+-0.535 (1.85)
+
+0.195 (1.27)
+-0.018 (0.35)
+-0.191 (0.41)
+
+-1.979 6.473 -0.412 0.142 0.666 -2.172 -0.429 (1.16) (3.84) (0.89) (0.09) (1.23) (4.11) (0.98)
+
+-2.199 -6.371 0.880 0.351 2.153 -3.709 -1.555 (1.20) (18.81) (4.52) (0.31) (1.19) (20.57) (4.90)
+
+CA
+
+0.158 (0.05)
+
+-1.007
+
+-1.386 (-00..422137)
+-2.220
+
+-9.261 (5.22)
+-2.227 (1.89)
+-2.935 (2.82)
+
+21.193 (17.71)
+4.853 (4.63)
+8.459 (8.05)
+
+-5.794 (6.60)
+-1.832 (2.00)
+-3.677 (2.87)
+
+1.231 (1.10)
+0.285 (0.28)
+-0.153 (0.27)
+
+8.480 (7.62)
+2.382 (2.02)
+3.150 (2.99)
+
+-11.808 (17.69)
+-2.887 (4.70)
+-9.063 (8.57)
+
+6.794 (7.16)
+2.202 (2.19)
+3.117 (3.09)
+
+0.594 -4.883 4.709 1.831 -0.719 7.384 -2.688 (4.40) (13.44) (4.15) (1.10) (4.73) (14.71) (4.19)
+
+3.391 -9.755 11.309 0.541 -3.443 9.835 -17.385 (3.45) (9.85) (22.98) (2.85) (3.60) (10.28) (25.44)
+
+JP
+
+0.137 (0.01)
+
+-1.047
+
+-2.090 (-24..112636)
+1.023
+
+-16.242 (8.28)
+-3.416 (2.44)
+1.090 (2.65)
+
+-40.510 (21.02)
+7.509 (6.99)
+-4.405 (7.42)
+
+-6.678 (5.33)
+-2.140 (1.64)
+-1.265 (1.61)
+
+-3.374 (1.66)
+-1.348 (0.49)
+-0.595 (0.53)
+
+11.995 (9.02)
+2.459 (2.66)
+-0.757 (2.78)
+
+-23.876 (24.82)
+-3.222 (7.29)
+3.466 (7.76)
+
+4.303 (5.85)
+1.507 (1.80)
+0.510 (1.78)
+
+6.709 -22.139 7.795 -8.244 -8.277 26.660 -10.310 (5.36) (14.95) (3.22) (1.18) (5.65) (15.72) (3.56)
+
+4.974 -14.018 1.463 -0.332 -5.202 14.952 -1.187 (3.13) (8.57) (1.80) (0.60) (3.21) (8.96) (1.99)
+
+0.418 -0.632 -3.773 -1.217 -3.403 0.274 0.075 0.905 -0.978 0.323
+
+(0.06) US
+
+(-01..312074) -3.165
+
+(0.13)
+0.248 (0.01)
+0.425 (0.19)
+
+(0.38)
+-0.730 (1.20)
+-1.251 (0.54)
+
+(0.57)
+0.151 (0.16)
+-0.808 (0.29)
+
+(0.06)
+0.025 (0.02)
+-0.006 (0.03)
+
+(0.59)
+0.090 (0.17)
+-0.264 (0.32)
+
+(1.69)
+0.235 (0.48)
+0.830 (0.94)
+
+(0.68)
+0.044 (0.20)
+-0.195 (0.33)
+
+-1.024 2.713 0.587 -0.222 0.455 -0.478 0.126 (1.26) (3.57) (0.75) (0.11) (1.22) (3.41) (0.80)
+
+-8.290 -23.104 5.824 0.264 3.470 -9.519 3.377 (4.29) (12.16) (2.17) (0.22) (3.97) (11.03) (2.75)
+
+The estimation in this table is based on Eq. (16). The numbers in parentheses are standard errors.
+
+0.515 (0.24)
+0.200 (0.07)
+0.113 (0.11)
+1.019 (0.26)
+0.024 (0.84) 1.282 (0.38)
+0.373 (0.11)
+-0.062 (0.15)
+1.764 (0.31)
+-1.022 (1.49) 0.875 (0.80)
+0.183 (0.26)
+-0.328 (0.27)
+3.698 (060)
+-0.012 (0.28) 0.041 (0.22)
+-0.018 (0.06)
+-0.042 (0.07)
+-0.643 (0.16)
+-1.245 (0.85) -1.219 (1.42)
+-0.247 (0.38)
+0.145 (0.40)
+-1.527 (0.97)
+-0.272 (0.43) 2.529 (1.46)
+1.095 (0.43)
+0.695 (0.47)
+7.720 (1.03)
+0.139 (0.53)
+-0.081 (0.18)
+0.011 (0.05)
+0.049 (0.09)
+-0.757 (0.20)
+0.410 (0.68)
+
+-1.644 (0.62)
+-0.515 (0.19)
+0.016 (0.22)
+0.541 (0.46)
+4.230 (1.99) -0.494 (0.25)
+-0.135 (0.06)
+0.129 (0.08)
+-0.013 (0.16)
+-0.166 (0.81) -11.116 (5.12)
+-3.580 (1.62)
+1.408 (1.84)
+10.409 (4.70)
+2.967 (1.98) -0.020 (0.10)
+-0.001 (0.28)
+0.025 (0.03)
+0.089 (0.07)
+-0.133 (0.38) -0.712 (0.65)
+-0.208 (0.21)
+0.176 (0.17)
+0.221 (0.30)
+0.874 (1.60) -0.397 (0.63)
+-1.212 (0.19)
+0.372 (0.21)
+-0.167 (0.49)
+-3.034 (2.31)
+-0.270 (0.12)
+-0.099 (0.03)
+0.010 (0.04)
+0.021 (0.10)
+0.137 (0.33)
+
+50
+
+Table 7. The proportions of relative price discovery ability
+
+UK GM FR IT CA JP Average
+
+
+
+36.46% 33.52% 31.85% 36.80%
+
+5.95% 17.78% 27.06%
+
+ 47.78% 47.62% 60.32% 51.05% 44.29% 75.11% 54.36%
+
+
+
+2.32%
+
+1.57%
+
+2.77%
+
+3.55% 16.01%
+
+2.86%
+
+4.85%
+
+ 13.44% 17.28% 5.06% 8.60% 33.74% 4.16% 13.71%
+
+ = (, , ,  ), where  is a vector of the orthonormal adjustment coefficients, which is a direct measure of the
+
+permanent component, and governs the long-run cointegrating risk relation and long-run risk-return relation.  is the orthonormal adjustment coefficient of US downside risk. The element in  provides information for illustrating the long-run "downside risk discovery."
+
+25 20 15 10 5 0
+
+1990/09 1991/06 1992/03 1992/12 1993/09 1994/06 1995/03 1995/12 1996/09 1997/06 1998/03 1998/12 1999/09 2000/06 2001/03 2001/12 2002/09 2003/06 2004/03 2004/12 2005/09 2006/06 2007/03 2007/12 2008/09 2009/06 2010/03 2010/12 2011/09 2012/06 2013/03
+
+JP CA IT FR GM UK US
+Figure 1. Time variations of G7 downside risk
+Downside risk is measured by the 99% VaR, which is obtained by using kernel smoothing for the empirical distribution and then bootstrapping from the kernel density estimator. The Gaussian kernel density has been applied in this figure.
+
+Rj Ri Vj Vi
+
+1st Permanent Shock
+
+0 -2 -4 -6
+1
+
+4
+
+8 12
+
+1 0 -1 -2 -3
+1
+
+4
+
+8 12
+
+0 -2 -4 -6
+1
+
+4
+
+8 12
+
+0 -2 -4 -6
+1
+
+4
+
+8 12
+
+1st Transitory Shock
+
+0 -2 -4 -6
+1
+
+4
+
+8 12
+
+1 0 -1 -2 -3
+1
+
+4
+
+8 12
+
+0 -2 -4 -6
+1
+
+4
+
+8 12
+
+0 -2 -4 -6
+1
+
+4
+
+8 12
+
+2nd Transitory Shock
+
+0 -2 -4 -6
+1
+
+4
+
+8 12
+
+1 0 -1 -2 -3
+1
+
+4
+
+8 12
+
+0 -2 -4 -6
+1
+
+4
+
+8 12
+
+0 -2 -4 -6
+1
+
+4
+
+8 12
+
+3rd Transitory Shock
+
+0 -2 -4 -6
+1
+
+4
+
+8 12
+
+1 0 -1 -2 -3
+1
+
+4
+
+8 12
+
+0 -2 -4 -6
+1
+
+4
+
+8 12
+
+0 -2 -4 -6
+1
+
+4
+
+8 12
+
+Figure 2. Impulse response analysis for the permanent and transitory shocks
+The 16-grid matrix of plots depicts how each variable (, , , ) in the FCVAR model reacts to the permanent shock (4 plots in the first column), the first transitory shock (those in the second column), the second transitory shock (those in the third column), and the third transitory shock (those in the fourth column).
+51
+
+SFB 649 Discussion Paper Series 2016
+For a complete list of Discussion Papers published by the SFB 649, please visit http://sfb649.wiwi.hu-berlin.de.
+001 "Downside risk and stock returns: An empirical analysis of the long-run and short-run dynamics from the G-7 Countries" by Cathy Yi-Hsuan Chen, Thomas C. Chiang and Wolfgang Karl Härdle, January 2016.
+SFSBF6B4694, 9S,pSapnadnaduaeureSrtrSatßraeß1e, 1D,-D10-1107187B8eBrleinrlin htthpt:t/p/:/s/fbs6fb4694.w9.iwwiiw.hiu.h-bue-brleinrl.idne.de
+ThTishrisesreasercahrcwhawsassupsuppoprtoerdtebdybtyhethDeeDuetsucthseche ForFsocrhsuchnugnsgesgmeeminesicnhsachftatfht rtohuroguhgthhethSeFSBF6B4694"9Ec"oEnconmoimc RicisRki"s.k".
+
+
