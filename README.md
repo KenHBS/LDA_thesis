@@ -15,3 +15,5 @@ To do:
 - Include points 3, 4 and 5.
 - Include estimation procedures with Variational Inference
 - Establish metrics for classification accuracy
+- Introduce Hierarchically Supervised LDA (HSLDA by Perotte)
+- Incorporate variational inference à la gensim package
