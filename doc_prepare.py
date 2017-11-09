@@ -51,13 +51,15 @@ class PrepLabeledData:
     """
     # TODO make this class more elaborate, also available for non-conform data
 
-    def __init__(self, db_extract, level):
+    def __init__(self, db_extract, level=3, hslda=False):
         assert level in [1, 2, 3], 'The level of the labels must be 1, 2 or 3'
         self.id = [x[0] for x in db_extract]
         self.docs = [x[1] for x in db_extract]
         self.lab = [x[2] for x in db_extract]
-
-        self.prepped_labels = self.label_level(level=level)
+        if hslda:
+            self.prepped_labels = self.label_level_hslda()
+        else:
+            self.prepped_labels = self.label_level(level=level)
 
     def label_level(self, level):
         # Prepare the labels according to 'level' hierarchy:
@@ -73,4 +75,15 @@ class PrepLabeledData:
             new_docs = test_data[1]
             new_labs = test_data[2]
         return new_docs, new_labs
+
+    def label_level_hslda(self):
+        hier_labels = [label.split(" ") for label in self.lab]
+        labels = []
+        for doclab in hier_labels:
+            splits = [['', x[0], x[0:2], x[0:3]] for x in doclab]
+            h_lab = list(set([item for sublist in splits for item in sublist]))
+            labels.append(h_lab)
+        return labels
+
+
 # End of PrepLabeledData class

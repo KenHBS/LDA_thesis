@@ -1,4 +1,5 @@
 import numpy as np
+from scipy import stats as stats
 from gensim.parsing import preprocessing
 from gensim import corpora, matutils
 from copy import copy
@@ -8,12 +9,9 @@ from copy import copy
 def dir_draw(array_in, axis=0):
     return np.apply_along_axis(np.random.dirichlet, axis=axis, arr=array_in)
 
-
-class GibbsSampling:
-    def __init__(self, documents, alpha_strength=50):
-        # if not isinstance(documents, DocDump):
-        #    raise TypeError("Gibbs only takes DocDump instances as input")
-
+class Gibbs:
+    def __init__(self, documents, K="flex", alpha_strength=50):
+        # base setup
         self.docs = preprocessing.preprocess_documents(documents.docs)
         self.dict = corpora.Dictionary(self.docs)
         self.corpus = [self.dict.doc2bow(doc) for doc in self.docs]
@@ -23,31 +21,46 @@ class GibbsSampling:
         self.ordered_labs = np.sort([x for x in self.ldict.token2id.keys()])
 
         self.V = len(self.dict)
-        self.K = len(self.ldict)
         self.D = len(self.docs)
+
+        # This if-else is to distinguish between LDA and HSLDA!
+        # If: Sets up the Ramage09 type of LDA
+        if K=="flex":
+            # Determine K in data based LDA:
+            self.K = len(self.ldict)
+
+            # Determine alpha in LDA (a la Ramage 09)
+            self.alpha = self._get_label_matrix_indic(nr_labels=self.K)
+            _ = 50 / np.sum(self.alpha, axis=0)
+            self.alpha = self.alpha * _
+
+        # Elif: Sets up the HSLDA type of LDA
+        elif isinstance(K, int):
+            self.K = K
+            self.alpha = self._hslda_alpha_naive()
+            self.nr_of_labs = len(self.ordered_labs)
+            #self.Y = self._get_label_matrix_indic(self.nr_of_labs)
+            #self.Y[self.Y == 0] = -1
+
+            # Reorder rows Y according to ldict (Illogical for humans!)
+            # _ = np.argsort(list(self.ldict.token2id.keys()))
+            # self.Y = self.Y[_, :]
+        else:
+            raise ValueError('%s is not a valid value. K must either be "fixed" or an integer') % K
 
         self.alpha_m = alpha_strength
 
-        _ = [self.ldict.doc2bow(label) for label in self.labs]
-        self.alpha = matutils.corpus2dense(_, self.K)
-        # Rearrange so that col1 is label A, col2 is label B, etc.
-
-        _ = np.argsort([x for x in self.ldict.token2id.keys()])
-        self.alpha = self.alpha[_, :]
-
-        _ = 50/np.sum(self.alpha, axis=0)
-        self.alpha = self.alpha * _
-
-        self.beta_c = 200/self.V
+        self.beta_c = 200 / self.V
         self.beta = self.beta_c * np.ones((self.V, self.K))
 
-        # Set up containers for assignment counts
+        # Count-containers for word assignments
         self.lenD = [len(doc) for doc in self.docs]
         self.zet = [np.repeat(0, x) for x in self.lenD]
         self.n_zxd = np.zeros((self.K, self.D))  # count of topic k assignments in doc d
         self.n_wxz = np.zeros((self.V, self.K))  # count of word v assignments in topic k
-        self.n_z = np.zeros(self.K) # total number of assignment counts in topic k (colsum n_wxz)
+        self.n_z = np.zeros(self.K)  # total number of assignment counts in topic k (colsum n_wxz)
 
+        # Fill the count-containers (initialize word assignments z)
         for d, doc in enumerate(self.docs):
             z_n = self.zet[d]
             for w, word in enumerate(doc):
@@ -62,7 +75,21 @@ class GibbsSampling:
                 self.n_z[z] += 1
             #self.zet[d] = z_n  is implicit by z_n = self.zet[d]
 
-    def get_theta(self, ):
+    def _get_label_matrix_indic(self, nr_labels):
+        # Get tuples indicating counts per label per document:
+        _ = [self.ldict.doc2bow(label) for label in self.labs]
+        label_indic = matutils.corpus2dense(_, nr_labels, self.D)
+        # Rearrange so that row1 is label A, row2 is label B, etc.
+        _ = np.argsort([x for x in self.ldict.token2id.keys()])
+        return label_indic[_, :]
+
+    def _hslda_alpha_naive(self, alpha_p2=1):
+        alpha_p1 = 50/self.K
+        beta = np.random.dirichlet(np.repeat(alpha_p1, self.K), 1)
+        beta = np.tile(beta.transpose(), (1, self.D))
+        return alpha_p2*beta
+
+    def get_theta(self):
         th = np.zeros((self.D, self.K))
         for d in range(self.D):
             for z in range(self.K):
@@ -80,20 +107,32 @@ class GibbsSampling:
                 ph[z][w] = frac_a / frac_b
         return ph
 
-    def sample_z(self, d, word, pos):
-        v = self.dict.token2id[word]
-        z = self.zet[d][pos]
+    def get_topiclist(self, n=10):
+        self.phi = self.get_phi()
+        topiclist = []
+        for k in range(self.K):
+            inds = np.argsort(-self.phi[k, :])[:n]
+            topwords = [self.dict[x] for x in inds]
+            topwords.insert(0, self.ordered_labs[k])
+            topiclist += [topwords]
+        return topiclist
+
+    def _common_sample_z(self, d, v, z):
         self.n_wxz[v, z] -= 1
         self.n_zxd[z, d] -= 1
         self.n_z[z] -= 1
         self.lenD[d] -= 1
 
-        left_num = self.n_wxz[v, :] + self.beta_c    # K dimensional
-        left_den = self.n_z + self.beta_c * self.V   # K dimensional
-        right_num = self.n_zxd[:, d] + self.alpha[:, d] # K dimensional
-        right_den = self.lenD[d] + self.alpha_m         # K dimensional
+        left_num = self.n_wxz[v, :] + self.beta_c  # K dimensional
+        left_den = self.n_z + self.beta_c * self.V  # K dimensional
+        right_num = self.n_zxd[:, d] + self.alpha[:, d]  # K dimensional
+        right_den = self.lenD[d] + self.alpha_m  # K dimensional
+        return (left_num / left_den) * (right_num / right_den)
 
-        prob = (left_num / left_den) * (right_num / right_den)
+    def sample_z(self, d, word, pos):
+        v = self.dict.token2id[word]
+        z = self.zet[d][pos]
+        prob = self._common_sample_z(d, v, z)
         prob /= sum(prob)
         new_z = np.random.multinomial(1, prob).argmax()
 
@@ -102,6 +141,10 @@ class GibbsSampling:
         self.n_zxd[new_z, d] += 1
         self.n_z[new_z] += 1
         self.lenD[d] += 1
+
+class GibbsSampling(Gibbs):
+    def __init__(self, documents, alpha_strength=50):
+        super(GibbsSampling, self).__init__(documents, K="flex")
 
     def run(self, nsamples, burnin=0):
         if nsamples <= burnin:
@@ -116,15 +159,6 @@ class GibbsSampling:
             # th = self.get_theta()
             # ph = self.get_phi()
 
-    def get_topiclist(self, n=10):
-        self.phi = self.get_phi()
-        topiclist = []
-        for k in range(self.K):
-            inds = np.argsort(-self.phi[k, :])[:n]
-            topwords = [self.dict[x] for x in inds]
-            topwords.insert(0, self.ordered_labs[k])
-            topiclist += [topwords]
-        return topiclist
 
     def init_newdoc(self, new_doc, sym=False):
         if sym:
@@ -188,8 +222,64 @@ class Variational_Inf:
 
 # End of Variational_
 
+
+class HSLDA_Gibbs(Gibbs):
+    def __init__(self, documents,K=15):
+        super(HSLDA_Gibbs, self).__init__(documents, K=K)
+        self.eta = self._hslda_eta_naive()
+        self.zbar = self.get_theta()
+
+        _ = [self.ldict.doc2bow(label) for label in self.labs]
+        self.Y = matutils.corpus2dense(_, self.nr_of_labs, self.D)
+        self.Y[self.Y == 0] = -1
+
+        # Create parent label mapping:
+        _ = list(self.ldict.token2id.keys())
+        self.parent_map = dict(zip(_, [lab[:-1] for lab in _]))
+
+        # For my understanding, get ldict in ordered way:
+        # self.ldict2 = dict(zip(range(len(self.ordered_labs)), self.ordered_labs))
+
+        # Initiate a_ld running variables
+        self.a_ld = np.empty(shape=(self.nr_of_labs, self.D))
+        self.zbarT_etaL = copy(self.a_ld)
+
+        for l_id in range(self.nr_of_labs):
+            for d in range(self.D):
+                self.zbarT_etaL[l_id, d] = np.dot(self.zbar[d, :], self.eta[:, l_id])
+                a_mu =self.zbarT_etaL[l_id, d]
+                parent_lab = self.parent_map[self.ldict.__getitem__(l_id)]
+                parent_id = self.ldict.token2id[parent_lab]
+
+                if self.Y[parent_id, d] == 1:
+                    if self.Y[l_id, d] == 1:
+                        self.a_ld[l_id, d] = a_mu + stats.truncnorm.rvs(-a_mu, 10, size=1)
+                    elif self.Y[l_id, d] == -1:
+                        self.a_ld[l_id, d] = a_mu + stats.truncnorm.rvs(-10, -a_mu, size=1)
+                    else:
+                        raise ValueError("The label %s in document %s is nor -1 or 1" % l_id, d)
+                elif self.Y[parent_id, d] == -1:
+                    self.a_ld[l_id, d] = a_mu + stats.truncnorm.rvs(-10, -a_mu, size=1)
+            #print("Just finished label %s")%(l_id)
+
+    def _hslda_eta_naive(self, mu=-1, sigma=1):
+        eta_l = np.random.normal(mu, sigma, self.K*self.nr_of_labs)
+        return eta_l.reshape(self.K, self.nr_of_labs)
+
+
+    # TODO: Initiate a_ld  (check)
+    # TODO: Check out the flexible alpha/beta by teh et al
+    # TODO: Write update functions
+        # P(z | .. ) =
+        # P(eta_l | ...) =
+            # Sigma, Mu
+        # P(a_ld | ... ) =
+        #
+    # TODO: Organise GibbsSampling & HSLDA_Gibbs properly (superclass?) (check)
+    # TODO: optimize get_theta(). It now involves DxK every time it's called
+# End of HSLDA_Gibbs
+
 # Static methods for preparing unseen data:
 # Check whether I provide 1 or multiple
 
 
-# test = [sorted(x) for x in rawdata.prepped_labels
