@@ -3,7 +3,7 @@ from scipy import stats as stats
 from gensim.parsing import preprocessing
 from gensim import corpora, matutils
 from copy import copy
-
+import rtnorm as rt
 
 # Static methods:
 def dir_draw(array_in, axis=0):
@@ -135,7 +135,9 @@ class Gibbs:
         prob = self._common_sample_z(d, v, z)
         prob /= sum(prob)
         new_z = np.random.multinomial(1, prob).argmax()
+        self.addback_zet(d, pos, new_z, v)
 
+    def addback_zet(self, d, pos, new_z, v):
         self.zet[d][pos] = new_z
         self.n_wxz[v, new_z] += 1
         self.n_zxd[new_z, d] += 1
@@ -224,10 +226,12 @@ class Variational_Inf:
 
 
 class HSLDA_Gibbs(Gibbs):
-    def __init__(self, documents,K=15):
+    def __init__(self, documents, K=15, mu=-1, sigma=1):
         super(HSLDA_Gibbs, self).__init__(documents, K=K)
-        self.eta = self._hslda_eta_naive()
-        self.zbar = self.get_theta()
+        self.eta = self._hslda_eta_naive(mu=mu, sigma=sigma)
+        self.zbar = self.get_theta()   # We don't really need this further
+        self.mu = mu
+        self.sigma = sigma
 
         _ = [self.ldict.doc2bow(label) for label in self.labs]
         self.Y = matutils.corpus2dense(_, self.nr_of_labs, self.D)
@@ -237,34 +241,96 @@ class HSLDA_Gibbs(Gibbs):
         _ = list(self.ldict.token2id.keys())
         self.parent_map = dict(zip(_, [lab[:-1] for lab in _]))
 
+        #_ = self.ldict.token2id.keys()
+        _ = [self.parent_map[x] for x in _]
+        dict_vals = [self.ldict.token2id[x] for x in _]
+        dict_keys = range(self.nr_of_labs)
+        self.parent_dict = dict(zip(dict_keys, dict_vals))
+
         # For my understanding, get ldict in ordered way:
         # self.ldict2 = dict(zip(range(len(self.ordered_labs)), self.ordered_labs))
 
         # Initiate a_ld running variables
         self.a_ld = np.empty(shape=(self.nr_of_labs, self.D))
-        self.zbarT_etaL = copy(self.a_ld)
+        self.zbarT_etaL = np.dot(self.zbar, self.eta).T
 
-        for l_id in range(self.nr_of_labs):
-            for d in range(self.D):
-                self.zbarT_etaL[l_id, d] = np.dot(self.zbar[d, :], self.eta[:, l_id])
-                a_mu =self.zbarT_etaL[l_id, d]
-                parent_lab = self.parent_map[self.ldict.__getitem__(l_id)]
-                parent_id = self.ldict.token2id[parent_lab]
+        self.sample_a()
 
-                if self.Y[parent_id, d] == 1:
-                    if self.Y[l_id, d] == 1:
-                        self.a_ld[l_id, d] = a_mu + stats.truncnorm.rvs(-a_mu, 10, size=1)
-                    elif self.Y[l_id, d] == -1:
-                        self.a_ld[l_id, d] = a_mu + stats.truncnorm.rvs(-10, -a_mu, size=1)
-                    else:
-                        raise ValueError("The label %s in document %s is nor -1 or 1" % l_id, d)
-                elif self.Y[parent_id, d] == -1:
-                    self.a_ld[l_id, d] = a_mu + stats.truncnorm.rvs(-10, -a_mu, size=1)
-            #print("Just finished label %s")%(l_id)
+    def sample_a(self):
+        for index, value in np.ndenumerate(self.zbarT_etaL):
+            parent_id = self.parent_dict[index[0]]
+
+            d_parent = (self.Y[parent_id, index[1]] == 1)
+            d_own = (self.Y[index] == 1)
+            multip = 1 if (d_parent and d_own) else -1
+            self.a_ld[index] = rt.rtnorm(a=0, b=5, mu=abs(value)) * multip
 
     def _hslda_eta_naive(self, mu=-1, sigma=1):
         eta_l = np.random.normal(mu, sigma, self.K*self.nr_of_labs)
         return eta_l.reshape(self.K, self.nr_of_labs)
+
+    def sample_to_next_state(self, nsamples, burnin=0):
+        if nsamples <= burnin:
+            raise Exception('Burn-in point exceeds number of samples')
+        for s in range(nsamples):
+            for d in range(self.D):
+                # Find the labels that are part of document d's label set:
+                lab_d = np.where(self.Y[:, d] == 1)[0]
+                inv_len_d = 1/self.lenD[d]
+                # Only focus on document d and labels in d's label set:
+                z_eta = self.zbarT_etaL[lab_d, d]
+                a_labels_d = self.a_ld[lab_d, d]
+                if(d % 250 == 0):
+                    print("Working on document %d in sample number %d "%(d, s+1))
+                    for pos, word in enumerate(self.docs[d]):
+                        v = self.dict.token2id[word]
+                        z = self.zet[d][pos]
+                        part1 = self._common_sample_z(d, v, z)
+
+                        # Part2 in this update requires adapting z_bar
+                        # To avoid many dot product calculations, the effect
+                        # of removing z_{d,n}=k on the innerproduct of zbar+eta
+                        # is calculated immediately:
+                        diff_z_k = self.eta[:, lab_d] - self.eta[z, lab_d]
+                        z_eta_new = z_eta - (inv_len_d * diff_z_k)
+                        lab_kernel = ((z_eta_new - a_labels_d)**2)/(-2)
+                        # lab_kernel = np.exp(((z_eta_new - a_labels_d)**2)/(-2))
+                        part2 = [np.exp(np.sum(x)) for x in lab_kernel]
+                        #part2 = [np.prod(x) for x in lab_kernel]
+
+                        # Get probability and draw new z-value
+                        prob = part1*part2
+                        if sum(prob) != 0:
+                            prob /= sum(prob)
+                        new_z = np.random.multinomial(1, prob).argmax()
+
+                        # Replace old z value with new one
+                        self.addback_zet(d, pos, new_z, v)
+                        self.zbar[d, z] -= inv_len_d
+                        self.zbar[d, new_z] += inv_len_d
+                        delta = inv_len_d*(self.eta[new_z, :]-self.eta[z, :])
+
+                        self.zbarT_etaL[:, d] += delta
+
+            # Drawing new eta_l samples
+            zT_z = np.dot(self.zbar.T, self.zbar)
+            sig_hat_inv = np.identity(self.K) * ((1/self.sigma)+zT_z)
+            sig_hat = np.linalg.inv(sig_hat_inv)
+            musigma = np.ones(self.K) * (self.mu/self.sigma)
+            for l in range(self.nr_of_labs):
+                print("eta for label %d " % l)
+                part2 = musigma + np.dot(self.zbar.T, self.a_ld[l, :].T)
+                mu_hat = np.dot(sig_hat, part2)
+                new_draw = np.random.multivariate_normal(mu_hat, sig_hat)
+                self.eta[:, l] = new_draw
+            # Recalculate objects that need updating due to new eta:
+            self.zbarT_etaL = np.dot(self.eta.T, self.zbar.T)
+
+            # Draw new samples for all a_{l,d}:
+            self.sample_a()
+
+
+
 
 
     # TODO: Initiate a_ld  (check)
