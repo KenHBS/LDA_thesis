@@ -1,5 +1,5 @@
 import numpy as np
-from scipy import stats as stats
+#from scipy import stats as stats
 from gensim.parsing import preprocessing
 from gensim import corpora, matutils
 from copy import copy
@@ -280,7 +280,7 @@ class HSLDA_Gibbs(Gibbs):
                 # Only focus on document d and labels in d's label set:
                 z_eta = self.zbarT_etaL[lab_d, d]
                 a_labels_d = self.a_ld[lab_d, d]
-                if(d % 250 == 0):
+                if(d % 1000 == 0):
                     print("Working on document %d in sample number %d "%(d, s+1))
                     for pos, word in enumerate(self.docs[d]):
                         v = self.dict.token2id[word]
@@ -317,8 +317,8 @@ class HSLDA_Gibbs(Gibbs):
             sig_hat_inv = np.identity(self.K) * ((1/self.sigma)+zT_z)
             sig_hat = np.linalg.inv(sig_hat_inv)
             musigma = np.ones(self.K) * (self.mu/self.sigma)
+            print("Start updating eta for all labels")
             for l in range(self.nr_of_labs):
-                print("eta for label %d " % l)
                 part2 = musigma + np.dot(self.zbar.T, self.a_ld[l, :].T)
                 mu_hat = np.dot(sig_hat, part2)
                 new_draw = np.random.multivariate_normal(mu_hat, sig_hat)
@@ -327,6 +327,7 @@ class HSLDA_Gibbs(Gibbs):
             self.zbarT_etaL = np.dot(self.eta.T, self.zbar.T)
 
             # Draw new samples for all a_{l,d}:
+            print("Start updating a_ld for all docs and labels")
             self.sample_a()
 
 

@@ -1,6 +1,5 @@
 from CGS import *
 import doc_prepare
-import evaluate
 import os.path
 import csv
 import random
@@ -33,7 +32,7 @@ test_data = reader[split:]
 # 2) For HSLDA:
 rawdata = doc_prepare.PrepLabeledData(train_data, hslda=True)
 hslda = HSLDA_Gibbs(documents=rawdata)
-hslda.sample_to_next_state(nsamples=20)
+hslda.sample_to_next_state(nsamples=250)
 # Prepare & Run Collapsed Gibbs Sampling on training data
 
 
