@@ -1,5 +1,6 @@
 import numpy as np
 #from scipy import stats as stats
+from scipy.special import erf
 from gensim.parsing import preprocessing
 from gensim import corpora, matutils
 from copy import copy
@@ -107,13 +108,16 @@ class Gibbs:
                 ph[z][w] = frac_a / frac_b
         return ph
 
-    def get_topiclist(self, n=10):
+    def get_topiclist(self, n=10, hslda=False):
         self.phi = self.get_phi()
         topiclist = []
         for k in range(self.K):
             inds = np.argsort(-self.phi[k, :])[:n]
             topwords = [self.dict[x] for x in inds]
-            topwords.insert(0, self.ordered_labs[k])
+            if hslda == False:
+                topwords.insert(0, self.ordered_labs[k])
+            elif hslda == True:
+                topwords.insert(0, "Topic " + str(k))
             topiclist += [topwords]
         return topiclist
 
@@ -270,6 +274,7 @@ class HSLDA_Gibbs(Gibbs):
         return eta_l.reshape(self.K, self.nr_of_labs)
 
     def sample_to_next_state(self, nsamples, burnin=0):
+        sqrt2 = np.sqrt(2)
         if nsamples <= burnin:
             raise Exception('Burn-in point exceeds number of samples')
         for s in range(nsamples):
@@ -293,10 +298,11 @@ class HSLDA_Gibbs(Gibbs):
                         # is calculated immediately:
                         diff_z_k = self.eta[:, lab_d] - self.eta[z, lab_d]
                         z_eta_new = z_eta - (inv_len_d * diff_z_k)
-                        lab_kernel = ((z_eta_new - a_labels_d)**2)/(-2)
+                        lab_kernel = 1 - (0.5 * (1 + erf((0 - z_eta_new)/sqrt2)))
+                        # lab_kernel = ((z_eta_new - a_labels_d)**2)/(-2)
                         # lab_kernel = np.exp(((z_eta_new - a_labels_d)**2)/(-2))
-                        part2 = [np.exp(np.sum(x)) for x in lab_kernel]
-                        #part2 = [np.prod(x) for x in lab_kernel]
+                        # part2 = [np.exp(np.sum(x)) for x in lab_kernel]
+                        part2 = np.prod(test)
 
                         # Get probability and draw new z-value
                         prob = part1*part2

@@ -21,6 +21,8 @@ split = int(len(reader)*0.8)
 train_data = reader[:split]
 test_data = reader[split:]
 
+#import pickle
+#hslda2 = pickle.load(open('hslda_250samples.pkl', 'rb'))
 
 # Prepare textual data for corpus: tokenization etc.
 
@@ -32,17 +34,17 @@ test_data = reader[split:]
 # 2) For HSLDA:
 rawdata = doc_prepare.PrepLabeledData(train_data, hslda=True)
 hslda = HSLDA_Gibbs(documents=rawdata)
-hslda.sample_to_next_state(nsamples=250)
+hslda.sample_to_next_state(nsamples=5)
 # Prepare & Run Collapsed Gibbs Sampling on training data
 
 
 # wordspertopic = cgs.get_topiclist()
 # print(wordspertopic)
 
-# Prepare test data:
-# new_docs, new_labs = doc_prepare.PrepLabeledData.split_testdata(test_data)
-# test_docs = doc_prepare.new_docs_prep(new_docs=new_docs, lda_dict=cgs.dict)
-# labels = [label.split(" ") for label in new_labs]
+# Prepare test data for HSLDA:
+new_docs, new_labs = doc_prepare.PrepLabeledData.split_testdata(test_data)
+test_docs = doc_prepare.new_docs_prep(new_docs=new_docs, lda_dict=hslda.dict)
+labels = [label.split(" ") for label in new_labs]
 # labels = [[label[:2] for label in doclab] for doclab in labels]
 # test_labs = [list(set(label)) for label in labels]
 
