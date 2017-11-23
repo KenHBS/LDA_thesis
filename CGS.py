@@ -109,10 +109,10 @@ class Gibbs:
         return ph
 
     def get_topiclist(self, n=10, hslda=False):
-        self.phi = self.get_phi()
+        # self.phi = self.get_phi()
         topiclist = []
         for k in range(self.K):
-            inds = np.argsort(-self.phi[k, :])[:n]
+            inds = np.argsort(-self.phi_hat[k, :])[:n]
             topwords = [self.dict[x] for x in inds]
             if hslda == False:
                 topwords.insert(0, self.ordered_labs[k])
@@ -267,17 +267,20 @@ class HSLDA_Gibbs(Gibbs):
             d_parent = (self.Y[parent_id, index[1]] == 1)
             d_own = (self.Y[index] == 1)
             multip = 1 if (d_parent and d_own) else -1
-            self.a_ld[index] = rt.rtnorm(a=0, b=5, mu=abs(value)) * multip
+            self.a_ld[index] = rt.rtnorm(a=0, b=5*abs(value), mu=abs(value)) * multip
 
     def _hslda_eta_naive(self, mu=-1, sigma=1):
         eta_l = np.random.normal(mu, sigma, self.K*self.nr_of_labs)
         return eta_l.reshape(self.K, self.nr_of_labs)
 
-    def sample_to_next_state(self, nsamples, burnin=0):
-        sqrt2 = np.sqrt(2)
+    def sample_to_next_state(self, nsamples, burnin=0, thinning=10):
+        # sqrt2 = np.sqrt(2)
         if nsamples <= burnin:
             raise Exception('Burn-in point exceeds number of samples')
         for s in range(nsamples):
+            intersave = (s+1)/thinning
+            if intersave == int(intersave):
+                self.save_this_state(N = int(intersave))
             for d in range(self.D):
                 # Find the labels that are part of document d's label set:
                 lab_d = np.where(self.Y[:, d] == 1)[0]
@@ -298,16 +301,16 @@ class HSLDA_Gibbs(Gibbs):
                         # is calculated immediately:
                         diff_z_k = self.eta[:, lab_d] - self.eta[z, lab_d]
                         z_eta_new = z_eta - (inv_len_d * diff_z_k)
-                        lab_kernel = 1 - (0.5 * (1 + erf((0 - z_eta_new)/sqrt2)))
-                        # lab_kernel = ((z_eta_new - a_labels_d)**2)/(-2)
+                        # lab_kernel = 1 - (0.5 * (1 + erf((0 - z_eta_new)/sqrt2)))
+                        lab_kernel = ((z_eta_new - a_labels_d)**2)/(-2)
                         # lab_kernel = np.exp(((z_eta_new - a_labels_d)**2)/(-2))
                         # part2 = [np.exp(np.sum(x)) for x in lab_kernel]
-                        part2 = np.prod(test)
+                        part2 = np.prod(lab_kernel)
 
                         # Get probability and draw new z-value
                         prob = part1*part2
-                        if sum(prob) != 0:
-                            prob /= sum(prob)
+                        # if sum(prob) != 0:
+                        #    prob /= sum(prob)
                         new_z = np.random.multinomial(1, prob).argmax()
 
                         # Replace old z value with new one
@@ -332,13 +335,22 @@ class HSLDA_Gibbs(Gibbs):
             # Recalculate objects that need updating due to new eta:
             self.zbarT_etaL = np.dot(self.eta.T, self.zbar.T)
 
-            # Draw new samples for all a_{l,d}:
+            # Drawing new a_{l,d} samples:
             print("Start updating a_ld for all docs and labels")
             self.sample_a()
 
 
-
-
+    def save_this_state(self, N):
+        ph = self.get_phi()
+        th = self.get_theta()
+        if N > 1:
+            self.phi_hat = N/(N-1) * self.phi_hat + 1/N * ph
+            self.theta_hat = N/(N-1) * self.theta_hat + 1/N * th
+            self.eta_hat = N/(N-1) * self.eta_hat + 1/N * self.eta
+        else:
+            self.phi_hat = ph
+            self.theta_hat = th
+            self.eta_hat = self.eta
 
     # TODO: Initiate a_ld  (check)
     # TODO: Check out the flexible alpha/beta by teh et al
