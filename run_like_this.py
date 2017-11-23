@@ -22,7 +22,7 @@ train_data = reader[:split]
 test_data = reader[split:]
 
 #import pickle
-#hslda2 = pickle.load(open('hslda_250samples.pkl', 'rb'))
+hslda2 = pickle.load(open('hslda_250samples.pkl', 'rb'))
 
 # Prepare textual data for corpus: tokenization etc.
 

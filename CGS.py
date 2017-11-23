@@ -90,7 +90,7 @@ class Gibbs:
         beta = np.tile(beta.transpose(), (1, self.D))
         return alpha_p2*beta
 
-    def get_theta(self):
+    def get_theta2(self):
         th = np.zeros((self.D, self.K))
         for d in range(self.D):
             for z in range(self.K):
@@ -99,7 +99,10 @@ class Gibbs:
                 th[d][z] = frac_a / frac_b
         return th
 
-    def get_phi(self):
+    def get_theta(self):
+        return (self.n_zxd / self.lenD).T
+
+    def get_phi2(self):
         ph = np.zeros((self.K, self.V))
         for z in range(self.K):
             for w in range(self.V):
@@ -107,6 +110,9 @@ class Gibbs:
                 frac_b = self.n_z[z] + self.beta_c*self.V
                 ph[z][w] = frac_a / frac_b
         return ph
+
+    def get_phi(self):
+        return (self.n_wxz / self.n_z).T
 
     def get_topiclist(self, n=10, hslda=False):
         # self.phi = self.get_phi()
@@ -323,7 +329,7 @@ class HSLDA_Gibbs(Gibbs):
 
             # Drawing new eta_l samples
             zT_z = np.dot(self.zbar.T, self.zbar)
-            sig_hat_inv = np.identity(self.K) * ((1/self.sigma)+zT_z)
+            sig_hat_inv = (np.identity(self.K) * 1/self.sigma)+zT_z
             sig_hat = np.linalg.inv(sig_hat_inv)
             musigma = np.ones(self.K) * (self.mu/self.sigma)
             print("Start updating eta for all labels")
@@ -352,16 +358,10 @@ class HSLDA_Gibbs(Gibbs):
             self.theta_hat = th
             self.eta_hat = self.eta
 
-    # TODO: Initiate a_ld  (check)
     # TODO: Check out the flexible alpha/beta by teh et al
-    # TODO: Write update functions
-        # P(z | .. ) =
-        # P(eta_l | ...) =
-            # Sigma, Mu
-        # P(a_ld | ... ) =
-        #
-    # TODO: Organise GibbsSampling & HSLDA_Gibbs properly (superclass?) (check)
+    # TODO: Repair get_theta() to sum to 1 instead of about 0.5
     # TODO: optimize get_theta(). It now involves DxK every time it's called
+    # TODO: Check why z doesn't separate topics
 # End of HSLDA_Gibbs
 
 # Static methods for preparing unseen data:
