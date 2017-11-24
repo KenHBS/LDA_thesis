@@ -1,18 +1,67 @@
 import numpy as np
-#from scipy import stats as stats
-from scipy.special import erf
+# from scipy import stats as stats
+# from scipy.special import erf
 from gensim.parsing import preprocessing
 from gensim import corpora, matutils
 from copy import copy
 import rtnorm as rt
 
+
 # Static methods:
 def dir_draw(array_in, axis=0):
     return np.apply_along_axis(np.random.dirichlet, axis=axis, arr=array_in)
 
+
 class Gibbs:
+    """
+    The most basic Gibbs sampling class.
+
+    This class roughly serves four purposes:
+        1) Organize a text corpus into usable chunks: bags-of-words,
+            word dictionaries, label dictionaries.
+        2) Identify and set up LDA specific parameters and priors
+        3) Setup and fill word-assignment containers with initial information
+        4) Define Gibbs methods that are shared among all specialized children
+
+
+    Attributes:
+        --- Processing of training data ---
+        docs   (list): D sublists with stemmed bag-of-words
+        dict   (gensim dict): Dictionary mapping all words in corpus to IDs
+        corpus (list): dense word id representation of docs.
+        labs   (list): contains D sublists with the labels per document
+        ldict  (gensim dictionary): Dict mapping all labels to label IDs
+
+        --- LDA (HSLDA) specific parameters ---
+        K      (int): Number of topics
+        V      (int): Number of words in corpus
+        D      (int): Number of documents in corpus
+        alpha (float): Hyperprior for document-topic distribution (theta)
+        beta  (float): Hyperprior for topic-word distribution (phi)
+        lenD  (int): D sublists with the number of words in document d
+        phi   (...): Empty container for later use.
+
+        --- Containers for word-assignment information ---
+        zet   (list): document with every word assigned to one topic k
+        n_zxd (list): per topic k count of word-assignent in each document d
+        n_wxz (list): length K sublists with word-assignment counts
+        n_z   (list): total count of word-assignments per document (K counts)
+
+    Methods:
+        _get_label_matrix_indic: Orders labels per document
+        _hslda_alpha_naive     : Calculates the alpha hyperprior for HSLDA
+        get_theta              : Calculate empirical doc-topic distr. (theta)
+        get_phi                ; Calculate empirical topic-word distr. (phi)
+        get_topiclist          : Retrieve top N words in every word-distr.
+        _common_sample         : Prepare for basic LDA draw for zet
+        sample_z               : Basic LDA draw for zet
+        addback_zet            : Close basic LDA draw for zet
+
+
+    """
+
     def __init__(self, documents, K="flex", alpha_strength=50):
-        # base setup
+        # 1) Processing of training data:
         self.docs = preprocessing.preprocess_documents(documents.docs)
         self.dict = corpora.Dictionary(self.docs)
         self.corpus = [self.dict.doc2bow(doc) for doc in self.docs]
@@ -21,45 +70,39 @@ class Gibbs:
         self.ldict = corpora.Dictionary(self.labs)
         self.ordered_labs = np.sort([x for x in self.ldict.token2id.keys()])
 
+        # 2) LDA (HSLDA) specific parameters:
         self.V = len(self.dict)
         self.D = len(self.docs)
 
         # This if-else is to distinguish between LDA and HSLDA!
-        # If: Sets up the Ramage09 type of LDA
-        if K=="flex":
-            # Determine K in data based LDA:
+        if K == "flex":   # Sets up the Ramage09 type of LDA
             self.K = len(self.ldict)
 
             # Determine alpha in LDA (a la Ramage 09)
             self.alpha = self._get_label_matrix_indic(nr_labels=self.K)
             _ = 50 / np.sum(self.alpha, axis=0)
             self.alpha = self.alpha * _
-
-        # Elif: Sets up the HSLDA type of LDA
-        elif isinstance(K, int):
+        elif isinstance(K, int):  # Sets up the HSLDA type of LDA
             self.K = K
             self.alpha = self._hslda_alpha_naive()
             self.nr_of_labs = len(self.ordered_labs)
-            #self.Y = self._get_label_matrix_indic(self.nr_of_labs)
-            #self.Y[self.Y == 0] = -1
 
-            # Reorder rows Y according to ldict (Illogical for humans!)
-            # _ = np.argsort(list(self.ldict.token2id.keys()))
-            # self.Y = self.Y[_, :]
         else:
-            raise ValueError('%s is not a valid value. K must either be "fixed" or an integer') % K
+            raise ValueError('%s is not a valid value. K must either \
+            be "fixed" or an integer' % K)
 
         self.alpha_m = alpha_strength
 
         self.beta_c = 200 / self.V
         self.beta = self.beta_c * np.ones((self.V, self.K))
+        self.phi = None
 
-        # Count-containers for word assignments
+        # 3) Count-containers for word assignments
         self.lenD = [len(doc) for doc in self.docs]
         self.zet = [np.repeat(0, x) for x in self.lenD]
-        self.n_zxd = np.zeros((self.K, self.D))  # count of topic k assignments in doc d
-        self.n_wxz = np.zeros((self.V, self.K))  # count of word v assignments in topic k
-        self.n_z = np.zeros(self.K)  # total number of assignment counts in topic k (colsum n_wxz)
+        self.n_zxd = np.zeros((self.K, self.D))  # count topic k in doc d
+        self.n_wxz = np.zeros((self.V, self.K))  # count word v in topic k
+        self.n_z = np.zeros(self.K)  # ttl assignments in topic k (colsum n_wxz)
 
         # Fill the count-containers (initialize word assignments z)
         for d, doc in enumerate(self.docs):
@@ -74,9 +117,10 @@ class Gibbs:
                 self.n_zxd[z, d] += 1
                 self.n_wxz[v, z] += 1
                 self.n_z[z] += 1
-            #self.zet[d] = z_n  is implicit by z_n = self.zet[d]
 
     def _get_label_matrix_indic(self, nr_labels):
+        """Orders labels in interpretable way for humans"""
+
         # Get tuples indicating counts per label per document:
         _ = [self.ldict.doc2bow(label) for label in self.labs]
         label_indic = matutils.corpus2dense(_, nr_labels, self.D)
@@ -85,12 +129,18 @@ class Gibbs:
         return label_indic[_, :]
 
     def _hslda_alpha_naive(self, alpha_p2=1):
+        """Compute naive alpha hyperparameter (for theta) in HSLDA setting"""
         alpha_p1 = 50/self.K
         beta = np.random.dirichlet(np.repeat(alpha_p1, self.K), 1)
         beta = np.tile(beta.transpose(), (1, self.D))
         return alpha_p2*beta
 
+    def get_theta(self):
+        """ Average word-assignment counts per document: empirical theta """
+        return (self.n_zxd / self.lenD).T
+
     def get_theta2(self):
+        """ Inefficient version of get_theta(). Serves as sanity check """
         th = np.zeros((self.D, self.K))
         for d in range(self.D):
             for z in range(self.K):
@@ -99,10 +149,12 @@ class Gibbs:
                 th[d][z] = frac_a / frac_b
         return th
 
-    def get_theta(self):
-        return (self.n_zxd / self.lenD).T
+    def get_phi(self):
+        """ Average of word-token count per topic: empirical phi """
+        return (self.n_wxz / self.n_z).T
 
     def get_phi2(self):
+        """ Inefficient version of get_phi(). Serves as sanity check """
         ph = np.zeros((self.K, self.V))
         for z in range(self.K):
             for w in range(self.V):
@@ -111,23 +163,23 @@ class Gibbs:
                 ph[z][w] = frac_a / frac_b
         return ph
 
-    def get_phi(self):
-        return (self.n_wxz / self.n_z).T
-
     def get_topiclist(self, n=10, hslda=False):
+        """ Lists top n words in every topic-word distr. (phi overview)"""
+
         # self.phi = self.get_phi()
         topiclist = []
         for k in range(self.K):
             inds = np.argsort(-self.phi_hat[k, :])[:n]
             topwords = [self.dict[x] for x in inds]
-            if hslda == False:
-                topwords.insert(0, self.ordered_labs[k])
-            elif hslda == True:
+            if hslda:
                 topwords.insert(0, "Topic " + str(k))
+            else:
+                topwords.insert(0, self.ordered_labs[k])
             topiclist += [topwords]
         return topiclist
 
     def _common_sample_z(self, d, v, z):
+        """ Reduce single word-assignment count by one & compute posterior """
         self.n_wxz[v, z] -= 1
         self.n_zxd[z, d] -= 1
         self.n_z[z] -= 1
@@ -140,6 +192,7 @@ class Gibbs:
         return (left_num / left_den) * (right_num / right_den)
 
     def sample_z(self, d, word, pos):
+        """ Pick word -> reduce count -> compute posterior -> resample z """
         v = self.dict.token2id[word]
         z = self.zet[d][pos]
         prob = self._common_sample_z(d, v, z)
@@ -148,31 +201,64 @@ class Gibbs:
         self.addback_zet(d, pos, new_z, v)
 
     def addback_zet(self, d, pos, new_z, v):
+        """ Add the newly sampled zet back to the count containers """
         self.zet[d][pos] = new_z
         self.n_wxz[v, new_z] += 1
         self.n_zxd[new_z, d] += 1
         self.n_z[new_z] += 1
         self.lenD[d] += 1
 
+
 class GibbsSampling(Gibbs):
-    def __init__(self, documents, alpha_strength=50):
+    """
+    Child of Gibbs. Enables Gibbs sampling for LDA, following Ramage '09.
+
+    Attributes:
+         Same as Gibbs
+
+    Methods:
+        run:                  Perform z-sampling for all words in all docs.
+        init_new_doc:         Create zet containers for unseen document
+        sample_for_posterior: Samples word-assignment for single unseen doc
+        posterior:            Loop all unseen docs, retain posterior info
+        theta_output:         Overview of single document-topic distr. theta
+        post_theta:           Overview of all unseen doc-topic distributions
+
+    TODO: Incorporate 'thinning' logic is Ramage's LDA
+    """
+
+    def __init__(self, documents):
         super(GibbsSampling, self).__init__(documents, K="flex")
 
     def run(self, nsamples, burnin=0):
+        """
+        Run iterations for all documents and all words
+        and reassign the word-assignment in every iteration.
+
+        :param nsamples:(int) Number of iterations over all docs and words
+        :param burnin: (int)  Nr of iterations before sample states are recorded
+        :return:              Propagate from one state to next state ´
+        """
         if nsamples <= burnin:
             raise Exception('Burn-in point exceeds number of samples')
 
         for s in range(nsamples):
             for d, doc in enumerate(self.docs):
                 if(d % 250 == 0):
-                    print("Working on document %d in sample number %d "%(d, s+1))
+                    print("Working on doc %d in sample number %d " % d, s+1)
                 for pos, word in enumerate(self.docs[d]):
                     self.sample_z(d, word, pos)
-            # th = self.get_theta()
-            # ph = self.get_phi()
-
 
     def init_newdoc(self, new_doc, sym=False):
+        """
+        Prepare unseen document for posterior calculation. Attach initial state
+        of word-topic assignments to every word in the document
+
+        :param new_doc: (list) Unseen bag-of-words (stemmed and tokenized)
+        :param sym: (boolean)  Should informative or uninformative (symmetric)
+                                    alpha prior be used?
+        :return:               Containers with word-assignment counts
+        """
         if sym:
             alpha = np.repeat(50/self.K, self.K)
         else:
@@ -183,11 +269,21 @@ class GibbsSampling(Gibbs):
         z_counts = np.zeros(self.K)
         for it, zn in enumerate(zet):
             z_counts[zet[it]] += 1
-        assert sum(z_counts)==len(new_doc), print('z_counts %d is not same as\
-         nr of words %d' % (sum(z_counts), len(new_doc)))
+        assert sum(z_counts) == len(new_doc), print('z_counts %d is not same \
+         as nr of words %d' % (sum(z_counts), len(new_doc)))
         return zet, z_counts
 
     def sample_for_posterior(self, new_doc, sym=False, n_iter=250):
+        """
+        Move from sampling state to next sampling state. Resampling word-topic
+        assignments in the transition.
+
+        :param new_doc: (list) Unseen bag-of-words (stemmed and tokenized)
+        :param sym: (boolean)  Should informative or uninformative (symmetric)
+                                    alpha prior be used?
+        :param n_iter: (int)   Number of iterations/transitions
+        :return:               word assignment count containers for new_doc
+        """
         zet, zcounts = self.init_newdoc(new_doc, sym=sym)
         if "phi" not in self.__dir__():
             self.phi = self.get_phi()
@@ -205,11 +301,22 @@ class GibbsSampling(Gibbs):
                 zcounts[new_z] += 1
         return zet, zcounts
 
-    def posterior(self, new_docs, sym=False):
+    def posterior(self, new_docs, sym=False, n=250):
+        """
+        Takes multiple unseen documents as input and resamples to return a
+        document-topic distribution (theta) for every document
+
+        :param new_docs: (list) Unseen bags-of-words (stemmed and tokenized)
+        :param sym: (boolean)   Should informative or uninformative (symmetric)
+            alpha prior be used?
+        :param n: (int)         Number of iterations/transitions
+        :return: (list)         With the document-topic distributions (theta)
+            for every document
+        """
         theta_container = []
 
         for d, doc in enumerate(new_docs):
-            zet, zcount = self.sample_for_posterior(doc, sym)
+            zet, zcount = self.sample_for_posterior(doc, sym, n_iter=n)
             single_theta = list(zcount/sum(zcount))
             theta_container.append(single_theta)
             if d % 5 == 0:
@@ -217,18 +324,20 @@ class GibbsSampling(Gibbs):
         return theta_container
 
     def theta_output(self, th):
+        """ Overview of a single document's document-topic distribution """
         th = np.array(th)
         inds = np.where(th > 0)
         labs = self.ordered_labs[inds]
         return list(zip(labs, th[inds]))
 
     def post_theta(self, new_docs, sym=False):
+        """ Overview of all unseen documents' doc-topic distribution """
         thetas = self.posterior(new_docs, sym=sym)
         return [self.theta_output(theta) for theta in thetas]
 # End of GibbsSampling Class
 
 
-class Variational_Inf:
+class VariationalInf:
     def __init__(self):
         pass
 
@@ -236,10 +345,57 @@ class Variational_Inf:
 
 
 class HSLDA_Gibbs(Gibbs):
+    """
+    Child of Gibbs. Enables Gibbs sampling for HSLDA, following Perotte '11.
+    The child-parent hierarchy in the labels (like D12, D1, D) is used to
+    leverage the classification results. This is important, because neigbouring
+    leaf labels like D12 and D13 are nearly identical. Exploiting the label
+    structure may allow for discriminating between nearly identical labels
+    near the leafs of the label-tree.
+
+    Attributes:
+        --- Inherited attributes ---
+        See Gibbs for attributes. Additionally, HSLDA_Gibbs contains:
+
+        --- HSLDA-specific variables and parameters ---
+        eta        (np.ndarray): K x L array where every column resembles
+                                    the relation between label l and topic k.
+                                    The elements are probit regression
+                                    coefficients.
+        zbar       (np.ndarray): D x K array where every row is an empirical
+                                    estimate of the document's mixture of
+                                    topics
+        mu              (float): Prior for the probit regression coefficients
+        sigma           (float): Prior for the probit regression coefficients
+        Y          (np.ndarray): L x D array with indicators (-1 or 1) whether
+                                     label l is part of document d's label set.
+        a_ld       (np.ndarray): L x D array with continuous running variables
+                                     for Y
+        zbarT_etaL (np.ndarray): L x D array that serves as a container with
+                                    intermediate results to avoid numerous
+                                        matrix multiplications.
+
+        --- Dictionaries managing the parent-child structure in labels ---
+        parent_map  (dict): Maps children to parents, e.g. A12 is mapped to A1
+        parent_dict (dict): Immediately maps child's label ID to parent's
+                                label ID.
+
+        --- Intermediate result containers. 'thinning'-related containers ---
+        phi_hat    (np.ndarray): KxV array. Empirical topic-word distributions
+        theta_hat  (np.ndarray): DxK array. Empirical doc-topic distributions
+        eta_hat    (np.ndarray): KxL array. Empirical probit coefficients
+
+    Methods:
+        sample_a            : Resamples values a for all labels l amd docs d
+        _hslda_eta_naive    : Draw initial values for eta. Based on mu, sigma
+        sample_to_next_state: Transition from one state to next.
+        save_this_state     : Saves states in regular intervals.
+
+    """
     def __init__(self, documents, K=15, mu=-1, sigma=1):
         super(HSLDA_Gibbs, self).__init__(documents, K=K)
         self.eta = self._hslda_eta_naive(mu=mu, sigma=sigma)
-        self.zbar = self.get_theta()   # We don't really need this further
+        self.zbar = self.get_theta()
         self.mu = mu
         self.sigma = sigma
 
@@ -251,14 +407,11 @@ class HSLDA_Gibbs(Gibbs):
         _ = list(self.ldict.token2id.keys())
         self.parent_map = dict(zip(_, [lab[:-1] for lab in _]))
 
-        #_ = self.ldict.token2id.keys()
+        # _ = self.ldict.token2id.keys()
         _ = [self.parent_map[x] for x in _]
         dict_vals = [self.ldict.token2id[x] for x in _]
         dict_keys = range(self.nr_of_labs)
         self.parent_dict = dict(zip(dict_keys, dict_vals))
-
-        # For my understanding, get ldict in ordered way:
-        # self.ldict2 = dict(zip(range(len(self.ordered_labs)), self.ordered_labs))
 
         # Initiate a_ld running variables
         self.a_ld = np.empty(shape=(self.nr_of_labs, self.D))
@@ -266,27 +419,51 @@ class HSLDA_Gibbs(Gibbs):
 
         self.sample_a()
 
+        self.phi_hat = None
+        self.theta_hat = None
+        self.eta_hat = None
+
     def sample_a(self):
+        """
+        Resample all running variables a_{l,d}, by drawing from a truncated
+        normal distribution, that's specified by the correspond y_{l,d} value
+        and the value of its parent label.
+
+        :return: A new value for a_{l,d}
+        """
         for index, value in np.ndenumerate(self.zbarT_etaL):
             parent_id = self.parent_dict[index[0]]
 
             d_parent = (self.Y[parent_id, index[1]] == 1)
             d_own = (self.Y[index] == 1)
             multip = 1 if (d_parent and d_own) else -1
-            self.a_ld[index] = rt.rtnorm(a=0, b=5*abs(value), mu=abs(value)) * multip
+            self.a_ld[index] = rt.rtnorm(a=0, b=5*abs(value),
+                                         mu=abs(value)) * multip
 
     def _hslda_eta_naive(self, mu=-1, sigma=1):
+        """ Use uninformative priors to initialize eta """
         eta_l = np.random.normal(mu, sigma, self.K*self.nr_of_labs)
         return eta_l.reshape(self.K, self.nr_of_labs)
 
     def sample_to_next_state(self, nsamples, burnin=0, thinning=10):
-        # sqrt2 = np.sqrt(2)
+        """ The sampling procedure consists of three conditional posteriors:
+            1) word-assignments z_{d,n} : all words and docs are reassigned
+            2) probit-coefficients eta  : all labels and topics are reassigned
+            3) running variables a_{l,d}: all labels and docs are reassigned
+
+        :param nsamples: (int) Nr of iterations
+        :param burnin: (int)   Nr of iterations before the first state is saved
+        :param thinning: (int) Length of interval between saved states
+        :return:               New state of the model.
+        """
         if nsamples <= burnin:
             raise Exception('Burn-in point exceeds number of samples')
         for s in range(nsamples):
             intersave = (s+1)/thinning
             if intersave == int(intersave):
-                self.save_this_state(N = int(intersave))
+                self.save_this_state(N=int(intersave))
+
+            # 1) Sample new word-assignments z_{d,n}
             for d in range(self.D):
                 # Find the labels that are part of document d's label set:
                 lab_d = np.where(self.Y[:, d] == 1)[0]
@@ -294,8 +471,8 @@ class HSLDA_Gibbs(Gibbs):
                 # Only focus on document d and labels in d's label set:
                 z_eta = self.zbarT_etaL[lab_d, d]
                 a_labels_d = self.a_ld[lab_d, d]
-                if(d % 1000 == 0):
-                    print("Working on document %d in sample number %d "%(d, s+1))
+                if d % 1000 == 0:
+                    print("Working on doc %d in sample number %d "%(d, s+1))
                     for pos, word in enumerate(self.docs[d]):
                         v = self.dict.token2id[word]
                         z = self.zet[d][pos]
@@ -305,18 +482,18 @@ class HSLDA_Gibbs(Gibbs):
                         # To avoid many dot product calculations, the effect
                         # of removing z_{d,n}=k on the innerproduct of zbar+eta
                         # is calculated immediately:
+
+                        # diff_z_k has KxL_d elements
                         diff_z_k = self.eta[:, lab_d] - self.eta[z, lab_d]
-                        z_eta_new = z_eta - (inv_len_d * diff_z_k)
-                        # lab_kernel = 1 - (0.5 * (1 + erf((0 - z_eta_new)/sqrt2)))
+                        z_eta_new = z_eta + (inv_len_d * diff_z_k)
+                        # lab_kernel = 1-(0.5*(1+erf((0 - z_eta_new)/sqrt2)))
                         lab_kernel = ((z_eta_new - a_labels_d)**2)/(-2)
-                        # lab_kernel = np.exp(((z_eta_new - a_labels_d)**2)/(-2))
-                        # part2 = [np.exp(np.sum(x)) for x in lab_kernel]
-                        part2 = np.prod(lab_kernel)
+                        # lab_kernel = np.exp(((z_eta_new-a_labels_d)**2)/(-2))
+                        part2 = [np.exp(np.sum(x)) for x in lab_kernel]
 
                         # Get probability and draw new z-value
                         prob = part1*part2
-                        # if sum(prob) != 0:
-                        #    prob /= sum(prob)
+                        prob /= sum(prob)
                         new_z = np.random.multinomial(1, prob).argmax()
 
                         # Replace old z value with new one
@@ -327,7 +504,7 @@ class HSLDA_Gibbs(Gibbs):
 
                         self.zbarT_etaL[:, d] += delta
 
-            # Drawing new eta_l samples
+            # 2) Drawing new eta_l samples
             zT_z = np.dot(self.zbar.T, self.zbar)
             sig_hat_inv = (np.identity(self.K) * 1/self.sigma)+zT_z
             sig_hat = np.linalg.inv(sig_hat_inv)
@@ -341,12 +518,14 @@ class HSLDA_Gibbs(Gibbs):
             # Recalculate objects that need updating due to new eta:
             self.zbarT_etaL = np.dot(self.eta.T, self.zbar.T)
 
-            # Drawing new a_{l,d} samples:
+            # 3) Drawing new a_{l,d} samples:
             print("Start updating a_ld for all docs and labels")
             self.sample_a()
 
-
     def save_this_state(self, N):
+        """
+        Update the mean theta, phi and eta with the current state's results
+        """
         ph = self.get_phi()
         th = self.get_theta()
         if N > 1:
@@ -364,7 +543,5 @@ class HSLDA_Gibbs(Gibbs):
     # TODO: Check why z doesn't separate topics
 # End of HSLDA_Gibbs
 
-# Static methods for preparing unseen data:
-# Check whether I provide 1 or multiple
 
 
