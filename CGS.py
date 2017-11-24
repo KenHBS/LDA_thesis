@@ -350,9 +350,9 @@ class HSLDA_Gibbs(Gibbs):
         ph = self.get_phi()
         th = self.get_theta()
         if N > 1:
-            self.phi_hat = N/(N-1) * self.phi_hat + 1/N * ph
-            self.theta_hat = N/(N-1) * self.theta_hat + 1/N * th
-            self.eta_hat = N/(N-1) * self.eta_hat + 1/N * self.eta
+            self.phi_hat = (N-1)/(N) * self.phi_hat + 1/N * ph
+            self.theta_hat = (N-1)/(N) * self.theta_hat + 1/N * th
+            self.eta_hat = (N-1)/(N) * self.eta_hat + 1/N * self.eta
         else:
             self.phi_hat = ph
             self.theta_hat = th
