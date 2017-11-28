@@ -5,7 +5,7 @@ from gensim.parsing import preprocessing
 from gensim import corpora, matutils
 from copy import copy
 import rtnorm as rt
-
+from antoniak import rand_antoniak
 
 # Static methods:
 def dir_draw(array_in, axis=0):
@@ -93,7 +93,7 @@ class Gibbs:
 
         self.alpha_m = alpha_strength
 
-        self.beta_c = 200 / self.V
+        self.beta_c = 100 / self.V
         self.beta = self.beta_c * np.ones((self.V, self.K))
         self.phi = None
 
@@ -178,12 +178,15 @@ class Gibbs:
             topiclist += [topwords]
         return topiclist
 
-    def _common_sample_z(self, d, v, z):
-        """ Reduce single word-assignment count by one & compute posterior """
+    def _deduct_z(self, d, v, z):
+        """ Reduce single word-assignment count by one to compute posterior """
         self.n_wxz[v, z] -= 1
         self.n_zxd[z, d] -= 1
         self.n_z[z] -= 1
         self.lenD[d] -= 1
+
+    def _common_sample_z(self, d, v, z):
+        self._deduct_z(d, v, z)
 
         left_num = self.n_wxz[v, :] + self.beta_c  # K dimensional
         left_den = self.n_z + self.beta_c * self.V  # K dimensional
@@ -385,15 +388,30 @@ class HSLDA_Gibbs(Gibbs):
         theta_hat  (np.ndarray): DxK array. Empirical doc-topic distributions
         eta_hat    (np.ndarray): KxL array. Empirical probit coefficients
 
+        --- Containers for the Hierarchical Dirichlet prior b:
+        m_aux (np.ndarray): DxK array - auxiliary vars for sampling b
+        m_dot (np.ndarray): 1xK array - column sum of m_aux
+        b     (np.ndarray): 1xK array - Hierarch. Dirichlet prior
+
     Methods:
         sample_a            : Resamples values a for all labels l amd docs d
         _hslda_eta_naive    : Draw initial values for eta. Based on mu, sigma
         sample_to_next_state: Transition from one state to next.
         save_this_state     : Saves states in regular intervals.
 
+    TO DO:
+        - Incorporate hierarchical Dirichlet prior for doc-topic
+        - Incorporate Antoniak random draws
+        - Incorporate new sampling for doc-topic prior beta
+        - Incorporate new prior updates in z sampling
+        - Check logic of alpha, alpha', beta and gamma
     """
-    def __init__(self, documents, K=15, mu=-1, sigma=1):
+    def __init__(self, documents, K=15, mu=-1, sigma=1, a_prime=1,
+                 alpha=0.5):
         super(HSLDA_Gibbs, self).__init__(documents, K=K)
+        self.a_prime = a_prime
+        self.alpha = alpha
+
         self.eta = self._hslda_eta_naive(mu=mu, sigma=sigma)
         self.zbar = self.get_theta()
         self.mu = mu
@@ -407,7 +425,7 @@ class HSLDA_Gibbs(Gibbs):
         _ = list(self.ldict.token2id.keys())
         self.parent_map = dict(zip(_, [lab[:-1] for lab in _]))
 
-        # _ = self.ldict.token2id.keys()
+        # Straight from label id, to parent's label id
         _ = [self.parent_map[x] for x in _]
         dict_vals = [self.ldict.token2id[x] for x in _]
         dict_keys = range(self.nr_of_labs)
@@ -416,12 +434,17 @@ class HSLDA_Gibbs(Gibbs):
         # Initiate a_ld running variables
         self.a_ld = np.empty(shape=(self.nr_of_labs, self.D))
         self.zbarT_etaL = np.dot(self.zbar, self.eta).T
-
         self.sample_a()
 
+        # Empty containers for saving sampling states:
         self.phi_hat = None
         self.theta_hat = None
         self.eta_hat = None
+
+        # Hierarchical Dirichlet Prior (auxiliary) vars and outcomes
+        self.m_aux = np.empty((self.D, self.K))[0]
+        self.m_dot = np.empty((1, self.K))[0]
+        self.b = np.random.dirichlet( (self.a_prime)*np.ones(self.K), size=1 )
 
     def sample_a(self):
         """
@@ -436,9 +459,70 @@ class HSLDA_Gibbs(Gibbs):
 
             d_parent = (self.Y[parent_id, index[1]] == 1)
             d_own = (self.Y[index] == 1)
-            multip = 1 if (d_parent and d_own) else -1
-            self.a_ld[index] = rt.rtnorm(a=0, b=5*abs(value),
-                                         mu=abs(value)) * multip
+
+            if d_parent is False:
+                self.a_ld[index] = rt.rtnorm(a=-float('inf'), b=0, mu=value)
+            elif d_own is False:
+                self.a_ld[index] = rt.rtnorm(a=-float('inf'), b=0, mu=value)
+            else:
+                self.a_ld[index] = rt.rtnorm(a=0, b=float('inf'), mu=value)
+
+    def sample_m_dot(self):
+        """
+        Take the word-topic assignments z and the doc-topic priors alpha and b
+        to sample values for m_{d,k}, based on the Antoniak distribution.
+        See Teh et al (2006) and Wallach (2009) for more details
+
+        :return: (np.ndarray): DxK array - updated version of self.m_aux:
+        """
+        for k in range(self.K):
+            ab = self.alpha * self.b[0, k]
+            sub = self.n_zxd[k, :]
+            for d in range(self.D):
+                n_dk = sub[d]
+                self.m_aux[d, k] = rand_antoniak(ab, int(n_dk))
+        self.m_dot = np.apply_along_axis(sum, 0, self.m_aux)
+
+    def sample_b(self):
+        """
+        Update the base measure of the topic-doc prior based on the current
+        data. See Teh et al (2006) and Wallach (2009) for more details
+
+        :return: (np.ndarray): 1xK array - updated version of self.b
+        """
+        post_b = self.m_dot + self.a_prime
+        self.b = np.random.dirichlet(post_b, size=1)
+
+    def sample_z_one(self, d, v, z):
+        """
+        Update the word-topic assignments z_{d,n} with Hierarchical Dirichlet
+        priors for the document-topic distribution.
+
+        :return: (np.ndarray): 1xK array - first part cond. posterior z_{d,n}
+        """
+        l = self.n_zxd[:, d] + self.alpha*self.b
+        r_num = self.n_wxz[v, :] + self.beta_c
+        r_den = self.n_z + self.beta_c*self.V
+        return(l * (r_num/r_den))
+
+    def sample_z_two(self, l, z, invd, z_eta, sub_a):
+        """
+        Second half of the cond. posterior of z_{d,n}. Only manipulates cells
+        affected by the change in index, to avoid calculating K large matrix
+        multiplications for every D x N word token
+
+        :param l: (list) label IDs of document d's label set
+        :param z: (int) Old topic assignment of word w_{d,n}. Between 1 and K
+        :param invD: (float) 1 divided by document length of document d
+        :param z_eta: (np.ndarray): The elements in z*eta that are affected
+        :param sub_a: (np.ndarray): The elements a_{l,d} in a_ld from labels l
+        :return: (np.ndarray): 1xK array - second part cond. posterior z_{d,n}
+        """
+        diff_z_k = self.eta[:, l] - self.eta[z, l]
+        z_eta_new = z_eta + (invd * diff_z_k)
+        kernel = ((z_eta_new - sub_a) ** 2) / (-2)
+        part2 = [np.exp(np.sum(x)) for x in kernel]
+        return(np.array(part2))
 
     def _hslda_eta_naive(self, mu=-1, sigma=1):
         """ Use uninformative priors to initialize eta """
@@ -446,10 +530,11 @@ class HSLDA_Gibbs(Gibbs):
         return eta_l.reshape(self.K, self.nr_of_labs)
 
     def sample_to_next_state(self, nsamples, burnin=0, thinning=10):
-        """ The sampling procedure consists of three conditional posteriors:
+        """ The sampling procedure consists of four conditional posteriors:
             1) word-assignments z_{d,n} : all words and docs are reassigned
             2) probit-coefficients eta  : all labels and topics are reassigned
             3) running variables a_{l,d}: all labels and docs are reassigned
+            4) update doc-topic hierarchical dirichlet prior b_k
 
         :param nsamples: (int) Nr of iterations
         :param burnin: (int)   Nr of iterations before the first state is saved
@@ -467,40 +552,30 @@ class HSLDA_Gibbs(Gibbs):
             for d in range(self.D):
                 # Find the labels that are part of document d's label set:
                 lab_d = np.where(self.Y[:, d] == 1)[0]
-                inv_len_d = 1/self.lenD[d]
+                invD = 1/self.lenD[d]
                 # Only focus on document d and labels in d's label set:
                 z_eta = self.zbarT_etaL[lab_d, d]
-                a_labels_d = self.a_ld[lab_d, d]
+                sub_a = self.a_ld[lab_d, d]
                 if d % 1000 == 0:
                     print("Working on doc %d in sample number %d "%(d, s+1))
                     for pos, word in enumerate(self.docs[d]):
                         v = self.dict.token2id[word]
                         z = self.zet[d][pos]
-                        part1 = self._common_sample_z(d, v, z)
-
-                        # Part2 in this update requires adapting z_bar
-                        # To avoid many dot product calculations, the effect
-                        # of removing z_{d,n}=k on the innerproduct of zbar+eta
-                        # is calculated immediately:
-
-                        # diff_z_k has KxL_d elements
-                        diff_z_k = self.eta[:, lab_d] - self.eta[z, lab_d]
-                        z_eta_new = z_eta + (inv_len_d * diff_z_k)
-                        # lab_kernel = 1-(0.5*(1+erf((0 - z_eta_new)/sqrt2)))
-                        lab_kernel = ((z_eta_new - a_labels_d)**2)/(-2)
-                        # lab_kernel = np.exp(((z_eta_new-a_labels_d)**2)/(-2))
-                        part2 = [np.exp(np.sum(x)) for x in lab_kernel]
+                        self._deduct_z(d, v, z)
 
                         # Get probability and draw new z-value
+                        part1 = self.sample_z_one(d, v, z)
+                        part2 = self.sample_z_two(lab_d, z, invD, z_eta, sub_a)
                         prob = part1*part2
-                        prob /= sum(prob)
-                        new_z = np.random.multinomial(1, prob).argmax()
+                        prob /= np.sum(prob)
+
+                        new_z = np.random.multinomial(1, prob[0]).argmax()
 
                         # Replace old z value with new one
                         self.addback_zet(d, pos, new_z, v)
-                        self.zbar[d, z] -= inv_len_d
-                        self.zbar[d, new_z] += inv_len_d
-                        delta = inv_len_d*(self.eta[new_z, :]-self.eta[z, :])
+                        self.zbar[d, z] -= invD
+                        self.zbar[d, new_z] += invD
+                        delta = invD*(self.eta[new_z, :]-self.eta[z, :])
 
                         self.zbarT_etaL[:, d] += delta
 
@@ -521,6 +596,11 @@ class HSLDA_Gibbs(Gibbs):
             # 3) Drawing new a_{l,d} samples:
             print("Start updating a_ld for all docs and labels")
             self.sample_a()
+
+            # 4) Update doc-topic dirichlet prior b_k with new data:
+            self.sample_m_dot()
+            self.sample_b()
+
 
     def save_this_state(self, N):
         """
