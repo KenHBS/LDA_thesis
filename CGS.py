@@ -5,12 +5,12 @@ from gensim.parsing import preprocessing
 from gensim import corpora, matutils
 from copy import copy
 import rtnorm as rt
-from antoniak import rand_antoniak
+from antoniak import *
+
 
 # Static methods:
 def dir_draw(array_in, axis=0):
     return np.apply_along_axis(np.random.dirichlet, axis=axis, arr=array_in)
-
 
 class Gibbs:
     """
@@ -442,8 +442,8 @@ class HSLDA_Gibbs(Gibbs):
         self.eta_hat = None
 
         # Hierarchical Dirichlet Prior (auxiliary) vars and outcomes
-        self.m_aux = np.empty((self.D, self.K))[0]
-        self.m_dot = np.empty((1, self.K))[0]
+        self.m_aux = np.empty((self.D, self.K))
+        self.m_dot = np.empty((1, self.K))
         self.b = np.random.dirichlet( (self.a_prime)*np.ones(self.K), size=1 )
 
     def sample_a(self):
@@ -475,12 +475,19 @@ class HSLDA_Gibbs(Gibbs):
 
         :return: (np.ndarray): DxK array - updated version of self.m_aux:
         """
+        stirl_it_up = get_stirling_nrs(100)
         for k in range(self.K):
             ab = self.alpha * self.b[0, k]
             sub = self.n_zxd[k, :]
             for d in range(self.D):
+                # print("Ran topic %s, doc %s"% (k, d))
                 n_dk = sub[d]
-                self.m_aux[d, k] = rand_antoniak(ab, int(n_dk))
+                if int(n_dk) == 0:
+                    self.m_aux[d, k] = 0
+                if int(n_dk):
+                    self.m_aux[d, k] = rand_antoniak(param=ab,
+                                                mm=n_dk,
+                                                stirling_matrix=stirl_it_up)
         self.m_dot = np.apply_along_axis(sum, 0, self.m_aux)
 
     def sample_b(self):
@@ -500,7 +507,7 @@ class HSLDA_Gibbs(Gibbs):
 
         :return: (np.ndarray): 1xK array - first part cond. posterior z_{d,n}
         """
-        l = self.n_zxd[:, d] + self.alpha*self.b
+        l = self.n_zxd[:, d] + (self.alpha*self.b)[0]
         r_num = self.n_wxz[v, :] + self.beta_c
         r_den = self.n_z + self.beta_c*self.V
         return(l * (r_num/r_den))
@@ -569,7 +576,7 @@ class HSLDA_Gibbs(Gibbs):
                         prob = part1*part2
                         prob /= np.sum(prob)
 
-                        new_z = np.random.multinomial(1, prob[0]).argmax()
+                        new_z = np.random.multinomial(1, prob).argmax()
 
                         # Replace old z value with new one
                         self.addback_zet(d, pos, new_z, v)
@@ -598,6 +605,7 @@ class HSLDA_Gibbs(Gibbs):
             self.sample_a()
 
             # 4) Update doc-topic dirichlet prior b_k with new data:
+            print("Updating the Hierarchical Dirichlet prior")
             self.sample_m_dot()
             self.sample_b()
 
@@ -623,5 +631,15 @@ class HSLDA_Gibbs(Gibbs):
     # TODO: Check why z doesn't separate topics
 # End of HSLDA_Gibbs
 
+# Generate the table for Stirling numbers of the first kind:
+def get_stirling_nrs(N):
+    stir = np.identity(int(N))
+    stir[1,0] = 0
+    stir[2,1] = 1
 
+    for n in range(3, N):
+        for k in range(1,n):
+            stir[n, k] = (stir[n-1, k-1] + (n-1)*stir[n-1, k])
+    return stir
 
+stirling_nrs = get_stirling_nrs(100)

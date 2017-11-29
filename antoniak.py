@@ -7,6 +7,7 @@
 import numpy as np
 from numpy.random import choice
 from scipy.special import gamma
+from random import choices
 
 def stirling(N, m):
     if N < 0 or m < 0:
@@ -30,11 +31,31 @@ def normalized_stirling_numbers(nn):
     max_val = max(ss)
     return np.array(ss, dtype=float) / max_val
 
-def rand_antoniak(param, mm):
-    p = normalized_stirling_numbers(mm)
+def rand_antoniak(param, mm, stirling_matrix):
+    mm = int(mm)
+    #p = normalized_stirling_numbers(int(mm))
+    p = stirling_matrix[mm, :(mm+1)]
+    for i, m in enumerate(p):
+        g_num = gamma(param)
+        g_den = gamma(param + mm)
+        p[i] = (g_num / g_den) * p[i] * param ** m
+    p /= np.sum(p)
+    a = np.array(range(0, int(mm) + 1))
+    return choices(a, p)[0]
+
+def rand_antoniak_2(param, mm):
+    p = normalized_stirling_numbers(int(mm))
     for i, m in enumerate(p):
         g_num = gamma(param)
         g_den = gamma(param + mm)
         p[i] = (g_num/g_den) * p[i] * param**m
     p /= p.sum()
-    return choice(range(1, mm+1), p=p)
+    a = np.array(range(1, int(mm)+1))
+    return choice(a=a, p=p)
+
+def rand_antoniak_short(param, mm):
+    p = normalized_stirling_numbers(int(mm))
+    p /= p.sum()
+    a = np.array(range(1, int(mm)+1))
+    return(choice(a=a, p=p))
+
