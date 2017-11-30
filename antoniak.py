@@ -34,7 +34,7 @@ def normalized_stirling_numbers(nn):
 def rand_antoniak(param, mm, stirling_matrix):
     mm = int(mm)
     #p = normalized_stirling_numbers(int(mm))
-    p = stirling_matrix[mm, :(mm+1)]
+    p = stirling_matrix[mm][:(mm+1)]
     for i, m in enumerate(p):
         g_num = gamma(param)
         g_den = gamma(param + mm)

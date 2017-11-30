@@ -467,7 +467,7 @@ class HSLDA_Gibbs(Gibbs):
             else:
                 self.a_ld[index] = rt.rtnorm(a=0, b=float('inf'), mu=value)
 
-    def sample_m_dot(self):
+    def sample_m_dot(self, func):
         """
         Take the word-topic assignments z and the doc-topic priors alpha and b
         to sample values for m_{d,k}, based on the Antoniak distribution.
@@ -488,7 +488,7 @@ class HSLDA_Gibbs(Gibbs):
                     self.m_aux[d, k] = rand_antoniak(param=ab,
                                                 mm=n_dk,
                                                 stirling_matrix=stirl_it_up)
-        self.m_dot = np.apply_along_axis(sum, 0, self.m_aux)
+        self.m_dot = np.apply_along_axis(func, 0, self.m_aux)
 
     def sample_b(self):
         """
@@ -606,7 +606,7 @@ class HSLDA_Gibbs(Gibbs):
 
             # 4) Update doc-topic dirichlet prior b_k with new data:
             print("Updating the Hierarchical Dirichlet prior")
-            self.sample_m_dot()
+            self.sample_m_dot(func=np.mean)
             self.sample_b()
 
 
@@ -640,6 +640,6 @@ def get_stirling_nrs(N):
     for n in range(3, N):
         for k in range(1,n):
             stir[n, k] = (stir[n-1, k-1] + (n-1)*stir[n-1, k])
+    stir = list(map(np.divide, stir, [max(x) for x in stir]))
     return stir
 
-stirling_nrs = get_stirling_nrs(100)
