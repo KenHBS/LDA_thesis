@@ -1,16 +1,38 @@
 import numpy as np
 # from scipy import stats as stats
 # from scipy.special import erf
-from gensim.parsing import preprocessing
+from gensim.parsing import preprocessing, preprocess_documents
 from gensim import corpora, matutils
 from copy import copy
-import rtnorm as rt
+from rtnorm import rtnorm as rt
 from antoniak import *
+from scipy.stats import truncnorm
+rvs = truncnorm.rvs
+from doc_prepare import new_docs_prep, open_txt_doc
 
+# TODO Check why theta_hat has so many equal values..
+# TODO Check whether results improve by removing generic words:
+#       Paper, estimate,
+# TODO Improve doc_prepare
 
 # Static methods:
 def dir_draw(array_in, axis=0):
     return np.apply_along_axis(np.random.dirichlet, axis=axis, arr=array_in)
+
+# Generate the table for Stirling numbers of the first kind:
+def get_stirling_nrs(N):
+    stir = np.identity(int(N))
+    stir[1,0] = 0
+    stir[2,1] = 1
+
+    for n in range(3, N):
+        for k in range(1,n):
+            stir[n, k] = (stir[n-1, k-1] + (n-1)*stir[n-1, k])
+    stir = list(map(np.divide, stir, [max(x) for x in stir]))
+    return stir
+
+def pick_z(prob):
+    return np.random.multinomial(1, prob).argmax()
 
 class Gibbs:
     """
@@ -252,7 +274,7 @@ class GibbsSampling(Gibbs):
                 for pos, word in enumerate(self.docs[d]):
                     self.sample_z(d, word, pos)
 
-    def init_newdoc(self, new_doc, sym=False):
+    def init_newdoc(self, new_doc, sym=False, hslda=False):
         """
         Prepare unseen document for posterior calculation. Attach initial state
         of word-topic assignments to every word in the document
@@ -262,10 +284,13 @@ class GibbsSampling(Gibbs):
                                     alpha prior be used?
         :return:               Containers with word-assignment counts
         """
-        if sym:
+        if sym and not hslda:
             alpha = np.repeat(50/self.K, self.K)
-        else:
+        elif not sym and not hslda:
             alpha = copy(self.n_z)
+        #elif hslda:
+        #    alpha = self.
+
         _ = np.random.dirichlet(alpha)
         zet = np.random.multinomial(1, _, len(new_doc)).argmax(axis=1)
 
@@ -400,10 +425,6 @@ class HSLDA_Gibbs(Gibbs):
         save_this_state     : Saves states in regular intervals.
 
     TO DO:
-        - Incorporate hierarchical Dirichlet prior for doc-topic
-        - Incorporate Antoniak random draws
-        - Incorporate new sampling for doc-topic prior beta
-        - Incorporate new prior updates in z sampling
         - Check logic of alpha, alpha', beta and gamma
     """
     def __init__(self, documents, K=15, mu=-1, sigma=1, a_prime=1,
@@ -447,6 +468,16 @@ class HSLDA_Gibbs(Gibbs):
         self.b = np.random.dirichlet( (self.a_prime)*np.ones(self.K), size=1 )
 
     def sample_a(self):
+        parents = self.Y[list(self.parent_dict.values()), :]
+        child = self.Y[list(self.parent_dict.keys()), :]
+        func_ind = (child == (parents==1)*1)
+
+        a = np.where(func_ind, -self.zbarT_etaL, -np.inf)
+        b = np.where(func_ind, np.inf, -self.zbarT_etaL)
+
+        self.a_ld = rvs(a, b, self.zbarT_etaL)
+
+    def sample_a_old(self):
         """
         Resample all running variables a_{l,d}, by drawing from a truncated
         normal distribution, that's specified by the correspond y_{l,d} value
@@ -461,11 +492,11 @@ class HSLDA_Gibbs(Gibbs):
             d_own = (self.Y[index] == 1)
 
             if d_parent is False:
-                self.a_ld[index] = rt.rtnorm(a=-float('inf'), b=0, mu=value)
+                self.a_ld[index] = rt(a=float('-inf'), b=0, mu=value)
             elif d_own is False:
-                self.a_ld[index] = rt.rtnorm(a=-float('inf'), b=0, mu=value)
+                self.a_ld[index] = rt(a=float('-inf'), b=0, mu=value)
             else:
-                self.a_ld[index] = rt.rtnorm(a=0, b=float('inf'), mu=value)
+                self.a_ld[index] = rt(a=0, b=float('inf'), mu=value)
 
     def sample_m_dot(self, func):
         """
@@ -625,21 +656,55 @@ class HSLDA_Gibbs(Gibbs):
             self.theta_hat = th
             self.eta_hat = self.eta
 
-    # TODO: Check out the flexible alpha/beta by teh et al
-    # TODO: Repair get_theta() to sum to 1 instead of about 0.5
-    # TODO: optimize get_theta(). It now involves DxK every time it's called
-    # TODO: Check why z doesn't separate topics
 # End of HSLDA_Gibbs
 
-# Generate the table for Stirling numbers of the first kind:
-def get_stirling_nrs(N):
-    stir = np.identity(int(N))
-    stir[1,0] = 0
-    stir[2,1] = 1
 
-    for n in range(3, N):
-        for k in range(1,n):
-            stir[n, k] = (stir[n-1, k-1] + (n-1)*stir[n-1, k])
-    stir = list(map(np.divide, stir, [max(x) for x in stir]))
-    return stir
+class UnseenPosterior(HSLDA_Gibbs):
+    def __init__(self, hslda_trained):
+        if not isinstance(hslda_trained, HSLDA_Gibbs):
+            raise TypeError("hslda_trained must be an instance of HSLDA_Gibbs")
+        self.newdocs = None
+        self.post_z = None
+        self.z_prob = None
+        self.z_probs = None
 
+        self.hs = hslda_trained
+
+    def __getattr__(self, name):
+        try:
+            return getattr(self.hs, name)
+        except AttributeError:
+            print("Child' object has no attribute %s" % name)
+
+    def clean_new_docs(self, docs):
+        bows = preprocess_documents(docs)
+        vocab = list(self.dict.token2id.keys())
+        self.newdocs = [[x for x in bow if x in vocab] for bow in bows]
+
+    def get_prob_z(self, newdoc):
+        glob_prior_p_z = (self.n_z / np.sum(self.n_z))[:, np.newaxis]
+        word_nrs = [self.dict.token2id[word] for word in newdoc]
+
+        z_p = self.phi_hat[:, word_nrs] * glob_prior_p_z
+        z_p = np.apply_along_axis(lambda x: x / np.sum(x), 0, z_p)
+        z_p = np.apply_along_axis(np.sum, 1, z_p)
+        z_p /= np.sum(z_p)
+        return z_p
+
+    def get_probs_z(self, newdocs):
+        self.clean_new_docs(newdocs)
+        self.post_z = np.array(list(map(self.get_prob_z, self.newdocs)))
+        #self.get_prob_z(newdoc) for newdoc in newdocs
+        #np.apply_along_axis(self.get_prob_z, newdocs)
+
+
+    #def start_state_z(self, newdoc):
+    #    return np.apply_along_axis(pick_z, 0, self.z_prob)
+
+    #def post_start_all_z(self, docs):
+    #    self.clean_new_docs(docs)
+    #    self.post_z = np.array(list(map(self.start_state_z, self.newdocs)))
+
+    #def exp_z(self, newdoc):
+    #    if self.z_probs is None:
+    #        self.get_prob_z(newdoc)

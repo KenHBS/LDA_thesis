@@ -37,17 +37,18 @@ rawdata = doc_prepare.PrepLabeledData(train_data, hslda=True)
 hslda = HSLDA_Gibbs(documents=rawdata)
 hslda.sample_to_next_state(nsamples=5, thinning=1)
 # Prepare & Run Collapsed Gibbs Sampling on training data
-#pickle.dump(hslda, open('saveunderthisname.pkl'. 'wb'))
 
-# wordspertopic = cgs.get_topiclist()
-# print(wordspertopic)
 
 # Prepare test data for HSLDA:
-new_docs, new_labs = doc_prepare.PrepLabeledData.split_testdata(test_data)
-test_docs = doc_prepare.new_docs_prep(new_docs=new_docs, lda_dict=hslda.dict)
-labels = [label.split(" ") for label in new_labs]
-# labels = [[label[:2] for label in doclab] for doclab in labels]
-# test_labs = [list(set(label)) for label in labels]
+test_docs = [x[1] for x in test_data]
+test_labs = [x[2] for x in test_data]
+
+post_hs = UnseenPosterior(hs)
+post_hs.get_probs_z(test_docs)
+
+#new_docs, new_labs = doc_prepare.PrepLabeledData.split_testdata(test_data)
+#test_docs = doc_prepare.new_docs_prep(new_docs=new_docs, lda_dict=hslda.dict)
+#labels = [label.split(" ") for label in new_labs]
 
 
 # Calculate posterior for test data:

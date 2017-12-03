@@ -1,21 +1,19 @@
 from gensim.parsing import preprocessing
-from gensim import corpora
+from gensim.corpora.dictionary import Dictionary as gensim_dict
 
 # Static methods to prepare unseen documents
 def keep_in_dict(new_doc, lda_dict):
-    assert isinstance(lda_dict, corpora.dictionary.Dictionary)
+    if not isinstance(lda_dict, gensim_dict):
+        TypeError("lda_dict must be a gensim Dictionary")
     dict_words = list(lda_dict.token2id.keys())
     return [word for word in new_doc if word in dict_words]
-
 
 def new_doc_prep(new_doc, lda_dict):
     _ = preprocessing.preprocess_string(new_doc)
     return keep_in_dict(_, lda_dict)
 
-
 def new_docs_prep(new_docs, lda_dict):
     return [new_doc_prep(doc, lda_dict) for doc in new_docs]
-
 
 def open_txt_doc(filename):
     """
@@ -29,6 +27,18 @@ def open_txt_doc(filename):
     doc = f.read()
     doc = doc.decode('utf-8', 'ignore').encode('utf-8')
     return doc
+
+
+
+#def filenames_to_doc(self, filenames):
+#    if len(filenames) > 1:
+#        return([open_txt_doc(x) for x in filenames])
+#    else:
+#        raise ValueError("Provide more than one document")
+#
+#def docs_to_bow(self, filenames, dict):
+#    docs = self.filenames_to_doc(filenames)
+#    return new_docs_prep(docs, dict)
 
 
 class PrepLabeledData:
@@ -52,7 +62,8 @@ class PrepLabeledData:
     # TODO make this class more elaborate, also available for non-conform data
 
     def __init__(self, db_extract, level=3, hslda=False):
-        assert level in [1, 2, 3], 'The level of the labels must be 1, 2 or 3'
+        if level not in [1,2,3]:
+            ValueError("The level of the labels must 1, 2 or 3")
         self.id = [x[0] for x in db_extract]
         self.docs = [x[1] for x in db_extract]
         self.lab = [x[2] for x in db_extract]
