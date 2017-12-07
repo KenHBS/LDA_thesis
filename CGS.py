@@ -6,6 +6,7 @@ from gensim import corpora, matutils
 from copy import copy
 from rtnorm import rtnorm as rt
 from antoniak import *
+from numpy.random import normal
 from scipy.stats import truncnorm
 rvs = truncnorm.rvs
 from doc_prepare import new_docs_prep, open_txt_doc
@@ -82,9 +83,15 @@ class Gibbs:
 
     """
 
-    def __init__(self, documents, K="flex", alpha_strength=50):
+    def __init__(self, documents, K="flex", alpha_strength=50,
+                 rm_generic=False):
         # 1) Processing of training data:
+        if rm_generic:
+            rm_ =  ['model', 'market', 'economy', 'economic', 'policy',
+                    'paper', 'result', 'increase','polici', 'effect', 'effects']
+            preprocessing.STOPWORDS = preprocessing.STOPWORDS.union(set(rm_))
         self.docs = preprocessing.preprocess_documents(documents.docs)
+
         self.dict = corpora.Dictionary(self.docs)
         self.corpus = [self.dict.doc2bow(doc) for doc in self.docs]
 
@@ -428,8 +435,8 @@ class HSLDA_Gibbs(Gibbs):
         - Check logic of alpha, alpha', beta and gamma
     """
     def __init__(self, documents, K=15, mu=-1, sigma=1, a_prime=1,
-                 alpha=0.5):
-        super(HSLDA_Gibbs, self).__init__(documents, K=K)
+                 alpha=0.5, rm_=False):
+        super(HSLDA_Gibbs, self).__init__(documents, K=K, rm_generic=rm_)
         self.a_prime = a_prime
         self.alpha = alpha
 
@@ -513,6 +520,8 @@ class HSLDA_Gibbs(Gibbs):
             for d in range(self.D):
                 # print("Ran topic %s, doc %s"% (k, d))
                 n_dk = sub[d]
+                if n_dk > 100:
+                    stirl_it_up = get_stirling_nrs(n_dk)
                 if int(n_dk) == 0:
                     self.m_aux[d, k] = 0
                 if int(n_dk):
@@ -639,6 +648,11 @@ class HSLDA_Gibbs(Gibbs):
             print("Updating the Hierarchical Dirichlet prior")
             self.sample_m_dot(func=np.mean)
             self.sample_b()
+            self.get_perplexity()
+
+    def get_perplexity(self, testdocs):
+        th = get_theta()
+        ph = get_phi()
 
 
     def save_this_state(self, N):
@@ -660,6 +674,9 @@ class HSLDA_Gibbs(Gibbs):
 
 
 class UnseenPosterior(HSLDA_Gibbs):
+    """
+    All intermed_a may be unnecessary!
+    """
     def __init__(self, hslda_trained):
         if not isinstance(hslda_trained, HSLDA_Gibbs):
             raise TypeError("hslda_trained must be an instance of HSLDA_Gibbs")
@@ -669,6 +686,14 @@ class UnseenPosterior(HSLDA_Gibbs):
         self.z_probs = None
 
         self.hs = hslda_trained
+        self.intermed_a = None
+        self.test_a = None
+
+        lab_levels = [len(x) for x in list(self.ldict.values())]
+        self.L0_labs = np.where(np.array(lab_levels) == 0)[0]
+        self.L1_labs = np.where(np.array(lab_levels) == 1)[0]
+        self.L2_labs = np.where(np.array(lab_levels) == 2)[0]
+        self.L3_labs = np.where(np.array(lab_levels) == 3)[0]
 
     def __getattr__(self, name):
         try:
@@ -694,17 +719,74 @@ class UnseenPosterior(HSLDA_Gibbs):
     def get_probs_z(self, newdocs):
         self.clean_new_docs(newdocs)
         self.post_z = np.array(list(map(self.get_prob_z, self.newdocs)))
-        #self.get_prob_z(newdoc) for newdoc in newdocs
-        #np.apply_along_axis(self.get_prob_z, newdocs)
+        # Fill a container for upcoming sampling a_{l,d}
+        self.intermed_a = self.set_up_a_container(newdocs)
+        self.test_a = self.set_up_a_container(newdocs)
 
+    def set_up_a_container(self, newdocs):
+        a_cont = np.zeros((self.nr_of_labs, len(newdocs)))
+        a_cont[0, :] = 1
+        return a_cont
 
-    #def start_state_z(self, newdoc):
-    #    return np.apply_along_axis(pick_z, 0, self.z_prob)
+    def samp_a_per_level(self, par_level, own_level, all_means):
+        inter_a = self.intermed_a
+        level_means = all_means[:, own_level]
+        a = -np.inf
 
-    #def post_start_all_z(self, docs):
-    #    self.clean_new_docs(docs)
-    #    self.post_z = np.array(list(map(self.start_state_z, self.newdocs)))
+        par_inds = np.array(list(self.parent_dict.values()))[own_level]
+        b = np.where(inter_a[par_inds, :] > 0, np.inf, -level_means)
+        inter_a[own_level, :] = rvs(a, b, level_means)
 
-    #def exp_z(self, newdoc):
-    #    if self.z_probs is None:
-    #        self.get_prob_z(newdoc)
+    def posterior_a_sampling2(self):
+        all_means = np.dot(self.post_z, self.eta_hat)
+        self.samp_a_per_level(self.L0_labs, self.L1_labs, all_means)
+        self.samp_a_per_level(self.L1_labs, self.L2_labs, all_means)
+        self.samp_a_per_level(self.L2_labs, self.L3_labs, all_means)
+
+    def posterior_a_sampling(self):
+        all_means = np.dot(self.post_z, self.eta_hat).T
+        self.a_all_down(self.L1_labs, all_means)
+        self.a_all_down(self.L2_labs, all_means)
+        self.a_all_down(self.L3_labs, all_means)
+
+    def a_all_down(self, own_inds, all_means):
+        # Get the mean and realizations of a_ld
+        all_means = np.dot(self.post_z, self.eta_hat).T
+        all_a = self.test_a
+        # Identify the label ID of the parents to
+        par_inds = np.array(list(self.parent_dict.values()))[own_inds]
+        parents_a = all_a[par_inds, :]
+        # Focus only on the mean for a_ld, for l in this level's hierarchy
+        own_means = all_means[own_inds, :]
+        # Find the truncation borders for every a_ld in this hierarchy
+        a = -np.inf
+        b = np.where(parents_a > 0, np.inf, -own_means)
+        own_a = rvs(a, b, own_means)
+        # Check for every label in higher hierarchy, if at least on descendant
+        # has a positive value. Every final label is leaf node in label tree
+        parent_set = list(set(par_inds))
+        for parent in parent_set:
+            children = np.where(par_inds == parent)[0]
+            pos_parents = np.where(all_a[parent, :] > 0)[0]
+            trouble_docs = [1]
+            while (len(trouble_docs) > 0):
+                pos_desc_per_doc = np.sum(own_a[children, :] > 0, axis=0)
+
+                no_descents = np.where(pos_desc_per_doc == 0)[0]
+                if len(no_descents) == 0:
+                    all_a[own_inds, :] = own_a
+                    break
+                trouble_docs = np.array(
+                    list(set(no_descents) & set(pos_parents)))
+                new_a = normal(own_means[np.ix_(children, trouble_docs)])
+                own_a[np.ix_(children, trouble_docs)] = new_a
+        self.test_a[own_inds, :] = own_a
+
+    def one_label_pred(self, doc, threshold=0):
+        lab_doc_d = np.where(self.test_a[:, doc] > threshold)[0]
+        ldict_lst = list(self.ldict.values())
+        return [ldict_lst[x] for x in lab_doc_d]
+
+    def all_lab_preds(self):
+        allpreds = [self.one_label_pred(d) for d in range(len(self.newdocs))]
+        return  [[x for x in docpred if len(x)==3] for docpred in allpreds]

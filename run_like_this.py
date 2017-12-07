@@ -32,10 +32,12 @@ test_data = reader[split:]
 # cgs = GibbsSampling(documents=rawdata_lda)
 # cgs.run(nsamples=10)
 
+
+
 # 2) For HSLDA:
 rawdata = doc_prepare.PrepLabeledData(train_data, hslda=True)
-hslda = HSLDA_Gibbs(documents=rawdata)
-hslda.sample_to_next_state(nsamples=5, thinning=1)
+hslda = HSLDA_Gibbs(documents=rawdata, rm_=True)
+hslda.sample_to_next_state(nsamples=250, thinning=25)
 # Prepare & Run Collapsed Gibbs Sampling on training data
 
 
@@ -43,8 +45,15 @@ hslda.sample_to_next_state(nsamples=5, thinning=1)
 test_docs = [x[1] for x in test_data]
 test_labs = [x[2] for x in test_data]
 
-post_hs = UnseenPosterior(hs)
+post_hs = UnseenPosterior(hslda)
 post_hs.get_probs_z(test_docs)
+
+post_hs.posterior_a_sampling()
+
+label_predictions = post_hs.all_lab_preds()
+
+result = [[x for x in docpred if len(x)==3] for docpred in label_predictions]
+
 
 #new_docs, new_labs = doc_prepare.PrepLabeledData.split_testdata(test_data)
 #test_docs = doc_prepare.new_docs_prep(new_docs=new_docs, lda_dict=hslda.dict)
