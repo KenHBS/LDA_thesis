@@ -36,24 +36,36 @@ test_data = reader[split:]
 
 # 2) For HSLDA:
 rawdata = doc_prepare.PrepLabeledData(train_data, hslda=True)
-hslda = HSLDA_Gibbs(documents=rawdata, rm_=True)
-hslda.sample_to_next_state(nsamples=250, thinning=25)
+# hslda = HSLDA_Gibbs(documents=rawdata, rm_=True)
+# hslda.sample_to_next_state(nsamples=250, thinning=25)
 # Prepare & Run Collapsed Gibbs Sampling on training data
 
 
 # Prepare test data for HSLDA:
 test_docs = [x[1] for x in test_data]
 test_labs = [x[2] for x in test_data]
+# post_hs = UnseenPosterior(hslda)
+# post_hs.get_probs_z(test_docs)
+# post_hs.posterior_a_sampling()
+# label_predictions = post_hs.all_lab_preds()
+# result = [[x for x in docpred if len(x)==3] for docpred in label_predictions]
 
-post_hs = UnseenPosterior(hslda)
-post_hs.get_probs_z(test_docs)
 
-post_hs.posterior_a_sampling()
+# 3) Try new mixes of HSLDA: Ramage_mix with focused alpha
+hs2 = HSLDA_Gibbs(documents=rawdata, K="flex", rm_=True, ramage_mix=True)
+hs2.sample_to_next_state(nsamples=20, thinning=1)
+post_hs2 = UnseenPosterior(hs2)
+post_hs2.get_probs_z(test_docs)
+post_hs2.posterior_a_sampling(samples=5)
 
-label_predictions = post_hs.all_lab_preds()
+label_predictions = post_hs2.all_lab_preds()    # Based on one run down the hierarchy!
 
-result = [[x for x in docpred if len(x)==3] for docpred in label_predictions]
 
+
+label_predictions[0:2]
+test_labs[10]
+label_predictions[10]
+hs2.get_topiclist(15, hslda=True)
 
 #new_docs, new_labs = doc_prepare.PrepLabeledData.split_testdata(test_data)
 #test_docs = doc_prepare.new_docs_prep(new_docs=new_docs, lda_dict=hslda.dict)

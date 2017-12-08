@@ -7,7 +7,7 @@ from copy import copy
 from rtnorm import rtnorm as rt
 from antoniak import *
 from numpy.random import normal
-from scipy.stats import truncnorm
+from scipy.stats import truncnorm, norm
 rvs = truncnorm.rvs
 from doc_prepare import new_docs_prep, open_txt_doc
 
@@ -19,6 +19,9 @@ from doc_prepare import new_docs_prep, open_txt_doc
 # Static methods:
 def dir_draw(array_in, axis=0):
     return np.apply_along_axis(np.random.dirichlet, axis=axis, arr=array_in)
+
+def check_equal(checklist):
+    return len(set(checklist)) <= 1
 
 # Generate the table for Stirling numbers of the first kind:
 def get_stirling_nrs(N):
@@ -84,7 +87,7 @@ class Gibbs:
     """
 
     def __init__(self, documents, K="flex", alpha_strength=50,
-                 rm_generic=False):
+                 rm_generic=False, ramage_mix=False, LN=1, perf_alpha=False):
         # 1) Processing of training data:
         if rm_generic:
             rm_ =  ['model', 'market', 'economy', 'economic', 'policy',
@@ -105,12 +108,33 @@ class Gibbs:
 
         # This if-else is to distinguish between LDA and HSLDA!
         if K == "flex":   # Sets up the Ramage09 type of LDA
-            self.K = len(self.ldict)
+            if ramage_mix:
+                # Set self.K equal to leaf nodes only
+                flat_list = []
+                for sublist in self.ldict.values():
+                    flat_list.append(sublist)
+                LN_labels = list(set([x for x in flat_list if len(x) == LN]))
+                self.K = len(LN_labels)
 
-            # Determine alpha in LDA (a la Ramage 09)
-            self.alpha = self._get_label_matrix_indic(nr_labels=self.K)
-            _ = 50 / np.sum(self.alpha, axis=0)
-            self.alpha = self.alpha * _
+                labsets = [x.split(" ") for x in documents.lab]
+                if LN in [1,2,3]:
+                    labsets_LN = [[x[0:LN] for x in d_lab] for d_lab in labsets]
+                else:
+                    raise ValueError("LN must be either 1,2 or 3")
+                LN_dict = corpora.Dictionary(labsets_LN)
+                _ = [LN_dict.doc2bow(label) for label in labsets_LN]
+                label_indic = matutils.corpus2dense(_, self.K, self.D)
+                _ = np.argsort([x for x in LN_dict.token2id.keys()])
+
+                self.alpha = label_indic[_, :] + (0.5 / self.K)*perf_alpha
+                self.nr_of_labs = len(self.ordered_labs)
+            else:
+                self.K = len(self.ldict)
+                # Determine alpha in LDA (a la Ramage 09)
+                self.alpha = self._get_label_matrix_indic(nr_labels=self.K)
+                _ = 50 / np.sum(self.alpha, axis=0)
+                self.alpha *= _
+                self.nr_of_labs = len(self.ordered_labs)
         elif isinstance(K, int):  # Sets up the HSLDA type of LDA
             self.K = K
             self.alpha = self._hslda_alpha_naive()
@@ -131,7 +155,7 @@ class Gibbs:
         self.zet = [np.repeat(0, x) for x in self.lenD]
         self.n_zxd = np.zeros((self.K, self.D))  # count topic k in doc d
         self.n_wxz = np.zeros((self.V, self.K))  # count word v in topic k
-        self.n_z = np.zeros(self.K)  # ttl assignments in topic k (colsum n_wxz)
+        self.n_z = np.zeros(self.K)  # tot assignments in top k (colsum n_wxz)
 
         # Fill the count-containers (initialize word assignments z)
         for d, doc in enumerate(self.docs):
@@ -164,33 +188,15 @@ class Gibbs:
         beta = np.tile(beta.transpose(), (1, self.D))
         return alpha_p2*beta
 
+    @property
     def get_theta(self):
         """ Average word-assignment counts per document: empirical theta """
         return (self.n_zxd / self.lenD).T
 
-    def get_theta2(self):
-        """ Inefficient version of get_theta(). Serves as sanity check """
-        th = np.zeros((self.D, self.K))
-        for d in range(self.D):
-            for z in range(self.K):
-                frac_a = self.n_zxd[z][d] + self.alpha[z][d]
-                frac_b = self.lenD[d] + self.alpha_m
-                th[d][z] = frac_a / frac_b
-        return th
-
+    @property
     def get_phi(self):
         """ Average of word-token count per topic: empirical phi """
         return (self.n_wxz / self.n_z).T
-
-    def get_phi2(self):
-        """ Inefficient version of get_phi(). Serves as sanity check """
-        ph = np.zeros((self.K, self.V))
-        for z in range(self.K):
-            for w in range(self.V):
-                frac_a = self.n_wxz[w][z] + self.beta_c
-                frac_b = self.n_z[z] + self.beta_c*self.V
-                ph[z][w] = frac_a / frac_b
-        return ph
 
     def get_topiclist(self, n=10, hslda=False):
         """ Lists top n words in every topic-word distr. (phi overview)"""
@@ -268,7 +274,7 @@ class GibbsSampling(Gibbs):
         and reassign the word-assignment in every iteration.
 
         :param nsamples:(int) Number of iterations over all docs and words
-        :param burnin: (int)  Nr of iterations before sample states are recorded
+        :param burnin: (int)  Nr of iter. before sample states are recorded
         :return:              Propagate from one state to next state ´
         """
         if nsamples <= burnin:
@@ -281,7 +287,7 @@ class GibbsSampling(Gibbs):
                 for pos, word in enumerate(self.docs[d]):
                     self.sample_z(d, word, pos)
 
-    def init_newdoc(self, new_doc, sym=False, hslda=False):
+    def init_newdoc(self, new_doc, sym=False):
         """
         Prepare unseen document for posterior calculation. Attach initial state
         of word-topic assignments to every word in the document
@@ -291,12 +297,12 @@ class GibbsSampling(Gibbs):
                                     alpha prior be used?
         :return:               Containers with word-assignment counts
         """
-        if sym and not hslda:
+        if sym:
             alpha = np.repeat(50/self.K, self.K)
-        elif not sym and not hslda:
+        elif not sym:
             alpha = copy(self.n_z)
-        #elif hslda:
-        #    alpha = self.
+
+        alpha /= sum(alpha)   # "Concentration measure" for Dirichlet
 
         _ = np.random.dirichlet(alpha)
         zet = np.random.multinomial(1, _, len(new_doc)).argmax(axis=1)
@@ -435,13 +441,20 @@ class HSLDA_Gibbs(Gibbs):
         - Check logic of alpha, alpha', beta and gamma
     """
     def __init__(self, documents, K=15, mu=-1, sigma=1, a_prime=1,
-                 alpha=0.5, rm_=False):
-        super(HSLDA_Gibbs, self).__init__(documents, K=K, rm_generic=rm_)
+                 alpha=0.5, rm_=False, ramage_mix=False, LN=1, ksi=0,
+                 perf_alpha=False):
+        super(HSLDA_Gibbs, self).__init__(documents, K=K, rm_generic=rm_,
+                                          ramage_mix=ramage_mix, LN=LN,
+                                          perf_alpha=perf_alpha)
         self.a_prime = a_prime
-        self.alpha = alpha
-
+        self.ksi = ksi     # Running variable: y_{l.d} = 1 iff a_{l,d} > ksi
+        self.ramage_mix = ramage_mix
+        if self.ramage_mix:
+            pass
+        else:
+            self.alpha = alpha
         self.eta = self._hslda_eta_naive(mu=mu, sigma=sigma)
-        self.zbar = self.get_theta()
+        self.zbar = self.get_theta
         self.mu = mu
         self.sigma = sigma
 
@@ -474,36 +487,33 @@ class HSLDA_Gibbs(Gibbs):
         self.m_dot = np.empty((1, self.K))
         self.b = np.random.dirichlet( (self.a_prime)*np.ones(self.K), size=1 )
 
-    def sample_a(self):
-        parents = self.Y[list(self.parent_dict.values()), :]
-        child = self.Y[list(self.parent_dict.keys()), :]
-        func_ind = (child == (parents==1)*1)
-
-        a = np.where(func_ind, -self.zbarT_etaL, -np.inf)
-        b = np.where(func_ind, np.inf, -self.zbarT_etaL)
-
-        self.a_ld = rvs(a, b, self.zbarT_etaL)
-
     def sample_a_old(self):
         """
         Resample all running variables a_{l,d}, by drawing from a truncated
         normal distribution, that's specified by the correspond y_{l,d} value
-        and the value of its parent label.
-
+        and the value of its parent label
         :return: A new value for a_{l,d}
         """
-        for index, value in np.ndenumerate(self.zbarT_etaL):
-            parent_id = self.parent_dict[index[0]]
+        parents = self.Y[list(self.parent_dict.values()), :]
+        child = self.Y[list(self.parent_dict.keys()), :]
+        func_ind = (child == (parents==1)*1)
 
-            d_parent = (self.Y[parent_id, index[1]] == 1)
-            d_own = (self.Y[index] == 1)
+        a = np.where(func_ind, self.zbarT_etaL, -np.inf)
+        b = np.where(func_ind, np.inf, -self.zbarT_etaL)
 
-            if d_parent is False:
-                self.a_ld[index] = rt(a=float('-inf'), b=0, mu=value)
-            elif d_own is False:
-                self.a_ld[index] = rt(a=float('-inf'), b=0, mu=value)
-            else:
-                self.a_ld[index] = rt(a=0, b=float('inf'), mu=value)
+        self.a_ld = rvs(a, b, self.zbarT_etaL)
+
+    def sample_a(self):
+        """
+        Resample a_{l,d} only based on its own values y_{l,d} ignoring parent
+        labels (during training phase).
+        :return: new draws for a_{l,d}
+        """
+        a = np.where(self.Y > 0, -self.zbarT_etaL, -np.inf)
+        b = np.where(self.Y > 0, np.inf, -self.zbarT_etaL)
+
+        self.a_ld = rvs(a, b, self.zbarT_etaL)
+
 
     def sample_m_dot(self, func):
         """
@@ -520,8 +530,8 @@ class HSLDA_Gibbs(Gibbs):
             for d in range(self.D):
                 # print("Ran topic %s, doc %s"% (k, d))
                 n_dk = sub[d]
-                if n_dk > 100:
-                    stirl_it_up = get_stirling_nrs(n_dk)
+                if n_dk > 99:
+                    stirl_it_up = get_stirling_nrs(n_dk+1)
                 if int(n_dk) == 0:
                     self.m_aux[d, k] = 0
                 if int(n_dk):
@@ -547,7 +557,10 @@ class HSLDA_Gibbs(Gibbs):
 
         :return: (np.ndarray): 1xK array - first part cond. posterior z_{d,n}
         """
-        l = self.n_zxd[:, d] + (self.alpha*self.b)[0]
+        if self.ramage_mix:
+            l = self.n_zxd[:, d] + self.alpha[:, d]
+        else:
+            l = self.n_zxd[:, d] + (self.alpha*self.b)[0]
         r_num = self.n_wxz[v, :] + self.beta_c
         r_den = self.n_z + self.beta_c*self.V
         return(l * (r_num/r_den))
@@ -603,6 +616,8 @@ class HSLDA_Gibbs(Gibbs):
                 # Only focus on document d and labels in d's label set:
                 z_eta = self.zbarT_etaL[lab_d, d]
                 sub_a = self.a_ld[lab_d, d]
+                assert all(sub_a>self.ksi), "Something went wrong. a_ld must" \
+                                              " be positive if y_ld equal one!"
                 if d % 1000 == 0:
                     print("Working on doc %d in sample number %d "%(d, s+1))
                     for pos, word in enumerate(self.docs[d]):
@@ -645,22 +660,22 @@ class HSLDA_Gibbs(Gibbs):
             self.sample_a()
 
             # 4) Update doc-topic dirichlet prior b_k with new data:
-            print("Updating the Hierarchical Dirichlet prior")
-            self.sample_m_dot(func=np.mean)
-            self.sample_b()
-            self.get_perplexity()
+            #print("Updating the Hierarchical Dirichlet prior")
+            #self.sample_m_dot(func=np.mean)
+            #self.sample_b()
+            #self.get_perplexity()
 
-    def get_perplexity(self, testdocs):
-        th = get_theta()
-        ph = get_phi()
+    #def get_perplexity(self, testdocs):
+    #    th = get_theta()
+    #    ph = get_phi()
 
 
     def save_this_state(self, N):
         """
         Update the mean theta, phi and eta with the current state's results
         """
-        ph = self.get_phi()
-        th = self.get_theta()
+        ph = self.get_phi
+        th = self.get_theta
         if N > 1:
             self.phi_hat = (N-1)/(N) * self.phi_hat + 1/N * ph
             self.theta_hat = (N-1)/(N) * self.theta_hat + 1/N * th
@@ -694,6 +709,7 @@ class UnseenPosterior(HSLDA_Gibbs):
         self.L1_labs = np.where(np.array(lab_levels) == 1)[0]
         self.L2_labs = np.where(np.array(lab_levels) == 2)[0]
         self.L3_labs = np.where(np.array(lab_levels) == 3)[0]
+        self.a_hat = None
 
     def __getattr__(self, name):
         try:
@@ -737,21 +753,23 @@ class UnseenPosterior(HSLDA_Gibbs):
         b = np.where(inter_a[par_inds, :] > 0, np.inf, -level_means)
         inter_a[own_level, :] = rvs(a, b, level_means)
 
-    def posterior_a_sampling2(self):
-        all_means = np.dot(self.post_z, self.eta_hat)
-        self.samp_a_per_level(self.L0_labs, self.L1_labs, all_means)
-        self.samp_a_per_level(self.L1_labs, self.L2_labs, all_means)
-        self.samp_a_per_level(self.L2_labs, self.L3_labs, all_means)
-
-    def posterior_a_sampling(self):
+    def posterior_a_sampling(self, samples=200):
         all_means = np.dot(self.post_z, self.eta_hat).T
-        self.a_all_down(self.L1_labs, all_means)
-        self.a_all_down(self.L2_labs, all_means)
-        self.a_all_down(self.L3_labs, all_means)
+        L1 = self.L1_labs
+        L2 = self.L2_labs
+        L3 = self.L3_labs
+        self.a_hat = copy(self.test_a)
+        for n in range(samples):
+            self.a_all_down(L1, all_means)
+            self.a_all_down(L2, all_means)
+            self.a_all_down(L3, all_means)
+            if n > 1:
+                self.a_hat *= (n-1)/n
+                self.a_hat += (1/n)*self.test_a
+                print("Worked on posterior sample ", n)
 
     def a_all_down(self, own_inds, all_means):
         # Get the mean and realizations of a_ld
-        all_means = np.dot(self.post_z, self.eta_hat).T
         all_a = self.test_a
         # Identify the label ID of the parents to
         par_inds = np.array(list(self.parent_dict.values()))[own_inds]
@@ -765,6 +783,9 @@ class UnseenPosterior(HSLDA_Gibbs):
         # Check for every label in higher hierarchy, if at least on descendant
         # has a positive value. Every final label is leaf node in label tree
         parent_set = list(set(par_inds))
+        label_level = [len(self.ldict[x]) for x in parent_set]
+        assert(check_equal(label_level)), "The labels in the hierarchy should" \
+                                          " not be in the same hierarchy.."
         for parent in parent_set:
             children = np.where(par_inds == parent)[0]
             pos_parents = np.where(all_a[parent, :] > 0)[0]
@@ -783,10 +804,14 @@ class UnseenPosterior(HSLDA_Gibbs):
         self.test_a[own_inds, :] = own_a
 
     def one_label_pred(self, doc, threshold=0):
-        lab_doc_d = np.where(self.test_a[:, doc] > threshold)[0]
+        lab_doc_d = np.where(self.a_hat[:, doc] > threshold)[0]
         ldict_lst = list(self.ldict.values())
         return [ldict_lst[x] for x in lab_doc_d]
 
     def all_lab_preds(self):
         allpreds = [self.one_label_pred(d) for d in range(len(self.newdocs))]
-        return  [[x for x in docpred if len(x)==3] for docpred in allpreds]
+        return  [[x for x in docpred] for docpred in allpreds]
+
+    def prob_y_hat(self, threshold):
+        all_means = np.dot(self.post_z, self.eta_hat)
+        return norm.cdf(threshold, -all_means)
