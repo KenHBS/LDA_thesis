@@ -87,12 +87,18 @@ class Gibbs:
     """
 
     def __init__(self, documents, K="flex", alpha_strength=50,
-                 rm_generic=False, ramage_mix=False, LN=1, perf_alpha=False):
+                 rm_generic=False, ramage_mix=False, LN=1, perf_alpha=False,
+                 cascade=False, level=1):
         # 1) Processing of training data:
         if rm_generic:
             rm_ =  ['model', 'market', 'economy', 'economic', 'policy',
                     'paper', 'result', 'increase','polici', 'effect', 'effects']
             preprocessing.STOPWORDS = preprocessing.STOPWORDS.union(set(rm_))
+
+        if cascade:
+            labs = documents.prepped_labels
+            labs = [[y for y in doclab if len(y)==level] for doclab in labs]
+            documents.prepped_labels = labs
         self.docs = preprocessing.preprocess_documents(documents.docs)
 
         self.dict = corpora.Dictionary(self.docs)
@@ -149,6 +155,10 @@ class Gibbs:
         self.beta_c = 100 / self.V
         self.beta = self.beta_c * np.ones((self.V, self.K))
         self.phi = None
+        self.phi_hat = None
+        self.theta_hat = None
+        self.eta = None
+        self.eta_hat = None
 
         # 3) Count-containers for word assignments
         self.lenD = [len(doc) for doc in self.docs]
@@ -197,6 +207,22 @@ class Gibbs:
     def get_phi(self):
         """ Average of word-token count per topic: empirical phi """
         return (self.n_wxz / self.n_z).T
+
+    def save_this_state(self, N, hslda=False):
+        """
+        Update the mean theta, phi and eta with the current state's results
+        """
+        ph = self.get_phi()
+        th = self.get_theta()
+        if N > 1:
+            self.phi_hat = (N-1)/(N) * self.phi_hat + 1/N * ph
+            self.theta_hat = (N-1)/(N) * self.theta_hat + 1/N * th
+        else:
+            self.phi_hat = ph
+            self.theta_hat = th
+        if hslda:
+            self.eta_hat = (N-1)/(N) * self.eta_hat + 1/N * self.eta
+            self.eta_hat = self.eta
 
     def get_topiclist(self, n=10, hslda=False):
         """ Lists top n words in every topic-word distr. (phi overview)"""
@@ -268,7 +294,7 @@ class GibbsSampling(Gibbs):
     def __init__(self, documents):
         super(GibbsSampling, self).__init__(documents, K="flex")
 
-    def run(self, nsamples, burnin=0):
+    def run(self, nsamples, thinning=None, burnin=0):
         """
         Run iterations for all documents and all words
         and reassign the word-assignment in every iteration.
@@ -279,13 +305,18 @@ class GibbsSampling(Gibbs):
         """
         if nsamples <= burnin:
             raise Exception('Burn-in point exceeds number of samples')
-
+        if thinning is None:
+            thinning = int(nsamples/10)
         for s in range(nsamples):
+            intersave = (s+1)/thinning
+            if intersave == int(intersave):
+                self.save_this_state(N=int(intersave), hslda=False)
             for d, doc in enumerate(self.docs):
                 if(d % 250 == 0):
-                    print("Working on doc %d in sample number %d " % d, s+1)
+                    print("Working on doc %d in sample number %d " % (d, s+1))
                 for pos, word in enumerate(self.docs[d]):
                     self.sample_z(d, word, pos)
+
 
     def init_newdoc(self, new_doc, sym=False):
         """
@@ -383,6 +414,27 @@ class VariationalInf:
         pass
 
 # End of Variational_
+
+
+class CascadeLDA(Gibbs):
+    def __init__(self, documents):
+        super(CascadeLDA, self).__init__(documents, K="flex", cascade=True,
+                                         level=1)
+        self.raw = documents
+
+    def train_level1(self, nsamples=250, thinning=25):
+        self.run(nsamples=nsamples, thinning=thinning)
+
+    def split_models(self, newlevel):
+        self.cut_labs()
+        self.cut_ldict()
+
+    def cut_labs(self, level):
+        labs = self.raw.prepped_labels
+        labs = [[y for y in doclab if len(y)==level] for doclab in labs]
+
+    def cut_ldict(self):
+        pass
 
 
 class HSLDA_Gibbs(Gibbs):
@@ -606,7 +658,7 @@ class HSLDA_Gibbs(Gibbs):
         for s in range(nsamples):
             intersave = (s+1)/thinning
             if intersave == int(intersave):
-                self.save_this_state(N=int(intersave))
+                self.save_this_state(N=int(intersave), hslda=True)
 
             # 1) Sample new word-assignments z_{d,n}
             for d in range(self.D):
@@ -669,21 +721,6 @@ class HSLDA_Gibbs(Gibbs):
     #    th = get_theta()
     #    ph = get_phi()
 
-
-    def save_this_state(self, N):
-        """
-        Update the mean theta, phi and eta with the current state's results
-        """
-        ph = self.get_phi
-        th = self.get_theta
-        if N > 1:
-            self.phi_hat = (N-1)/(N) * self.phi_hat + 1/N * ph
-            self.theta_hat = (N-1)/(N) * self.theta_hat + 1/N * th
-            self.eta_hat = (N-1)/(N) * self.eta_hat + 1/N * self.eta
-        else:
-            self.phi_hat = ph
-            self.theta_hat = th
-            self.eta_hat = self.eta
 
 # End of HSLDA_Gibbs
 

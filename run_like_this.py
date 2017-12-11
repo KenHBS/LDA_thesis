@@ -36,8 +36,8 @@ test_data = reader[split:]
 
 # 2) For HSLDA:
 rawdata = doc_prepare.PrepLabeledData(train_data, hslda=True)
-# hslda = HSLDA_Gibbs(documents=rawdata, rm_=True)
-# hslda.sample_to_next_state(nsamples=250, thinning=25)
+hslda = HSLDA_Gibbs(documents=rawdata, rm_=True)
+hslda.sample_to_next_state(nsamples=1000, thinning=25)
 # Prepare & Run Collapsed Gibbs Sampling on training data
 
 
@@ -60,6 +60,8 @@ post_hs2.posterior_a_sampling(samples=5)
 
 label_predictions = post_hs2.all_lab_preds()    # Based on one run down the hierarchy!
 
+# 4) Try the CascadeLDA:
+casc = CascadeLDA(rawdata)
 
 
 label_predictions[0:2]
