@@ -62,6 +62,7 @@ label_predictions = post_hs2.all_lab_preds()    # Based on one run down the hier
 
 # 4) Try the CascadeLDA:
 casc = CascadeLDA(rawdata)
+casc.run_cascade(n=15, thinning=4)
 
 
 label_predictions[0:2]

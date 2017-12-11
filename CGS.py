@@ -4,6 +4,8 @@ import numpy as np
 from gensim.parsing import preprocessing, preprocess_documents
 from gensim import corpora, matutils
 from copy import copy
+from itertools import compress
+import re
 from rtnorm import rtnorm as rt
 from antoniak import *
 from numpy.random import normal
@@ -88,20 +90,23 @@ class Gibbs:
 
     def __init__(self, documents, K="flex", alpha_strength=50,
                  rm_generic=False, ramage_mix=False, LN=1, perf_alpha=False,
-                 cascade=False, level=1):
+                 cascade=False, major_dict=None):
         # 1) Processing of training data:
         if rm_generic:
             rm_ =  ['model', 'market', 'economy', 'economic', 'policy',
                     'paper', 'result', 'increase','polici', 'effect', 'effects']
             preprocessing.STOPWORDS = preprocessing.STOPWORDS.union(set(rm_))
 
-        if cascade:
-            labs = documents.prepped_labels
-            labs = [[y for y in doclab if len(y)==level] for doclab in labs]
-            documents.prepped_labels = labs
+        #if cascade:
+        #    labs = documents.prepped_labels
+        #    labs = [[y for y in doclab if len(y)==level] for doclab in labs]
+        #    documents.prepped_labels = labs
         self.docs = preprocessing.preprocess_documents(documents.docs)
 
-        self.dict = corpora.Dictionary(self.docs)
+        if cascade:
+            self.dict = major_dict
+        else:
+            self.dict = corpora.Dictionary(self.docs)
         self.corpus = [self.dict.doc2bow(doc) for doc in self.docs]
 
         self.labs = documents.prepped_labels
@@ -290,8 +295,10 @@ class GibbsSampling(Gibbs):
     TODO: Incorporate 'thinning' logic is Ramage's LDA
     """
 
-    def __init__(self, documents):
-        super(GibbsSampling, self).__init__(documents, K="flex")
+    def __init__(self, documents, majordict=None, cascade=False):
+        super(GibbsSampling, self).__init__(documents, K="flex",
+                                            major_dict=majordict,
+                                            cascade=cascade)
 
     def run(self, nsamples, thinning=None, burnin=0):
         """
@@ -415,25 +422,62 @@ class VariationalInf:
 # End of Variational_
 
 
-class CascadeLDA(Gibbs):
+class CascadeLDA(GibbsSampling):
     def __init__(self, documents):
-        super(CascadeLDA, self).__init__(documents, K="flex", cascade=True,
-                                         level=1)
-        self.raw = documents
+        super(CascadeLDA, self).__init__(documents)
+        self.major_raw = documents
+        self.major_dict = self.dict
+        self.major_V = self.V
+        self.major_phi = []
+        self.labset = self.major_raw.prepped_labels
 
-    def train_level1(self, nsamples=250, thinning=25):
-        self.run(nsamples=nsamples, thinning=thinning)
+    def run_sub_lda(self, subdocuments, n, thinning):
+        sublda = GibbsSampling(documents=subdocuments, cascade=True,
+                               majordict=self.major_dict)
+        sublda.run(nsamples=n, thinning=thinning)
+        return sublda.phi_hat
 
-    def split_models(self, newlevel):
-        self.cut_labs()
-        self.cut_ldict()
+    def save_sub_phi(self, subphi):
+        assert subphi.shape[1] == self.major_V, "Something went wrong! sub" \
+                                                "LDA did not use the same " \
+                                                "word dict as the full " \
+                                                "LDA"
+        self.major_phi.append(subphi)
 
-    def cut_labs(self, level):
-        labs = self.raw.prepped_labels
-        labs = [[y for y in doclab if len(y)==level] for doclab in labs]
+    def subset_corpus(self, label_sub):
+        keepthese = [label_sub in doclab for doclab in self.labset]
+        subdocs = list(compress(self.major_raw.docs, keepthese))
+        sublabs = list(compress(self.major_raw.lab, keepthese))
+        reg = self.get_regex(label_sub)
+        cut_prepped = [[self.get_labs(reg, x)] for x in self.major_raw.lab]
+        cut_prepped = [x for x in cut_prepped if None not in x]
 
-    def cut_ldict(self):
-        pass
+        subraw = copy(self.major_raw)
+        subraw.docs = subdocs
+        subraw.lab = sublabs
+        subraw.prepped_labels = cut_prepped
+        return subraw
+
+    def get_all_l2(self):
+        l2_labs = [re.search('[A-Z][0-9]', x).group() for x in self.major_raw.lab]
+        return list(np.sort(list(set(l2_labs))))
+
+    def run_cascade(self, n, thinning):
+        for label_sub in self.get_all_l2():
+            sub_raw = self.subset_corpus(label_sub)
+            phi_hat_sub = self.run_sub_lda(subdocuments=sub_raw,
+                                           n=n, thinning=thinning)
+            self.save_sub_phi(phi_hat_sub)
+            print("Just finished LDA for the labels ", label_sub)
+
+    def get_regex(self, label):
+        return label + "[0-9]{1}"
+
+    def get_labs(self, regex, lablist):
+        try:
+            return re.search(regex, lablist).group()
+        except AttributeError:
+            pass
 
 
 class HSLDA_Gibbs(Gibbs):
