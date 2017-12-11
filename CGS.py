@@ -198,12 +198,10 @@ class Gibbs:
         beta = np.tile(beta.transpose(), (1, self.D))
         return alpha_p2*beta
 
-    @property
     def get_theta(self):
         """ Average word-assignment counts per document: empirical theta """
         return (self.n_zxd / self.lenD).T
 
-    @property
     def get_phi(self):
         """ Average of word-token count per topic: empirical phi """
         return (self.n_wxz / self.n_z).T
@@ -217,12 +215,13 @@ class Gibbs:
         if N > 1:
             self.phi_hat = (N-1)/(N) * self.phi_hat + 1/N * ph
             self.theta_hat = (N-1)/(N) * self.theta_hat + 1/N * th
+            if hslda:
+                self.eta_hat = ((N-1)/(N)) * self.eta_hat + (1/N) * self.eta
         else:
             self.phi_hat = ph
             self.theta_hat = th
-        if hslda:
-            self.eta_hat = (N-1)/(N) * self.eta_hat + 1/N * self.eta
-            self.eta_hat = self.eta
+            if hslda:
+                self.eta_hat = self.eta
 
     def get_topiclist(self, n=10, hslda=False):
         """ Lists top n words in every topic-word distr. (phi overview)"""
