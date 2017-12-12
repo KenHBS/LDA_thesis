@@ -228,7 +228,12 @@ class Gibbs:
             if hslda:
                 self.eta_hat = self.eta
 
-    def get_topiclist(self, n=10, hslda=False):
+    def clean_new_docs(self, docs):
+        bows = preprocess_documents(docs)
+        vocab = list(self.dict.token2id.keys())
+        return [[x for x in bow if x in vocab] for bow in bows]
+
+    def get_topiclist(self, n=10, hslda=False, cascade=False):
         """ Lists top n words in every topic-word distr. (phi overview)"""
 
         # self.phi = self.get_phi()
@@ -238,6 +243,10 @@ class Gibbs:
             topwords = [self.dict[x] for x in inds]
             if hslda:
                 topwords.insert(0, "Topic " + str(k))
+            elif cascade:
+                all_labs = list(self.ldict.values())
+                l3_labs = np.sort([x for x in all_labs if len(x)==3])
+                topwords.insert(0, l3_labs[k])
             else:
                 topwords.insert(0, self.ordered_labs[k])
             topiclist += [topwords]
@@ -338,7 +347,6 @@ class GibbsSampling(Gibbs):
             alpha = np.repeat(50/self.K, self.K)
         elif not sym:
             alpha = copy(self.n_z)
-
         alpha /= sum(alpha)   # "Concentration measure" for Dirichlet
 
         _ = np.random.dirichlet(alpha)
@@ -346,12 +354,13 @@ class GibbsSampling(Gibbs):
 
         z_counts = np.zeros(self.K)
         for it, zn in enumerate(zet):
-            z_counts[zet[it]] += 1
+            z_counts[zn] += 1
         assert sum(z_counts) == len(new_doc), print('z_counts %d is not same \
          as nr of words %d' % (sum(z_counts), len(new_doc)))
         return zet, z_counts
 
-    def sample_for_posterior(self, new_doc, sym=False, n_iter=250):
+    def sample_for_posterior(self, new_doc, sym=False, n_iter=250,
+                             thinning=25):
         """
         Move from sampling state to next sampling state. Resampling word-topic
         assignments in the transition.
@@ -363,7 +372,10 @@ class GibbsSampling(Gibbs):
         :return:               word assignment count containers for new_doc
         """
         zet, zcounts = self.init_newdoc(new_doc, sym=sym)
-        if "phi" not in self.__dir__():
+        self.th_newdoc = []
+        if "phi_hat" in self.__dir__():
+            self.phi = self.phi_hat
+        elif "phi" not in self.__dir__():
             self.phi = self.get_phi()
         for i in range(n_iter):
             for pos, word in enumerate(new_doc):
@@ -377,9 +389,19 @@ class GibbsSampling(Gibbs):
 
                 zet[pos] = new_z
                 zcounts[new_z] += 1
-        return zet, zcounts
+            intersave = (i+1)/thinning
+            if intersave == int(intersave):
+                self.save_state_test(N=int(intersave), zcounts=zcounts)
+        return self.th_newdoc
 
-    def posterior(self, new_docs, sym=False, n=250):
+    def save_state_test(self, N, zcounts):
+        new_d_th = zcounts/sum(zcounts)
+        if N > 1:
+            self.th_newdoc = (N-1)/(N) * self.th_newdoc + 1/N * new_d_th
+        else:
+            self.th_newdoc = new_d_th
+
+    def posterior(self, test_docs, sym=False, n=250):
         """
         Takes multiple unseen documents as input and resamples to return a
         document-topic distribution (theta) for every document
@@ -392,26 +414,30 @@ class GibbsSampling(Gibbs):
             for every document
         """
         theta_container = []
-
+        new_docs = self.clean_new_docs(test_docs)
         for d, doc in enumerate(new_docs):
-            zet, zcount = self.sample_for_posterior(doc, sym, n_iter=n)
-            single_theta = list(zcount/sum(zcount))
-            theta_container.append(single_theta)
+            self.th_newdoc = self.sample_for_posterior(doc, sym, n_iter=n)
+            theta_container.append(self.th_newdoc)
             if d % 5 == 0:
                 print("Unseen document number %d" % d)
         return theta_container
 
-    def theta_output(self, th):
+    def theta_output(self, th, cascade=False):
         """ Overview of a single document's document-topic distribution """
         th = np.array(th)
         inds = np.where(th > 0)
-        labs = self.ordered_labs[inds]
+        if cascade:
+            all_labs = list(self.ldict.values())
+            labs = np.sort([x for x in all_labs if len(x) == 3])
+            labs = labs[inds]
+        else:
+            labs = self.ordered_labs[inds]
         return list(zip(labs, th[inds]))
 
-    def post_theta(self, new_docs, sym=False):
+    def post_theta(self, test_docs, sym=False, cascade=False):
         """ Overview of all unseen documents' doc-topic distribution """
-        thetas = self.posterior(new_docs, sym=sym)
-        return [self.theta_output(theta) for theta in thetas]
+        thetas = self.posterior(test_docs, sym=sym)
+        return [self.theta_output(theta, cascade=cascade) for theta in thetas]
 # End of GibbsSampling Class
 
 
@@ -428,8 +454,11 @@ class CascadeLDA(GibbsSampling):
         self.major_raw = documents
         self.major_dict = self.dict
         self.major_V = self.V
-        self.major_phi = []
+        self.major_phi = np.zeros((1, self.V))
         self.labset = self.major_raw.prepped_labels
+        flat_list = [item for sublist in self.labset for item in sublist]
+        flat_list = [x for x in flat_list if len(x)==3]
+        self.K = len(set(flat_list))
 
     def run_sub_lda(self, subdocuments, n, thinning):
         sublda = GibbsSampling(documents=subdocuments, cascade=True,
@@ -438,19 +467,14 @@ class CascadeLDA(GibbsSampling):
         return sublda.phi_hat
 
     def save_sub_phi(self, subphi):
-        assert subphi.shape[1] == self.major_V, "Something went wrong! sub" \
-                                                "LDA did not use the same " \
-                                                "word dict as the full " \
-                                                "LDA"
-        self.major_phi.append(subphi)
+        self.major_phi = np.vstack((self.major_phi, subphi))
 
-    def subset_corpus(self, label_sub):
-        keepthese = [label_sub in doclab for doclab in self.labset]
+    def subset_corpus(self, labsub):
+        keepthese = [labsub in doclab for doclab in self.labset]
         subdocs = list(compress(self.major_raw.docs, keepthese))
         sublabs = list(compress(self.major_raw.lab, keepthese))
-        reg = self.get_regex(label_sub)
-        cut_prepped = [[self.get_labs(reg, x)] for x in self.major_raw.lab]
-        cut_prepped = [x for x in cut_prepped if None not in x]
+        cut_prepped = [self.get_labs(labsub, x) for x in self.major_raw.lab]
+        cut_prepped = [x for x in cut_prepped if len(x) != 0]
 
         subraw = copy(self.major_raw)
         subraw.docs = subdocs
@@ -459,23 +483,38 @@ class CascadeLDA(GibbsSampling):
         return subraw
 
     def get_all_l2(self):
-        l2_labs = [re.search('[A-Z][0-9]', x).group() for x in self.major_raw.lab]
+        l2_labs = [re.findall('[A-Z][0-9]', x) for x in self.major_raw.lab]
+        l2_labs = [item for sublist in l2_labs for item in sublist]
         return list(np.sort(list(set(l2_labs))))
+
+    def check_phi_shape(self, ph_hat, raw):
+        l3_sub = [x for sublist in raw.prepped_labels for x in sublist]
+        labs = len(set(l3_sub))
+        dim = ph_hat.shape
+        assert dim[0] == labs, "Not all labels are incorporated in this LDA" \
+                               " model. %s" % labs
+        assert dim[1] == self.major_V, "Not all words in the corpus are" \
+                                       "incorporated in this LDA model" \
+                                       "%s" % labs
 
     def run_cascade(self, n, thinning):
         for label_sub in self.get_all_l2():
             sub_raw = self.subset_corpus(label_sub)
             phi_hat_sub = self.run_sub_lda(subdocuments=sub_raw,
                                            n=n, thinning=thinning)
+            self.check_phi_shape(ph_hat=phi_hat_sub, raw=sub_raw)
+
             self.save_sub_phi(phi_hat_sub)
             print("Just finished LDA for the labels ", label_sub)
+        self.phi_hat = self.major_phi[1:]
 
     def get_regex(self, label):
         return label + "[0-9]{1}"
 
-    def get_labs(self, regex, lablist):
+    def get_labs(self, label, lablist):
+        reg = self.get_regex(label)
         try:
-            return re.search(regex, lablist).group()
+            return re.findall(reg, lablist)
         except AttributeError:
             pass
 
@@ -549,7 +588,7 @@ class HSLDA_Gibbs(Gibbs):
         else:
             self.alpha = alpha
         self.eta = self._hslda_eta_naive(mu=mu, sigma=sigma)
-        self.zbar = self.get_theta
+        self.zbar = self.get_theta()
         self.mu = mu
         self.sigma = sigma
 
@@ -608,7 +647,6 @@ class HSLDA_Gibbs(Gibbs):
         b = np.where(self.Y > 0, np.inf, -self.zbarT_etaL)
 
         self.a_ld = rvs(a, b, self.zbarT_etaL)
-
 
     def sample_m_dot(self, func):
         """
@@ -796,11 +834,6 @@ class UnseenPosterior(HSLDA_Gibbs):
             return getattr(self.hs, name)
         except AttributeError:
             print("Child' object has no attribute %s" % name)
-
-    def clean_new_docs(self, docs):
-        bows = preprocess_documents(docs)
-        vocab = list(self.dict.token2id.keys())
-        self.newdocs = [[x for x in bow if x in vocab] for bow in bows]
 
     def get_prob_z(self, newdoc):
         glob_prior_p_z = (self.n_z / np.sum(self.n_z))[:, np.newaxis]
