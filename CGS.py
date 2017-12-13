@@ -347,17 +347,31 @@ class GibbsSampling(Gibbs):
             alpha = np.repeat(50/self.K, self.K)
         elif not sym:
             alpha = copy(self.n_z)
-        alpha /= sum(alpha)   # "Concentration measure" for Dirichlet
+        alpha *= 0.5   # "Concentration measure" for Dirichlet
 
         _ = np.random.dirichlet(alpha)
         zet = np.random.multinomial(1, _, len(new_doc)).argmax(axis=1)
 
-        z_counts = np.zeros(self.K)
+        z_counts = np.zeros(self.K, dtype=int)
         for it, zn in enumerate(zet):
             z_counts[zn] += 1
         assert sum(z_counts) == len(new_doc), print('z_counts %d is not same \
          as nr of words %d' % (sum(z_counts), len(new_doc)))
         return zet, z_counts
+
+    def init_newdoc2(self, new_doc):
+        zet = np.zeros(len(new_doc), dtype=int)
+        zcounts = np.zeros(self.K, dtype=int)
+        for pos, word in enumerate(new_doc):
+            v = self.dict.token2id[word]
+            phi_column = self.phi[:, v]
+            prob = phi_column/sum(phi_column)
+
+            z_new = np.random.multinomial(1, prob).argmax()
+            zet[pos] = z_new
+            zcounts[z_new] += 1
+        return zet, zcounts
+
 
     def sample_for_posterior(self, new_doc, sym=False, n_iter=250,
                              thinning=25):
@@ -371,19 +385,20 @@ class GibbsSampling(Gibbs):
         :param n_iter: (int)   Number of iterations/transitions
         :return:               word assignment count containers for new_doc
         """
-        zet, zcounts = self.init_newdoc(new_doc, sym=sym)
+        #zet, zcounts = self.init_newdoc2(new_doc, sym=sym)
         self.th_newdoc = []
         if "phi_hat" in self.__dir__():
             self.phi = self.phi_hat
         elif "phi" not in self.__dir__():
             self.phi = self.get_phi()
+        zet, zcounts = self.init_newdoc2(new_doc)
         for i in range(n_iter):
             for pos, word in enumerate(new_doc):
                 v = self.dict.token2id[word]
                 z = zet[pos]
-                zcounts[z] -= 1
+                zcounts[int(z)] -= 1
 
-                prob = self.phi[:, v] * (zcounts/sum(zcounts))
+                prob = self.phi[:, v] * ((zcounts/sum(zcounts))+(0.5/self.K)) # + hyperpriors
                 prob /= sum(prob)
                 new_z = np.random.multinomial(1, prob).argmax()
 
@@ -434,9 +449,9 @@ class GibbsSampling(Gibbs):
             labs = self.ordered_labs[inds]
         return list(zip(labs, th[inds]))
 
-    def post_theta(self, test_docs, sym=False, cascade=False):
+    def post_theta(self, test_docs, sym=False, cascade=False, n=100):
         """ Overview of all unseen documents' doc-topic distribution """
-        thetas = self.posterior(test_docs, sym=sym)
+        thetas = self.posterior(test_docs, sym=sym, n=n)
         return [self.theta_output(theta, cascade=cascade) for theta in thetas]
 # End of GibbsSampling Class
 

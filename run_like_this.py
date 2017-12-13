@@ -62,13 +62,13 @@ label_predictions = post_hs2.all_lab_preds()    # Based on one run down the hier
 
 # 4) Try the CascadeLDA:
 casc = CascadeLDA(rawdata)
-casc.run_cascade(n=2, thinning=1)
+casc.run_cascade(n=12, thinning=3)
 
-casc.post_theta(test_docs, cascade=True, sym=True)
+posterior_theta = casc.post_theta(test_docs[:2], cascade=True, sym=True)
 
 casc.get_topiclist(n=15, cascade=True)
 
-1+1
+
 
 label_predictions[0:2]
 test_labs[10]
