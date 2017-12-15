@@ -8,7 +8,7 @@ from itertools import compress
 import re
 from rtnorm import rtnorm as rt
 from antoniak import *
-from numpy.random import normal
+from numpy.random import normal, shuffle
 from scipy.stats import truncnorm, norm
 rvs = truncnorm.rvs
 from doc_prepare import new_docs_prep, open_txt_doc
@@ -102,6 +102,8 @@ class Gibbs:
         #    labs = [[y for y in doclab if len(y)==level] for doclab in labs]
         #    documents.prepped_labels = labs
         self.docs = preprocessing.preprocess_documents(documents.docs)
+        self.ex_docs = self.docs[:50]   # For perplexity score calculation
+        self.docs = self.docs[50:]
 
         if cascade:
             self.dict = major_dict
@@ -110,6 +112,9 @@ class Gibbs:
         self.corpus = [self.dict.doc2bow(doc) for doc in self.docs]
 
         self.labs = documents.prepped_labels
+        self.ex_labs = self.labs[:50]
+        self.labs = self.labs[50:]
+
         self.ldict = corpora.Dictionary(self.labs)
         self.ordered_labs = np.sort([x for x in self.ldict.token2id.keys()])
 
@@ -126,6 +131,7 @@ class Gibbs:
                     flat_list.append(sublist)
                 LN_labels = list(set([x for x in flat_list if len(x) == LN]))
                 self.K = len(LN_labels)
+                documents.lab = documents.lab[50:]
 
                 labsets = [x.split(" ") for x in documents.lab]
                 if LN in [1,2,3]:
@@ -164,6 +170,7 @@ class Gibbs:
         self.theta_hat = None
         self.eta = None
         self.eta_hat = None
+        self.perplex = []
 
         # 3) Count-containers for word assignments
         self.lenD = [len(doc) for doc in self.docs]
@@ -321,11 +328,12 @@ class GibbsSampling(Gibbs):
         if nsamples <= burnin:
             raise Exception('Burn-in point exceeds number of samples')
         if thinning is None:
-            thinning = int(nsamples/10)
+            thinning = max([int(nsamples/10), 1])
         for s in range(nsamples):
             intersave = (s+1)/thinning
             if intersave == int(intersave):
                 self.save_this_state(N=int(intersave), hslda=False)
+                self.perplex.append(self.perplexity())
             for d, doc in enumerate(self.docs):
                 if(d % 250 == 0):
                     print("Working on doc %d in sample number %d " % (d, s+1))
@@ -364,7 +372,9 @@ class GibbsSampling(Gibbs):
         zcounts = np.zeros(self.K, dtype=int)
         for pos, word in enumerate(new_doc):
             v = self.dict.token2id[word]
-            phi_column = self.phi[:, v]
+            phi_column = self.phi_hat[:, v]
+            if sum(phi_column) == 0:
+                phi_column = np.ones(self.K, dtype=int)
             prob = phi_column/sum(phi_column)
 
             z_new = np.random.multinomial(1, prob).argmax()
@@ -372,9 +382,8 @@ class GibbsSampling(Gibbs):
             zcounts[z_new] += 1
         return zet, zcounts
 
-
     def sample_for_posterior(self, new_doc, sym=False, n_iter=250,
-                             thinning=25):
+                             thinning=25, s_for_perplex=False):
         """
         Move from sampling state to next sampling state. Resampling word-topic
         assignments in the transition.
@@ -416,7 +425,7 @@ class GibbsSampling(Gibbs):
         else:
             self.th_newdoc = new_d_th
 
-    def posterior(self, test_docs, sym=False, n=250):
+    def posterior(self, test_docs, sym=False, n=250, perplexity=False):
         """
         Takes multiple unseen documents as input and resamples to return a
         document-topic distribution (theta) for every document
@@ -429,12 +438,16 @@ class GibbsSampling(Gibbs):
             for every document
         """
         theta_container = []
-        new_docs = self.clean_new_docs(test_docs)
+        new_docs = test_docs
+        if perplexity is False:
+            new_docs = self.clean_new_docs(new_docs)
         for d, doc in enumerate(new_docs):
-            self.th_newdoc = self.sample_for_posterior(doc, sym, n_iter=n)
+            self.th_newdoc = self.sample_for_posterior(doc, sym, n_iter=n,
+                                                      s_for_perplex=perplexity)
             theta_container.append(self.th_newdoc)
-            if d % 5 == 0:
+            if (d % 5 == 0) and perplexity is False:
                 print("Unseen document number %d" % d)
+
         return theta_container
 
     def theta_output(self, th, cascade=False):
@@ -453,6 +466,29 @@ class GibbsSampling(Gibbs):
         """ Overview of all unseen documents' doc-topic distribution """
         thetas = self.posterior(test_docs, sym=sym, n=n)
         return [self.theta_output(theta, cascade=cascade) for theta in thetas]
+
+    def perplexity(self):
+        """
+        Split every ex_doc 50-50 to first train theta_d for every train-part
+        and then calculate perplexity for every test-part
+         """
+        docs = self.ex_docs
+        ph = self.phi_hat
+        [shuffle(x) for x in docs]   # shuffles words in place
+
+        test = [x[:round(len(x)/2)] for x in docs]
+        test = [[self.dict.token2id[x] for x in test_doc] for test_doc in test]
+
+        train = [x[round(len(x)/2):] for x in docs]
+        th = self.posterior(train, perplexity=True)
+
+        log_per = N = 0
+        for doc, theta in zip(test, th):
+            for w in doc:
+                log_per -= np.log(np.inner(ph[:, w], theta))
+            N += len(doc)
+        return np.exp(log_per / N)
+
 # End of GibbsSampling Class
 
 
@@ -474,6 +510,8 @@ class CascadeLDA(GibbsSampling):
         flat_list = [item for sublist in self.labset for item in sublist]
         flat_list = [x for x in flat_list if len(x)==3]
         self.K = len(set(flat_list))
+        dictlist = list(self.major_dict.values())
+        self.ex_docs = [[x for x in d if x in dictlist] for d in self.ex_docs]
 
     def run_sub_lda(self, subdocuments, n, thinning):
         sublda = GibbsSampling(documents=subdocuments, cascade=True,
