@@ -50,8 +50,8 @@ class LabeledLDA(object):
         self.n_k_v = np.zeros((self.K, self.V), dtype=int)
         self.n_zk = np.zeros(self.K, dtype=int)
 
-        self.ph_hat = np.empty((self.K, self.V), dtype=float)
-        self.th_hat = np.empty((self.D, self.K), dtype=float)
+        self.ph_hat = np.zeros((self.K, self.V), dtype=float)
+        self.th_hat = np.zeros((self.D, self.K), dtype=float)
         self.perplx = []
 
         for d, doc, lab in zip(range(self.D), self.docs, self.labs):
@@ -106,7 +106,7 @@ class LabeledLDA(object):
     def run_training(self, iters, thinning):
         for n in range(iters):
             self.training_iteration()
-            print('Running iteration # %d ', (n+1))
+            print('Running iteration # %d ' % (n+1))
             if (n+1) % thinning == 0:
                 cur_phi = self.get_phi()
                 cur_th = self.get_theta()
@@ -120,6 +120,83 @@ class LabeledLDA(object):
                     factor = (s-1)/s
                     self.ph_hat = factor*self.ph_hat + (1/s * cur_phi)
                     self.th_hat = factor*self.th_hat + (1/s * cur_th)
+                if np.any(self.ph_hat < 0):
+                    raise ValueError('A negative value occurred in self.ph_hat'
+                                     'while saving iteration %d ' % n)
+
+    def test_init(self, doc):
+        doc = [self.w_to_v[term] for term in doc]
+        len_d = len(doc)
+        z_dn = []
+        n_zk = np.zeros(self.K, dtype=int)
+        probs = self.ph_hat[:, doc]
+        probs /= probs.sum(axis=0)
+        for n in range(len_d):
+            prob = probs[:, n]
+            while prob.sum() > 1:
+                prob /= 1.0000000005
+            new_z = multinom_draw(1, prob).argmax()
+
+            z_dn.append(new_z)
+            n_zk[new_z] += 1
+        start_state = (doc, z_dn, n_zk)
+        return start_state
+
+    def run_test(self, testdocs, iters, thinning):
+        nrdocs = len(testdocs)
+        theta_hat = np.zeros((nrdocs, self.K), dtype=float)
+        for d, testdoc in zip(range(nrdocs), testdocs):
+            doc, z_dn, n_zk = self.test_init(testdoc)
+            len_d = len(z_dn)
+            for i in range(iters):
+                for n in range(len_d):
+                    v = doc[n]
+                    z = z_dn[n]
+                    n_zk[z] -= 1
+
+                    numer_a = n_zk + self.alpha
+                    denom_a = len_d - 1 + self.K * self.alpha
+                    b = self.ph_hat[:, v]
+                    prob = (numer_a / denom_a) * b
+                    prob /= prob.sum()
+                    while prob.sum() > 1:
+                        prob /= 1.0000005
+                    new_z = multinom_draw(1, prob).argmax()
+
+                    z_dn[n] = new_z
+                    n_zk[new_z] += 1
+
+                # Save the current state in MC chain and calc. average state:
+                # Only the document-topic distribution estimate theta is saved
+                s = (i + 1) / thinning
+                s2 = int(s)
+                if s == s2:
+                    this_state = n_zk / n_zk.sum()
+                    if s2 == 1:
+                        avg_state = this_state
+                    else:
+                        old = (s2 - 1) / s2 * avg_state
+                        new = (1 / s2) * this_state
+                        avg_state = old + new
+            theta_hat[d, :] = avg_state
+        return theta_hat
+
+    def get_prediction(self, single_th, n=5):
+        labels = np.array(list(self.labelmap.keys()))
+        best_topic_inds = np.argsort(-single_th)[:n]
+        best_topic_load = np.flip(np.sort(single_th), axis=0)[:n]
+
+        top_topics = labels[best_topic_inds]
+        return list(zip(top_topics, best_topic_load))
+
+    def get_predictions(self, all_th, n=5):
+        predictions = []
+        ndocs = all_th.shape[0]
+        for d in range(ndocs):
+            single_th = all_th[d, :]
+            pred = self.get_prediction(single_th, n)
+            predictions.append(pred)
+        return predictions
 
     def get_phi(self):
         numer = self.n_k_v + self.beta
