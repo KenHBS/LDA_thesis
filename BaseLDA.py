@@ -15,11 +15,11 @@ def load_corpus(filename, d):
         lab = row[2]
         if len(lab) > 1:
             lab = lab.split(" ")
-            [x[:d] for x in lab]
+            lab = [x[:d] for x in lab]
             for x in lab:
                 labelmap[x] = 1
         else:
-            lab = lab[1:d]
+            lab = lab[:d]
         docs.append(doc)
         labs.append(lab)
     docs = gensimm.preprocess_documents(docs)
@@ -234,11 +234,34 @@ class LabeledLDA(object):
             N += len(doc)
         return np.exp(log_per / N)
 
-def run_it(f="thesis_data.csv", d=3, it=30, thinning=3, al=0.001, be=0.001):
+
+def split_data(f="thesis_data.csv", d=3):
     a, b, c = load_corpus(f, d)
+    split = int(len(a) * 0.9)
+
+    train_data = (a[:split], b[:split], c)
+    test_data = (a[split:], b[split:], c)
+    return train_data, test_data
+
+
+def train_it(traindata, it=30, thinning=3, al=0.001, be=0.001):
+    a, b, c = traindata[0], traindata[1], traindata[2]
     llda = LabeledLDA(a, b, c, al, be)
     llda.run_training(it, thinning)
     return llda
+
+
+def test_it(model, testdata, it=500, thinning=25, n=5):
+    if not isinstance(model, LabeledLDA):
+        raise TypeError('llda argument must be a LabeledLDA objected'
+                        'not %s ' % type(model))
+    testdocs = testdata[0]
+    testdocs = [[x for x in doc if x in model.vocab] for doc in testdocs]
+    th_hat = model.run_test(testdocs, it, thinning)
+    preds = model.get_predictions(th_hat, n)
+    th_hat = [[round(x, 4) for x in single_th] for single_th in th_hat]
+    return th_hat, preds
+
 
 def main():
     parser = OptionParser()
