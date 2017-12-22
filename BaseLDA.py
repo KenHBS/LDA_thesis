@@ -13,13 +13,14 @@ def load_corpus(filename, d):
     for row in reader:
         doc = row[1]
         lab = row[2]
-        if len(lab) > 1:
+        if len(lab) > 3:
             lab = lab.split(" ")
             lab = [x[:d] for x in lab]
             for x in lab:
                 labelmap[x] = 1
         else:
             lab = lab[:d]
+            labelmap[lab] = 1
         docs.append(doc)
         labs.append(lab)
     docs = gensimm.preprocess_documents(docs)
@@ -56,7 +57,8 @@ class LabeledLDA(object):
 
         for d, doc, lab in zip(range(self.D), self.docs, self.labs):
             len_d = len(doc)
-            zets = [np.random.multinomial(1, lab/lab.sum()).argmax() for x in range(len_d)]
+            prob = lab/lab.sum()
+            zets = np.random.choice(self.K, size=len_d, p=prob)
             self.z_dn.append(zets)
             for v, z in zip(doc, zets):
                 self.n_d_k[d, z] += 1
