@@ -246,16 +246,16 @@ def split_data(f="thesis_data.csv", d=3):
     return train_data, test_data
 
 
-def train_it(traindata, it=30, thinning=3, al=0.001, be=0.001):
+def train_it(traindata, it=30, s=3, al=0.001, be=0.001):
     a, b, c = traindata[0], traindata[1], traindata[2]
     llda = LabeledLDA(a, b, c, al, be)
-    llda.run_training(it, thinning)
+    llda.run_training(it, s)
     return llda
 
 
 def test_it(model, testdata, it=500, thinning=25, n=5):
     if not isinstance(model, LabeledLDA):
-        raise TypeError('llda argument must be a LabeledLDA objected'
+        raise TypeError('model argument must be a LabeledLDA object'
                         'not %s ' % type(model))
     testdocs = testdata[0]
     testdocs = [[x for x in doc if x in model.vocab] for doc in testdocs]

@@ -18,12 +18,15 @@ from doc_prepare import new_docs_prep, open_txt_doc
 #       Paper, estimate,
 # TODO Improve doc_prepare
 
+
 # Static methods:
 def dir_draw(array_in, axis=0):
     return np.apply_along_axis(np.random.dirichlet, axis=axis, arr=array_in)
 
+
 def check_equal(checklist):
     return len(set(checklist)) <= 1
+
 
 # Generate the table for Stirling numbers of the first kind:
 def get_stirling_nrs(N):
@@ -37,8 +40,10 @@ def get_stirling_nrs(N):
     stir = list(map(np.divide, stir, [max(x) for x in stir]))
     return stir
 
+
 def pick_z(prob):
     return np.random.multinomial(1, prob).argmax()
+
 
 class Gibbs:
     """

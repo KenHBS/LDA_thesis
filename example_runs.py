@@ -18,3 +18,7 @@ th_hat_d2, preds_d2 = test_it(llda_d2, test_data_d2, it=1000, thinning=99)
 from HSLDA import *
 
 train_data, test_data = split_data(f="thesis_data.csv", d=3)
+hs1 = train_it(train_data, it=750, s=25, opt=1)
+hs2 = train_it(train_data, it=750, s=25, opt=2)
+hs2 = train_it(train_data, it=500, s=25, opt=3)
+
