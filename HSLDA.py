@@ -1,7 +1,8 @@
 import gensim.parsing.preprocessing as gensimm
 import numpy as np
 from scipy.stats import truncnorm
-from scipy.special import erf
+import scipy
+import scipy.special
 multinom_draw = np.random.multinomial
 rvs = truncnorm.rvs
 
@@ -11,7 +12,28 @@ def partition_label(lab, d):
 
 
 def phi(x):
-    return 1/2 * (1 + erf(x/np.sqrt(2)))
+    return 1/2 * (1 + scipy.special.erf(x / np.sqrt(2)))
+
+
+def vect_multinom(prob_matrix):
+    s = prob_matrix.cumsum(axis=0)
+    r = np.random.rand(prob_matrix.shape[1])
+    k = (s < r).sum(axis=0)
+    return k
+
+
+def get_stirling_numbers(n):
+    mat = np.identity(int(n))
+    mat[1, 0] = 0
+    mat[2, 1] = 1
+    for m in range(3, n):
+        for k in range(1, m):
+            l = mat[m-1, k-1]
+            r = (m-1) * mat[m-1, k]
+            mat[m, k] = l + r
+    h = mat.max(axis=1)
+    res = mat / h[:, None]
+    return res
 
 
 def load_corpus(filename, d=3):
@@ -43,10 +65,11 @@ def load_corpus(filename, d=3):
 
 
 class HSLDA(object):
-    def __init__(self, docs, labs, labelset, K=15,
+    def __init__(self, docs, labs, labelset, k=15,
                  alpha_prime=1, alpha=1, gamma=1, mu=0, sigma=1, xi=0):
         labelset.insert(0, '')
         self.labelmap = dict(zip(labelset, range(len(labelset))))
+        self.lablist = labelset
 
         self.aprime = alpha_prime
         self.alpha = alpha
@@ -54,13 +77,13 @@ class HSLDA(object):
         self.mu = mu
         self.sigma = sigma
         self.xi = xi
-        self.K = K
+        self.K = k
 
         self.vocab = []
         self.w_to_v = dict()
         self.labs = np.array([self.set_label(lab) for lab in labs])
         self.docs = [[self.term_to_id(term) for term in doc] for doc in docs]
-        self.v_to_w = {v:k for k, v in self.w_to_v.items()}
+        self.v_to_w = {v:w for w, v in self.w_to_v.items()}
 
         self.D = len(docs)
         self.L = len(self.labelmap)
@@ -100,6 +123,10 @@ class HSLDA(object):
         parents = [self.labelmap[x] for x in parents]
         own = [self.labelmap[x] for x in labelset]
         self.child_to_parent = dict(zip(own, parents))
+
+        self.stirling = get_stirling_numbers(125)
+        self.mdot = np.zeros(self.K)
+        self.m_aux = np.zeros((self.D, self.K))
 
     def get_zbar(self):
         return self.n_d_k / self.n_d_k.sum(axis=1, keepdims=True)
@@ -247,11 +274,31 @@ class HSLDA(object):
         border_right = np.where(self.labs > 0, np.inf, -self.mean_a)
         self.a = rvs(border_left, border_right, self.mean_a)
 
-    def train_it(self, it=25, thinning=5):
+    def sample_beta(self):
+        param = self.mdot + self.aprime
+        self.beta = np.random.dirichlet(param)
+
+    def sample_m(self):
+        ab = self.alpha * self.beta
+        for d in range(self.D):
+            n_d_k = self.n_d_k[d]
+            for k, n_k in enumerate(n_d_k):
+                if n_k-1 > self.stirling.shape[0]:
+                    self.stirling = get_stirling_numbers(n_k+1)
+                ms = self.stirling[n_k, :(n_k+1)]
+                m_probs = [s * ab[k]**m for m, s in enumerate(ms)]
+                m_probs /= sum(m_probs)
+                draw = np.random.choice(m_probs)
+                self.m_aux[d, k] = draw
+        self.mdot = self.m_aux.mean(axis=0)
+
+    def run_training(self, it=25, thinning=5, opt=1):
         for i in range(it):
-            self.sample_z1(opt=2)
+            self.sample_z(opt=opt)
             self.sample_eta()
             self.sample_a()
+            self.sample_m()
+            self.sample_beta()
             s = ((i+1) / thinning)
             if s == int(s):
                 print("Training iteration #", i)
@@ -268,15 +315,88 @@ class HSLDA(object):
                     self.ph = cur_ph
                     self.th = cur_th
 
+    def z_for_newdoc(self, newdoc):
+        newdoc = [self.term_to_id(t) for t in newdoc if t in self.w_to_v]
+        prob_matrix = self.ph[:, newdoc]
+        prob_matrix /= prob_matrix.sum(axis=0, keepdims=True)
+        z_dn = vect_multinom(prob_matrix)
+        n_d_k = np.zeros(self.K)
+        for z in z_dn:
+            n_d_k[z] += 1
 
-def run_it(f="thesis_data.csv", d=3):
-    a, b, c = load_corpus(f, d)
-    hslda = HSLDA(a, b, c)
-    return hslda
+        return z_dn, n_d_k
+
+    def run_test(self, newdoc, it=250, s=25):
+        z_dn, n_d_k = self.z_for_newdoc(newdoc)
+        ph_hat = self.n_k_v + self.gamma
+        ph_hat = ph_hat / ph_hat.sum(axis=1, keepdims=True)
+        n_d = len(newdoc)
+        for i in range(it):
+            for n, v in enumerate(newdoc):
+                # Find and deduct the word-topic assignment:
+                old_z = z_dn[n]
+                n_d_k[old_z] -= 1
+
+                # Calculate probability of first part of Eq. (1)
+                l = n_d_k + self.alpha * self.beta
+                r = ph_hat[:, v]
+                p1 = l * r
+                p1 /= p1.sum()
+                new_z = multinom_draw(1, p1).argmax()
+
+                z_dn[n] = new_z
+                n_d_k[new_z] += 1
+
+                c = ((i+1) / s)
+                if c == int(c):
+                    cur_th = n_d_k / n_d
+                    if c > 1:
+                        m = (c-1)/c
+                        zbar = m * zbar + (1-m) * cur_th
+                    else:
+                        zbar = cur_th
+        means_a = np.dot(self.eta, zbar)
+        means_a -= self.xi
+        probs = phi(means_a)
+        return probs
+
+    def prob_to_pred(self, probs):
+        return sorted(zip(probs, self.lablist))[::-1]
+
+    def display_topics(self, n=10):
+        top_v = np.argsort(-self.ph)[:, :n]
+        return [[self.v_to_w[v] for v in top] for top in top_v]
+
+    def run_tests(self, newdocs, it=250, s=25):
+        if len(newdocs) == 1:
+            return self.run_test(newdocs, it=it, s=s)
+        else:
+            lab_probs = np.empty((len(newdocs), self.L))
+            for d, doc in enumerate(newdocs):
+                lab_probs[d, :] = self.run_test(doc, it=it, s=s)
+            return lab_probs
 
 
-def train_it(f="thesis_data.csv", d=3, it=5, s=2):
-    hslda = run_it(f=f, d=d)
-    hslda.train_it(it=it, thinning=s)
-    return hslda
+def split_data(f="thesis_data.csv", d=3):
+    a, b, c = load_corpus(filename=f, d=d)
+    split = int(len(a) * 0.9)
 
+    train_data = (a[:split], b[:split], c)
+    test_data = (a[split:], b[split:], c)
+    return train_data, test_data
+
+
+def train_it(traindata, it=150, s=25, opt=1):
+    a, b, c = traindata[0], traindata[1], traindata[2]
+    hs = HSLDA(a, b, c)
+    hs.run_training(it=it, thinning=s, opt=opt)
+    return hs
+
+
+def test_it(model, testdata, it=500, s=25):
+    if not isinstance(model, HSLDA):
+        raise TypeError('model must ba HSLDA object, not', type(model))
+    testdocs = testdata[0]
+    testdocs = [[x for x in doc if x in model.vocab] for doc in testdocs]
+    model.run_tests(testdocs, it=it, s=s)
+    return model
