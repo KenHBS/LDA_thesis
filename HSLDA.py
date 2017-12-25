@@ -124,7 +124,7 @@ class HSLDA(object):
         own = [self.labelmap[x] for x in labelset]
         self.child_to_parent = dict(zip(own, parents))
 
-        self.stirling = get_stirling_numbers(125)
+        self.stirling = get_stirling_numbers(150)
         self.mdot = np.zeros(self.K)
         self.m_aux = np.zeros((self.D, self.K))
 
@@ -324,10 +324,10 @@ class HSLDA(object):
         for z in z_dn:
             n_d_k[z] += 1
 
-        return z_dn, n_d_k
+        return z_dn, n_d_k, newdoc
 
     def run_test(self, newdoc, it=250, s=25):
-        z_dn, n_d_k = self.z_for_newdoc(newdoc)
+        z_dn, n_d_k, newdoc = self.z_for_newdoc(newdoc)
         ph_hat = self.n_k_v + self.gamma
         ph_hat = ph_hat / ph_hat.sum(axis=1, keepdims=True)
         n_d = len(newdoc)
@@ -360,12 +360,12 @@ class HSLDA(object):
         probs = phi(means_a)
         return probs
 
-    def prob_to_pred(self, probs):
-        return sorted(zip(probs, self.lablist))[::-1]
-
     def display_topics(self, n=10):
         top_v = np.argsort(-self.ph)[:, :n]
         return [[self.v_to_w[v] for v in top] for top in top_v]
+
+    def label_predictions(self, probs):
+        return sorted(zip(probs, self.lablist))[::-1]
 
     def run_tests(self, newdocs, it=250, s=25):
         if len(newdocs) == 1:
@@ -398,5 +398,5 @@ def test_it(model, testdata, it=500, s=25):
         raise TypeError('model must ba HSLDA object, not', type(model))
     testdocs = testdata[0]
     testdocs = [[x for x in doc if x in model.vocab] for doc in testdocs]
-    model.run_tests(testdocs, it=it, s=s)
-    return model
+    lab_probs = model.run_tests(testdocs, it=it, s=s)
+    return lab_probs
