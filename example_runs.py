@@ -38,3 +38,9 @@ labprobs3 = []
 for n in range(len(probs3)):
     labprobs3.append([(x, y) for x, y in hs3.label_predictions(probs3[n]) if y in test_data[1][n]]))
 
+
+from CascadeLDA import *
+
+train_data, test_data = split_data(f="thesis_data.csv", d=3)
+cascade = train_it(train_data, it=250, s=25)
+theta = test_it(cascade, test_data, it=250, s=25)

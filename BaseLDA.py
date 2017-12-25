@@ -144,13 +144,13 @@ class LabeledLDA(object):
         start_state = (doc, z_dn, n_zk)
         return start_state
 
-    def run_test(self, testdocs, iters, thinning):
+    def run_test(self, testdocs, it, thinning):
         nrdocs = len(testdocs)
         theta_hat = np.zeros((nrdocs, self.K), dtype=float)
-        for d, testdoc in zip(range(nrdocs), testdocs):
+        for d, testdoc in enumerate(testdocs):
             doc, z_dn, n_zk = self.test_init(testdoc)
             len_d = len(z_dn)
-            for i in range(iters):
+            for i in range(it):
                 for n in range(len_d):
                     v = doc[n]
                     z = z_dn[n]
