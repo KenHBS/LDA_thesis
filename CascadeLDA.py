@@ -129,13 +129,14 @@ class CascadeLDA(object):
                 label_ids = [self.labelmap[x] for x in labset]
                 self.ph[label_ids, :] = sub_ph
 
-    def test_init_newdoc(self, doc):
+    def test_init_newdoc(self, doc, ph):
         doc = [x for x in doc if x in self.vocab]
         doc = [self.w_to_v[term] for term in doc]
         n_d = len(doc)
         z_dn = []
-        n_zk = np.zeros(self.K, dtype=int)
-        probs = self.ph[:, doc]
+        l = ph.shape[0]
+        n_zk = np.zeros(l, dtype=int)
+        probs = ph[:, doc]
         probs /= probs.sum(axis=0)
         for n in range(n_d):
             prob = probs[:, n]
@@ -148,19 +149,26 @@ class CascadeLDA(object):
         start_state = (doc, z_dn, n_zk)
         return start_state
 
-    def run_test(self, docs, it, thinning):
+    def run_test(self, docs, it, thinning, depth="all"):
+        if depth in [1, 2, 3]:
+            label_inds = np.where([len(x) in [depth, 4] for x in self.lablist])[0]
+        if depth == "all":
+            label_inds = range(self.K)
         nrdocs = len(docs)
-        th_hat = np.zeros((nrdocs, self.K), dtype=float)
+        ph = self.ph[label_inds, :]
+        l = len(label_inds)
+        th_hat = np.zeros((nrdocs, l), dtype=float)
         for d, doc in enumerate(docs):
-            newdoc, z_dn, n_zk = self.test_init_newdoc(doc)
+            newdoc, z_dn, n_zk = self.test_init_newdoc(doc, ph)
             n_d = len(z_dn)
             for i in range(it):
-                for n, v in enumerate(doc):
+                for n, v in enumerate(newdoc):
+                    v = int(v)
                     z = z_dn[n]
                     n_zk[z] -= 1
 
                     num_a = n_zk + self.alpha
-                    b = self.ph[:, v]
+                    b = ph[:, v]
                     prob = num_a * b
                     prob /= prob.sum()
                     while prob.sum() > 1:
@@ -282,7 +290,13 @@ def train_it(train_data, it=150, s=12):
     return cascade
 
 
-def test_it(model, test_data, it=150, s=12):
+def test_it(model, test_data, it=150, s=12, depth=3):
     a, b, c = test_data
-    th_hat = model.run_test(docs=a, it=it, thinning=s)
+    th_hat = model.run_test(docs=a, it=it, thinning=s, depth=depth)
     return th_hat
+
+def print_test_results(theta, depth, lablist, testlabels, n=10):
+    for x in range(n):
+        print(sorted(zip(theta[x], lablist))[::-1])
+        print([lab for lab in testlabels[x] if len(lab) == depth])
+        print("---")
