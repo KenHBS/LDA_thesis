@@ -5,6 +5,19 @@ multinom_draw = np.random.multinomial
 
 def load_corpus(filename, d=3):
     import csv
+    import sys
+
+    # Increase max line length for csv.reader:
+    max_int = sys.maxsize
+    decrement = True
+    while decrement:
+        decrement = False
+        try:
+            csv.field_size_limit(max_int)
+        except OverflowError:
+            max_int = int(max_int)
+            decrement = True
+
     docs = []
     labs = []
     labelmap = dict()
@@ -294,6 +307,7 @@ def test_it(model, test_data, it=150, s=12, depth=3):
     a, b, c = test_data
     th_hat = model.run_test(docs=a, it=it, thinning=s, depth=depth)
     return th_hat
+
 
 def print_test_results(theta, depth, lablist, testlabels, n=10):
     for x in range(n):

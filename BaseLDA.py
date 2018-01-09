@@ -3,8 +3,22 @@ import numpy as np
 from optparse import OptionParser
 from numpy.random import multinomial as multinom_draw
 
+
 def load_corpus(filename, d):
     import csv
+    import sys
+
+    # Increase max line length for csv.reader:
+    max_int = sys.maxsize
+    decrement = True
+    while decrement:
+        decrement = False
+        try:
+            csv.field_size_limit(max_int)
+        except OverflowError:
+            max_int = int(max_int)
+            decrement = True
+
     docs = []
     labs = []
     labelmap = dict()

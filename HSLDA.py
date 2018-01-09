@@ -38,6 +38,19 @@ def get_stirling_numbers(n):
 
 def load_corpus(filename, d=3):
     import csv
+    import sys
+
+    # Increase max line length for csv.reader:
+    max_int = sys.maxsize
+    decrement = True
+    while decrement:
+        decrement = False
+        try:
+            csv.field_size_limit(max_int)
+        except OverflowError:
+            max_int = int(max_int)
+            decrement = True
+
     docs = []
     labs = []
     labelmap = dict()
