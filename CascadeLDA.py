@@ -4,8 +4,7 @@ multinom_draw = np.random.multinomial
 
 
 def load_corpus(filename, d=3):
-    import csv
-    import sys
+    import csv, sys, re
 
     # Increase max line length for csv.reader:
     max_int = sys.maxsize
@@ -21,6 +20,8 @@ def load_corpus(filename, d=3):
     docs = []
     labs = []
     labelmap = dict()
+    n = 0
+    pat = re.compile("[A-Z]\d{2}")
     f = open(filename, 'r')
     reader = csv.reader(f)
     for row in reader:
@@ -28,6 +29,7 @@ def load_corpus(filename, d=3):
         lab = row[2]
         if len(lab) > 3:
             lab = lab.split(" ")
+            lab = list(filter(lambda i: pat.search(i), lab))
             lab = [partition_label(x, d) for x in lab]
             lab = [item for sublist in lab for item in sublist]
             lab = list(set(lab))
@@ -39,8 +41,11 @@ def load_corpus(filename, d=3):
                 labelmap[x] = 1
         docs.append(doc)
         labs.append(lab)
-    docs = gensimm.preprocess_documents(docs)
+        n += 1
+        print(n)
     f.close()
+    print("Stemming documents ....")
+    docs = gensimm.preprocess_documents(docs)
     return docs, labs, list(labelmap.keys())
 
 
