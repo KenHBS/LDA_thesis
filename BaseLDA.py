@@ -5,7 +5,7 @@ from numpy.random import multinomial as multinom_draw
 
 
 def load_corpus(filename, d):
-    import csv
+    import csv, sys, re
     import sys
 
     # Increase max line length for csv.reader:
@@ -16,12 +16,14 @@ def load_corpus(filename, d):
         try:
             csv.field_size_limit(max_int)
         except OverflowError:
-            max_int = int(max_int)
+            max_int = int(max_int/10)
             decrement = True
 
     docs = []
     labs = []
     labelmap = dict()
+    n = 0
+    pat = re.compile("[A-Z]\d{2}")
     f = open(filename, 'r')
     reader = csv.reader(f)
     for row in reader:
@@ -29,6 +31,7 @@ def load_corpus(filename, d):
         lab = row[2]
         if len(lab) > 3:
             lab = lab.split(" ")
+            lab = list(filter(lambda i: pat.search(i), lab))
             lab = [x[:d] for x in lab]
             for x in lab:
                 labelmap[x] = 1
@@ -37,8 +40,11 @@ def load_corpus(filename, d):
             labelmap[lab] = 1
         docs.append(doc)
         labs.append(lab)
-    docs = gensimm.preprocess_documents(docs)
+        n += 1
+        print(n)
     f.close()
+    print("Stemming documents ....")
+    docs = gensimm.preprocess_documents(docs)
     return docs, labs, list(labelmap.keys())
 
 
