@@ -53,6 +53,7 @@ class LabeledLDA(object):
     def __init__(self, docs, labs, labelset, dicti, alpha, beta):
         labelset.insert(0, 'root')
         self.labelmap = dict(zip(labelset, range(len(labelset))))
+        self.dicti = dicti
         self.K = len(self.labelmap)
 
         self.alpha = alpha
@@ -101,6 +102,7 @@ class LabeledLDA(object):
             vec[self.labelmap[x]] = 1.0
         return vec
 
+    # May be irrelevant
     def term_to_id(self, term):
         if term not in self.w_to_v:
             voca_id = len(self.vocab)
@@ -111,12 +113,13 @@ class LabeledLDA(object):
         return voca_id
 
     def training_iteration(self):
-        c = range(self.D)
-        iterator = zip(c, self.docs, self.freqs, self.z_dn, self.labs)
-        for d, doc, freq, zet, lab in iterator:
+        docs = self.docs
+        freqs = self.freqs
+        zdn = self.z_dn
+        labs = self.labs
+        for d, (doc, freq, zet, lab) in enumerate(zip(docs, freqs, zdn, labs)):
             doc_n_d_k = self.n_d_k[d]
-            ld = len(doc)
-            for n, v, f, z in zip(range(ld), doc, freq, zet):
+            for n, (v, f, z) in enumerate(zip(doc, freq, zet)):
                 self.n_k_v[z, v] -= f
                 doc_n_d_k[z] -= f
                 self.n_zk[z] -= f
@@ -139,63 +142,63 @@ class LabeledLDA(object):
             self.training_iteration()
             print('Running iteration # %d ' % (n+1))
             if (n+1) % thinning == 0:
-                cur_phi = self.get_phi()
+                cur_ph = self.get_phi()
                 cur_th = self.get_theta()
                 cur_perp = self.perplexity()
                 self.perplx.append(cur_perp)
                 s = n/thinning
                 if s == 1:
-                    self.ph_hat = cur_phi
+                    self.ph_hat = cur_ph
                     self.th_hat = cur_th
                 else:
                     factor = (s-1)/s
-                    self.ph_hat = factor*self.ph_hat + (1/s * cur_phi)
+                    self.ph_hat = factor*self.ph_hat + (1/s * cur_ph)
                     self.th_hat = factor*self.th_hat + (1/s * cur_th)
                 if np.any(self.ph_hat < 0):
                     raise ValueError('A negative value occurred in self.ph_hat'
                                      'while saving iteration %d ' % n)
 
-    def test_init(self, doc):
-        doc = [self.w_to_v[term] for term in doc]
-        len_d = len(doc)
+    def prep4test(self, doc):
+        doc_tups = self.dicti.doc2bow(doc)
+        doc, freqs = zip(*doc_tups)
+
         z_dn = []
         n_zk = np.zeros(self.K, dtype=int)
+
         probs = self.ph_hat[:, doc]
         probs /= probs.sum(axis=0)
-        for n in range(len_d):
+        for n, f in enumerate(freqs):
             prob = probs[:, n]
             while prob.sum() > 1:
                 prob /= 1.0000000005
             new_z = multinom_draw(1, prob).argmax()
 
             z_dn.append(new_z)
-            n_zk[new_z] += 1
-        start_state = (doc, z_dn, n_zk)
+            n_zk[new_z] += f
+        start_state = (doc, freqs, z_dn, n_zk)
         return start_state
 
-    def run_test(self, testdocs, it, thinning):
-        nrdocs = len(testdocs)
-        theta_hat = np.zeros((nrdocs, self.K), dtype=float)
-        for d, testdoc in enumerate(testdocs):
-            doc, z_dn, n_zk = self.test_init(testdoc)
-            len_d = len(z_dn)
+    def run_test(self, newdocs, it, thinning):
+        nr = len(newdocs)
+        th_hat = np.zeros((nr, self.K), dtype=float)
+        for d, newdoc in enumerate(newdocs):
+            doc, freqs, z_dn, n_zk = self.prep4test(newdoc)
+            ld = len(doc)
             for i in range(it):
-                for n in range(len_d):
-                    v = doc[n]
-                    z = z_dn[n]
-                    n_zk[z] -= 1
+                for n, (v, f, z) in enumerate(zip(doc, freqs, z_dn)):
+                    n_zk[z] -= f
 
-                    numer_a = n_zk + self.alpha
-                    denom_a = len_d - 1 + self.K * self.alpha
+                    num_a = n_zk + self.alpha
+                    den_a = ld - 1 + self.K * self.alpha
                     b = self.ph_hat[:, v]
-                    prob = (numer_a / denom_a) * b
+                    prob = (num_a / den_a) * b
                     prob /= prob.sum()
                     while prob.sum() > 1:
                         prob /= 1.0000005
                     new_z = multinom_draw(1, prob).argmax()
 
                     z_dn[n] = new_z
-                    n_zk[new_z] += 1
+                    n_zk[new_z] += f
 
                 # Save the current state in MC chain and calc. average state:
                 # Only the document-topic distribution estimate theta is saved
@@ -209,25 +212,25 @@ class LabeledLDA(object):
                         old = (s2 - 1) / s2 * avg_state
                         new = (1 / s2) * this_state
                         avg_state = old + new
-            theta_hat[d, :] = avg_state
-        return theta_hat
+            th_hat[d, :] = avg_state
+        return th_hat
 
-    def get_prediction(self, single_th, n=5):
-        labels = np.array(list(self.labelmap.keys()))
-        best_topic_inds = np.argsort(-single_th)[:n]
-        best_topic_load = np.flip(np.sort(single_th), axis=0)[:n]
+    def get_pred(self, single_th, n=5):
+        labs = np.array(list(self.labelmap.keys()))
+        top_tops = np.argsort(-single_th)[:n]
+        top_load = np.flip(np.sort(single_th), axis=0)[:n]
 
-        top_topics = labels[best_topic_inds]
-        return list(zip(top_topics, best_topic_load))
+        top_tops = labs[top_tops]
+        return list(zip(top_tops, top_load))
 
-    def get_predictions(self, all_th, n=5):
-        predictions = []
-        ndocs = all_th.shape[0]
-        for d in range(ndocs):
-            single_th = all_th[d, :]
-            pred = self.get_prediction(single_th, n)
-            predictions.append(pred)
-        return predictions
+    def get_preds(self, all_th, n=5):
+        preds = []
+        nr = all_th.shape[0]
+        for d in range(nr):
+            one_th = all_th[d, :]
+            pred = self.get_pred(one_th, n)
+            preds.append(pred)
+        return preds
 
     def get_phi(self):
         num = self.n_k_v + self.beta
@@ -258,12 +261,12 @@ class LabeledLDA(object):
         phis = self.get_phi()
         thetas = self.get_theta()
 
-        log_per = N = 0
+        log_per = l = 0
         for doc, th in zip(self.docs, thetas):
             for w in doc:
                 log_per -= np.log(np.inner(phis[:, w], th))
-            N += len(doc)
-        return np.exp(log_per / N)
+            l += len(doc)
+        return np.exp(log_per / l)
 
 
 def split_data(f="clean_fulldocs.csv", d=2):
@@ -283,7 +286,7 @@ def prune_dict(docs, lower=0.1, upper=0.9):
 
 
 def train_it(traindata, it=30, s=3, al=0.001, be=0.001):
-    a, b, c = traindata[0], traindata[1], traindata[2]
+    a, b, c = traindata
     dicti = prune_dict(a, lower=0.1, upper=0.9)
     llda = LabeledLDA(a, b, c, dicti, al, be)
     llda.run_training(it, s)
@@ -297,7 +300,7 @@ def test_it(model, testdata, it=500, thinning=25, n=5):
     testdocs = testdata[0]
     testdocs = [[x for x in doc if x in model.vocab] for doc in testdocs]
     th_hat = model.run_test(testdocs, it, thinning)
-    preds = model.get_predictions(th_hat, n)
+    preds = model.get_preds(th_hat, n)
     th_hat = [[round(x, 4) for x in single_th] for single_th in th_hat]
     return th_hat, preds
 
