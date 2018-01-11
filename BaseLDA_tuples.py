@@ -1,4 +1,5 @@
 import gensim.parsing.preprocessing as gensimm
+from gensim.corpora import dictionary
 import numpy as np
 from optparse import OptionParser
 from numpy.random import multinomial as multinom_draw
@@ -49,7 +50,7 @@ def load_corpus(filename, d):
 
 
 class LabeledLDA(object):
-    def __init__(self, docs, labs, labelset, alpha, beta):
+    def __init__(self, docs, labs, labelset, dicti, alpha, beta):
         labelset.insert(0, 'root')
         self.labelmap = dict(zip(labelset, range(len(labelset))))
         self.K = len(self.labelmap)
@@ -57,33 +58,41 @@ class LabeledLDA(object):
         self.alpha = alpha
         self.beta = beta
 
-        self.vocab = []
-        self.w_to_v = dict()
+        self.vocab = list(dicti.values())
+        self.w_to_v = dicti.token2id
+        self.v_to_w = dicti.id2token
+
         self.labs = np.array([self.set_label(lab) for lab in labs])
-        self.docs = [[self.term_to_id(term) for term in doc] for doc in docs]
-        self.v_to_w = {v:k for k, v in self.w_to_v.items()}
+        self.doc_tups = [dicti.doc2bow(x) for x in docs]
 
         self.D = len(docs)
         self.V = len(self.vocab)
-
-        self.z_dn = []
-        self.n_d_k = np.zeros((self.D, self.K), dtype=int)
-        self.n_k_v = np.zeros((self.K, self.V), dtype=int)
-        self.n_zk = np.zeros(self.K, dtype=int)
 
         self.ph_hat = np.zeros((self.K, self.V), dtype=float)
         self.th_hat = np.zeros((self.D, self.K), dtype=float)
         self.perplx = []
 
-        for d, doc, lab in zip(range(self.D), self.docs, self.labs):
-            len_d = len(doc)
+        self.docs = []
+        self.z_dn = []
+        self.freqs = []
+        self.n_zk = np.zeros(self.K, dtype=int)
+        self.n_d_k = np.zeros((self.D, self.K), dtype=int)
+        self.n_k_v = np.zeros((self.K, self.V), dtype=int)
+
+        c = range(self.D)
+        for d, doc, lab in zip(c, self.doc_tups, self.labs):
+            ids, freqs = zip(*doc)
+            self.docs.append(list(ids))
+            self.freqs.append(list(freqs))
+
+            ld = len(doc)
             prob = lab/lab.sum()
-            zets = np.random.choice(self.K, size=len_d, p=prob)
+            zets = np.random.choice(self.K, size=ld, p=prob)
             self.z_dn.append(zets)
-            for v, z in zip(doc, zets):
-                self.n_d_k[d, z] += 1
-                self.n_k_v[z, v] += 1
-                self.n_zk[z] += 1
+            for v, z, freq in zip(ids, zets, freqs):
+                self.n_zk[z] += freq
+                self.n_d_k[d, z] += freq
+                self.n_k_v[z, v] += freq
 
     def set_label(self, label):
         vec = np.zeros(len(self.labelmap))
@@ -102,28 +111,28 @@ class LabeledLDA(object):
         return voca_id
 
     def training_iteration(self):
-        for d, doc, lab in zip(range(self.D), self.docs, self.labs):
-            len_d = len(doc)
-            for n in range(len_d):
-                v = doc[n]
-                z = self.z_dn[d][n]
-                self.n_d_k[d, z] -= 1
-                self.n_k_v[z, v] -= 1
-                self.n_zk[z] -= 1
+        c = range(self.D)
+        iterator = zip(c, self.docs, self.freqs, self.z_dn, self.labs)
+        for d, doc, freq, zet, lab in iterator:
+            doc_n_d_k = self.n_d_k[d]
+            ld = len(doc)
+            for n, v, f, z in zip(range(ld), doc, freq, zet):
+                self.n_k_v[z, v] -= f
+                doc_n_d_k[z] -= f
+                self.n_zk[z] -= f
 
-                numer_a = self.n_d_k[d] + self.alpha
-                denom_a = len_d - 1 + self.K * self.alpha
-                numer_b = self.n_k_v[:, v] + self.beta
-                denom_b = self.n_zk + self.V * self.beta
+                a = doc_n_d_k + self.alpha
+                num_b = self.n_k_v[:, v] + self.beta
+                den_b = self.n_zk + self.V * self.beta
 
-                prob = lab * (numer_a/denom_a) * (numer_b/denom_b)
+                prob = lab * a * (num_b/den_b)
                 prob /= np.sum(prob)
                 z_new = multinom_draw(1, prob).argmax()
 
                 self.z_dn[d][n] = z_new
-                self.n_d_k[d, z_new] += 1
-                self.n_k_v[z_new, v] += 1
-                self.n_zk[z_new] += 1
+                self.n_d_k[d, z_new] += f
+                self.n_k_v[z_new, v] += f
+                self.n_zk[z_new] += f
 
     def run_training(self, iters, thinning):
         for n in range(iters):
@@ -221,14 +230,14 @@ class LabeledLDA(object):
         return predictions
 
     def get_phi(self):
-        numer = self.n_k_v + self.beta
-        denom = self.n_zk[:, np.newaxis] + self.V * self.beta
-        return numer / denom
+        num = self.n_k_v + self.beta
+        den = self.n_zk[:, np.newaxis] + self.V * self.beta
+        return num / den
 
     def get_theta(self):
-        numer = self.n_d_k + self.labs * self.alpha
-        denom = numer.sum(axis=1)[:, np.newaxis]
-        return numer / denom
+        num = self.n_d_k + self.labs * self.alpha
+        den = num.sum(axis=1)[:, np.newaxis]
+        return num / den
 
     def topwords_per_topic(self, topwords=10):
         n = topwords
@@ -257,7 +266,7 @@ class LabeledLDA(object):
         return np.exp(log_per / N)
 
 
-def split_data(f="thesis_data.csv", d=3):
+def split_data(f="clean_fulldocs.csv", d=2):
     a, b, c = load_corpus(f, d)
     split = int(len(a) * 0.9)
 
@@ -266,9 +275,17 @@ def split_data(f="thesis_data.csv", d=3):
     return train_data, test_data
 
 
+def prune_dict(docs, lower=0.1, upper=0.9):
+    dicti = dictionary.Dictionary(docs)
+    lower *= len(docs)
+    dicti.filter_extremes(no_above=upper, no_below=lower)
+    return dicti
+
+
 def train_it(traindata, it=30, s=3, al=0.001, be=0.001):
     a, b, c = traindata[0], traindata[1], traindata[2]
-    llda = LabeledLDA(a, b, c, al, be)
+    dicti = prune_dict(a, lower=0.1, upper=0.9)
+    llda = LabeledLDA(a, b, c, dicti, al, be)
     llda.run_training(it, s)
     return llda
 
@@ -298,12 +315,19 @@ def main():
                       help="topwords per topic", default=10)
     parser.add_option("-d", dest="depth", type="int",
                       help="depth of label", default=3)
+    parser.add_option("-l", dest="low", type="float",
+                      help="low limit for pruning corpus dictionary",
+                      default=0.1)
+    parser.add_option("-u", dest="high", type="float",
+                      help="up limit for pruning corpus dictionary",
+                      default=0.9)
     (options, args) = parser.parse_args()
     if not options.filename:
         parser.error("need to supply csv-data file location (-f)")
 
     a, b, c = load_corpus(options.filename, d=options.depth)
-    llda = LabeledLDA(docs=a, labs=b, labelset=c,
+    dicti = prune_corpus(a, lower=options.low, upper=options.high)
+    llda = LabeledLDA(docs=a, labs=b, labelset=c, dicti=dicti,
                       alpha=options.alpha, beta=options.beta)
 
     for i in range(options.iterations):
@@ -312,3 +336,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+# TODO: Check whether this also works well with abstracts.
