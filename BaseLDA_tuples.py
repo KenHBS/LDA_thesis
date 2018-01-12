@@ -53,8 +53,8 @@ class LabeledLDA(object):
     def __init__(self, docs, labs, labelset, dicti, alpha, beta):
         labelset.insert(0, 'root')
         self.labelmap = dict(zip(labelset, range(len(labelset))))
-        self.dicti = dicti
         self.K = len(self.labelmap)
+        self.dicti = dicti
 
         self.alpha = alpha
         self.beta = beta
@@ -73,15 +73,14 @@ class LabeledLDA(object):
         self.th_hat = np.zeros((self.D, self.K), dtype=float)
         self.perplx = []
 
-        self.docs = []
         self.z_dn = []
-        self.freqs = []
         self.n_zk = np.zeros(self.K, dtype=int)
         self.n_d_k = np.zeros((self.D, self.K), dtype=int)
         self.n_k_v = np.zeros((self.K, self.V), dtype=int)
 
-        c = range(self.D)
-        for d, doc, lab in zip(c, self.doc_tups, self.labs):
+        self.docs = []
+        self.freqs = []
+        for d, (doc, lab) in enumerate(zip(self.doc_tups, self.labs)):
             ids, freqs = zip(*doc)
             self.docs.append(list(ids))
             self.freqs.append(list(freqs))
@@ -133,8 +132,9 @@ class LabeledLDA(object):
                 z_new = multinom_draw(1, prob).argmax()
 
                 self.z_dn[d][n] = z_new
-                self.n_d_k[d, z_new] += f
+
                 self.n_k_v[z_new, v] += f
+                doc_n_d_k[z_new] += f
                 self.n_zk[z_new] += f
 
     def run_training(self, iters, thinning):
@@ -294,9 +294,6 @@ def train_it(traindata, it=30, s=3, al=0.001, be=0.001):
 
 
 def test_it(model, testdata, it=500, thinning=25, n=5):
-    if not isinstance(model, LabeledLDA):
-        raise TypeError('model argument must be a LabeledLDA object'
-                        'not %s ' % type(model))
     testdocs = testdata[0]
     testdocs = [[x for x in doc if x in model.vocab] for doc in testdocs]
     th_hat = model.run_test(testdocs, it, thinning)
