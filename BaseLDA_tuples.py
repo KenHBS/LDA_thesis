@@ -163,7 +163,7 @@ class LabeledLDA(object):
         doc, freqs = zip(*doc_tups)
 
         z_dn = []
-        n_zk = np.zeros(self.K, dtype=int)
+        n_dk = np.zeros(self.K, dtype=int)
 
         probs = self.ph_hat[:, doc]
         probs /= probs.sum(axis=0)
@@ -174,38 +174,36 @@ class LabeledLDA(object):
             new_z = multinom_draw(1, prob).argmax()
 
             z_dn.append(new_z)
-            n_zk[new_z] += f
-        start_state = (doc, freqs, z_dn, n_zk)
+            n_dk[new_z] += f
+        start_state = (doc, freqs, z_dn, n_dk)
         return start_state
 
     def run_test(self, newdocs, it, thinning):
         nr = len(newdocs)
         th_hat = np.zeros((nr, self.K), dtype=float)
         for d, newdoc in enumerate(newdocs):
-            doc, freqs, z_dn, n_zk = self.prep4test(newdoc)
-            ld = len(doc)
+            doc, freqs, z_dn, n_dk = self.prep4test(newdoc)
             for i in range(it):
                 for n, (v, f, z) in enumerate(zip(doc, freqs, z_dn)):
-                    n_zk[z] -= f
+                    n_dk[z] -= f
 
-                    num_a = n_zk + self.alpha
-                    den_a = ld - 1 + self.K * self.alpha
+                    num_a = n_dk + self.alpha
                     b = self.ph_hat[:, v]
-                    prob = (num_a / den_a) * b
+                    prob = num_a * b
                     prob /= prob.sum()
                     while prob.sum() > 1:
                         prob /= 1.0000005
                     new_z = multinom_draw(1, prob).argmax()
 
                     z_dn[n] = new_z
-                    n_zk[new_z] += f
+                    n_dk[new_z] += f
 
                 # Save the current state in MC chain and calc. average state:
                 # Only the document-topic distribution estimate theta is saved
                 s = (i + 1) / thinning
                 s2 = int(s)
                 if s == s2:
-                    this_state = n_zk / n_zk.sum()
+                    this_state = n_dk / n_dk.sum()
                     if s2 == 1:
                         avg_state = this_state
                     else:
@@ -326,7 +324,7 @@ def main():
         parser.error("need to supply csv-data file location (-f)")
 
     a, b, c = load_corpus(options.filename, d=options.depth)
-    dicti = prune_corpus(a, lower=options.low, upper=options.high)
+    dicti = prune_dict(a, lower=options.low, upper=options.high)
     llda = LabeledLDA(docs=a, labs=b, labelset=c, dicti=dicti,
                       alpha=options.alpha, beta=options.beta)
 
@@ -336,5 +334,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-# TODO: Check whether this also works well with abstracts.
