@@ -1,11 +1,12 @@
 import gensim.parsing.preprocessing as gensimm
 from gensim.corpora import dictionary
 import numpy as np
+import re
 multinom_draw = np.random.multinomial
 
 
 def load_corpus(filename, d=3):
-    import csv, sys, re
+    import csv, sys
 
     # Increase max line length for csv.reader:
     max_int = sys.maxsize
@@ -140,34 +141,63 @@ class CascadeLDA(object):
         labset = self.lablist_l1
 
         sub_ph = self.get_sub_ph(doc_tups, labs, labset, it=it, thinning=s)
+
         label_ids = [self.labelmap[x] for x in labset]
         self.ph[label_ids, :] = sub_ph
 
-        for l in self.lablist_l1:
+        # Only for this root-level we retain the topic-word distr ph for 'root'
+        labset.remove('root')
+
+        for l in labset:
             print(" --- ")
             print("Working on parent node", l)
-            doc_tups, labs, labset = self.sub_corpus(parent=l)
-            sub_ph = self.get_sub_ph(doc_tups, labs, labset, it=it, thinning=s)
-            label_ids = [self.labelmap[x] for x in labset]
+            # Take subset of the entire corpus. With label "l*"
+            doc_tups, labs, sublabset = self.sub_corpus(parent=l)
+
+            # Run local LDA on subset - get those label-word distr.
+            # This function also adds 'root' to sublabset
+            sub_ph = self.get_sub_ph(doc_tups, labs, sublabset, it, s)
+
+            # Get the local label ids and insert into global label-word:
+            # Disregard "root" of every local label-word distr.
+            sublabset.remove("root")
+            label_ids = [self.labelmap[x] for x in sublabset]
+
+            sub_ph = sub_ph[1:, :]
             self.ph[label_ids, :] = sub_ph
+
             one_down = [x for x in self.lablist_l2 if x[0] == l]
             for l2 in one_down:
                 print(" --- ")
                 print("Working on parent node", l2)
-                doc_tups, labs, labset = self.sub_corpus(parent=l2)
-                sub_ph = self.get_sub_ph(doc_tups, labs, labset, it, s)
-                label_ids = [self.labelmap[x] for x in labset]
+                # Take subset of the entire corpus. With label "l*"
+                doc_tups, labs, sublabset = self.sub_corpus(parent=l2)
+
+                # Run local LDA on subset - get those label-word distr.
+                # This function also adds 'root' to sublabset
+                sub_ph = self.get_sub_ph(doc_tups, labs, sublabset, it, s)
+
+                # Get the local label ids and insert into global label-word:
+                # Disregard "root" of every local label-word distr.
+                sublabset.remove('root')
+                label_ids = [self.labelmap[x] for x in sublabset]
+
+                sub_ph = sub_ph[1:, :]
                 self.ph[label_ids, :] = sub_ph
 
-    def test_init_newdoc(self, doc, ph):
+    def prep4test(self, doc, ph):
         doc_tups = self.dicti.doc2bow(doc)
         doc, freqs = zip(*doc_tups)
+        ld = len(doc)
 
-        n_zk = np.zeros(ph.shape[0], dtype=int)
+        n_dk = np.zeros(ph.shape[0], dtype=int)
         z_dn = []
 
         probs = ph[:, doc]
+        probs += self.beta
         probs /= probs.sum(axis=0)
+        # Initiate with the 'garbage'/'root' label uniform:
+        probs[0, :] = 1 / ld
         for n, freq in enumerate(freqs):
             prob = probs[:, n]
             while prob.sum() > 1:
@@ -175,9 +205,110 @@ class CascadeLDA(object):
             new_z = multinom_draw(1, prob).argmax()
 
             z_dn.append(new_z)
-            n_zk[new_z] += freq
-        start_state = (doc, freqs, z_dn, n_zk)
+            n_dk[new_z] += freq
+        start_state = (doc, freqs, z_dn, n_dk)
         return start_state
+
+    def cascade_test(self, doc, it, thinning, labels):
+        ids = [self.labelmap[x] for x in labels]
+        ph = self.ph[ids, :]
+        doc, freqs, z_dn, n_dk = self.prep4test(doc, ph)
+
+        avg_state = np.zeros(len(ids), dtype=float)
+        for i in range(it):
+            for n, (v, f, z) in enumerate(zip(doc, freqs, z_dn)):
+                n_dk[z] -= f
+
+                num_a = n_dk + self.alpha
+                b = ph[:, v]
+                prob = num_a * b
+                # In CascadeLDA it can occur that prob.sum() = 0. This
+                # is forced to throw an error, else would have been warning:
+                try:
+                    with np.errstate(invalid="raise"):
+                        prob /= prob.sum()
+                except FloatingPointError:
+                    prob = num_a * (b + self.beta)
+                    prob /= prob.sum()
+                while prob.sum() > 1:
+                    prob /= 1.000005
+                new_z = multinom_draw(1, prob).argmax()
+
+                z_dn[n] = new_z
+                n_dk[new_z] += f
+            s = (i+1) / thinning
+            s2 = int(s)
+            if s == s2:
+                this_state = n_dk / n_dk.sum()
+                if s2 == 1:
+                    avg_state = this_state
+                else:
+                    old = (s2 - 1) / s2 * avg_state
+                    new = (1 / s2) * this_state
+                    avg_state = old + new
+        return avg_state
+
+    def test_down_tree(self, doc, it, thinning, threshold):
+        labels = self.lablist_l1
+        th_hat = self.cascade_test(doc, it, thinning, labels)
+
+
+        top_loads = np.sort(th_hat)[::-1]
+        n = sum(np.cumsum(top_loads) < threshold) + 1
+
+        top_n_load = top_loads[:n]
+        top_n_labs = np.argsort(th_hat)[::-1][:n]
+        top_n_labs = [labels[i] for i in top_n_labs]
+
+        level_1 = list(zip(top_n_labs, top_n_load))
+        level_2 = []
+        level_3 = []
+
+        if 'root' in top_n_labs:
+            top_n_labs.remove('root')
+        next_levels = top_n_labs
+        for next_level in next_levels:
+            pat = re.compile('^' + next_level + "[0-9]{1}$")
+            labels = list(filter(pat.match, self.lablist))
+            labels.insert(0, next_level)
+            th_hat = self.cascade_test(doc, it, thinning, labels)
+
+            top_loads = np.sort(th_hat)[::-1]
+            n = sum(np.cumsum(top_loads) < threshold) + 1
+
+            top_n_load = top_loads[:n]
+            top_n_labs = np.argsort(th_hat)[::-1][:n]
+            top_n_labs = [labels[i] for i in top_n_labs]
+
+            tups = list(zip(top_n_labs, top_n_load))
+            level_2.append(tups)
+
+            if next_level in top_n_labs:
+                top_n_labs.remove(next_level)
+            last_levels = top_n_labs
+            for newlab in last_levels:
+                pat = re.compile('^' + newlab + "[0-9]{1}$")
+                labels = list(filter(pat.match, self.lablist))
+                labels.insert(0, newlab)
+                th_hat = self.cascade_test(doc, it, thinning, labels)
+
+                top_loads = np.sort(th_hat)[::-1]
+                n = sum(np.cumsum(top_loads) < threshold) + 1
+
+                top_n_load = top_loads[:n]
+                top_n_labs = np.argsort(th_hat)[::-1][:n]
+                top_n_labs = [labels[i] for i in top_n_labs]
+                tups = list(zip(top_n_labs, top_n_load))
+
+                level_3.append(tups)
+
+                # top4_labs.remove(newlab)
+        return level_1, level_2, level_3
+
+    def tidy_test_results(self, lvl1, lvl2, lvl3, c1=0.15, c2=0.30, c3=0.45):
+        level1 = [x for x in lvl1 if x[1] > c1]
+        l1_set = [x[0] for x in level1]
+        pass
 
     def run_test(self, docs, it, thinning, depth="all"):
         inds = None
@@ -190,8 +321,7 @@ class CascadeLDA(object):
         th_hat = np.zeros((len(docs), len(inds)), dtype=float)
 
         for d, doc in enumerate(docs):
-            new_d, new_f, z_dn, n_zk = self.test_init_newdoc(doc, ph)
-            n_d = len(z_dn)
+            new_d, new_f, z_dn, n_zk = self.prep4test(doc, ph)
             for i in range(it):
                 for n, (v, f) in enumerate(zip(new_d, new_f)):
                     # v = int(v)
@@ -212,9 +342,9 @@ class CascadeLDA(object):
                 # Save the current state in MC chain and calc. average state:
                 s = (i+1) / thinning
                 if s == int(s):
-                    print("Testing iteration #", i+1)
                     print("----")
-                    cur_th = n_zk / n_d
+                    print("Testing iteration #", i+1)
+                    cur_th = n_zk / n_zk.sum()
                     if s > 1:
                         m = (s-1)/s
                         th = m * th + (1-m) * cur_th
@@ -314,11 +444,6 @@ class SubLDA(object):
                     self.ph = cur_ph
 
 
-def prune_dict(docs, lower=0.1, upper=0.9):
-    dicti = dictionary.Dictionary(docs)
-    lower *= len(docs)
-    dicti.filter_extremes(no_above=upper, no_below=lower)
-    return dicti
 
 
 def split_data(f="thesis_data.csv", d=3):
@@ -328,6 +453,11 @@ def split_data(f="thesis_data.csv", d=3):
     test_data = (a[split:], b[split:], c)
     return train_data, test_data
 
+def prune_dict(docs, lower=0.1, upper=0.9):
+    dicti = dictionary.Dictionary(docs)
+    lower *= len(docs)
+    dicti.filter_extremes(no_above=upper, no_below=lower)
+    return dicti
 
 def train_it(train_data, it=150, s=12):
     a, b, c = train_data
@@ -342,6 +472,8 @@ def test_it(model, test_data, it=150, s=12, depth=3):
     th_hat = model.run_test(docs=a, it=it, thinning=s, depth=depth)
     return th_hat
 
+def test_down_tree(model, test_data, it=250, s=25):
+    one, two, three = model.test_down_tree()
 
 def print_test_results(theta, depth, lablist, testlabels, n=10):
     for x in range(n):
