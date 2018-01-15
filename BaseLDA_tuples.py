@@ -39,6 +39,7 @@ def load_corpus(filename, d):
             lab = lab[:d]
             labelmap[lab] = 1
             lab = [lab]
+        lab = list(set(lab))
         docs.append(doc)
         labs.append(lab)
         n += 1
@@ -269,6 +270,11 @@ class LabeledLDA(object):
 
 def split_data(f="clean_fulldocs.csv", d=2):
     a, b, c = load_corpus(f, d)
+
+    zipped = list(zip(a, b))
+    np.random.shuffle(zipped)
+    a, b = zip(*zipped)
+
     split = int(len(a) * 0.9)
 
     train_data = (a[:split], b[:split], c)
