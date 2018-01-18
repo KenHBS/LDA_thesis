@@ -1,7 +1,6 @@
 import gensim.parsing.preprocessing as gensimm
 from gensim.corpora import dictionary
 import numpy as np
-from optparse import OptionParser
 from numpy.random import multinomial as multinom_draw
 
 
@@ -101,16 +100,6 @@ class LabeledLDA(object):
         for x in label:
             vec[self.labelmap[x]] = 1.0
         return vec
-
-    # May be irrelevant
-    def term_to_id(self, term):
-        if term not in self.w_to_v:
-            voca_id = len(self.vocab)
-            self.w_to_v[term] = voca_id
-            self.vocab.append(term)
-        else:
-            voca_id = self.w_to_v[term]
-        return voca_id
 
     def training_iteration(self):
         docs = self.docs
@@ -268,7 +257,7 @@ class LabeledLDA(object):
         return np.exp(log_per / l)
 
 
-def split_data(f="clean_fulldocs.csv", d=2):
+def split_data(f, d=2):
     a, b, c = load_corpus(f, d)
 
     zipped = list(zip(a, b))
@@ -276,7 +265,6 @@ def split_data(f="clean_fulldocs.csv", d=2):
     a, b = zip(*zipped)
 
     split = int(len(a) * 0.9)
-
     train_data = (a[:split], b[:split], c)
     test_data = (a[split:], b[split:], c)
     return train_data, test_data
@@ -304,39 +292,3 @@ def test_it(model, testdata, it=500, thinning=25, n=5):
     preds = model.get_preds(th_hat, n)
     th_hat = [[round(x, 4) for x in single_th] for single_th in th_hat]
     return th_hat, preds
-
-
-def main():
-    parser = OptionParser()
-    parser.add_option("-f", dest="filename", help="csv-data filename")
-    parser.add_option("--alpha", dest="alpha", type="float",
-                      help="hyperprior alpha", default=0.001)
-    parser.add_option("--beta", dest="beta", type="float",
-                      help="hyperprior beta", default=0.001)
-    parser.add_option("--iters", dest="iterations", type="int",
-                      help=" # of training iterations", default=250)
-    parser.add_option("-n", dest="topwords", type="int",
-                      help="topwords per topic", default=10)
-    parser.add_option("-d", dest="depth", type="int",
-                      help="depth of label", default=3)
-    parser.add_option("-l", dest="low", type="float",
-                      help="low limit for pruning corpus dictionary",
-                      default=0.1)
-    parser.add_option("-u", dest="high", type="float",
-                      help="up limit for pruning corpus dictionary",
-                      default=0.9)
-    (options, args) = parser.parse_args()
-    if not options.filename:
-        parser.error("need to supply csv-data file location (-f)")
-
-    a, b, c = load_corpus(options.filename, d=options.depth)
-    dicti = prune_dict(a, lower=options.low, upper=options.high)
-    llda = LabeledLDA(docs=a, labs=b, labelset=c, dicti=dicti,
-                      alpha=options.alpha, beta=options.beta)
-
-    for i in range(options.iterations):
-        print("Iteration #: %d " % (i + 1))
-        llda.training_iteration()
-
-if __name__ == "__main__":
-    main()
