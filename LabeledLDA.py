@@ -187,7 +187,11 @@ class LabeledLDA(object):
         start_state = (doc, freqs, z_dn, n_dk)
         return start_state
 
-    def run_test(self, newdocs, it, thinning, ph=self.ph_hat):
+    def run_test(self, newdocs, it, thinning, ph=None):
+        if ph is not None:
+            ph = self.get_phi()
+        else:
+            ph = self.ph_hat
         nr = len(newdocs)
         th_hat = np.zeros((nr, self.K), dtype=float)
         for d, newdoc in enumerate(newdocs):
@@ -219,7 +223,10 @@ class LabeledLDA(object):
                         old = (s2 - 1) / s2 * avg_state
                         new = (1 / s2) * this_state
                         avg_state = old + new
-            th_hat[d, :] = avg_state
+            if ph is not None:
+                th_hat[d, :] = this_state
+            else:
+                th_hat[d, :] = avg_state
         return th_hat
 
     def get_pred(self, single_th, n=5):
@@ -305,10 +312,10 @@ def train_it(traindata, it=30, s=3, al=0.001, be=0.001, l=0.05, u=0.95):
     return llda
 
 
-def test_it(model, testdata, it=500, thinning=25, n=5):
+def test_it(model, testdata, it=500, thinning=25, n=5, ph=None):
     testdocs = testdata[0]
     testdocs = [[x for x in doc if x in model.vocab] for doc in testdocs]
-    th_hat = model.run_test(testdocs, it, thinning)
+    th_hat = model.run_test(testdocs, it, thinning, ph=ph)
     preds = model.get_preds(th_hat, n)
     th_hat = [[round(x, 4) for x in single_th] for single_th in th_hat]
     return th_hat, preds
