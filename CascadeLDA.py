@@ -252,7 +252,6 @@ class CascadeLDA(object):
         labels = self.lablist_l1
         th_hat = self.cascade_test(doc, it, thinning, labels)
 
-
         top_loads = np.sort(th_hat)[::-1]
         n = sum(np.cumsum(top_loads) < threshold) + 1
 
@@ -301,8 +300,6 @@ class CascadeLDA(object):
                 tups = list(zip(top_n_labs, top_n_load))
 
                 level_3.append(tups)
-
-                # top4_labs.remove(newlab)
         return level_1, level_2, level_3
 
     def tidy_test_results(self, lvl1, lvl2, lvl3, c1=0.15, c2=0.30, c3=0.45):
@@ -444,14 +441,18 @@ class SubLDA(object):
                     self.ph = cur_ph
 
 
-
-
 def split_data(f="thesis_data.csv", d=3):
-    a, b, c = load_corpus(filename=f, d=d)
+    a, b, c = load_corpus(f, d)
+
+    zipped = list(zip(a, b))
+    np.random.shuffle(zipped)
+    a, b, = zip(*zipped)
+
     split = int(len(a) * 0.9)
     train_data = (a[:split], b[:split], c)
     test_data = (a[split:], b[split:], c)
     return train_data, test_data
+
 
 def prune_dict(docs, lower=0.1, upper=0.9):
     dicti = dictionary.Dictionary(docs)
@@ -459,24 +460,10 @@ def prune_dict(docs, lower=0.1, upper=0.9):
     dicti.filter_extremes(no_above=upper, no_below=lower)
     return dicti
 
+
 def train_it(train_data, it=150, s=12):
     a, b, c = train_data
     dicti = prune_dict(a, lower=0.02, upper=0.98)
     cascade = CascadeLDA(a, b, c, dicti)
     cascade.go_down_tree(it=it, s=s)
     return cascade
-
-
-def test_it(model, test_data, it=150, s=12, depth=3):
-    a, b, c = test_data
-    th_hat = model.run_test(docs=a, it=it, thinning=s, depth=depth)
-    return th_hat
-
-def test_down_tree(model, test_data, it=250, s=25):
-    one, two, three = model.test_down_tree()
-
-def print_test_results(theta, depth, lablist, testlabels, n=10):
-    for x in range(n):
-        print(sorted(zip(theta[x], lablist))[::-1])
-        print([lab for lab in testlabels[x] if len(lab) == depth])
-        print("---")
