@@ -42,6 +42,7 @@ def load_corpus(filename, d=3):
             for x in lab:
                 labelmap[x] = 1
                 # lab = [lab]
+        lab = list(set(lab))
         docs.append(doc)
         labs.append(lab)
         n += 1
