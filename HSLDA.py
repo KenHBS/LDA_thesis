@@ -85,8 +85,10 @@ def load_corpus(filename, d=3):
 class HSLDA(object):
     def __init__(self, docs, labs, labelset, k=15,
                  alpha_prime=1, alpha=1, gamma=1, mu=0, sigma=1, xi=0):
-        labelset.insert(0, '')
+
         self.labelmap = dict(zip(labelset, range(len(labelset))))
+        self.labelmap[''] = 0
+
         self.lablist = labelset
 
         self.aprime = alpha_prime
