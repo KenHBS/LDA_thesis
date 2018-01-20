@@ -47,7 +47,7 @@ def load_corpus(filename, d=3):
         try:
             csv.field_size_limit(max_int)
         except OverflowError:
-            max_int = int(max_int)
+            max_int = int(max_int/10)
             decrement = True
 
     docs = []
