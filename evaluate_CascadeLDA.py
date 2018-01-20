@@ -186,6 +186,9 @@ def setup_theta(l1p, l2p, l3p, model):
 def main():
     parser = OptionParser()
     parser.add_option("-p", dest="prefix", help="prefix of pickles")
+    parser.add_option("-d", dest="labdepth", help="which label level(s) "
+                                                  "to consider for "
+                                                  "class. quality")
     (options, args) = parser.parse_args()
 
     model, l1p, l2p, l3p, test_set = load_data(options.prefix)
@@ -198,11 +201,25 @@ def main():
 
     print("Model:                CascadeLDA")
     print("Corpus:             ", c)
+    print("Label depth:        ", d)
     print("# of Gibbs samples: ", int(it))
     print("------------------------------------")
 
+    depths = [int(i) for i in options.labdepth]
+    lab_level = [len(x) in depths for x in model.labelmap.keys()]
+    inds = np.where(lab_level)[0]
+
     y_bin = binary_yreal(test_set[1], model.labelmap)
     th_hat = setup_theta(l1p, l2p, l3p, model)
+
+    # Selecting the relevant labels
+    y_bin = y_bin[:, inds]
+    th_hat = th_hat[:, inds]
+
+    # Remove no-prediction documents:
+    doc_id = np.where(th_hat.sum(axis=1) != 0)[0]
+    y_bin = y_bin[doc_id, :]
+    th_hat = th_hat[doc_id, :]
 
     tps, tns, fps, fns, fprs, tprs = rates(th_hat, y_bin)
 
