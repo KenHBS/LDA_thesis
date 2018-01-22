@@ -22,43 +22,46 @@ def main():
     print("Testing test data, this may take a while")
     l1, l2, l3 = zip(*[model.test_down_tree(x, it=opt.it, thinning=opt.thinning, threshold=0.95) for x in test[0]])
 
-    c = "Full texts"
-    if opt.f == "thesis_data3.csv":
-        c = "Abstracts"
+    # Evaluate quality for all label depths:
+    d = int(opt.lvl)
+    label_depths = list(range(1, d+1))
+    for depth in label_depths:
+        c = "Full texts"
+        if opt.f == "thesis_data3.csv":
+            c = "Abstracts"
 
-    print("Model:              CascadeLDA")
-    print("Corpus:             ", c)
-    print("Label depth         ", opt.lvl)
-    print("# of Gibbs samples: ", int(opt.it))
-    print("-----------------------------------")
+        print("Model:              CascadeLDA")
+        print("Corpus:             ", c)
+        print("Label depth         ", depth)
+        print("# of Gibbs samples: ", int(opt.it))
+        print("-----------------------------------")
 
-    depths = [int(i) for i in opt.lvl]
-    lab_level = [len(x) in depths for x in model.labelmap.keys()]
-    inds = np.where(lab_level)[0]
+        lab_level = [len(x)==depth for x in model.labelmap.keys()]
+        inds = np.where(lab_level)[0]
 
-    y_bin = binary_yreal(test[1], model.labelmap)
-    th_hat = setup_theta(l1, l2, l3, model)
+        y_bin = binary_yreal(test[1], model.labelmap)
+        th_hat = setup_theta(l1, l2, l3, model)
 
-    # Selecting the relevant labels
-    y_bin = y_bin[:, inds]
-    th_hat = th_hat[:, inds]
+        # Selecting the relevant labels
+        y_bin = y_bin[:, inds]
+        th_hat = th_hat[:, inds]
 
-    # Remove no-prediction documents:
-    doc_id = np.where(th_hat.sum(axis=1) != 0)[0]
-    y_bin = y_bin[doc_id, :]
-    th_hat = th_hat[doc_id, :]
+        # Remove no-prediction documents:
+        doc_id = np.where(th_hat.sum(axis=1) != 0)[0]
+        y_bin = y_bin[doc_id, :]
+        th_hat = th_hat[doc_id, :]
 
-    tps, tns, fps, fns, fprs, tprs = rates(th_hat, y_bin)
+        tps, tns, fps, fns, fprs, tprs = rates(th_hat, y_bin)
 
-    one_err = n_error(th_hat, y_bin, 1)
-    two_err = n_error(th_hat, y_bin, 2)
-    auc_roc = macro_auc_roc(fprs, tprs)
-    f1_macro = get_f1(tps, fps, tns, fns)
+        one_err = n_error(th_hat, y_bin, 1)
+        two_err = n_error(th_hat, y_bin, 2)
+        auc_roc = macro_auc_roc(fprs, tprs)
+        f1_macro = get_f1(tps, fps, tns, fns)
 
-    print("one error:               ", one_err)
-    print("two error:               ", two_err)
-    print("AUC ROC:                 ", auc_roc)
-    print("F1 score (macro average) ", f1_macro)
+        print("one error:               ", one_err)
+        print("two error:               ", two_err)
+        print("AUC ROC:                 ", auc_roc)
+        print("F1 score (macro average) ", f1_macro)
 
 if __name__ == "__main__":
     main()
