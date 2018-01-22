@@ -201,7 +201,7 @@ def main():
 
     print("Model:                CascadeLDA")
     print("Corpus:             ", c)
-    print("Label depth:        ", d)
+    print("Label depth:        ", options.labdepth)
     print("# of Gibbs samples: ", int(it))
     print("------------------------------------")
 
