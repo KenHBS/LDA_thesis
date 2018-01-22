@@ -5,14 +5,16 @@ from optparse import OptionParser
 
 
 def main():
+    import os
+    os.chdir("\\Users\\schroedk.hub\\LDA_Thesis\\LDA_thesis\\")
     parser = OptionParser()
     parser.add_option("-f", dest="file", help="dataset location")
-    parser.add_option("-d", dest="lvl", help="depth of label level")
-    parser.add_option("-i", dest="it", help="# of iterations - train and test")
-    parser.add_option("-s", dest="thinning", help="inter saving frequency")
-    parser.add_option("-l", dest="lower",
+    parser.add_option("-d", dest="lvl", type="int", help="depth of label level")
+    parser.add_option("-i", dest="it", type="int", help="# of iterations - train and test")
+    parser.add_option("-s", dest="thinning", type="int", help="inter saving frequency")
+    parser.add_option("-l", dest="lower", type="float",
                       help="lower threshold for dictionary pruning")
-    parser.add_option("-u", dest="upper",
+    parser.add_option("-u", dest="upper", type="float",
                       help="upper threshold for dictionary pruning")
 
     (opt, arg) = parser.parse_args()

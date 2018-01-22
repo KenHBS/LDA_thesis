@@ -457,7 +457,7 @@ def split_data(f="thesis_data.csv", d=3):
 def prune_dict(docs, lower=0.1, upper=0.9):
     dicti = dictionary.Dictionary(docs)
     lower *= len(docs)
-    dicti.filter_extremes(no_above=upper, no_below=lower)
+    dicti.filter_extremes(no_above=upper, no_below=int(lower))
     return dicti
 
 
