@@ -4,6 +4,20 @@ from sklearn.metrics import auc
 from optparse import OptionParser
 
 
+
+def load_data(prefix):
+    name1 = prefix + ".pkl"
+    name2 = prefix + "_th_hat.pkl"
+    name3 = prefix + "_testdocs.pkl"
+
+    model = pickle.load(open(name1, "rb"))
+    th_hat = pickle.load(open(name2, "rb"))
+    test_set = pickle.load(open(name3, "rb"))
+
+    th_hat = np.array(th_hat)
+    return model, th_hat, test_set
+
+
 def binary_yreal(label_strings, label_dict):
     ndoc = len(label_strings)
     ntop = len(label_dict)
@@ -134,38 +148,22 @@ def get_f1(tps, fps, tns, fns):
 
 def main():
     parser = OptionParser()
-    parser.add_option("-t", dest="type", help="either 'casc' or 'llda'")
-    parser.add_option("-s", dest="scope", help="either 'abs' or 'full'")
-    parser.add_option("-d", dest="depth", help="either 'd3' or 'd2'")
-    parser.add_option("-i", dest="iterations", help="# of iterations used")
+    parser.add_option("-p", dest="prefix", help="prefix of pickles")
 
     (options, args) = parser.parse_args()
 
-    doc = [options.type, options.scope, options.depth, options.iterations]
-    prefix = "_".join(doc)
-    name1 = prefix + ".pkl"
-    name2 = prefix + "_th_hat.pkl"
-    name3 = prefix + "_testdocs.pkl"
+    m, corpus, d, it = options.prefix.split("_")
+    model, th_hat, test_set = load_data(options.prefix)
 
-    model = pickle.load(open(name1, "rb"))
-    th_hat = pickle.load(open(name2, "rb"))
-    test_set = pickle.load(open(name3, "rb"))
-    th_hat = np.array(th_hat)
-
+    c = "Full texts"
+    if corpus == "abs":
+        c = "Abstracts"
     modelname = "Labeled LDA"
-    corpus = "Abstracts only"
-    depth = "Until second level of labels"
-    if options.type == "casc":
-        modelname = "Cascade LDA"
-    if options.scope == "full":
-        corpus = "Full articles"
-    if options.depth == "d3":
-        depth = "All leaf labels"
 
     print("Model:              ", modelname)
-    print("Corpus:             ", corpus)
-    print("Label depth:        ", depth)
-    print("# of Gibbs samples: ", int(options.iterations))
+    print("Corpus:             ", c)
+    print("Label depth:        ", d)
+    print("# of Gibbs samples: ", int(it))
     print("------------------------------------")
 
     y_bin = binary_yreal(test_set[1], model.labelmap)
