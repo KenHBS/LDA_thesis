@@ -169,6 +169,16 @@ def main():
     print("------------------------------------")
 
     y_bin = binary_yreal(test_set[1], model.labelmap)
+    # Remove root label from predictions (also not included in label sets)
+    y_bin = y_bin[:, 1:]
+    th_hat = th_hat[:, 1:]
+
+    # Remove docs that were assigned to 'root' completely:
+    nonzero_load = [x != 0 for x in th_hat.sum(axis=1)]
+    nonzero_load = np.where(nonzero_load)[0]
+    y_bin = y_bin[nonzero_load, :]
+    th_hat = th_hat[nonzero_load, :]
+
     tps, tns, fps, fns, fprs, tprs = rates(th_hat, y_bin)
 
     one_err = n_error(th_hat, y_bin, 1)
