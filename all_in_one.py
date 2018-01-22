@@ -16,7 +16,7 @@ def main():
                       help="upper threshold for dictionary pruning")
 
     (opt, arg) = parser.parse_args()
-    train, test = split_data(f=opt.f)
+    train, test = split_data(f=opt.file)
     model = train_it(train, it=opt.it, s=opt.thinning, l=opt.lower, u=opt.upper)
 
     print("Testing test data, this may take a while")
@@ -36,7 +36,7 @@ def main():
         print("# of Gibbs samples: ", int(opt.it))
         print("-----------------------------------")
 
-        lab_level = [len(x)==depth for x in model.labelmap.keys()]
+        lab_level = [len(x) == depth for x in model.labelmap.keys()]
         inds = np.where(lab_level)[0]
 
         y_bin = binary_yreal(test[1], model.labelmap)
