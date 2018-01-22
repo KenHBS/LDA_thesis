@@ -461,9 +461,9 @@ def prune_dict(docs, lower=0.1, upper=0.9):
     return dicti
 
 
-def train_it(train_data, it=150, s=12):
+def train_it(train_data, it=150, s=12, l=0.02, u=0.98):
     a, b, c = train_data
-    dicti = prune_dict(a, lower=0.02, upper=0.98)
+    dicti = prune_dict(a, lower=l, upper=u)
     cascade = CascadeLDA(a, b, c, dicti)
     cascade.go_down_tree(it=it, s=s)
     return cascade
