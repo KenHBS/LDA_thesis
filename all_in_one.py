@@ -29,7 +29,7 @@ def main():
     label_depths = list(range(1, d+1))
     for depth in label_depths:
         c = "Full texts"
-        if opt.f == "thesis_data3.csv":
+        if opt.file == "thesis_data3.csv":
             c = "Abstracts"
 
         print("Model:              CascadeLDA")
@@ -60,9 +60,9 @@ def main():
         auc_roc = macro_auc_roc(fprs, tprs)
         f1_macro = get_f1(tps, fps, tns, fns)
 
+        print("AUC ROC:                 ", auc_roc)
         print("one error:               ", one_err)
         print("two error:               ", two_err)
-        print("AUC ROC:                 ", auc_roc)
         print("F1 score (macro average) ", f1_macro)
 
 if __name__ == "__main__":
