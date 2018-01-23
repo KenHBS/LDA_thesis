@@ -128,17 +128,17 @@ class LabeledLDA(object):
                 self.n_zk[z_new] += f
 
     def run_training(self, iters, thinning):
-        burnin = int(iters/4)
         for n in range(iters):
             self.training_iteration()
             print('Running iteration # %d ' % (n+1))
             if (n+1) % thinning == 0:
                 cur_ph = self.get_phi()
                 cur_th = self.get_theta()
+
                 cur_perp = self.perplexity()
                 self.cur_perplx.append(cur_perp)
 
-                s = (n-burnin+1) / thinning
+                s = (n+1) / thinning
                 if s == 1:
                     self.ph_hat = cur_ph
                     self.th_hat = cur_th
@@ -149,6 +149,11 @@ class LabeledLDA(object):
                 if np.any(self.ph_hat < 0):
                     raise ValueError('A negative value occurred in self.ph_hat'
                                      'while saving iteration %d ' % n)
+                if np.any([np.isnan(x) for x in self.ph_hat]):
+                    raise ValueError('A nan has creeped into ph_hat')
+                wordload = self.ph_hat.sum(axis=0)
+                if np.any([x == 0 for x in wordload]):
+                    raise ValueError('A word in dictionary has no z-value')
 
     def prep4test(self, doc):
         doc_tups = self.dicti.doc2bow(doc)
