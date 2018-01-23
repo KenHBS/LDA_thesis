@@ -130,7 +130,7 @@ class CascadeLDA(object):
         return doc_tups, labs, labset
 
     def get_sub_ph(self, subdocs, sublabs, sublabset, it=150, thinning=12):
-        sublda = SubLDA(subdocs, sublabs, sublabset, self.dicti)
+        sublda = SubLDA(subdocs, sublabs, sublabset, self.dicti, alpha=self.alpha, beta=self.beta)
         sublda.run_training(it=it, thinning=thinning)
         return sublda.get_ph()
 
@@ -461,9 +461,9 @@ def prune_dict(docs, lower=0.1, upper=0.9):
     return dicti
 
 
-def train_it(train_data, it=150, s=12, l=0.02, u=0.98):
+def train_it(train_data, it=150, s=12, l=0.02, u=0.98, al=0.001, be=0.001):
     a, b, c = train_data
     dicti = prune_dict(a, lower=l, upper=u)
-    cascade = CascadeLDA(a, b, c, dicti)
+    cascade = CascadeLDA(a, b, c, dicti, alpha=al, beta=be)
     cascade.go_down_tree(it=it, s=s)
     return cascade

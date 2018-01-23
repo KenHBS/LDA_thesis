@@ -12,6 +12,8 @@ def main():
     parser.add_option("-d", dest="lvl", type="int", help="depth of label level")
     parser.add_option("-i", dest="it", type="int", help="# of iterations - train and test")
     parser.add_option("-s", dest="thinning", type="int", help="inter saving frequency")
+    parser.add_option("-a", dest="alpha", type="float", help="alpha prior")
+    parser.add_option("-b", dest="beta", type="float", help="beta prior")
     parser.add_option("-l", dest="lower", type="float",
                       help="lower threshold for dictionary pruning")
     parser.add_option("-u", dest="upper", type="float",
@@ -19,7 +21,7 @@ def main():
 
     (opt, arg) = parser.parse_args()
     train, test = split_data(f=opt.file)
-    model = train_it(train, it=opt.it, s=opt.thinning, l=opt.lower, u=opt.upper)
+    model = train_it(train, it=opt.it, s=opt.thinning, l=opt.lower, u=opt.upper, al=opt.alpha, be=opt.beta)
 
     print("Testing test data, this may take a while")
     l1, l2, l3 = zip(*[model.test_down_tree(x, it=opt.it, thinning=opt.thinning, threshold=0.95) for x in test[0]])
