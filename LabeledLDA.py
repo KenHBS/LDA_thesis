@@ -72,7 +72,6 @@ class LabeledLDA(object):
         self.ph_hat = np.zeros((self.K, self.V), dtype=float)
         self.th_hat = np.zeros((self.D, self.K), dtype=float)
         self.cur_perplx = []
-        self.avg_perplx = []
 
         self.z_dn = []
         self.n_zk = np.zeros(self.K, dtype=int)
@@ -136,15 +135,10 @@ class LabeledLDA(object):
             if (n+1) % thinning == 0:
                 cur_ph = self.get_phi()
                 cur_th = self.get_theta()
-                cur_perp = self.perplexity(cur_ph, cur_th)
+                cur_perp = self.perplexity()
+                self.cur_perplx.append(cur_perp)
 
                 s = (n-burnin+1) / thinning
-                if s > 1:
-                    avg_perp = self.perplexity(self.ph_hat, self.th_hat)
-                else:
-                    avg_perp = cur_perp
-                self.cur_perplx.append(cur_perp)
-                self.avg_perplx.append(avg_perp)
                 if s == 1:
                     self.ph_hat = cur_ph
                     self.th_hat = cur_th
@@ -164,7 +158,11 @@ class LabeledLDA(object):
         n_dk = np.zeros(self.K, dtype=int)
 
         probs = self.ph_hat[:, doc]
-        probs /= probs.sum(axis=0)
+        with np.errstate(divide="raise", invalid="raise"):
+            try:
+                probs /= probs.sum(axis=0)
+            except FloatingPointError:
+                probs = 1/self.K * np.ones_like(probs)
         for n, f in enumerate(freqs):
             prob = probs[:, n]
             while prob.sum() > 1:
@@ -176,11 +174,7 @@ class LabeledLDA(object):
         start_state = (doc, freqs, z_dn, n_dk)
         return start_state
 
-    def run_test(self, newdocs, it, thinning, ph=None):
-        if ph is not None:
-            ph = self.get_phi()
-        else:
-            ph = self.ph_hat
+    def run_test(self, newdocs, it, thinning):
         nr = len(newdocs)
         th_hat = np.zeros((nr, self.K), dtype=float)
         for d, newdoc in enumerate(newdocs):
@@ -190,7 +184,7 @@ class LabeledLDA(object):
                     n_dk[z] -= f
 
                     num_a = n_dk + self.alpha
-                    b = ph[:, v]
+                    b = self.ph_hat[:, v]
                     prob = num_a * b
                     prob /= prob.sum()
                     while prob.sum() > 1:
@@ -212,10 +206,7 @@ class LabeledLDA(object):
                         old = (s2 - 1) / s2 * avg_state
                         new = (1 / s2) * this_state
                         avg_state = old + new
-            if ph is not None:
-                th_hat[d, :] = this_state
-            else:
-                th_hat[d, :] = avg_state
+                    th_hat[d, :] = avg_state
         return th_hat
 
     def get_pred(self, single_th, n=5):
@@ -260,14 +251,14 @@ class LabeledLDA(object):
             topiclist += [top_n]
         return topiclist
 
-    def perplexity(self, phi, theta):
-        # phis = self.get_phi()
-        # thetas = self.get_theta()
+    def perplexity(self):
+        phis = self.get_phi()
+        thetas = self.get_theta()
 
         log_per = l = 0
-        for doc, th in zip(self.docs, theta):
+        for doc, th in zip(self.docs, thetas):
             for w in doc:
-                log_per -= np.log(np.inner(phi[:, w], th))
+                log_per -= np.log(np.inner(phis[:, w], th))
             l += len(doc)
         return np.exp(log_per / l)
 
@@ -300,10 +291,10 @@ def train_it(traindata, it=30, s=3, al=0.001, be=0.001, l=0.05, u=0.95):
     return llda
 
 
-def test_it(model, testdata, it=500, thinning=25, n=5, ph=None):
+def test_it(model, testdata, it=500, thinning=25, n=5):
     testdocs = testdata[0]
     testdocs = [[x for x in doc if x in model.vocab] for doc in testdocs]
-    th_hat = model.run_test(testdocs, it, thinning, ph=ph)
+    th_hat = model.run_test(testdocs, it, thinning)
     preds = model.get_preds(th_hat, n)
     th_hat = [[round(x, 4) for x in single_th] for single_th in th_hat]
     return th_hat, preds
