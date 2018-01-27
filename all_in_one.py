@@ -58,10 +58,6 @@ def main():
         y_bin = y_bin[valid, :]
         th_hat = th_hat[valid, :]
 
-        # Remove documents with only empty label in y_bin:
-        y_bin = y_bin[inds, :]
-        th_hat = th_hat[inds, :]
-
         tps, tns, fps, fns, fprs, tprs = rates(th_hat, y_bin)
 
         one_err = n_error(th_hat, y_bin, 1)
