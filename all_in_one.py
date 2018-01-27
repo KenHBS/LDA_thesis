@@ -48,10 +48,17 @@ def main():
         y_bin = y_bin[:, inds]
         th_hat = th_hat[:, inds]
 
-        # Remove no-prediction documents:
-        doc_id = np.where(th_hat.sum(axis=1) != 0)[0]
-        y_bin = y_bin[doc_id, :]
-        th_hat = th_hat[doc_id, :]
+        # Remove no-prediction and no-label documents
+        doc_id1 = np.where(th_hat.sum(axis=1) != 0)[0]
+        doc_id2 = np.where(y_bin.sum(axis=1) != 0)[0]
+        valid = np.intersect1d(doc_id1, doc_id2)
+
+        y_bin = y_bin[valid, :]
+        th_hat = th_hat[valid, :]
+
+        # Remove documents with only empty label in y_bin:
+        y_bin = y_bin[inds, :]
+        th_hat = th_hat[inds, :]
 
         tps, tns, fps, fns, fprs, tprs = rates(th_hat, y_bin)
 
