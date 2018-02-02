@@ -17,13 +17,28 @@ A formal and detailed coverage of baseline LDA, L-LDA, HSLDA and CascadeLDA can 
 
 ## Code content
 Python code for multi-label topic modelling with prior knowledge on label hierarchy using Latent Dirichlet Allocation (LDA). This code implements:
+
     1) Labeled LDA (Ramage et al, 2009)
     2) Hierarchical Supervised LDA (Perotte et al, 2011)
     3) CascadeLDA
 
-## Usage
+# Usage
 
-The code is roughly divided in four parts: Loading and preparing data, train a model, test a model and finally evaluate the predictive quality of the model. This workflow is implemented for L-LDA and CascadeLDA like this
+The code is roughly divided in four parts: Loading and preparing data, train a model, test a model and finally evaluate the predictive quality of the model. This workflow is implemented for L-LDA and CascadeLDA.
+
+## Input
+
+Each model takes a `.csv` document as input. Each line must consist of three columns: 
+
+    Column 1) Document ID
+    Column 2) One string containing the entire document
+    Column 3) Labels contained in a single string, separated by a space
+
+See `abstracts_data.csv` for an example. Any other structure will not be accepted as input.
+
+## How to run \& output
+
+To run Labeled LDA, see the below example. Simply replace `evaluate_LabeledLDA.py` with `evaluate_CascadeLDA.py` to run CascadeLDA, instead. 
 
 
 ```
@@ -49,6 +64,7 @@ So for example:
 
 ```
 $ python3 evaluate_LabeledLDA.py -f "abstracts_data.csv" -d 3 -i 200 -s 50 -l 0.01 -u 0.99 -a 0.1 -b 0.01 -p
+
 Stemming documents ....
 Starting training...
 Running iteration # 1 
@@ -59,7 +75,7 @@ Testing test data, this may take a while...
 Saved the model and predictions as pickles!
 Model:              Labeled LDA
 Corpus:              Abstracts
-Label depth          None
+Label depth          3
 # of Gibbs samples:  4
 -----------------------------------
 AUC ROC:                  0.696858414365
@@ -69,16 +85,12 @@ F1 score (macro average)  0.378575246979
 
 ```
 
-### CascadeLDA
-
-Simply replace `evaluate_LabeledLDA.py` with `evaluate_CascadeLDA` to perform CascadeLDA instead of L-LDA. The usage is exactly the same. 
-
-
 ## Datasets
 
 Two datasets were used in the thesis. For copyright reasons, only the abstracts dataset is made available here. It consists of 4.500 labeled academic abstracts from the economics literature. The papers are labeled according to the JEL classification. 
 
-## Summary of Challenges
+
+# Summary of Challenges
 
 Baseline LDA needs to be adapted to incorporate the following features:
 
