@@ -176,7 +176,7 @@ def main():
         pickle.dump(test, open("Cascade_testset.pkl", "wb"))
         pickle.dump(l1, open("Cascade_d1_pred.pkl", "wb"))
         pickle.dump(l2, open("Cascade_d2_pred.pkl", "wb"))
-        pickle.dump(l3, open("Cascaed_d3_pred.pkl", "wb"))
+        pickle.dump(l3, open("Cascade_d3_pred.pkl", "wb"))
 
     # Evaluate quality for all label depths:
     d = int(opt.lvl)
