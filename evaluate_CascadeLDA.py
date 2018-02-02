@@ -1,37 +1,7 @@
-import re
-import numpy as np
-import pickle
+from CascadeLDA import *
 from sklearn.metrics import auc
 from optparse import OptionParser
-
-
-def load_data(prefix):
-    name1 = prefix + ".pkl"
-    name2 = prefix + "_l1_pred.pkl"
-    name3 = prefix + "_l2_pred.pkl"
-    name4 = prefix + "_l3_pred.pkl"
-    name5 = prefix + "_testdocs.pkl"
-
-    model = pickle.load(open(name1, "rb"))
-    l1p = pickle.load(open(name2, "rb"))
-    l2p = pickle.load(open(name3, "rb"))
-    l3p = pickle.load(open(name4, "rb"))
-    test_set = pickle.load(open(name5, "rb"))
-    return model, l1p, l2p, l3p, test_set
-
-
-def binary_yreal(label_strings, label_dict):
-    ndoc = len(label_strings)
-    ntop = len(label_dict)
-    y_true = np.zeros((ndoc, ntop), dtype=int)
-    for d, lab in enumerate(label_strings):
-        for l in lab:
-            try:
-                ind = label_dict[l]
-                y_true[d, ind] = 1
-            except KeyError:
-                pass
-    return y_true
+import pickle
 
 
 def one_roc(prob, real_binary):
@@ -98,32 +68,6 @@ def macro_auc_roc(fprs, tprs):
     return np.mean(areas_under_curve)
 
 
-def macro_auc_pr(tps, tns, fps, fns):
-    precision = []
-    recall = []
-    for tp, tn, fp, fn in zip(tps, tns, fps, fns):
-        one_prec, one_recall = precision_recall(tp, fp, tn, fn)
-
-        precision.append(one_prec)
-        recall.append(one_recall)
-
-    zipped = zip(precision, recall)
-    areas_under_curve = [auc(pre, rec) for (pre, rec) in zipped]
-    return np.mean(areas_under_curve)
-
-
-def one_error(th_hat, y_real_binary):
-    ndocs = th_hat.shape[0]
-    counter = 0
-    for i in range(ndocs):
-        ordered = np.argsort(th_hat[i, :])[::-1]
-        toplab = ordered[0]
-        hit = (y_real_binary[i, toplab] == 1)
-        if hit:
-            counter += 1
-    return counter / ndocs
-
-
 def n_error(th_hat, y_real_binary, n):
     ndocs = th_hat.shape[0]
     counter = 0
@@ -183,55 +127,100 @@ def setup_theta(l1p, l2p, l3p, model):
     return th_hat
 
 
+def binary_yreal(label_strings, label_dict):
+    ndoc = len(label_strings)
+    ntop = len(label_dict)
+    y_true = np.zeros((ndoc, ntop), dtype=int)
+    for d, lab in enumerate(label_strings):
+        for l in lab:
+            try:
+                ind = label_dict[l]
+                y_true[d, ind] = 1
+            except KeyError:
+                pass
+    return y_true
+
+
 def main():
     parser = OptionParser()
-    parser.add_option("-p", dest="prefix", help="prefix of pickles")
-    parser.add_option("-d", dest="labdepth", help="which label level(s) "
-                                                  "to consider for "
-                                                  "class. quality")
-    (options, args) = parser.parse_args()
+    parser.add_option("-f", dest="file", help="dataset location")
+    parser.add_option("-d", dest="lvl", type="int",
+                      help="depth of label level", default=3)
+    parser.add_option("-i", dest="it", type="int",
+                      help="# of iterations - train and test")
+    parser.add_option("-s", dest="thinning", type="int",
+                      help="inter saving frequency", default=0)
+    parser.add_option("-a", dest="alpha", type="float", help="alpha prior",
+                      default=0.1)
+    parser.add_option("-b", dest="beta", type="float", help="beta prior",
+                      default=0.01)
+    parser.add_option("-l", dest="lower", type="float",
+                      help="lower threshold for dictionary pruning", default=0)
+    parser.add_option("-u", dest="upper", type="float",
+                      help="upper threshold for dictionary pruning", default=1)
+    parser.add_option("-p", action="store_true", dest="pickle",
+                      help="save pickle of model?", default=False)
 
-    model, l1p, l2p, l3p, test_set = load_data(options.prefix)
+    (opt, arg) = parser.parse_args()
 
-    m, corpus, d, it = options.prefix.split("_")
-    c = "Full texts"
-    if corpus == "abs":
-        c = "Abstracts only"
+    if opt.thinning == 0:
+        opt.thinning = opt.it
+    train, test = split_data(f=opt.file)
+    model = train_it(train, it=opt.it, s=opt.thinning,
+                     l=opt.lower, u=opt.upper, al=opt.alpha, be=opt.beta)
 
+    print("Testing test data, this may take a while")
+    l1, l2, l3 = zip(*[model.test_down_tree(x, it=opt.it, thinning=opt.thinning, threshold=0.95) for x in test[0]])
+    if opt.pickle:
+        pickle.dump(model, open("Cascade_model.pkl", "wb"))
+        pickle.dump(test, open("Cascade_testset.pkl", "wb"))
+        pickle.dump(l1, open("Cascade_d1_pred.pkl", "wb"))
+        pickle.dump(l2, open("Cascade_d2_pred.pkl", "wb"))
+        pickle.dump(l3, open("Cascaed_d3_pred.pkl", "wb"))
 
-    print("Model:                CascadeLDA")
-    print("Corpus:             ", c)
-    print("Label depth:        ", options.labdepth)
-    print("# of Gibbs samples: ", int(it))
-    print("------------------------------------")
+    # Evaluate quality for all label depths:
+    d = int(opt.lvl)
+    label_depths = list(range(1, d+1))
+    for depth in label_depths:
+        c = "Full texts"
+        if opt.file == "thesis_data3.csv":
+            c = "Abstracts"
 
-    depths = [int(i) for i in options.labdepth]
-    lab_level = [len(x) in depths for x in model.labelmap.keys()]
-    inds = np.where(lab_level)[0]
+        print("Model:              CascadeLDA")
+        print("Corpus:             ", c)
+        print("Label depth         ", depth)
+        print("# of Gibbs samples: ", int(opt.it))
+        print("-----------------------------------")
 
-    y_bin = binary_yreal(test_set[1], model.labelmap)
-    th_hat = setup_theta(l1p, l2p, l3p, model)
+        lab_level = [len(x) == depth for x in model.labelmap.keys()]
+        inds = np.where(lab_level)[0]
 
-    # Selecting the relevant labels
-    y_bin = y_bin[:, inds]
-    th_hat = th_hat[:, inds]
+        y_bin = binary_yreal(test[1], model.labelmap)
+        th_hat = setup_theta(l1, l2, l3, model)
 
-    # Remove no-prediction documents:
-    doc_id = np.where(th_hat.sum(axis=1) != 0)[0]
-    y_bin = y_bin[doc_id, :]
-    th_hat = th_hat[doc_id, :]
+        # Selecting the relevant labels
+        y_bin = y_bin[:, inds]
+        th_hat = th_hat[:, inds]
 
-    tps, tns, fps, fns, fprs, tprs = rates(th_hat, y_bin)
+        # Remove no-prediction and no-label documents
+        doc_id1 = np.where(th_hat.sum(axis=1) != 0)[0]
+        doc_id2 = np.where(y_bin.sum(axis=1) != 0)[0]
+        valid = np.intersect1d(doc_id1, doc_id2)
 
-    one_err = n_error(th_hat, y_bin, 1)
-    two_err = n_error(th_hat, y_bin, 2)
-    auc_roc = macro_auc_roc(fprs, tprs)
-    f1_macro = get_f1(tps, fps, tns, fns)
+        y_bin = y_bin[valid, :]
+        th_hat = th_hat[valid, :]
 
-    print("one error:               ", one_err)
-    print("two error:               ", two_err)
-    print("AUC ROC:                 ", auc_roc)
-    print("F1 score (macro average) ", f1_macro)
+        tps, tns, fps, fns, fprs, tprs = rates(th_hat, y_bin)
+
+        one_err = n_error(th_hat, y_bin, 1)
+        two_err = n_error(th_hat, y_bin, 2)
+        auc_roc = macro_auc_roc(fprs, tprs)
+        f1_macro = get_f1(tps, fps, tns, fns)
+
+        print("AUC ROC:                 ", auc_roc)
+        print("one error:               ", one_err)
+        print("two error:               ", two_err)
+        print("F1 score (macro average) ", f1_macro)
 
 
 if __name__ == "__main__":
