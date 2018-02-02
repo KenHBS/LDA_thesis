@@ -13,3 +13,4 @@ six==1.10.0
 smart-open==1.5.3
 stop-words==2015.2.23.1
 urllib3==1.22
+sklearn==0.0
