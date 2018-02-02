@@ -22,7 +22,6 @@ def load_corpus(filename, d=3):
     docs = []
     labs = []
     labelmap = dict()
-    n = 0
     pat = re.compile("[A-Z]\d{2}")
     f = open(filename, 'r')
     reader = csv.reader(f)
@@ -44,8 +43,6 @@ def load_corpus(filename, d=3):
                 # lab = [lab]
         docs.append(doc)
         labs.append(lab)
-        n += 1
-        print(n)
     f.close()
     print("Stemming documents ....")
     docs = gensimm.preprocess_documents(docs)
@@ -130,7 +127,8 @@ class CascadeLDA(object):
         return doc_tups, labs, labset
 
     def get_sub_ph(self, subdocs, sublabs, sublabset, it=150, thinning=12):
-        sublda = SubLDA(subdocs, sublabs, sublabset, self.dicti, alpha=self.alpha, beta=self.beta)
+        sublda = SubLDA(subdocs, sublabs, sublabset, self.dicti,
+                        alpha=self.alpha, beta=self.beta)
         sublda.run_training(it=it, thinning=thinning)
         return sublda.get_ph()
 
@@ -196,7 +194,7 @@ class CascadeLDA(object):
         probs = ph[:, doc]
         probs += self.beta
         probs /= probs.sum(axis=0)
-        # Initiate with the 'garbage'/'root' label uniform:
+        # Initiate with the 'garbage'/'root' label uniformly:
         probs[0, :] = 1 / ld
         for n, freq in enumerate(freqs):
             prob = probs[:, n]
@@ -301,11 +299,6 @@ class CascadeLDA(object):
 
                 level_3.append(tups)
         return level_1, level_2, level_3
-
-    def tidy_test_results(self, lvl1, lvl2, lvl3, c1=0.15, c2=0.30, c3=0.45):
-        level1 = [x for x in lvl1 if x[1] > c1]
-        l1_set = [x[0] for x in level1]
-        pass
 
     def run_test(self, docs, it, thinning, depth="all"):
         inds = None
