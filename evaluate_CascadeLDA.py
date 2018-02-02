@@ -186,7 +186,7 @@ def main():
         if opt.file == "thesis_data3.csv":
             c = "Abstracts"
 
-        print("Model:              CascadeLDA")
+        print("Model:               CascadeLDA")
         print("Corpus:             ", c)
         print("Label depth         ", depth)
         print("# of Gibbs samples: ", int(opt.it))
