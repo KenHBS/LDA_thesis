@@ -21,7 +21,6 @@ def load_corpus(filename, d):
     docs = []
     labs = []
     labelmap = dict()
-    n = 0
     pat = re.compile("[A-Z]\d{2}")
     f = open(filename, 'r')
     reader = csv.reader(f)
@@ -41,8 +40,6 @@ def load_corpus(filename, d):
         lab = list(set(lab))
         docs.append(doc)
         labs.append(lab)
-        n += 1
-        print(n)
     f.close()
     print("Stemming documents ....")
     docs = gensimm.preprocess_documents(docs)
