@@ -1,35 +1,8 @@
-import pickle
-import numpy as np
+from LabeledLDA import *
 from sklearn.metrics import auc
 from optparse import OptionParser
-
-
-
-def load_data(prefix):
-    name1 = prefix + ".pkl"
-    name2 = prefix + "_th_hat.pkl"
-    name3 = prefix + "_testdocs.pkl"
-
-    model = pickle.load(open(name1, "rb"))
-    th_hat = pickle.load(open(name2, "rb"))
-    test_set = pickle.load(open(name3, "rb"))
-
-    th_hat = np.array(th_hat)
-    return model, th_hat, test_set
-
-
-def binary_yreal(label_strings, label_dict):
-    ndoc = len(label_strings)
-    ntop = len(label_dict)
-    y_true = np.zeros((ndoc, ntop), dtype=int)
-    for d, lab in enumerate(label_strings):
-        for l in lab:
-            try:
-                ind = label_dict[l]
-                y_true[d, ind] = 1
-            except KeyError:
-                pass
-    return y_true
+import pickle
+import numpy as np
 
 
 def one_roc(prob, real_binary):
@@ -96,32 +69,6 @@ def macro_auc_roc(fprs, tprs):
     return np.mean(areas_under_curve)
 
 
-def macro_auc_pr(tps, tns, fps, fns):
-    precision = []
-    recall = []
-    for tp, tn, fp, fn in zip(tps, tns, fps, fns):
-        one_prec, one_recall = precision_recall(tp, fp, tn, fn)
-
-        precision.append(one_prec)
-        recall.append(one_recall)
-
-    zipped = zip(precision, recall)
-    areas_under_curve = [auc(pre, rec) for (pre, rec) in zipped]
-    return np.mean(areas_under_curve)
-
-
-def one_error(th_hat, y_real_binary):
-    ndocs = th_hat.shape[0]
-    counter = 0
-    for i in range(ndocs):
-        ordered = np.argsort(th_hat[i, :])[::-1]
-        toplab = ordered[0]
-        hit = (y_real_binary[i, toplab] == 1)
-        if hit:
-            counter += 1
-    return counter / ndocs
-
-
 def n_error(th_hat, y_real_binary, n):
     ndocs = th_hat.shape[0]
     counter = 0
@@ -146,47 +93,88 @@ def get_f1(tps, fps, tns, fns):
     return np.mean(f1)
 
 
+def binary_yreal(label_strings, label_dict):
+    ndoc = len(label_strings)
+    ntop = len(label_dict)
+    y_true = np.zeros((ndoc, ntop), dtype=int)
+    for d, lab in enumerate(label_strings):
+        for l in lab:
+            try:
+                ind = label_dict[l]
+                y_true[d, ind] = 1
+            except KeyError:
+                pass
+    return y_true
+
+
 def main():
     parser = OptionParser()
-    parser.add_option("-p", dest="prefix", help="prefix of pickles")
+    parser.add_option("-f", dest="file", help="dataset location")
+    parser.add_option("-d", dest="lvl", type="int", default=3,
+                      help="depth of lab level")
+    parser.add_option("-i", dest="it", type="int", help="# of iterations")
+    parser.add_option("-s", dest="thinning", type="int", default=0,
+                      help="save frequency")
+    parser.add_option("-l", dest="lower", type="float", default=0,
+                      help="lower threshold for dictionary pruning")
+    parser.add_option("-u", dest="upper", type="float", default=1,
+                      help="upper threshold for dictionary pruning")
+    parser.add_option("-a", dest="alpha", type="float", default=0.1,
+                      help="alpha prior")
+    parser.add_option("-b", dest="beta", type="float", default=0.01,
+                      help="beta prior")
+    parser.add_option("-p", action="store_true", dest="pickle", default=False,
+                      help="Save the model as pickle?")
+    (opt, arg) = parser.parse_args()
+    if opt.thinning == 0:
+        opt.thinning = opt.it
 
-    (options, args) = parser.parse_args()
+    train, test = split_data(f=opt.file, d=opt.lvl)
 
-    m, corpus, d, it = options.prefix.split("_")
-    model, th_hat, test_set = load_data(options.prefix)
+    print("Starting training...")
+    model = train_it(train, it=opt.it, s=opt.thinning,
+                     al=opt.alpha, be=opt.beta, l=opt.lower, u=opt.upper)
 
-    c = "Full texts"
-    if corpus == "abs":
+    print("Testing test data, this may take a while...")
+    th, _ = test_it(model, test, it=opt.it, thinning=opt.thinning)
+    th = np.array(th)
+    if opt.pickle:
+        pickle.dump(model, open("LabeledLDA_model.pkl", "wb"))
+        pickle.dump(test, open("LabeledLDA_testset.pkl", "wb"))
+        pickle.dump(th, open("LabeledLDA_theta.pkl", "wb"))
+
+    c = "Full Texts"
+    if opt.file == "thesis_data3.csv":
         c = "Abstracts"
-    modelname = "Labeled LDA"
 
-    print("Model:              ", modelname)
+    print("Model:               Labeled LDA")
     print("Corpus:             ", c)
-    print("Label depth:        ", d)
-    print("# of Gibbs samples: ", int(it))
-    print("------------------------------------")
+    print("Label depth         ", opt.lvl)
+    print("# of Gibbs samples: ", int(opt.it))
+    print("-----------------------------------")
 
-    y_bin = binary_yreal(test_set[1], model.labelmap)
+    y_bin = binary_yreal(test[1], model.labelmap)
+
     # Remove root label from predictions (also not included in label sets)
     y_bin = y_bin[:, 1:]
-    th_hat = th_hat[:, 1:]
+    th = th[:, 1:]
 
     # Remove docs that were assigned to 'root' completely:
-    nonzero_load = [x != 0 for x in th_hat.sum(axis=1)]
+    nonzero_load = [x != 0 for x in th.sum(axis=1)]
     nonzero_load = np.where(nonzero_load)[0]
     y_bin = y_bin[nonzero_load, :]
-    th_hat = th_hat[nonzero_load, :]
+    th = th[nonzero_load, :]
 
-    tps, tns, fps, fns, fprs, tprs = rates(th_hat, y_bin)
+    tps, tns, fps, fns, fprs, tprs = rates(th, y_bin)
 
-    one_err = n_error(th_hat, y_bin, 1)
-    two_err = n_error(th_hat, y_bin, 2)
+    one_err = n_error(th, y_bin, 1)
+    two_err = n_error(th, y_bin, 2)
     auc_roc = macro_auc_roc(fprs, tprs)
     f1_macro = get_f1(tps, fps, tns, fns)
 
+    print("AUC ROC:                 ", auc_roc)
     print("one error:               ", one_err)
     print("two error:               ", two_err)
-    print("AUC ROC:                 ", auc_roc)
     print("F1 score (macro average) ", f1_macro)
 
 
