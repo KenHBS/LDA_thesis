@@ -125,6 +125,7 @@ def main():
                       help="beta prior")
     parser.add_option("-p", action="store_true", dest="pickle", default=False,
                       help="Save the model as pickle?")
+
     (opt, arg) = parser.parse_args()
     if opt.thinning == 0:
         opt.thinning = opt.it

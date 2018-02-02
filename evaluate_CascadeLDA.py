@@ -177,6 +177,7 @@ def main():
         pickle.dump(l1, open("Cascade_d1_pred.pkl", "wb"))
         pickle.dump(l2, open("Cascade_d2_pred.pkl", "wb"))
         pickle.dump(l3, open("Cascade_d3_pred.pkl", "wb"))
+        print("Saved the model and predictions as pickles!")
 
     # Evaluate quality for all label depths:
     d = int(opt.lvl)
