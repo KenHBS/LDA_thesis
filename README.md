@@ -1,11 +1,11 @@
 # Usage
-This code can be used for multi-label topic modelling with prior knowledge. It uses Latent Dirichlet Allocation (LDA) and the following LDA-based models:
+This code can be used for multi-label topic modelling with prior knowledge. It uses Latent Dirichlet Allocation (LDA) as a baseline and implements the following LDA-based models:
 
 1) Labeled LDA (Ramage et al, 2009)
 2) Hierarchical Supervised LDA (Perotte et al, 2011)
 3) CascadeLDA
 
-The code is roughly divided in four parts: Loading and preparing data, train a model, test a model and finally evaluate the predictive quality of the model. This workflow is implemented for L-LDA and CascadeLDA.
+The workflow of each model is roughly divided in four parts: Loading and preparing data, train a model, test a model and finally evaluate the predictive quality of the model. 
 
 ## Input
 
@@ -65,6 +65,8 @@ two error:                0.5862068965517241
 F1 score (macro average)  0.378575246979
 
 ```
+
+For more freedom and a detailed look on how to use the models, see `example_runs.py`.
 
 ## Datasets
 
