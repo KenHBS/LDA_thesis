@@ -66,8 +66,6 @@ F1 score (macro average)  0.378575246979
 
 ```
 
-For more freedom and a detailed look on how to use the models, see `example_runs.py`.
-
 ## Datasets
 
 Two datasets were used in the thesis. For copyright reasons, only the abstracts dataset is made available here. It consists of 4.500 labeled academic abstracts from the economics literature. The papers are labeled according to the JEL classification. 
