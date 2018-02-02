@@ -53,7 +53,6 @@ def load_corpus(filename, d=3):
     docs = []
     labs = []
     labelmap = dict()
-    n = 0
     pat = re.compile("[A-Z]\d{2}")
     f = open(filename, 'r')
     reader = csv.reader(f)
@@ -74,8 +73,6 @@ def load_corpus(filename, d=3):
                 labelmap[x] = 1
         docs.append(doc)
         labs.append(lab)
-        n += 1
-        print(n)
     f.close()
     print("Stemming documents .... ")
     docs = gensimm.preprocess_documents(docs)
@@ -123,9 +120,9 @@ class HSLDA(object):
         self.n_zk = np.zeros(self.K, dtype=int)
 
         for d, doc in enumerate(self.docs):
-            len_d = len(doc)
+            nd = len(doc)
             prob = self.th[d, :]
-            zets = np.random.choice(self.K, size=len_d, p=prob)
+            zets = np.random.choice(self.K, size=nd, p=prob)
             self.z_dn.append(zets)
             for v, z in zip(doc, zets):
                 self.n_d_k[d, z] += 1
@@ -414,8 +411,6 @@ def train_it(traindata, it=150, s=25, opt=1):
 
 
 def test_it(model, testdata, it=500, s=25):
-    if not isinstance(model, HSLDA):
-        raise TypeError('model must ba HSLDA object, not', type(model))
     testdocs = testdata[0]
     testdocs = [[x for x in doc if x in model.vocab] for doc in testdocs]
     lab_probs = model.run_tests(testdocs, it=it, s=s)
