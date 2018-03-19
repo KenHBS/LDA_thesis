@@ -99,4 +99,4 @@ In order to solve the classification problem of academic papers, the main extens
 
 ## License
 
-The code and thesis are licensed under Attribution-NonCommercial-ShareAlike 3.0 Germany (CC BY-NC-SA 3.0 DE)
+The code and thesis are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/deed.en"> Attribution-NonCommercial-ShareAlike 3.0 Germany (CC BY-NC-SA 3.0 DE) </a>
