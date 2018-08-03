@@ -4,8 +4,11 @@ This code can be used for multi-label topic modelling with prior knowledge. It u
 1) Labeled LDA (Ramage et al, 2009)
 2) Hierarchical Supervised LDA (Perotte et al, 2011)
 3) CascadeLDA
+4) LocalLDA
 
-The workflow of each model is roughly divided in four parts: Loading and preparing data, train a model, test a model and finally evaluate the predictive quality of the model. 
+The workflow of each model is roughly divided in four parts: Loading and preparing data, train a model, test a model and finally evaluate the predictive quality of the model.  
+
+I also added a training option for LocalLDA, which is a sentence-based version of LDA. Very useful for short texts such as online reviews, but not very useful in longer, more coherent texts.
 
 ## Input
 
