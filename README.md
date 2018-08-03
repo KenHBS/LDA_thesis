@@ -96,3 +96,7 @@ In order to solve the classification problem of academic papers, the main extens
 1) Instead of latent topics, we need the topics to correspond exactly to the JEL code descriptions (i.e. explicit topic modelling).
 2) Incorporating prior knowledge on document-topic assignment (i.e. we have a training dataset)
 3) Many labels are very closely related and barely distinguishable. Even though topic-word distributions are accurate, they are nearly identical and do not allow for discrimination.
+
+## License
+
+The code and thesis are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/de/deed.en"> Attribution-NonCommercial-ShareAlike 3.0 Germany (CC BY-NC-SA 3.0 DE) </a>
