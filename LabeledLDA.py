@@ -2,11 +2,21 @@ from gensim.corpora import dictionary
 import numpy as np
 from numpy.random import multinomial as multinom_draw
 
+from typing import List, Dict
 
-class LabeledLDA(object):
-    def __init__(self, docs, labs, labelset, dicti, alpha, beta):
+class LabeledLDA:
+    def __init__(self,
+                 *
+                 docs: List[str],
+                 labs: List[List[str]],
+                 labelset: List[str],
+                 corpus_dict: dictionary.Dictionary,
+                 alpha: float,
+                 beta: float):
+    
         labelset.insert(0, 'root')
-        self.labelmap = dict(zip(labelset, range(len(labelset))))
+        self.labelmap = dict(zip(labelset, range(1, len(labelset)+1)))
+        self.labelmap['root'] = 0
         self.K = len(self.labelmap)
         self.dicti = dicti
 
