@@ -1,49 +1,6 @@
-import gensim.parsing.preprocessing as gensimm
 from gensim.corpora import dictionary
 import numpy as np
 from numpy.random import multinomial as multinom_draw
-
-
-def load_corpus(filename, d):
-    import csv, sys, re
-
-    # Increase max line length for csv.reader:
-    max_int = sys.maxsize
-    decrement = True
-    while decrement:
-        decrement = False
-        try:
-            csv.field_size_limit(max_int)
-        except OverflowError:
-            max_int = int(max_int/10)
-            decrement = True
-
-    docs = []
-    labs = []
-    labelmap = dict()
-    pat = re.compile("[A-Z]\d{2}")
-    f = open(filename, 'r')
-    reader = csv.reader(f)
-    for row in reader:
-        doc = row[1]
-        lab = row[2]
-        if len(lab) > 3:
-            lab = lab.split(" ")
-            lab = list(filter(lambda i: pat.search(i), lab))
-            lab = [x[:d] for x in lab]
-            for x in lab:
-                labelmap[x] = 1
-        else:
-            lab = lab[:d]
-            labelmap[lab] = 1
-            lab = [lab]
-        lab = list(set(lab))
-        docs.append(doc)
-        labs.append(lab)
-    f.close()
-    print("Stemming documents ....")
-    docs = gensimm.preprocess_documents(docs)
-    return docs, labs, list(labelmap.keys())
 
 
 class LabeledLDA(object):
