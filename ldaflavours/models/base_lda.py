@@ -5,36 +5,41 @@ import numpy as np
 
 from numpy.random import multinomial as multinom_draw
 
-from typing import List, Dict, Tuple
+from typing import List, Dict, Tuple, Optional
 
 
 class BaseLDA:
     def __init__(self,
+                 *,
                  doc_tuples: List[List[Tuple[int]]],
-                 labs: List[List[str]],
                  vocabulary: gensim.corpora.dictionary.Dictionary,
                  alpha: float,
-                 beta: float):
-        self.label_mapping = self.generate_label_mapping(labs)
+                 beta: float,
+                 labs: Optional[List[List[str]]]=None,
+                 K: Optional[int]=None):
         self.vocabulary = vocabulary
-
-        self.labs = np.array(self.dummify_label(lab) for lab in labs)
         self.doc_tups = doc_tuples
 
         self.alpha = alpha
         self.beta = beta
 
-        self.w_to_v = self.vocabulary.token2id
-        self.v_to_w = self.vocabulary.id2token
-
-        self.K = len(self.label_mapping)
-        self.D = len(self.doc_tuples)
+        self.D = len(self.doc_tups)
         self.V = len(self.vocabulary)
+
+        if labs:
+            self.label_mapping = self.generate_label_mapping(labs)
+            self.labs = np.array([self.dummify_label(lab) for lab in labs])
+            self.K = len(self.label_mapping)
+        else:
+            print('No labels provided, running unsupervised LDA..')
+            self.label_mapping = dict(zip(range(K), range(K)))
+            self.K = K
+            self.labs = np.ones((self.D, self.K), dtype=int)
 
         # Initiate theta, phi, z, w and helper counters:
         self.ph_hat = np.zeros((self.K, self.V), dtype=float)
         self.th_hat = np.zeros((self.D, self.K), dtype=float)
-        self.cur_perplexity = []
+        self.cur_perplexity = []  # Currently unused
 
         self.z_dn = []
         self.n_zk = np.zeros(self.K, dtype=int)
@@ -45,6 +50,7 @@ class BaseLDA:
         self.docs = []
         self.freqs = []
         for d, (doc, lab) in enumerate(zip(self.doc_tups, self.labs)):
+
             ids, freqs = zip(*doc)
             self.docs.append(list(ids))
             self.freqs.append(list(freqs))
@@ -64,7 +70,7 @@ class BaseLDA:
     def generate_label_mapping(labels: List[List[str]]) -> Dict[str, int]:
         """ Return label-to-integer mapping dictionary """
         label_space = {lab for labs in labels for lab in labs if lab != ''}
-        n = len(label_space)
+        n = len(label_space) + 1
 
         mapping = dict(zip(label_space, range(1, n)))
         mapping['root'] = 0
@@ -114,18 +120,15 @@ class BaseLDA:
             print("Running iteration # {}".format(n + 1))
 
             if (n + 1) % thinning == 0:
-                self._save_training_iteration()
+                self._save_training_iteration(n, thinning)
 
-                self._validate_current_state()
+                self._validate_current_state(n)
         pass
 
-    def _save_training_iteration(self) -> None:
+    def _save_training_iteration(self, n: int, thinning: int) -> None:
         """ Update ph_hat and th_hat with the current state """
         cur_ph = self.get_phi()
         cur_th = self.get_theta()
-
-        current_perplexity = self.perplexity()
-        self.cur_perplexity.append(current_perplexity)
         
         save_count = (n + 1) / thinning
         if save_count == 1:
@@ -138,7 +141,6 @@ class BaseLDA:
             self.ph_hat = factor * self.ph_hat + (fraction * cur_ph)
             self.th_hat = factor * self.th_hat + (fraction * cur_th)
 
-        self._validate_current_state()
         pass
 
     def _validate_current_state(self, i: int) -> None:
@@ -155,7 +157,7 @@ class BaseLDA:
             raise ValueError(msg)
 
         wordloads = self.ph_hat.sum(axis=0)
-        any_empty_topics = (wordsloads == 0).any()
+        any_empty_topics = (wordloads == 0).any()
         if any_empty_topics:
             msg = f"A word in dictionary has no single z-assignment {std_msg}"
             raise ValueError(msg)
@@ -177,12 +179,13 @@ class BaseLDA:
     def topwords_per_topic(self, n: int = 10) -> List[List[List[str]]]:
         """ For all topics, return the words with highest loading """
         possible_labels = list(self.label_mapping.keys())
+        #v_to_w = {k:v for k, v in self.vocabulary.items()}
 
         ph = self.get_phi()
         topic_list = []
         for k in range(self.K):
             v_inds = np.argsort(-ph[k, :])[:n]
-            top_n = [self.v_to_w[x] for x in v_inds]
+            top_n = [self.vocabulary[x] for x in v_inds]
 
             topic_name = possible_labels[k]
             top_n.insert(0, topic_name)

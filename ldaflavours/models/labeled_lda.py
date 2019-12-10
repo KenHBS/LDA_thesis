@@ -1,5 +1,5 @@
-from LDA_Thesis.models.base_lda import BaseLDA
-from LDA_Thesis.helpers.load_corpus import PrepareCorpus
+from ldaflavours.models.base_lda import BaseLDA
+from ldaflavours.helpers.loader import PrepareCorpus
 
 import numpy as np
 from numpy.random import multinomial as multinom_draw
@@ -170,21 +170,3 @@ class LabeledLDA(BaseLDA):
 
             predictions.append(prediction)
         return predictions
-
-
-#def train_it(traindata, it=30, s=3, al=0.001, be=0.001, l=0.05, u=0.95):
-#    a, b, c = traindata
-#    dicti = prune_dict(a, lower=l, upper=u)
-#    llda = LabeledLDA(a, b, c, dicti, al, be)
-#    llda.run_training(it, s)
-#    return llda
-#
-#
-#def test_it(model, testdata, it=500, thinning=25, n=5):
-#    testdocs = testdata[0]
-#    testdocs = [[x for x in doc if x in model.vocab] for doc in testdocs]
-#    th_hat = model.run_test(testdocs, it, thinning)
-#    preds = model.get_predictions(th_hat, n)
-#    th_hat = [[round(x, 4) for x in single_th] for single_th in th_hat]
-#    return th_hat, preds
-#
