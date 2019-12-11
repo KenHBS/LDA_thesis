@@ -11,7 +11,7 @@ state_type = Dict[str, Union[doctup_type, np.array]]
 
 
 # Only testing-related methods in comparison with BaseLDA..
-class LabeledLDA(BaseLDA):
+class PosteriorLDA(BaseLDA):
     """
     Methods to get predictions on a list of unseen texts (List[str]).
 
