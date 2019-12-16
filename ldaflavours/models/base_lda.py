@@ -7,16 +7,18 @@ from numpy.random import multinomial as multinom_draw
 
 from typing import List, Dict, Tuple, Optional
 
+doctup_type = List[Tuple[int]]
+
 
 class BaseLDA:
     def __init__(self,
                  *,
-                 doc_tuples: List[List[Tuple[int]]],
+                 doc_tuples: List[doctup_type],
                  vocabulary: gensim.corpora.dictionary.Dictionary,
                  alpha: float,
                  beta: float,
-                 labs: Optional[List[List[str]]]=None,
-                 K: Optional[int]=None):
+                 labs: Optional[List[List[str]]] = None,
+                 K: Optional[int] = None):
         self.vocabulary = vocabulary
         self.doc_tups = doc_tuples
 
@@ -31,7 +33,7 @@ class BaseLDA:
             self.labs = np.array([self.dummify_label(lab) for lab in labs])
             self.K = len(self.label_mapping)
         else:
-            print('No labels provided, running unsupervised LDA..')
+            print('WARNING: No labels provided -> unsupervised LDA..')
             self.label_mapping = dict(zip(range(K), range(K)))
             self.K = K
             self.labs = np.ones((self.D, self.K), dtype=int)
@@ -129,7 +131,7 @@ class BaseLDA:
         """ Update ph_hat and th_hat with the current state """
         cur_ph = self.get_phi()
         cur_th = self.get_theta()
-        
+
         save_count = (n + 1) / thinning
         if save_count == 1:
             self.ph_hat = cur_ph

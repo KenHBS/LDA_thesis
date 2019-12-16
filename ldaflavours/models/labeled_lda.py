@@ -30,49 +30,63 @@ class PosteriorLDA(BaseLDA):
         return new_corpus.doc_tuples
 
     def _initiate_doc(self,
-                      doc_tuple: doctup_type
+                      doc_tuple: doctup_type,
+                      label_subset: Optional[List[str]],
                       ) -> state_type:
         """ Take document tuple and assign initial z_dn values """
-        doc, freqs = zip(*doc_tups)
+        word_ids, freqs = zip(*doc_tups)
 
         z_dn = []
-        n_dk = np.zeros(self.K, dtype=int)
+        n_dk = np.zeros(k, dtype=int)
 
-        probs = self.ph_hat[:, doc]
+        label_subset = label_subset or list(self.label_mapping.keys())
+        K = len(label_subset)
+
+        probs = self.ph_hat[:, word_ids]
+        if label_subset:
+            label_ids = [self.label_mapping[k] for k in label_subset]
+            probs = probs[label_ids, :]
+
         with np.errstate(divide='raise', invalid='raise'):
             try:
                 probs /= probs.sum(axis=0)
             except FloatingPointError:
-                probs = 1 / self.K * np.ones_like(probs)
+                probs = 1 / K * np.ones_like(probs)
 
         for n, f in enerumate(freqs):
             prob = probs[:, n]
             prob /= np.sum(prob)
 
             new_z = multinom_draw(1, prob).argmax()
-            
+
             z_dn.append(new_z)
-            n_dk[new_z] +- f
+            n_dk[new_z] += f
 
         start_state = {
             'doc_tuple': doc_tuple,
             'z_dn': z_dn,
-            'n_dk': n_dk
+            'n_dk': n_dk,
+            'label_set': label_subset
         }
         return start_state
 
     def run_test(self,
                  new_docs: List[str],
                  it: int,
-                 thinning: int) -> np.array:
+                 thinning: int,
+                 label_subset: Optional[List[str]] = None) -> np.array:
         """ Fit theta on unseen documents """
         nr = len(newdocs)
-        th_hat = np.zeros((nr, self.K), dtype=float)
+
+        label_subset = label_subset or list(self.label_mapping.keys())
+        k = len(label_subset)
+
+        th_hat = np.zeros((nr, k), dtype=float)
 
         new_doc_tups = self._import_new_docs(new_docs)
 
         for d, new_doc_tup in enumerate(new_doc_tups):
-            start_state = self._initiate_doc(new_doc_tup)
+            start_state = self._initiate_doc(new_doc_tup, k=k)
 
             for i in range(it):
                 new_state = self._test_iteration(start_state)
@@ -86,7 +100,7 @@ class PosteriorLDA(BaseLDA):
                     )
 
                 start_state = new_state
-                
+
             th_hat[d, :] = new_state['avg_theta']
 
         return th_hat
@@ -97,13 +111,17 @@ class PosteriorLDA(BaseLDA):
         z_dn = in_state['z_dn']
         doc_tup = in_state['doc_tup']
 
-        doc, freqs = zip(*doc_tup)
+        label_subset = in_state['label_set']
 
-        for n, (v, f, z) in enumerate(zip(doc, freqs, z_dn)):
+        label_ids = [self.label_mapping[k] for k in label_subset]
+
+        word_ids, freqs = zip(*doc_tup)
+
+        for n, (v, f, z) in enumerate(zip(word_ids, freqs, z_dn)):
             n_dk[z] -= f
 
             num_a = n_dk + self.alpha
-            b = self.ph_hat[:, v]
+            b = self.ph_hat[label_ids, v]
 
             prob = num_a * b
             prob /= prob.sum()
