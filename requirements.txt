@@ -5,7 +5,7 @@ chardet==3.0.4
 gensim==2.3.0
 idna==2.6
 nltk==3.6.3
-numpy==1.13.1
+numpy==1.22.0
 regex==2017.7.28
 requests==2.18.4
 scipy==0.19.1
