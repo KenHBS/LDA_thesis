@@ -7,7 +7,7 @@ idna==2.6
 nltk==3.6.6
 numpy==1.22.0
 regex==2017.7.28
-requests==2.18.4
+requests==2.20.0
 scipy==0.19.1
 six==1.10.0
 smart-open==1.5.3
